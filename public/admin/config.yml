@@ -1,0 +1,42 @@
+# Netlify: git-gateway + Identity. Vercel u otro host: cambia por
+#   backend: { name: github, repo: USUARIO/REPO, branch: main, base_url: https://TU-OAUTH-PROXY }
+backend:
+  name: git-gateway
+  branch: main
+local_backend: true
+locale: es
+site_url: https://TU-DOMINIO.netlify.app
+media_folder: public/img/uploads
+public_folder: /img/uploads
+collections:
+  - name: mods
+    label: Mods
+    label_singular: Mod
+    folder: content/mods
+    create: true
+    extension: json
+    format: json
+    slug: "{{slug}}"
+    summary: "{{title}} ({{fm_version}})"
+    fields:
+      - { label: Título, name: title, widget: string }
+      - label: Categoría
+        name: category
+        widget: select
+        options:
+          - { label: Bases de Datos, value: bases-de-datos }
+          - { label: Gráficos, value: graficos }
+          - { label: Skins, value: skins }
+          - { label: Día de Partido, value: dia-de-partido }
+      - { label: Versión de FM, name: fm_version, widget: select, options: [FM24, FM25, FM26, FM27], default: FM26 }
+      - { label: Creador / Autor, name: author, widget: string }
+      - { label: Enlace del creador (X, web…), name: author_url, widget: string, required: false }
+      - { label: Imagen de portada, name: cover, widget: image, required: false }
+      - { label: Capturas de pantalla, name: screenshots, widget: list, required: false, field: { label: Captura, name: shot, widget: image } }
+      - { label: Descripción, name: description, widget: text }
+      - { label: Enlace de descarga (Mediafire, MEGA, Drive…), name: download_url, widget: string, pattern: ['^https?://', 'Debe empezar por https://'] }
+      - { label: Flags / Etiquetas, name: tags, widget: list, required: false }
+      - { label: Distintivos, name: badges, widget: select, multiple: true, required: false, options: [Imprescindible, Probado, Oficial] }
+      - { label: Ruta de instalación (vacío = automática), name: install_path, widget: string, required: false }
+      - { label: Instrucciones (una línea por paso; vacío = genéricas), name: instructions, widget: text, required: false }
+      - { label: Fecha, name: date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
