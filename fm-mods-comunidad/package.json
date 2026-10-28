@@ -1,0 +1,1 @@
+{"name":"fm-mods-comunidad","version":"1.0.0","private":true,"scripts":{"build":"node build.js"},"engines":{"node":">=18"}}
