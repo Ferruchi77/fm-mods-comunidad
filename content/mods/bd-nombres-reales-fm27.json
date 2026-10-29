@@ -1,1 +1,20 @@
-{"title":"Parche de Nombres Reales","category":"bases-de-datos","fm_version":"FM27","author":"Comunidad FM","description":"Licencias y nombres reales de ligas y clubes.","download_url":"https://drive.google.com/","tags":["licencias","nombres"],"badges":["Oficial","Imprescindible"],"date":"2026-10-27"}
+{
+  "fm_version": "FM27",
+  "instructions": "Instrucciones instalación Real Name Fix para el Football Manager 27\n* Si los cambios, quieren que se vean dentro del editor externo, también, serían los mismos pasos, pero dentro de la carpeta Football Manager 27 Editor\n\nPASO 1\nPC\n\nInstalación por Steam: Ir a C:\\Program Files (x86)\\Steam\\steamapps\\common\\Football Manager 27\\shared\\data\\database\\db\\2700\n\nInstalación por Epic Games: Ir a C:\\Program Files (x86)\\Epic Games\\FootballManager27\\shared\\data\\database\\db\\2700\n\nInstalación por Gamepass: ir a C:\\XboxGames\\Football Manager 2027\\Content\\shared\\data\\database\\db\\2700\n\n \n\nMAC\n\nInstalación pr Steam: Ir a   [username]/Library/Application Support/Steam/steamapps/common/Football Manager 27/fm.app/Contents/PlugIns/game_plugin.bundle/Contents/Resources/shared/data/database/db/2700\n\n\nInstalación por Epic Games: Ir a   /Users/Shared/Epic﻿﻿ Games/FootballManager2027/data/database/db/2700\n\n* Para los que tengáis problemas en encontrar la carpeta Steam. Decir que esta carpeta está oculta. Tenéis 2 opciones para llegar a la carpeta de Steam:\n\nCuando lleguéis a la carpeta Application Support, en el Finder debéis introducir \"~/Library\" y a partir de ahí buscar la ruta de instalación.\n\nBotón derecho en el juego en Steam --> Propiedades. En la ventana que se abre, ir a la pestaña Archivos Locales y ahí en Ver Archivos Locales\n\nPASO 2\nElimina la carpeta lnc\n\nElimina la carpeta dbc\n\nPASO 3\nDescomprimir el fichero descargado\n\nSteam\n\nCopia la carpeta lnc en la ruta C:\\Program Files (x86)\\Steam\\steamapps\\common\\Football Manager 2027\\shared\\data\\database\\db\\2700\n\nCopia la carpeta dbc en la ruta C:\\Program Files (x86)\\Steam\\steamapps\\common\\Football Manager 2027\\shared\\data\\database\\db\\2700\n\nEpic Games\n\nCopia﻿ la car﻿peta﻿ lnc en﻿ la ﻿﻿ruta C:\\Program﻿ Files\\Epic Games\\FootballManager2027\\data\\database\\db\\2700\n\nCopia﻿ ﻿﻿la carpeta dbc en la ruta C:\\Program﻿﻿ Files\\Epic Games\\FootballManager2027\\data\\database\\db﻿﻿\\2700\n\nGame pass\n\nCopia﻿ la car﻿peta﻿ lnc en﻿ la ﻿﻿ruta C:\\XboxGames\\Football Manager 2027\\Content\\data\\database\\db\\2700\n\nCopia﻿ la car﻿peta﻿ dbc en﻿ la ﻿﻿ruta C:\\XboxGames\\Football Manager 2027\\Content\\data\\database\\db\\2700\n\nComo siempre, después de cada actualización, se aconseja volver a repetir los mismos pasos. Por si os cambia algún nombre.\n\nSi después de una actualización, aparece una nueva carpeta, se seguirán los mismo pasos, en la carpeta nueva.",
+  "install_path": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Football Manager 27\\shared\\data\\database\\db\\2700",
+  "author": "mabormu",
+  "date": "2026-10-27",
+  "badges": [
+    "Oficial",
+    "Imprescindible"
+  ],
+  "cover": "/img/uploads/realnamefix27_1.png",
+  "download_url": "https://www.fmsite.net/files/file/1932-fm27-real-name-fix-corrector-de-licencias/",
+  "title": "Parche de Nombres Reales",
+  "tags": [
+    "licencias",
+    "nombres"
+  ],
+  "description": "Licencias y nombres reales de ligas y clubes.",
+  "category": "bases-de-datos"
+}
