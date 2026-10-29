@@ -1,1 +1,20 @@
-{"title":"Marcador Pro TV","category":"dia-de-partido","fm_version":"FM26","author":"Autor Ejemplo","description":"Marcador estilo retransmisión y vallas actualizadas.","download_url":"https://www.mediafire.com/","tags":["marcador","vallas"],"badges":[],"date":"2026-10-20"}
+{
+  "fm_version": "FM27",
+  "install_path": "Documents\\Sports Interactive\\Football Manager 26\\graphics",
+  "author": "Kinmar - TCM Logos",
+  "date": "2026-05-29",
+  "badges": [
+    "Imprescindible",
+    "Probado"
+  ],
+  "cover": "https://www.tcmlogos.com/wp-content/uploads/2025/11/TCM26-View.jpg",
+  "download_url": "https://www.tcmlogos.com/",
+  "title": "TCM Logos",
+  "tags": [
+    "escudos",
+    "logos"
+  ],
+  "author_url": "https://x.com/tcmlogos",
+  "description": "¡Descarga el TCM26 Logopack, un megapaquete de 75.000 logotipos de clubes y competiciones para Football Manager 26!\n\nEsta es la 12.ª edición del megapaquete de logotipos TCM para Football Manager.\nTras más de 6 millones de descargas desde 2014, ¡queremos ofrecerte aún más!\nHazte con el fantástico megapaquete de logotipos TCM26 para Football Manager 26, creado por TCMLogos.com.",
+  "category": "graficos"
+}
