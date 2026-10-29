@@ -6,9 +6,12 @@ backend:
 local_backend: true
 logo_url: /img/icon-512.png
 locale: es
-site_url: https://TU-DOMINIO.netlify.app
+site_url: https://fm-mods-comunidad.netlify.app
 media_folder: public/img/uploads
 public_folder: /img/uploads
+slug:
+  encoding: ascii
+  clean_accents: true
 collections:
   - name: mods
     label: Mods
@@ -18,18 +21,27 @@ collections:
     extension: json
     format: json
     slug: "{{slug}}"
-    summary: "{{title}} ({{fm_version}})"
+    summary: "{{title}}"
     fields:
       - { label: Título, name: title, widget: string }
-      - label: Categoría
-        name: category
-        widget: select
-        options:
-          - { label: Bases de Datos, value: bases-de-datos }
-          - { label: Gráficos, value: graficos }
-          - { label: Skins, value: skins }
-          - { label: Día de Partido, value: dia-de-partido }
-      - { label: Versión de FM, name: fm_version, widget: select, options: [FM24, FM25, FM26, FM27], default: FM26 }
+      - label: Categorías (puedes elegir varias)
+        name: categories
+        widget: relation
+        collection: categorias
+        search_fields: [name]
+        value_field: "{{slug}}"
+        display_fields: [name]
+        multiple: true
+        min: 1
+      - label: Versiones de FM (puedes elegir varias)
+        name: fm_versions
+        widget: relation
+        collection: versiones
+        search_fields: [name]
+        value_field: name
+        display_fields: [name]
+        multiple: true
+        min: 1
       - { label: Creador / Autor, name: author, widget: string }
       - { label: Enlace del creador (X, web…), name: author_url, widget: string, required: false }
       - { label: Imagen de portada, name: cover, widget: image, required: false }
@@ -38,6 +50,33 @@ collections:
       - { label: Enlace de descarga (Mediafire, MEGA, Drive…), name: download_url, widget: string, pattern: ['^https?://', 'Debe empezar por https://'] }
       - { label: Flags / Etiquetas, name: tags, widget: list, required: false }
       - { label: Distintivos, name: badges, widget: select, multiple: true, required: false, options: [Imprescindible, Probado, Oficial] }
-      - { label: Ruta de instalación (vacío = automática), name: install_path, widget: string, required: false }
+      - { label: Ruta de instalación (vacío = se calcula sola; una ruta por línea si hay varias), name: install_path, widget: text, required: false }
       - { label: Instrucciones (una línea por paso; vacío = genéricas), name: instructions, widget: text, required: false }
       - { label: Fecha, name: date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+
+  - name: categorias
+    label: Categorías
+    label_singular: Categoría
+    folder: content/categorias
+    create: true
+    extension: json
+    format: json
+    identifier_field: name
+    summary: "{{name}}"
+    fields:
+      - { label: Nombre, name: name, widget: string }
+      - { label: Descripción corta, name: description, widget: string, required: false }
+      - { label: "Subcarpeta de instalación dentro de Football Manager (ej. graphics/ , skins/ , editor data/)", name: install_dir, widget: string, default: "graphics/" }
+      - { label: Orden en el menú (1, 2, 3…), name: order, widget: number, value_type: int, default: 10, required: false }
+
+  - name: versiones
+    label: Versiones de FM
+    label_singular: Versión
+    folder: content/versiones
+    create: true
+    extension: json
+    format: json
+    identifier_field: name
+    summary: "{{name}}"
+    fields:
+      - { label: "Nombre (ej. FM28)", name: name, widget: string }
