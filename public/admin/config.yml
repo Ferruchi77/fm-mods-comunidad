@@ -4,6 +4,7 @@ backend:
   name: git-gateway
   branch: main
 local_backend: true
+logo_url: /img/icon-512.png
 locale: es
 site_url: https://TU-DOMINIO.netlify.app
 media_folder: public/img/uploads
