@@ -5,7 +5,7 @@ if(grid){
   const cards=$$('.card',grid),empty=$('#empty'),u=new URLSearchParams(location.search);
   let cat=u.get('cat')||'';q.value=u.get('q')||'';
   const apply=()=>{const t=norm(q.value.trim());let n=0;
-    cards.forEach(c=>{const ok=(!cat||c.dataset.c===cat)&&(!t||c.dataset.t.includes(t));c.hidden=!ok;n+=ok});
+    cards.forEach(c=>{const ok=(!cat||c.dataset.c.split(' ').includes(cat))&&(!t||c.dataset.t.includes(t));c.hidden=!ok;n+=ok});
     empty.hidden=n>0;
     $$('[data-cat]').forEach(b=>b.classList.toggle('on',b.dataset.cat===cat));
     const s=new URLSearchParams();if(cat)s.set('cat',cat);if(q.value.trim())s.set('q',q.value.trim());
@@ -22,4 +22,8 @@ document.addEventListener('click',async e=>{
   const t=e.target.closest('.thumbs button');
   if(t){$('#shot').src=t.dataset.src;$$('.thumbs button').forEach(x=>x.classList.toggle('on',x===t))}
 });
+$$('.rail-w').forEach(w=>{const r=$('.rail',w),p=$('.prev',w),n=$('.next',w);
+  const up=()=>{p.hidden=r.scrollLeft<8;n.hidden=r.scrollLeft+r.clientWidth>=r.scrollWidth-8};
+  p.onclick=()=>r.scrollBy({left:-r.clientWidth*.8,behavior:'smooth'});n.onclick=()=>r.scrollBy({left:r.clientWidth*.8,behavior:'smooth'});
+  r.addEventListener('scroll',up,{passive:true});addEventListener('resize',up);up()});
 })();
