@@ -1,18 +1,20 @@
 {
-  "title": "Megapack de Caras FM26",
-  "category": "graficos",
-  "fm_version": "FM26",
-  "author": "Autor Ejemplo",
-  "author_url": "https://x.com/",
-  "description": "Más de 20.000 caras de jugadores y staff.\n\nCompatible con la última actualización del juego.",
-  "download_url": "https://www.mediafire.com/",
-  "tags": [
-    "facepack",
-    "jugadores"
-  ],
+  "fm_version": "FM27",
+  "install_path": "Documents\\Sports Interactive\\Football Manager 27\\graphics",
+  "author": "DF11Faces",
+  "date": "2026-10-29",
   "badges": [
     "Imprescindible",
     "Probado"
   ],
-  "date": "2026-10-25"
+  "cover": "/img/uploads/df11-faces.avif",
+  "download_url": "https://www.df11faces.com/post/df11-faces-classic-megapack-fm27",
+  "title": "Megapack de Caras DF11",
+  "tags": [
+    "facepack",
+    "jugadores"
+  ],
+  "author_url": "https://x.com/DF11Faces",
+  "description": "¡Dale vida a Football Manager 27 con el clásico DF11 Faces Megapack para FM27! Con más de 264 000 retratos realistas de jugadores, el DF11 Classic Facepack sustituye las siluetas estándar por rostros de gran realismo, lo que facilita el reconocimiento de tus jugadores y da vida tanto a tu plantilla como a todo el mundo del fútbol.",
+  "category": "graficos"
 }
