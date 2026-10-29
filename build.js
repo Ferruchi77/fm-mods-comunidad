@@ -3,11 +3,11 @@ const fs=require('fs'),p=require('path');
 // ====== AJUSTES (edita solo esto) ======
 const C={
   name:'FM Mods Comunidad',
-  url:process.env.URL||(process.env.VERCEL_PROJECT_PRODUCTION_URL&&'https://'+process.env.VERCEL_PROJECT_PRODUCTION_URL)||'https://TU-DOMINIO.netlify.app',
+  url:process.env.URL||(process.env.VERCEL_PROJECT_PRODUCTION_URL&&'https://'+process.env.VERCEL_PROJECT_PRODUCTION_URL)||'https://fm-mods-comunidad.netlify.app',
   x:'FMModsComunidad',
-  kofi:'https://ko-fi.com/TU_USUARIO',      // Ko-fi / Buy Me a Coffee / PayPal.me
+  kofi:'https://ko-fi.com/fmmodscomunidad',
   adsense:'',                                // 'ca-pub-XXXXXXXXXXXXXXXX' cuando te aprueben AdSense
-  email:'contacto@tudominio.com',            // recibe los "enlace caído"
+  email:'fmmodscomunidad@gmail.com',
   submit:'https://forms.gle/TU_FORMULARIO'   // formulario "Envía tu mod"
 };
 const CATS={
