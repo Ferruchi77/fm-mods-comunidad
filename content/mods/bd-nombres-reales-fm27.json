@@ -8,12 +8,19 @@
     "Oficial",
     "Imprescindible"
   ],
+  "fm_versions": [
+    "FM26",
+    "FM27"
+  ],
   "cover": "/img/uploads/realnamefix27_1.png",
   "download_url": "https://www.fmsite.net/files/file/1932-fm27-real-name-fix-corrector-de-licencias/",
   "title": "Parche de Nombres Reales",
   "tags": [
     "licencias",
     "nombres"
+  ],
+  "categories": [
+    "bases-de-datos"
   ],
   "description": "Buenas, como cada salida del juego, tenéis el Real Name Fix para FM27\n\nEl Real Name Fix del Football Manager 27, que resuelve el problema de licencias de las que no dispone el juego. Para nombres de equipos, competiciones y demás nombres. Además resuelve el problema de los Equipos de Brasil, que sus kits salen mal.\n\nEste Real Name Fix para el FM27 también incluye corrección de nombres en el fútbol femenino de aquellos clubes que no tienen licencia.",
   "category": "bases-de-datos"
