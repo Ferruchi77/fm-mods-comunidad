@@ -3,11 +3,12 @@ const fs=require('fs'),p=require('path');
 // ====== AJUSTES (edita solo esto) ======
 const C={
   name:'FM Mods Comunidad',
-  url:process.env.URL||(process.env.VERCEL_PROJECT_PRODUCTION_URL&&'https://'+process.env.VERCEL_PROJECT_PRODUCTION_URL)||'https://fm-mods-comunidad.netlify.app',
+  url:process.env.URL||(process.env.VERCEL_PROJECT_PRODUCTION_URL&&'https://'+process.env.VERCEL_PROJECT_PRODUCTION_URL)||'https://TU-DOMINIO.netlify.app',
   x:'FMModsComunidad',
-  kofi:'https://ko-fi.com/fmmodscomunidad',
+  kofi:'https://ko-fi.com/fmmodscomunidad',      // Ko-fi / Buy Me a Coffee / PayPal.me
   adsense:'',                                // 'ca-pub-XXXXXXXXXXXXXXXX' cuando te aprueben AdSense
-  email:'fmmodscomunidad@gmail.com',
+  email:'contacto@tudominio.com',            // recibe los "enlace caído"
+  slots:{'bajo-titulo':'','junto-descarga':''}, // IDs de bloque de anuncio (data-ad-slot) de AdSense
   submit:'https://forms.gle/TU_FORMULARIO'   // formulario "Envía tu mod"
 };
 const CATS={
@@ -27,7 +28,7 @@ const installPath=m=>m.install_path||`Documentos/Sports Interactive/Football Man
 const W=(f,t)=>{fs.mkdirSync(p.dirname(f),{recursive:true});fs.writeFileSync(f,t)};
 const XI='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>';
 const XU=`https://x.com/${C.x}`;
-const ad=l=>`<aside class="ad" aria-label="Publicidad" data-slot="${l}"><span>Publicidad</span><!-- Pega aquí tu bloque de Google AdSense (${l}) --></aside>`;
+const ad=l=>C.adsense?(C.slots[l]?`<aside class="ad" aria-label="Publicidad"><ins class="adsbygoogle" style="display:block;width:100%" data-ad-client="${C.adsense}" data-ad-slot="${C.slots[l]}" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script></aside>`:''):`<aside class="ad" aria-label="Publicidad" data-slot="${l}"><span>Publicidad</span><!-- Pega aquí tu bloque de Google AdSense (${l}) --></aside>`;
 const donate=()=>`<div class="box donate"><h2>¿Te gusta nuestro trabajo centralizando mods?</h2><p>Invítanos a un café ☕ y ayúdanos a mantener la web y los enlaces al día.</p><a class="btn primary" href="${C.kofi}" target="_blank" rel="noopener">Invitar a un café</a></div>`;
 const xcta=()=>`<div class="box xcta"><h2>Síguenos en X</h2><p>Novedades, mods nuevos y avisos de enlaces caídos en @${C.x}.</p><a class="btn" href="${XU}" target="_blank" rel="noopener">${XI}Seguir a @${C.x}</a></div>`;
 const badges=m=>m.badges.map(b=>`<span class="b ${BADGE[b]||''}">${esc(b)}</span>`).join('');
@@ -35,12 +36,12 @@ const card=m=>`<a class="card" href="/mod/${m.slug}/" data-c="${m.category}" dat
 
 const page=({title,desc,path,body,img,ld,home})=>`<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(title)}</title><meta name="description" content="${esc(desc)}"><link rel="canonical" href="${C.url}${path}">
-<meta property="og:type" content="website"><meta property="og:site_name" content="${C.name}"><meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:image" content="${/^http/.test(img||'')?img:C.url+(img||'/img/placeholder.svg')}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@${C.x}">
-<link rel="icon" href="/img/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/css/style.css">
+<meta property="og:type" content="website"><meta property="og:site_name" content="${C.name}"><meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:image" content="${/^http/.test(img||'')?img:C.url+(img||'/img/og-image.jpg')}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@${C.x}">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png"><link rel="apple-touch-icon" href="/img/apple-touch-icon.png"><link rel="stylesheet" href="/css/style.css">
 ${ld?`<script type="application/ld+json">${JSON.stringify(ld)}</script>`:''}${C.adsense?`<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${C.adsense}" crossorigin="anonymous"></script>`:''}
 <script>if(/(invite|recovery|confirmation)_token/.test(location.hash))location.replace('/admin/'+location.hash)</script></head>
 <body${home?' data-home':''}>
-<header class="hd"><div class="wrap hd-in"><a class="logo" href="/"><svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#8b6bff"/><path d="M5 17V7l7 6 7-6v10" stroke="#fff" stroke-width="2" fill="none"/></svg><span>FM Mods <b>Comunidad</b></span></a>
+<header class="hd"><div class="wrap hd-in"><a class="logo" href="/"><img src="/img/logo.png" width="40" height="40" alt="" style="border-radius:9px"><span>FM Mods <b>Comunidad</b></span></a>
 <form class="search" action="/" role="search"><input id="q" name="q" type="search" placeholder="Buscar mod por nombre…" autocomplete="off" aria-label="Buscar mods"></form>
 <a class="x" href="${XU}" target="_blank" rel="noopener" aria-label="X: @${C.x}">${XI}</a></div>
 <nav class="wrap nav" aria-label="Categorías">${Object.entries(CATS).map(([k,v])=>`<a href="/?cat=${k}" data-cat="${k}" title="${v.d}">${v.n}</a>`).join('')}</nav></header>
@@ -86,10 +87,11 @@ ${donate()}${xcta()}</aside></div></div>`}));
 // LEGALES (plantillas: revísalas y completa tus datos)
 const legal=(s,t,h)=>W(`${OUT}/${s}/index.html`,page({path:`/${s}/`,title:`${t} | ${C.name}`,desc:t,body:`<div class="wrap prose"><h1>${t}</h1>${h}</div>`}));
 legal('aviso-legal','Aviso Legal',`<p>Titular: [TU NOMBRE / RAZÓN SOCIAL] — Contacto: ${C.email}.</p><p>${C.name} es un directorio no oficial de mods para Football Manager. No está afiliado a SEGA ni a Sports Interactive; todas las marcas pertenecen a sus propietarios. No alojamos archivos: enlazamos a servicios externos y no somos responsables de su contenido. Si eres autor y quieres retirar o corregir una ficha, escríbenos.</p>`);
-legal('privacidad','Política de Privacidad',`<p>Esta web no recoge datos personales mediante formularios propios. Los enlaces de reporte abren tu cliente de correo.</p><p>Si se activan, Google AdSense y servicios de terceros (Ko-fi, X, hosting) pueden usar cookies o identificadores según sus propias políticas. Te informaremos y pediremos tu consentimiento cuando sea necesario.</p><p>Responsable: [TU NOMBRE] — ${C.email}. Puedes ejercer tus derechos de acceso, rectificación y supresión escribiéndonos.</p>`);
+legal('privacidad','Política de Privacidad',`<p>Esta web no recoge datos personales mediante formularios propios. Los enlaces de reporte abren tu cliente de correo.</p><p>Mostramos publicidad de Google AdSense. Google y sus socios publicitarios pueden usar cookies e identificadores para mostrar y medir anuncios. Si visitas la web desde el Espacio Económico Europeo, el Reino Unido o Suiza, te mostramos un mensaje de consentimiento (Google CMP) y solo usamos esas cookies si lo aceptas; puedes cambiar tu decisión cuando quieras. Más información en <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener">cómo usa Google los datos de los sitios que usan sus servicios</a>.</p><p>Los enlaces a Ko-fi, X y a las descargas externas (MediaFire, MEGA, Drive…) se rigen por las políticas de cada servicio.</p><p>Responsable: [TU NOMBRE] — ${C.email}. Puedes ejercer tus derechos de acceso, rectificación y supresión escribiéndonos.</p>`);
 
 // SEO + estáticos
 W(`${OUT}/sitemap.xml`,`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${['/',...mods.map(m=>`/mod/${m.slug}/`),'/aviso-legal/','/privacidad/'].map(u=>`<url><loc>${C.url}${u}</loc></url>`).join('')}</urlset>`);
 W(`${OUT}/robots.txt`,`User-agent: *\nAllow: /\nDisallow: /admin/\nSitemap: ${C.url}/sitemap.xml\n`);
 fs.cpSync('public',OUT,{recursive:true});
+if(C.adsense)W(`${OUT}/ads.txt`,`google.com, ${C.adsense.replace(/^ca-/,'')}, DIRECT, f08c47fec0942fa0\n`);
 console.log(`OK: ${mods.length} mods → ${OUT}/`);
