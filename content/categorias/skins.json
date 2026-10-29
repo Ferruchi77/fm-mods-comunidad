@@ -1,0 +1,6 @@
+{
+  "name": "Skins",
+  "description": "Interfaz visual",
+  "install_dir": "skins/",
+  "order": 3
+}

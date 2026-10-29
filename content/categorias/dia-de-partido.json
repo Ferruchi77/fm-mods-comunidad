@@ -1,0 +1,6 @@
+{
+  "name": "Día de Partido",
+  "description": "Marcadores, vallas, balones",
+  "install_dir": "graphics/",
+  "order": 4
+}
