@@ -1,0 +1,21 @@
+{
+  "install_path": "\\steam\\steamapps\\common\\Football Manager 27\\fm_data\\StandaloneWindows64",
+  "author": "MrTini23",
+  "screenshots": [
+    "https://pbs.twimg.com/media/HV4uBnsXIAAxFHo?format=jpg&name=4096x4096",
+    "https://pbs.twimg.com/media/HV4uBnvW0AEeboT?format=jpg&name=4096x4096",
+    "https://pbs.twimg.com/media/HV4uBnqXkAEOD_e?format=jpg&name=4096x4096"
+  ],
+  "date": "2026-10-30",
+  "fm_versions": [
+    "FM27"
+  ],
+  "cover": "https://pbs.twimg.com/media/HV4t-wkXYAA5_eV?format=jpg&name=4096x4096",
+  "download_url": "https://www.patreon.com/mrtini23/posts/mrtini23-fm27-v1-173849573",
+  "title": "MrTini23 FM27 skin",
+  "author_url": "https://x.com/MrTini23",
+  "categories": [
+    "skins"
+  ],
+  "description": "¡Ya está aquí el skin para FM27, disponible tanto para Windows como para Mac!\n\nASEGÚRATE DE QUE LA CONFIGURACIÓN DENTRO DEL JUEGO COINCIDA CON EL SKIN QUE INSTALES. ¡ESTO ES MUY IMPORTANTE!\n\nCaracterísticas incluidas:\n- Versión con barra lateral completa.\n- Versiones en modo oscuro y con los colores predeterminados.\n- Opciones diseñadas específicamente para distintas resoluciones y modos de escala.\n- Rediseño de muchas pantallas. Aunque suene impreciso, ¡la mayoría de las pantallas han recibido un rediseño importante!\n- Botones de simulación en la barra de navegación secundaria, el calendario y el programa de partidos.\n- El programa de partidos ahora permite filtrar por tipo de encuentro e incluye más columnas. Además, es posible ajustar el ancho de dichas columnas (solo en Windows).\n- Opción para realizar un seguimiento (scouting) masivo desde la noticia de NXGN (solo en Windows).\n- Opción para dar descanso a todos los jugadores desde la pantalla de la plantilla (solo en Windows).\n- Opción para elogiar o criticar el entrenamiento de todos los jugadores desde la pantalla de resumen de entrenamiento individual (solo en Windows).\n- Opción para desplazar el marcador a la izquierda desde el menú de configuración durante los partidos (solo en Windows).\n- Opción para situar el marcador en el lado izquierdo (solo en Windows).\n- ¡Y mucho más!"
+}
