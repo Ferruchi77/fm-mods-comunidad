@@ -1,6 +1,6 @@
 {
-  "name": "Día de Partido",
-  "description": "Marcadores, vallas, balones",
-  "install_dir": "graphics/",
-  "order": 4
+  "name": "Graficos",
+  "description": "Graficos dentro de FM",
+  "install_dir": "\\Documents\\Sports Interactive\\Football Manager 27\\graphics",
+  "order": 2
 }
