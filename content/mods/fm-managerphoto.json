@@ -1,0 +1,19 @@
+{
+  "install_path": "steamapps\\common\\Football Manager 27",
+  "author": "FM Tigrotto",
+  "date": "2026-10-29",
+  "badges": [
+    "Probado"
+  ],
+  "fm_versions": [
+    "FM27"
+  ],
+  "cover": "https://pbs.twimg.com/media/HV0zV5AWkAA7GV6?format=jpg&name=large",
+  "download_url": "https://fmtigrotto.com/tools/manager-photo",
+  "title": "FM ManagerPhoto",
+  "author_url": "https://x.com/fmtigrotto",
+  "categories": [
+    "bases-de-datos"
+  ],
+  "description": "Añade una foto real a tu mánager en Football Manager 27. El botón «Editar foto», situado junto a «Acciones» en el perfil del mánager, te permite seleccionar un archivo PNG o JPG desde tu PC; la imagen sustituirá al instante el rostro en 3D, tanto en el perfil como en las noticias y en cualquier otra pantalla."
+}
