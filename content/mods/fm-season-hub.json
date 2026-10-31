@@ -1,0 +1,17 @@
+{
+  "author": "FM Season Hub",
+  "date": "2026-10-31",
+  "fm_versions": [
+    "FM27",
+    "FM26",
+    "FM24"
+  ],
+  "cover": "https://fmseasonhub.com/_astro/instalador-boas-vindas.BLtg4EWo_1clXvz.webp",
+  "download_url": "https://fmseasonhub.com/en/download",
+  "title": "FM Season Hub ",
+  "author_url": "https://x.com/FMSeasonHub",
+  "categories": [
+    "bases-de-datos"
+  ],
+  "description": "FM Season Hub (FMSH) es una aplicación externa para Windows (compatible con FM27, FM26 y FM24) que almacena, organiza y analiza estadísticas detalladas de tus partidas guardadas temporada tras temporada sin alterar los archivos del juego.\n\nCaracterísticas clave:\nHistorial de guardados: Guarda los datos de tus temporadas para analizarlos con estadísticas (hasta 3 temporadas en su versión gratuita).\n\nLectura en vivo: Se conecta directamente a tu partida sin necesidad de exportar archivos.\n\nPlugins opcionales: Incluye extras durante su instalación como TacticalCam (ajuste de la cámara táctica) y PitchHUD (muestra la foto del facepack y estadísticas junto al nombre de los jugadores en el campo)."
+}
