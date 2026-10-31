@@ -1,0 +1,21 @@
+{
+  "install_path": "\\Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins",
+  "author": " FM Tigrotto",
+  "screenshots": [
+    "https://fmtigrotto.com/assets/img/plugin27-select.webp",
+    "https://fmtigrotto.com/assets/img/plugin27-club-menu.webp"
+  ],
+  "date": "2026-10-30",
+  "fm_versions": [
+    "FM27",
+    "FM26"
+  ],
+  "cover": "https://pbs.twimg.com/media/HV6DpE6XAAAFeyK?format=jpg&name=large",
+  "download_url": "https://fmtigrotto.com/tools/in-game-plugin",
+  "title": "FM KitsHub in-game",
+  "author_url": "https://x.com/fmtigrotto",
+  "categories": [
+    "bases-de-datos"
+  ],
+  "description": "Una ventana de «Kits Hub» directamente en la pantalla principal, además de un cuadro de descarga en cada club, liga, país y selección nacional. Elige entre 3D, 2D o ambos: el plugin descarga las equipaciones de la temporada 2026/27, organiza la carpeta «Kits» y le indica al juego que las cargue."
+}
