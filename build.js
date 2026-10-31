@@ -29,12 +29,19 @@ const installPaths=m=>m.install_path&&m.install_path.trim()?m.install_path.split
 const W=(f,t)=>{fs.mkdirSync(p.dirname(f),{recursive:true});fs.writeFileSync(f,t)};
 const XI='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>';
 const XU=`https://x.com/${C.x}`;
-const ad=l=>C.adsense?(C.slots[l]?`<aside class="ad" aria-label="Publicidad"><ins class="adsbygoogle" style="display:block;width:100%" data-ad-client="${C.adsense}" data-ad-slot="${C.slots[l]}" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script></aside>`:''):`<aside class="ad" aria-label="Publicidad" data-slot="${l}"><span>Publicidad</span><!-- Pega aquí tu bloque de Google AdSense (${l}) --></aside>`;
+const ad=l=>C.adsense&&C.slots[l]?`<aside class="ad" aria-label="Publicidad"><ins class="adsbygoogle" style="display:block;width:100%" data-ad-client="${C.adsense}" data-ad-slot="${C.slots[l]}" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script></aside>`:'';
 const donate=()=>`<div class="box donate"><h2>¿Te gusta nuestro trabajo centralizando mods?</h2><p>Invítanos a un café ☕ y ayúdanos a mantener la web y los enlaces al día.</p><a class="btn primary" href="${C.kofi}" target="_blank" rel="noopener">Invitar a un café</a></div>`;
 const xcta=()=>`<div class="box xcta"><h2>Síguenos en X</h2><p>Novedades, mods nuevos y avisos de enlaces caídos en @${C.x}.</p><a class="btn" href="${XU}" target="_blank" rel="noopener">${XI}Seguir a @${C.x}</a></div>`;
 const badges=m=>m.badges.map(b=>`<span class="b ${BADGE[b]||''}">${esc(b)}</span>`).join('');
+const vk=v=>String(v).replace(/\s+/g,'');
+const ALLV=[...new Set([...readDir('content/versiones').map(v=>v.name),...mods.flatMap(m=>m.vers)])].sort((a,b)=>verYear(b)-verYear(a)||String(a).localeCompare(String(b)));
+const LATEST=ALLV[0];
+const vchips=m=>m.vers.map(v=>`<span class="vchip${v===LATEST?' new':''}">${esc(v)}</span>`).join('');
+const compat=m=>{const ok=m.vers.includes(LATEST),t=[ok?`Compatible con ${LATEST}, la versión más reciente del juego.`:`Este mod no está marcado como compatible con ${LATEST}, la versión más reciente. Puede no funcionar en ella.`];
+  if(m.compat_patch)t.push(`Probado con el parche ${m.compat_patch}.`);if(m.compat_note)t.push(m.compat_note);
+  return `<div class="compat${ok?'':' warn'}"><div class="vc"><strong>Compatibilidad</strong>${vchips(m)}</div><p>${esc(t.join(' '))}</p></div>`};
 const exc=t=>{t=String(t||'').replace(/\s+/g,' ').trim();return t.length>120?t.slice(0,117)+'…':t};
-const card=m=>`<a class="card" href="/mod/${m.slug}/" data-c="${esc(m.cats.join(' '))}" data-t="${esc(norm([m.title,m.author,...m.vers,...m.cats.map(c=>catOf(c).n),...m.tags].join(' ')))}"><img src="${esc(m.cover||'/img/placeholder.svg')}" alt="${esc(m.title)}" loading="lazy" width="640" height="360"><div class="cb"><div class="bd">${badges(m)}</div><h3>${esc(m.title)}</h3><p class="meta">${esc(m.cats.map(c=>catOf(c).n).join(', '))} — ${esc(m.vers.join(', '))}</p><p class="ex">${esc(exc(m.description))}</p></div></a>`;
+const card=m=>`<a class="card" href="/mod/${m.slug}/" data-c="${esc(m.cats.join(' '))}" data-v="${esc(m.vers.map(vk).join(' '))}" data-t="${esc(norm([m.title,m.author,...m.vers,...m.cats.map(c=>catOf(c).n),...m.tags].join(' ')))}"><img src="${esc(m.cover||'/img/placeholder.svg')}" alt="${esc(m.title)}" loading="lazy" width="640" height="360"><div class="cb"><div class="bd">${badges(m)}</div><h3>${esc(m.title)}</h3><p class="meta">${esc(m.cats.map(c=>catOf(c).n).join(', '))}</p><p class="vc">${vchips(m)}</p><p class="ex">${esc(exc(m.description))}</p><p class="st" data-s="${m.slug}" hidden></p></div></a>`;
 
 const page=({title,desc,path,body,img,ld,home})=>`<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(title)}</title><meta name="description" content="${esc(desc)}"><link rel="canonical" href="${C.url}${path}">
@@ -46,9 +53,9 @@ ${ld?`<script type="application/ld+json">${JSON.stringify(ld)}</script>`:''}${C.
 <header class="hd"><div class="wrap hd-in"><a class="logo" href="/"><img src="/img/logo.png" width="40" height="40" alt="" style="border-radius:9px"><span>FM Mods <b>Comunidad</b></span></a>
 <form class="search" action="/" role="search"><input id="q" name="q" type="search" placeholder="Buscar mod por nombre…" autocomplete="off" aria-label="Buscar mods"></form>
 <a class="x" href="${XU}" target="_blank" rel="noopener" aria-label="X: @${C.x}">${XI}</a></div>
-<nav class="wrap nav" aria-label="Categorías">${Object.entries(CATS).map(([k,v])=>`<a href="/?cat=${k}" data-cat="${k}" title="${v.d}">${v.n}</a>`).join('')}</nav></header>
+<nav class="wrap nav" aria-label="Categorías">${Object.entries(CATS).map(([k,v])=>`<a href="/?cat=${k}" data-cat="${k}" title="${v.d}">${v.n}</a>`).join('')}<a href="/como-instalar/">Cómo instalar</a></nav></header>
 <main>${body}</main>
-<footer class="ft"><div class="wrap"><nav><a href="/aviso-legal/">Aviso Legal</a><a href="/privacidad/">Política de Privacidad</a><a href="${C.submit}" target="_blank" rel="noopener">Envía tu Mod / Colabora</a><a href="${XU}" target="_blank" rel="noopener">@${C.x} en X</a></nav>
+<footer class="ft"><div class="wrap"><nav><a href="/como-instalar/">Cómo instalar</a><a href="/aviso-legal/">Aviso Legal</a><a href="/privacidad/">Política de Privacidad</a><a href="${C.submit}" target="_blank" rel="noopener">Envía tu Mod / Colabora</a><a href="${XU}" target="_blank" rel="noopener">@${C.x} en X</a></nav>
 <p>${C.name} es un proyecto de aficionados y no está afiliado, asociado ni respaldado por SEGA ni Sports Interactive. Football Manager es marca registrada de sus respectivos propietarios. Los mods pertenecen a sus creadores; aquí solo enlazamos a descargas externas.</p></div></footer>
 <script src="/js/app.js" defer></script></body></html>`;
 
@@ -58,8 +65,10 @@ W(`${OUT}/index.html`,page({home:1,path:'/',title:`${C.name} — Mods de Footbal
  desc:'Portal comunitario de mods para Football Manager: bases de datos, facepacks, kitpacks, logopacks, skins y elementos de día de partido. Descargas gratis.',
  ld:{'@context':'https://schema.org','@type':'WebSite',name:C.name,url:C.url,potentialAction:{'@type':'SearchAction',target:`${C.url}/?q={q}`,'query-input':'required name=q'}},
  body:`<div class="hero-w"><section class="wrap hero"><h1>Los mods de Football Manager que la comunidad realmente usa</h1><p>Bases de datos, gráficos, skins y más, reunidos y probados por aficionados. Elige una categoría o busca por nombre.</p></section></div>
+<section class="wrap"><div class="box howto"><h2>Cómo instalar los mods en 4 pasos</h2><ol class="steps4"><li><b>Descarga</b> el archivo desde la ficha y descomprímelo (7-Zip o WinRAR).</li><li><b>Copia la ruta</b> de instalación con el botón de la ficha.</li><li><b>Pega</b> los archivos en esa carpeta del juego (créala si no existe).</li><li><b>Recarga</b> el skin y la caché en Preferencias, o empieza una partida nueva si es una base de datos.</li></ol><a class="btn" href="/como-instalar/">Ver la guía completa</a></div></section>
 <section class="wrap"><h2>Mods imprescindibles</h2><div class="rail-w"><button class="rail-btn prev" type="button" aria-label="Anterior" hidden>‹</button><div class="rail">${(feat.length?feat:mods.slice(0,6)).map(card).join('')}</div><button class="rail-btn next" type="button" aria-label="Siguiente">›</button></div></section>
-<section class="wrap" id="ultimos"><h2>Últimos mods</h2><div class="chips"><button class="on" data-cat="">Todos</button>${Object.entries(CATS).map(([k,v])=>`<button data-cat="${k}">${v.n}</button>`).join('')}</div>
+<section class="wrap" id="ultimos"><h2>Últimos mods</h2><div class="tools"><div class="chips"><button class="on" data-cat="">Todos</button>${Object.entries(CATS).map(([k,v])=>`<button data-cat="${k}">${v.n}</button>`).join('')}</div><label class="vsel"><span>Versión de FM</span><select id="ver"><option value="">Todas</option>${ALLV.map(v=>`<option value="${esc(vk(v))}">${esc(v)}</option>`).join('')}</select></label></div>
+<p class="meta resline"><span id="count"></span> <button class="btn small" id="reset" type="button" hidden>Limpiar filtros</button></p>
 <div class="grid" id="grid">${mods.map(card).join('')}</div><p id="empty" class="empty" hidden>No hay mods con ese nombre. Prueba con otra palabra o <a href="${C.submit}">envíanos el que echas en falta</a>.</p></section>
 <section class="wrap two">${donate()}${xcta()}</section>`}));
 
@@ -74,14 +83,14 @@ for(const m of mods){
   ld:{'@context':'https://schema.org','@type':'CreativeWork',name:m.title,description:(m.description||'').slice(0,300),author:{'@type':'Person',name:m.author,url:m.author_url||undefined},datePublished:m.date,image:m.cover?C.url+m.cover:undefined,genre:cn.map(x=>x.n)},
   body:`<div class="wrap"><p class="crumb"><a href="/">Inicio</a> / ${m.cats[0]?`<a href="/?cat=${m.cats[0]}">${esc(cn[0].n)}</a>`:'Mods'}</p>
 <div class="bd">${badges(m)}</div><h1>${esc(m.title)}</h1>
-<p class="meta big-meta">Compatible con <strong>${esc(m.vers.join(', '))}</strong> — Autor: ${m.author_url?`<a href="${esc(m.author_url)}" target="_blank" rel="noopener nofollow">${esc(m.author)}</a>`:esc(m.author)}${m.date?` — Publicado el ${dt(m.date)}`:''}</p>
 <p class="catlinks">${m.cats.map((c,i)=>`<a href="/?cat=${c}">${esc(cn[i].n)}</a>`).join('')}</p>
+<p class="meta big-meta">Compatible con <strong>${esc(m.vers.join(', '))}</strong> — Autor: ${m.author_url?`<a href="${esc(m.author_url)}" target="_blank" rel="noopener nofollow">${esc(m.author)}</a>`:esc(m.author)}${m.date?` — Publicado el ${dt(m.date)}`:''}</p>
+${compat(m)}
 ${ad('bajo-titulo')}
 <div class="det"><div>
 ${shots.length?`<img class="shot" id="shot" src="${esc(shots[0])}" alt="Captura de ${esc(m.title)}" width="960" height="540">${shots.length>1?`<div class="thumbs">${shots.map((s,i)=>`<button type="button" data-src="${esc(s)}" class="${i?'':'on'}" aria-label="Ver captura ${i+1}"><img src="${esc(s)}" alt="" loading="lazy" width="96" height="54"></button>`).join('')}</div>`:''}`:''}
 <div class="desc"><h2>Descripción</h2>${paras}${m.tags.length?`<p class="tags">${m.tags.map(t=>`<span>#${esc(t)}</span>`).join('')}</p>`:''}</div></div>
-<aside><div class="box"><h2>Instalación</h2><p class="meta">Ruta predeterminada de pegado:</p>${ips.map(x=>`${x.label?`<p class="meta pl">${esc(x.label)}</p>`:''}<code class="path">${esc(x.path)}</code><button class="btn" type="button" data-copy="${esc(x.path)}">Copiar ruta de instalación</button>`).join('')}<ol class="steps">${steps}</ol></div>
-<div class="box dlbox"><a class="btn primary big" href="${esc(m.download_url)}" target="_blank" rel="nofollow noopener noreferrer">Descargar mod</a>${ad('junto-descarga')}
+<aside><div class="box"><h2>Instalación</h2><p class="meta">Ruta predeterminada de pegado:</p>${ips.map(x=>`${x.label?`<p class="meta pl">${esc(x.label)}</p>`:''}<code class="path">${esc(x.path)}</code><button class="btn" type="button" data-copy="${esc(x.path)}">Copiar ruta de instalación</button>`).join('')}<ol class="steps">${steps}</ol><p class="meta" style="margin:12px 0 0"><a href="/como-instalar/" style="text-decoration:underline">¿Primera vez? Lee la guía completa de instalación</a></p></div><div class="box dlbox"><a class="btn primary big" data-dlc="${m.slug}" href="${esc(m.download_url)}" target="_blank" rel="nofollow noopener noreferrer">Descargar mod</a><div class="fb" hidden><button class="btn like" type="button" data-like="${m.slug}" aria-pressed="false">👍 <span>Me gusta</span> <b></b></button><span class="dlc" data-dl="${m.slug}"></span></div>${ad('junto-descarga')}
 <a class="rep" href="mailto:${C.email}?subject=${encodeURIComponent('Enlace caído: '+m.title)}&body=${encodeURIComponent(C.url+url)}">Reportar enlace caído</a></div>
 ${donate()}${xcta()}</aside></div></div>`}));
 }
@@ -91,8 +100,27 @@ const legal=(s,t,h)=>W(`${OUT}/${s}/index.html`,page({path:`/${s}/`,title:`${t} 
 legal('aviso-legal','Aviso Legal',`<p>Titular: [TU NOMBRE / RAZÓN SOCIAL] — Contacto: ${C.email}.</p><p>${C.name} es un directorio no oficial de mods para Football Manager. No está afiliado a SEGA ni a Sports Interactive; todas las marcas pertenecen a sus propietarios. No alojamos archivos: enlazamos a servicios externos y no somos responsables de su contenido. Si eres autor y quieres retirar o corregir una ficha, escríbenos.</p>`);
 legal('privacidad','Política de Privacidad',`<p>Esta web no recoge datos personales mediante formularios propios. Los enlaces de reporte abren tu cliente de correo.</p><p>Mostramos publicidad de Google AdSense. Google y sus socios publicitarios pueden usar cookies e identificadores para mostrar y medir anuncios. Si visitas la web desde el Espacio Económico Europeo, el Reino Unido o Suiza, te mostramos un mensaje de consentimiento (Google CMP) y solo usamos esas cookies si lo aceptas; puedes cambiar tu decisión cuando quieras. Más información en <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener">cómo usa Google los datos de los sitios que usan sus servicios</a>.</p><p>Los enlaces a Ko-fi, X y a las descargas externas (MediaFire, MEGA, Drive…) se rigen por las políticas de cada servicio.</p><p>Responsable: [TU NOMBRE] — ${C.email}. Puedes ejercer tus derechos de acceso, rectificación y supresión escribiéndonos.</p>`);
 
+
+const rows=Object.values(CATS).map(c=>`<tr><td>${esc(c.n)}</td><td>${esc(c.d)}</td><td><code>${esc(c.dir)}</code></td></tr>`).join('');
+W(`${OUT}/como-instalar/index.html`,page({path:'/como-instalar/',title:`Cómo instalar mods en Football Manager: guía paso a paso | ${C.name}`,desc:'Aprende a instalar facepacks, logos, skins, bases de datos y elementos de día de partido en Football Manager: rutas en Windows, Mac y Linux y solución a problemas.',
+ body:`<div class="wrap prose"><h1>Cómo instalar mods en Football Manager</h1>
+<p>Esta guía sirve para casi cualquier mod: gráficos, skins, bases de datos y elementos de día de partido. Si la ficha del mod indica una ruta o instrucciones concretas, sigue siempre las de la ficha.</p>
+<h2>Antes de empezar</h2><ul><li>Cierra Football Manager.</li><li>Comprueba en la ficha que el mod es compatible con tu versión del juego (FM24, FM25, FM26…).</li><li>Necesitas un programa para descomprimir, como 7-Zip o WinRAR.</li><li>Haz una copia de seguridad de la carpeta que vayas a modificar si ya tienes otros mods.</li></ul>
+<h2>Paso a paso</h2><ol class="steps">
+<li><b>Descarga</b> el archivo desde el botón de la ficha. Se abrirá un servicio externo (MediaFire, MEGA, Drive…).</li>
+<li><b>Descomprime</b> el archivo (clic derecho → extraer aquí).</li>
+<li><b>Abre la carpeta de destino.</b> En cada ficha tienes el botón «Copiar ruta de instalación»; pégala en la barra del explorador de archivos.</li>
+<li><b>Crea la carpeta si no existe</b> (por ejemplo <code>graphics</code> o <code>skins</code>) y copia dentro los archivos del mod. Si te pregunta si quieres combinar carpetas, acepta.</li>
+<li><b>Abre el juego</b> y recarga los cambios (ver más abajo).</li></ol>
+<h2>Dónde va cada tipo de mod</h2><div class="tbl"><table><thead><tr><th>Categoría</th><th>Qué incluye</th><th>Subcarpeta habitual</th></tr></thead><tbody>${rows}</tbody></table></div>
+<p>Se cuelgan de la carpeta <code>Football Manager 20XX</code> de tu sistema. Las subcarpetas son orientativas: algunos mods (sobre todo los parches de nombres reales) indican otra ruta distinta.</p>
+<h2>Rutas según tu sistema</h2><ul><li><b>Windows:</b> <code>Documentos/Sports Interactive/Football Manager 2027/</code></li><li><b>Mac:</b> <code>~/Library/Application Support/Sports Interactive/Football Manager 2027/</code></li><li><b>Linux:</b> <code>~/.local/share/Sports Interactive/Football Manager 2027/</code></li></ul><p>Cambia 2027 por el año de tu versión del juego (FM26 → 2026, FM25 → 2025…).</p>
+<h2>Recargar los cambios en el juego</h2><ul><li><b>Gráficos, skins y día de partido:</b> entra en Preferencias → Interfaz y pulsa el botón para recargar el skin. Si no ves los cambios, borra la caché desde esa misma pantalla (los nombres pueden variar según el idioma). Para cambiar de skin, elígelo en el desplegable de skins.</li><li><b>Bases de datos y parches de transferencias:</b> se eligen al crear una partida nueva, en la pantalla de selección de base de datos. Normalmente no afectan a partidas ya empezadas.</li></ul>
+<h2>Problemas frecuentes</h2><ul><li><b>No veo ningún cambio:</b> revisa que la carpeta tenga el año correcto del juego y que no hayas dejado una carpeta de más (por ejemplo <code>graphics/graphics</code>).</li><li><b>Las caras o logos salen en blanco:</b> algunos packs incluyen un archivo <code>config.xml</code>; no lo borres.</li><li><b>El juego va lento tras instalar un pack grande:</b> es normal la primera vez, mientras se construye la caché.</li><li><b>El enlace no funciona:</b> usa «Reportar enlace caído» en la ficha del mod.</li></ul>
+<p><a class="btn primary" href="/">Volver a los mods</a></p></div>`}));
+
 // SEO + estáticos
-W(`${OUT}/sitemap.xml`,`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${['/',...mods.map(m=>`/mod/${m.slug}/`),'/aviso-legal/','/privacidad/'].map(u=>`<url><loc>${C.url}${u}</loc></url>`).join('')}</urlset>`);
+W(`${OUT}/sitemap.xml`,`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${['/',...mods.map(m=>`/mod/${m.slug}/`),'/como-instalar/','/aviso-legal/','/privacidad/'].map(u=>`<url><loc>${C.url}${u}</loc></url>`).join('')}</urlset>`);
 W(`${OUT}/robots.txt`,`User-agent: *\nAllow: /\nDisallow: /admin/\nSitemap: ${C.url}/sitemap.xml\n`);
 fs.cpSync('public',OUT,{recursive:true});
 if(C.adsense)W(`${OUT}/ads.txt`,`google.com, ${C.adsense.replace(/^ca-/,'')}, DIRECT, f08c47fec0942fa0\n`);
