@@ -50,6 +50,8 @@ collections:
       - { label: Enlace de descarga (Mediafire, MEGA, Drive…), name: download_url, widget: string, pattern: ['^https?://', 'Debe empezar por https://'] }
       - { label: Flags / Etiquetas, name: tags, widget: list, required: false }
       - { label: Distintivos, name: badges, widget: select, multiple: true, required: false, options: [Imprescindible, Probado, Oficial] }
+      - { label: "Parche del juego con el que lo has probado (ej. 27.0.1)", name: compat_patch, widget: string, required: false }
+      - { label: "Aviso de compatibilidad (opcional, ej. Requiere la última actualización)", name: compat_note, widget: string, required: false }
       - { label: Ruta de instalación (vacío = se calcula sola; una ruta por línea si hay varias), name: install_path, widget: text, required: false }
       - { label: Instrucciones (una línea por paso; vacío = genéricas), name: instructions, widget: text, required: false }
       - { label: Fecha, name: date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
