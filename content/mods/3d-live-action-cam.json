@@ -1,0 +1,25 @@
+{
+  "install_path": "\\Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins",
+  "author": " joni9",
+  "screenshots": [
+    "https://sortitoutsi.b-cdn.net/uploads/media_2026/eynyagdEYEe9sIvhTYOJvraMov7ZArp90iC81LVZ.png",
+    "https://sortitoutsi.b-cdn.net/uploads/media_2026/Xx1c0kmHz1ZbftSWh2udX3VSdMtOpOCvHeKAHO5D.png",
+    "https://sortitoutsi.b-cdn.net/uploads/media_2026/ZQVxq89sjzFeGW9GCVu9PmX9fZY4T8673v5rXXKn.png"
+  ],
+  "date": "2026-10-29",
+  "badges": [
+    "Probado"
+  ],
+  "fm_versions": [
+    "FM27",
+    "FM26"
+  ],
+  "cover": "https://pbs.twimg.com/media/HV0tgzNWEAAzfMw?format=jpg&name=large",
+  "download_url": "https://sortitoutsi.net/content/77170/mod-title-fm26-goal-celebration-cam-v10",
+  "title": "3D LIVE ACTION CAM",
+  "author_url": "https://x.com/joni9j",
+  "categories": [
+    "bases-de-datos"
+  ],
+  "description": "3D Live Action Cam (v5.0) transforma la realización de los partidos en Football Manager para darles un acabado de retransmisión televisiva real.\n\nCaracterísticas clave:\nCámaras cinemáticas: Ángulos dinámicos para celebraciones de gol, paseo inicial, faltas, decisiones del VAR y tomas al entrenador o árbitro.\n\nMenú en directo (Tecla 9): Interfaz dentro del partido para controlar las cámaras y ajustes al instante.\n\nIluminación TV: Foco de luz dinámico (Cinematic Light) que destaca a los jugadores en los planos cortos.\n\nNuevas repeticiones: Más de 20 perspectivas creativas (SpiderCam, dron, cámara en línea de gol) que van cambiando automáticamente.\n\nSeguimiento por clic: Selecciona a cualquier jugador o técnico con el ratón para que la cámara lo siga de cerca con varios encuadres.\n\nEncuadre automático: Ajusta la altura de la toma según el modelo del jugador para evitar cortes en primeros planos."
+}
