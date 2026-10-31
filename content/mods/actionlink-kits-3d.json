@@ -1,0 +1,20 @@
+{
+  "install_path": "\\Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins",
+  "author": "FM Season Hu",
+  "screenshots": [],
+  "date": "2026-10-31",
+  "badges": [
+    "Probado"
+  ],
+  "fm_versions": [
+    "FM27"
+  ],
+  "cover": "https://fmseasonhub.com/_astro/01.Cy41CgUP_ZqGaI.webp",
+  "download_url": "https://fmseasonhub.com/es/plugins/fmactionlink-kits3d-fm27",
+  "title": "ActionLink Kits 3D",
+  "author_url": "https://x.com/FMSeasonHub",
+  "categories": [
+    "bases-de-datos"
+  ],
+  "description": "Equipaciones del FM27 en 3D en el perfil y la vista general del club, y la equipación completa en un muñeco 3D."
+}
