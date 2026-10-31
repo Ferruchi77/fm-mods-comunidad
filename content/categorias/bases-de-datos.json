@@ -1,6 +1,6 @@
 {
-  "name": "Bases de Datos",
-  "description": "Ligas, parches de transferencias, nombres reales",
-  "install_dir": "editor data/",
+  "name": "Plugins",
+  "description": "Usa BepInEx para funcionar",
+  "install_dir": "Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins",
   "order": 1
 }
