@@ -1,0 +1,16 @@
+{
+  "install_path": "\\Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins",
+  "author": "FM Tigrotto",
+  "date": "2026-10-31",
+  "fm_versions": [
+    "FM27"
+  ],
+  "cover": "https://c10.patreonusercontent.com/4/patreon-media/p/post/173991362/22729ceecb4543d8a447ee88f4567156/eyJ3IjoxMDgwfQ%3D%3D/1.png?token-hash=yf3Az1_1Y3VjKC6NiUJMEycAjsWGxmZ_lnmMgTcb7bQ%3D&token-time=1794700800",
+  "download_url": "https://www.patreon.com/FMTigrotto/posts/fm-kits-suite-is-173991362",
+  "title": "FM Kits Suite",
+  "author_url": "https://x.com/fmtigrotto",
+  "categories": [
+    "bases-de-datos"
+  ],
+  "description": "FM Kits Suite es una herramienta de creación de equipaciones que funciona dentro del juego. Selecciona cualquier club y diseña sus equipaciones en una vista 3D en tiempo real, o elige una competición y asigna un conjunto completo de equipaciones nuevas a todos sus clubes con un solo clic. Una vez que estés satisfecho con el resultado, guárdalas directamente en tu partida y podrás verlas sobre el terreno de juego. Sin necesidad de exportar, copiar archivos ni salir de FM."
+}
