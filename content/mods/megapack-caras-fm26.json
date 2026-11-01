@@ -3,14 +3,14 @@
   "install_path": "Documents\\Sports Interactive\\Football Manager 27\\graphics",
   "updates": [
     {
-      "version": "Update 1",
-      "note": "9376 caras actualizadas",
-      "date": "2026-11-01"
-    },
-    {
       "date": "2026-11-01",
       "version": "Update 2",
       "note": "5028 caras actualizadas"
+    },
+    {
+      "version": "Update 1",
+      "note": "9376 caras actualizadas",
+      "date": "2026-11-01"
     }
   ],
   "author": "DF11Faces",
