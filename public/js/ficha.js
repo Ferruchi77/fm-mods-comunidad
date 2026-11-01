@@ -15,7 +15,7 @@ const http=u=>/^https?:\/\//i.test(String(u||''));
 const normalize=(raw,slug,warn)=>{
   const m={...raw,slug};
   m.date=iso(m.date);m.tags=list(m.tags);m.badges=list(m.badges);m.screenshots=list(m.screenshots).filter(Boolean);
-  m.cats=list(m.categories||m.category);m.vers=list(m.fm_versions||m.fm_version).sort();
+  m.cats=list(m.categories||m.category);m.vers=list(m.fm_versions||m.fm_version).filter(v=>String(v).replace(/\s+/g,'').toUpperCase()!=='FM25').sort();
   const A=list(m.authors).map(a=>typeof a==='string'?{name:a}:a).filter(a=>a&&String(a.name||'').trim());
   m.auth=A.length?A:[m.author?{name:m.author,url:m.author_url}:{name:'Autor desconocido'}];
   m.upd=list(m.updates).map(u=>u&&{...u,date:iso(u.date)}).filter(u=>{const ok=u&&u.date&&!isNaN(new Date(u.date));if(!ok&&warn)warn(`⚠ ${slug}: hay una actualización sin fecha válida y se ha ignorado`);return ok}).sort((a,b)=>new Date(b.date)-new Date(a.date));
@@ -53,19 +53,20 @@ const make=ctx=>{
   // Cuerpo completo de la ficha (sin cabecera ni pie de la web)
   const detail=(m,opt={})=>{
     const ad=opt.ad||ctx.ad||(()=>''),cn=m.cats.map(catOf),ips=installPaths(m),shots=[m.cover,...m.screenshots].filter(Boolean);
+    const appOnly=m.cats.length>0&&m.cats.every(c=>c==='app-externa');
     const paras=esc(m.description||'').split(/\n{2,}/).map(t=>`<p>${t.replace(/\n/g,'<br>')}</p>`).join('');
-    const steps=(m.instructions?String(m.instructions).split('\n').filter(Boolean):['Descarga el archivo y descomprímelo.','Abre la carpeta de destino (copia la ruta con el botón).','Si la carpeta no existe, créala y pega dentro los archivos del mod.',...(needsReload(m)?['Abre Football Manager y recarga el skin o la caché de gráficos desde Preferencias.']:[])]).map(s=>`<li>${esc(s)}</li>`).join('');
+    const steps=(m.instructions?String(m.instructions).split('\n').filter(Boolean):appOnly?['Descarga el archivo.','Descomprímelo.','Instala el ejecutable (.exe).']:['Descarga el archivo y descomprímelo.','Abre la carpeta de destino (copia la ruta con el botón).','Si la carpeta no existe, créala y pega dentro los archivos del mod.',...(needsReload(m)?['Abre Football Manager y recarga el skin o la caché de gráficos desde Preferencias (solo si es FM24).']:[])]).map(s=>`<li>${esc(s)}</li>`).join('');
     return `<div class="wrap"><p class="crumb"><a href="/">Inicio</a> / ${m.cats[0]?`<a href="/?cat=${m.cats[0]}">${esc(cn[0].n)}</a>`:'Mods'}</p>
 <div class="bd">${badges(m)}</div><h1>${esc(m.title)}</h1>
 <p class="catlinks">${m.cats.map((c,i)=>`<a href="/?cat=${c}">${esc(cn[i].n)}</a>`).join('')}</p>
 <p class="byline">${UI}<span class="lbl">Creado por</span> <strong>${authHtml(m)}</strong>${m.date?`<time datetime="${esc(m.date)}">${dt(m.date)}</time>`:''}${m.upd[0]?`<span class="upd">Actualizado el ${dt(m.upd[0].date)}${m.upd[0].version?' ('+esc(m.upd[0].version)+')':''}</span>`:''}</p>
-<div class="rate" data-rate="${m.slug}"><div class="stars" role="group" aria-label="Valora este mod de 1 a 5 estrellas">${[1,2,3,4,5].map(n=>`<button type="button" data-star="${n}" aria-label="${n} de 5" aria-pressed="false">★</button>`).join('')}</div><span class="rtxt">Sé el primero en valorar</span></div>
+<div class="rate" data-rate="${m.slug}"><div class="stars" role="group" aria-label="Valora este mod de 1 a 5 estrellas">${[1,2,3,4,5].map(n=>`<button type="button" data-star="${n}" aria-label="${n} de 5 (mitad izquierda: media estrella)" aria-pressed="false">★</button>`).join('')}</div><span class="rtxt">Sé el primero en valorar</span></div>
 ${compat(m)}
 ${ad('bajo-titulo')}
 <div class="det"><div>
 ${shots.length?`<img class="shot" id="shot" data-zoom tabindex="0" title="Pulsa para ampliar" src="${esc(shots[0])}" alt="Captura de ${esc(m.title)}" decoding="async" fetchpriority="high" width="960" height="540">${shots.length>1?`<div class="thumbs">${shots.map((s,i)=>`<button type="button" data-src="${esc(s)}" class="${i?'':'on'}" aria-label="Ver captura ${i+1}"><img src="${esc(s)}" alt="" loading="lazy" decoding="async" width="96" height="54"></button>`).join('')}</div>`:''}`:''}
 <div class="desc"><h2>Descripción</h2>${paras}${m.tags.length?`<p class="tags">${m.tags.map(t=>`<span>#${esc(t)}</span>`).join('')}</p>`:''}</div>${hist(m)}</div>
-<aside><div class="box"><h2>Instalación</h2><p class="meta">Ruta predeterminada de pegado:</p>${ips.map(x=>`${x.label?`<p class="meta pl">${esc(x.label)}</p>`:''}<code class="path">${esc(x.path)}</code><button class="btn" type="button" data-copy="${esc(x.path)}">Copiar ruta de instalación</button>`).join('')}<ol class="steps">${steps}</ol><p class="meta" style="margin:12px 0 0"><a href="/como-instalar/" style="text-decoration:underline">¿Primera vez? Lee la guía completa de instalación</a></p></div><div class="box dlbox"><a class="btn primary big" data-dlc="${m.slug}" href="${esc(m.download_url)}" target="_blank" rel="nofollow noopener noreferrer">Descargar mod</a><div class="fb"><button class="btn like" type="button" data-like="${m.slug}" aria-pressed="false">👍 <span>Me gusta</span> <b></b></button><span class="dlc" data-dl="${m.slug}"></span></div>${ad('junto-descarga')}
+<aside><div class="box"><h2>Instalación</h2>${appOnly?'':`<p class="meta">Ruta predeterminada de pegado:</p>${ips.map(x=>`${x.label?`<p class="meta pl">${esc(x.label)}</p>`:''}<code class="path">${esc(x.path)}</code><button class="btn" type="button" data-copy="${esc(x.path)}">Copiar ruta de instalación</button>`).join('')}`}<ol class="steps">${steps}</ol><p class="meta" style="margin:12px 0 0"><a href="/como-instalar/" style="text-decoration:underline">¿Primera vez? Lee la guía completa de instalación</a></p></div><div class="box dlbox"><a class="btn primary big" data-dlc="${m.slug}" href="${esc(m.download_url)}" target="_blank" rel="nofollow noopener noreferrer">Descargar mod</a><div class="fst"><span class="fr" data-fr>★ Sin valoraciones</span><span class="fl" data-fl>👍 0</span><span class="dlc" data-dl="${m.slug}"></span></div><div class="fb"><button class="btn like" type="button" data-like="${m.slug}" aria-pressed="false">👍 <span>Me gusta</span> <b></b></button></div>${ad('junto-descarga')}
 ${report(m)}</div>
 ${opt.extras||''}</aside></div></div>`;
   };

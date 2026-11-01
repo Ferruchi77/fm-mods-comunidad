@@ -14,6 +14,7 @@ const likeBtn=$('[data-like]'),dlLink=$('[data-dlc]'),rb=$('[data-rate]');
 let S={},hov=0,loaded=false,onStats=()=>{};
 const stat=slug=>({likes:0,downloads:0,ratingSum:0,ratingCount:0,...(S[slug]||{})});
 const avg=s=>(s.ratingSum/s.ratingCount).toFixed(1).replace('.',',');
+const nf=v=>String(v).replace('.',',');
 const renderCards=()=>$$('[data-s]').forEach(el=>{const s=stat(el.dataset.s),t=[];
   if(s.ratingCount)t.push(`<span class="r" title="Valoración media">★ ${avg(s)} <i>(${s.ratingCount})</i></span>`);
   if(s.downloads)t.push(`<span class="dl" title="Descargas">${DL}${fmt(s.downloads)}</span>`);
@@ -56,7 +57,7 @@ if(grid){
   const cards=$$('.card',grid),empty=$('#empty'),emsg=$('#empty-msg'),erst=$('#empty-reset'),u=new URLSearchParams(location.search);
   const sel=$('#ver'),srt=$('#sort'),cnt=$('#count'),rs=$('#reset'),pos=new Map(cards.map((c,i)=>[c,i]));let cat=u.get('cat')||'';sel.value=u.get('ver')||'';srt.value=u.get('sort')||'';q.value=u.get('q')||'';
   // orden: «valorados» usa una media ponderada (así 1 voto de 5★ no gana a 50 votos de 4,8★)
-  const SCORE={valorados:s=>s.ratingCount?(s.ratingSum+3*3.5)/(s.ratingCount+3):0,descargados:s=>s.downloads};
+  const SCORE={valorados:s=>s.ratingCount?(s.ratingSum+3*3.5)/(s.ratingCount+3):0,descargados:s=>s.downloads,gustados:s=>s.likes};
   const sorted=()=>{const f=SCORE[srt.value];return [...cards].sort((a,b)=>(f?f(stat(b.dataset.slug))-f(stat(a.dataset.slug)):0)||pos.get(a)-pos.get(b))};
   const apply=()=>{const t=norm(q.value.trim());let n=0;
     cards.forEach(c=>{const ok=(!cat||c.dataset.c.split(' ').includes(cat))&&(!sel.value||c.dataset.v.split(' ').includes(sel.value))&&(!t||c.dataset.t.includes(t));c.hidden=!ok;n+=ok});
@@ -90,17 +91,20 @@ $$('.rail-w').forEach(w=>{const r=$('.rail',w),p=$('.prev',w),n=$('.next',w);
 const renderDetail=()=>{
   if(likeBtn){const slug=likeBtn.dataset.like,s=stat(slug),on=ls.get('fm_likes',[]).includes(slug),d=$('[data-dl]');
     likeBtn.classList.toggle('on',on);likeBtn.setAttribute('aria-pressed',on);$('b',likeBtn).textContent=s.likes?fmt(s.likes):'';
-    if(d)d.innerHTML=s.downloads?DL+fmt(s.downloads)+' descargas':''}
+    if(d)d.innerHTML=DL+fmt(s.downloads)+(s.downloads===1?' descarga':' descargas');
+    const fr=$('[data-fr]'),fl=$('[data-fl]');if(fr)fr.innerHTML=s.ratingCount?'★ <b>'+avg(s)+'</b> <i>('+s.ratingCount+(s.ratingCount===1?' voto':' votos')+')</i>':'★ Sin valoraciones';if(fl)fl.innerHTML='👍 <b>'+fmt(s.likes)+'</b> '+(s.likes===1?'me gusta':'me gusta')}
   if(rb){const slug=rb.dataset.rate,s=stat(slug),mine=ls.get('fm_rate',{})[slug]||0,v=hov||mine;
-    $$('[data-star]',rb).forEach((b,i)=>{b.classList.toggle('on',i<v);b.setAttribute('aria-pressed',mine===i+1)});
-    $('.rtxt',rb).textContent=hov?'Valorar con '+hov+(hov===1?' estrella':' estrellas'):s.ratingCount?avg(s)+' de 5 · '+s.ratingCount+(s.ratingCount===1?' voto':' votos')+(mine?' · Tu voto: '+mine:''):mine?'Tu voto: '+mine+' · totales no disponibles ahora':'Sé el primero en valorar'}};
+    $$('[data-star]',rb).forEach((b,i)=>{b.classList.toggle('on',v>=i+1);b.classList.toggle('half',v===i+.5);b.setAttribute('aria-pressed',mine>=i+1||mine===i+.5)});
+    $('.rtxt',rb).textContent=hov?'Valorar con '+nf(hov)+(hov===1?' estrella':' estrellas'):s.ratingCount?avg(s)+' de 5 · '+s.ratingCount+(s.ratingCount===1?' voto':' votos')+(mine?' · Tu voto: '+nf(mine):''):mine?'Tu voto: '+nf(mine)+' · totales no disponibles ahora':'Sé el primero en valorar'}};
 if(likeBtn)likeBtn.addEventListener('click',()=>{const slug=likeBtn.dataset.like,L=ls.get('fm_likes',[]),on=L.includes(slug),s=stat(slug);
   ls.set('fm_likes',on?L.filter(x=>x!==slug):[...L,slug]);S[slug]={...s,likes:Math.max(0,s.likes+(on?-1:1))};renderDetail();
   post(slug,on?'unlike':'like').then(r=>{if(r){S[slug]=r;renderDetail()}})});
 if(rb){
-  $$('[data-star]',rb).forEach(b=>{const v=+b.dataset.star;
-    b.addEventListener('mouseenter',()=>{hov=v;renderDetail()});
-    b.addEventListener('click',()=>{const slug=rb.dataset.rate,R=ls.get('fm_rate',{}),SY=ls.get('fm_rate_sync',{}),prev=R[slug]||0,s=stat(slug);
+  $$('[data-star]',rb).forEach(b=>{const n=+b.dataset.star;
+    // mitad izquierda de la estrella = media estrella (con teclado, estrella completa; Mayús = media)
+    const val=e=>{const r=b.getBoundingClientRect();return e.clientX||e.clientY?(e.clientX-r.left<r.width/2?n-.5:n):(e.shiftKey?n-.5:n)};
+    b.addEventListener('mousemove',e=>{const x=val(e);if(x!==hov){hov=x;renderDetail()}});
+    b.addEventListener('click',e=>{const v=val(e);const slug=rb.dataset.rate,R=ls.get('fm_rate',{}),SY=ls.get('fm_rate_sync',{}),prev=R[slug]||0,s=stat(slug);
       R[slug]=v;ls.set('fm_rate',R);hov=0;
       S[slug]=prev?{...s,ratingSum:s.ratingSum+v-prev}:{...s,ratingSum:s.ratingSum+v,ratingCount:s.ratingCount+1};renderDetail();
       post(slug,'rate',{value:v,prev:SY[slug]?prev:0}).then(r=>{if(r){S[slug]=r;SY[slug]=1;ls.set('fm_rate_sync',SY);renderDetail()}})})});

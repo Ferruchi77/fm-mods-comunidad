@@ -192,3 +192,11 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;bac
 .empty-act{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:8px}
 @media(prefers-reduced-motion:no-preference){.empty-st:not([hidden]){animation:fadeup .25s ease}.sg{animation:fadeup .15s ease}}
 @keyframes fadeup{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* estadísticas visibles en la ficha y valoración con medias estrellas */
+.fst{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.fst>span{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border:1px solid var(--bd);border-radius:999px;background:var(--s2);color:var(--tx);font-size:.88rem}
+.fst i{font-style:normal;color:var(--mu)}.fst .fr{color:#f5c542}.fst .fr b,.fst .fr i{color:var(--tx)}.fst .fr i{color:var(--mu)}
+:root[data-theme="light"] .fst .fr{color:#b97d00}
+.fst .dlc{padding:5px 12px}.fb .dlc{display:none}
+.stars button.half{background:linear-gradient(90deg,#f5c542 50%,var(--star-off) 50%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
