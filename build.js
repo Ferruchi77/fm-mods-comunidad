@@ -10,25 +10,25 @@ const C={
   email:'fmmodscomunidad@gmail.com',            // recibe los "enlace caído"
   requests:'',       // formulario de peticiones (otro Google Form). Si lo dejas vacío, se pide por X
   requestsEmbed:'',  // opcional: URL de "incrustar" del formulario para verlo dentro de la página
+  reload:['FM24'],   // versiones de FM en las que hay que recargar el skin/caché (en el resto el juego lo hace solo)
   slots:{'bajo-titulo':'','junto-descarga':''}, // IDs de bloque de anuncio (data-ad-slot) de AdSense
   submit:'https://forms.gle/MRgz9tF5xXea5EAn8'   // formulario "Envía tu mod"
 };
 const readDir=d=>fs.existsSync(d)?fs.readdirSync(d).filter(f=>f.endsWith('.json')).map(f=>({...JSON.parse(fs.readFileSync(p.join(d,f),'utf8')),slug:f.slice(0,-5)})):[];
 const CATS={}; // se rellena desde content/categorias (editable en /admin)
 readDir('content/categorias').sort((a,b)=>(a.order??99)-(b.order??99)||String(a.name).localeCompare(String(b.name),'es')).forEach(c=>CATS[c.slug]={n:c.name,d:c.description||'',dir:c.install_dir||'graphics/'});
-const catOf=s=>CATS[s]||{n:s,d:'',dir:'graphics/'};
-const BADGE={};readDir('content/distintivos').forEach(b=>BADGE[b.name]=b.color||'gris');
-if(!Object.keys(BADGE).length)Object.assign(BADGE,{Imprescindible:'violeta',Probado:'verde',Oficial:'amarillo'});
+const BADGE={};readDir('content/distintivos').forEach(b=>BADGE[b.name]={color:b.color||'gris',hex:b.hex||'',icon:b.icon||'',featured:!!b.featured});
+if(!Object.keys(BADGE).length)Object.assign(BADGE,{Imprescindible:{color:'violeta',featured:true},Probado:{color:'verde'},Oficial:{color:'amarillo'}});
+const FEAT=Object.keys(BADGE).filter(k=>BADGE[k].featured);if(BADGE.Imprescindible&&!FEAT.includes('Imprescindible'))FEAT.push('Imprescindible'); // distintivos que llevan al carrusel de la portada
+// La lógica de la ficha vive en public/js/ficha.js (la comparte la vista previa del panel)
+const F=require('./public/js/ficha.js'),{esc,vk,verYear,dt,UI,normalize}=F;
+const ctx={C,CATS,BADGE,LATEST:'',ad:null},R=F.make(ctx);
+const {catOf,badges,authText,vchips,compat,needsReload,installPaths,hist,report}=R;
 // ========================================
-const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const norm=s=>String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
 const D='content/mods',OUT='dist';
-const mods=(fs.existsSync(D)?fs.readdirSync(D).filter(f=>f.endsWith('.json')):[]).map(f=>({tags:[],badges:[],screenshots:[],...JSON.parse(fs.readFileSync(p.join(D,f),'utf8')),slug:f.slice(0,-5)}))
-  .map(m=>({...m,cats:[].concat(m.categories||m.category||[]),vers:[].concat(m.fm_versions||m.fm_version||[]).sort(),upd:[].concat(m.updates||[]).filter(u=>{const ok=u&&u.date&&!isNaN(new Date(u.date));if(!ok)console.warn(`⚠ ${m.slug}: hay una actualización sin fecha válida y se ha ignorado`);return ok}).sort((a,b)=>new Date(b.date)-new Date(a.date))}))
+const mods=(fs.existsSync(D)?fs.readdirSync(D).filter(f=>f.endsWith('.json')):[]).map(f=>normalize(JSON.parse(fs.readFileSync(p.join(D,f),'utf8')),f.slice(0,-5),console.warn))
   .sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
-const verYear=v=>2000+(parseInt(String(v).replace(/\D/g,''))||26);
-const installPaths=m=>m.install_path&&m.install_path.trim()?m.install_path.split(/\r?\n/).map(x=>x.trim()).filter(Boolean).map(path=>({label:'',path})):
-  (m.vers.length?m.vers:['FM26']).flatMap(v=>[...new Set((m.cats.length?m.cats:['graficos']).map(c=>catOf(c).dir))].map(d=>({label:m.vers.length>1?v:'',path:`Documentos/Sports Interactive/Football Manager ${verYear(v)}/${d}`})));
 const W=(f,t)=>{fs.mkdirSync(p.dirname(f),{recursive:true});fs.writeFileSync(f,t)};
 const XI='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>';
 const TI='<svg class="ic-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9L7 7M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg><svg class="ic-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';
@@ -36,20 +36,11 @@ const XU=`https://x.com/${C.x}`;
 const ad=l=>C.adsense&&C.slots[l]?`<aside class="ad" aria-label="Publicidad"><ins class="adsbygoogle" style="display:block;width:100%" data-ad-client="${C.adsense}" data-ad-slot="${C.slots[l]}" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script></aside>`:'';
 const donate=()=>`<div class="box donate"><h2>¿Te gusta nuestro trabajo centralizando mods?</h2><p>Invítanos a un café ☕ y ayúdanos a mantener la web y los enlaces al día.</p><a class="btn primary" href="${C.kofi}" target="_blank" rel="noopener">Invitar a un café</a></div>`;
 const xcta=()=>`<div class="box xcta"><h2>Síguenos en X</h2><p>Novedades, mods nuevos y avisos de enlaces caídos en @${C.x}.</p><a class="btn" href="${XU}" target="_blank" rel="noopener">${XI}Seguir a @${C.x}</a></div>`;
-const badges=m=>m.badges.map(b=>`<span class="b b-${BADGE[b]||'gris'}">${esc(b)}</span>`).join('');
-const vk=v=>String(v).replace(/\s+/g,'');
 const ALLV=[...new Set([...readDir('content/versiones').map(v=>v.name),...mods.flatMap(m=>m.vers)])].sort((a,b)=>verYear(b)-verYear(a)||String(a).localeCompare(String(b)));
-const LATEST=ALLV[0];
-const vchips=m=>m.vers.map(v=>`<span class="vchip${v===LATEST?' new':''}">${esc(v)}</span>`).join('');
-const compat=m=>{const ok=m.vers.includes(LATEST),t=[ok?`Compatible con ${LATEST}, la versión más reciente del juego.`:`Este mod no está marcado como compatible con ${LATEST}, la versión más reciente. Puede no funcionar en ella.`];
-  if(m.compat_patch)t.push(`Probado con el parche ${m.compat_patch}.`);if(m.compat_note)t.push(m.compat_note);
-  return `<div class="compat${ok?'':' warn'}"><div class="vc"><strong>Compatibilidad</strong>${vchips(m)}</div><p>${esc(t.join(' '))}</p></div>`};
-const RELOAD=['FM24']; // versiones en las que hay que recargar el skin/caché (el resto lo hace el juego solo)
-const needsReload=m=>m.vers.some(v=>RELOAD.includes(vk(v).toUpperCase()));
-const UI='<svg class="ui" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-4.4 0-8 2.2-8 5v1h16v-1c0-2.8-3.6-5-8-5z"/></svg>';
+const LATEST=ALLV[0];ctx.LATEST=LATEST;ctx.ad=ad;
 const dts=d=>d?new Date(d).toLocaleDateString('es-ES',{day:'numeric',month:'short',year:'numeric'}):'';
 const exc=t=>{t=String(t||'').replace(/\s+/g,' ').trim();return t.length>120?t.slice(0,117)+'…':t};
-const card=(m,eager)=>`<a class="card" href="/mod/${m.slug}/" data-slug="${m.slug}" data-c="${esc(m.cats.join(' '))}" data-v="${esc(m.vers.map(vk).join(' '))}" data-t="${esc(norm([m.title,m.author,...m.vers,...m.cats.map(c=>catOf(c).n),...m.tags].join(' ')))}"><div class="ph"><img src="${esc(m.cover||'/img/placeholder.svg')}" alt="${esc(m.title)}" loading="${eager?'eager':'lazy'}" decoding="async" width="640" height="360"></div><div class="cb"><div class="bd">${badges(m)}</div><h3>${esc(m.title)}</h3><p class="by">${UI}<strong>${esc(m.author)}</strong>${m.upd[0]?`<time datetime="${esc(m.upd[0].date)}" title="Última actualización">↻ ${dts(m.upd[0].date)}</time>`:m.date?`<time datetime="${esc(m.date)}">${dts(m.date)}</time>`:''}</p><p class="meta">${esc(m.cats.map(c=>catOf(c).n).join(', '))}</p><p class="vc">${vchips(m)}</p><p class="ex">${esc(exc(m.description))}</p><p class="st" data-s="${m.slug}" hidden></p></div></a>`;
+const card=(m,eager)=>`<a class="card" href="/mod/${m.slug}/" data-slug="${m.slug}" data-c="${esc(m.cats.join(' '))}" data-v="${esc(m.vers.map(vk).join(' '))}" data-t="${esc(norm([m.title,...m.auth.map(a=>a.name),...m.vers,...m.cats.map(c=>catOf(c).n),...m.tags].join(' ')))}"><div class="ph"><img src="${esc(m.cover||'/img/placeholder.svg')}" alt="${esc(m.title)}" loading="${eager?'eager':'lazy'}" decoding="async" width="640" height="360"></div><div class="cb"><div class="bd">${badges(m)}</div><h3>${esc(m.title)}</h3><p class="by">${UI}<strong title="${esc(authText(m))}">${esc(authText(m))}</strong>${m.upd[0]?`<time datetime="${esc(m.upd[0].date)}" title="Última actualización">↻ ${dts(m.upd[0].date)}</time>`:m.date?`<time datetime="${esc(m.date)}">${dts(m.date)}</time>`:''}</p><p class="meta">${esc(m.cats.map(c=>catOf(c).n).join(', '))}</p><p class="vc">${vchips(m)}</p><p class="ex">${esc(exc(m.description))}</p><p class="st" data-s="${m.slug}" hidden></p></div></a>`;
 
 const absImg=i=>!i?C.url+'/img/og-image.jpg':/^https?:/i.test(i)?i:C.url+encodeURI(i);
 const ogImg=m=>[m.cover,...m.screenshots].find(i=>i&&!/\.(avif|svg)(\?|$)/i.test(i));
@@ -70,20 +61,11 @@ ${ld?`<script type="application/ld+json">${JSON.stringify(ld)}</script>`:''}${C.
 <p>${C.name} es un proyecto de aficionados y no está afiliado, asociado ni respaldado por SEGA ni Sports Interactive. Football Manager es marca registrada de sus respectivos propietarios. Los mods pertenecen a sus creadores; aquí solo enlazamos a descargas externas.</p></div></footer>
 <script src="/js/app.js" defer></script></body></html>`;
 
-// Reportar enlace caído: correo (mailto) con asunto y cuerpo, más alternativas web por si no hay cliente de correo
-const report=m=>{const url=`${C.url}/mod/${m.slug}/`,q=encodeURIComponent,subj=`Enlace caído: ${m.title}`,
-  body=`Hola,\r\n\r\nEl enlace de descarga de «${m.title}» no funciona.\r\n\r\nFicha: ${url}\r\nEnlace roto: ${m.download_url}\r\n\r\nGracias.`,
-  mail=C.email&&!/tudominio/.test(C.email)?C.email:'',
-  x=`https://x.com/intent/post?text=${q(`@${C.x} El enlace de «${m.title}» parece caído: ${url}`)}`,
-  A=(h,t,ext)=>`<a href="${esc(h)}"${ext?' target="_blank" rel="noopener"':''}>${t}</a>`;
-  if(!mail)return `<p class="rep-w">${A(x,'Reportar enlace caído (por X)',1)}</p>`;
-  return `<p class="rep-w">${A(`mailto:${mail}?subject=${q(subj)}&body=${q(body)}`,'Reportar enlace caído')}<span class="rep-alt"> · ¿No se abre tu correo? ${A(`https://mail.google.com/mail/?view=cm&fs=1&to=${q(mail)}&su=${q(subj)}&body=${q(body)}`,'Gmail',1)} · ${A(`https://outlook.live.com/mail/0/deeplink/compose?to=${q(mail)}&subject=${q(subj)}&body=${q(body)}`,'Outlook',1)} · ${A(x,'Avisar por X',1)}</span></p>`};
 // NOVEDADES: nuevos mods + actualizaciones registradas en cada ficha
 const ups=mods.flatMap(m=>[...m.upd.map(u=>({m,date:u.date,ver:u.version,note:u.note,type:'update'})),...(m.date?[{m,date:m.date,type:'new'}]:[])]).filter(x=>x.date).sort((a,b)=>new Date(b.date)-new Date(a.date));
-const upItem=(u,full)=>`<li class="${u.type==='new'?'new':''}"><time datetime="${esc(u.date)}">${dts(u.date)}</time><h3><a href="/mod/${u.m.slug}/">${esc(u.m.title)}</a> <span class="b ${u.type==='new'?'b-verde':'b-violeta'}">${u.type==='new'?'Nuevo':'Actualizado'}${u.ver?' '+esc(u.ver):''}</span></h3>${full?`<p class="by">${UI}<strong>${esc(u.m.author)}</strong></p><p class="vc">${vchips(u.m)}</p>`:''}${u.note?`<p>${esc(u.note)}</p>`:''}</li>`;
-const hist=m=>m.upd.length?`<div class="desc"><h2>Historial de versiones</h2><ul class="tl">${m.upd.map(u=>`<li><time datetime="${esc(u.date)}">${dt(u.date)}</time><h3>${u.version?esc(u.version):'Actualización'}</h3>${u.note?`<p>${esc(u.note)}</p>`:''}</li>`).join('')}${m.date?`<li class="new"><time datetime="${esc(m.date)}">${dt(m.date)}</time><h3>Publicación inicial</h3></li>`:''}</ul></div>`:'';
+const upItem=(u,full)=>`<li class="${u.type==='new'?'new':''}"><time datetime="${esc(u.date)}">${dts(u.date)}</time><h3><a href="/mod/${u.m.slug}/">${esc(u.m.title)}</a> <span class="b ${u.type==='new'?'b-verde':'b-violeta'}">${u.type==='new'?'Nuevo':'Actualizado'}${u.ver?' '+esc(u.ver):''}</span></h3>${full?`<p class="by">${UI}<strong>${esc(authText(u.m))}</strong></p><p class="vc">${vchips(u.m)}</p>`:''}${u.note?`<p>${esc(u.note)}</p>`:''}</li>`;
 // HOME
-const feat=mods.filter(m=>m.badges.includes('Imprescindible'));
+const feat=mods.filter(m=>m.badges.some(b=>FEAT.includes(b)));
 W(`${OUT}/index.html`,page({home:1,path:'/',title:`${C.name} — Mods de Football Manager: bases de datos, gráficos y skins`,
  desc:'Portal comunitario de mods para Football Manager: bases de datos, facepacks, kitpacks, logopacks, skins y elementos de día de partido. Descargas gratis.',
  ld:{'@context':'https://schema.org','@type':'WebSite',name:C.name,url:C.url,potentialAction:{'@type':'SearchAction',target:`${C.url}/?q={q}`,'query-input':'required name=q'}},
@@ -97,28 +79,13 @@ ${ups.length?`<section class="wrap"><h2>Últimas novedades</h2><div class="box">
 <section class="wrap two">${donate()}${xcta()}</section>`}));
 
 // FICHAS
-const dt=d=>d?new Date(d).toLocaleDateString('es-ES',{day:'numeric',month:'long',year:'numeric'}):'';
 for(const m of mods){
  if(m.cover&&/\.avif(\?|$)/i.test(m.cover))console.warn(`⚠ ${m.slug}: la portada es AVIF y X/WhatsApp no la muestran; para la vista previa se usa otra imagen. Súbela en JPG, PNG o WebP.`);
- const cn=m.cats.map(catOf),ips=installPaths(m),shots=[m.cover,...m.screenshots].filter(Boolean),url=`/mod/${m.slug}/`;
- const paras=esc(m.description||'').split(/\n{2,}/).map(t=>`<p>${t.replace(/\n/g,'<br>')}</p>`).join('');
- const steps=(m.instructions?m.instructions.split('\n').filter(Boolean):['Descarga el archivo y descomprímelo.','Abre la carpeta de destino (copia la ruta con el botón).','Si la carpeta no existe, créala y pega dentro los archivos del mod.',...(needsReload(m)?['Abre Football Manager y recarga el skin o la caché de gráficos desde Preferencias.']:[])]).map(s=>`<li>${esc(s)}</li>`).join('');
+ const cn=m.cats.map(catOf),url=`/mod/${m.slug}/`;
  W(`${OUT}${url}index.html`,page({path:url,img:ogImg(m),type:'article',imgAlt:`Portada de ${m.title}`,title:`${m.title} (${m.vers.join(', ')}) — ${cn.map(x=>x.n).join(', ')} | ${C.name}`,
   desc:(m.description||'').replace(/\s+/g,' ').slice(0,155),
-  ld:{'@context':'https://schema.org','@type':'CreativeWork',name:m.title,description:(m.description||'').slice(0,300),author:{'@type':'Person',name:m.author,url:m.author_url||undefined},datePublished:m.date,dateModified:(m.upd[0]&&m.upd[0].date)||m.date,image:m.cover?C.url+m.cover:undefined,genre:cn.map(x=>x.n)},
-  body:`<div class="wrap"><p class="crumb"><a href="/">Inicio</a> / ${m.cats[0]?`<a href="/?cat=${m.cats[0]}">${esc(cn[0].n)}</a>`:'Mods'}</p>
-<div class="bd">${badges(m)}</div><h1>${esc(m.title)}</h1>
-<p class="catlinks">${m.cats.map((c,i)=>`<a href="/?cat=${c}">${esc(cn[i].n)}</a>`).join('')}</p>
-<p class="byline">${UI}<span class="lbl">Creado por</span> <strong>${m.author_url?`<a href="${esc(m.author_url)}" target="_blank" rel="noopener nofollow">${esc(m.author)}</a>`:esc(m.author)}</strong>${m.date?`<time datetime="${esc(m.date)}">${dt(m.date)}</time>`:''}${m.upd[0]?`<span class="upd">Actualizado el ${dt(m.upd[0].date)}${m.upd[0].version?' ('+esc(m.upd[0].version)+')':''}</span>`:''}</p>
-<div class="rate" data-rate="${m.slug}"><div class="stars" role="group" aria-label="Valora este mod de 1 a 5 estrellas">${[1,2,3,4,5].map(n=>`<button type="button" data-star="${n}" aria-label="${n} de 5" aria-pressed="false">★</button>`).join('')}</div><span class="rtxt">Sé el primero en valorar</span></div>
-${compat(m)}
-${ad('bajo-titulo')}
-<div class="det"><div>
-${shots.length?`<img class="shot" id="shot" data-zoom tabindex="0" title="Pulsa para ampliar" src="${esc(shots[0])}" alt="Captura de ${esc(m.title)}" decoding="async" fetchpriority="high" width="960" height="540">${shots.length>1?`<div class="thumbs">${shots.map((s,i)=>`<button type="button" data-src="${esc(s)}" class="${i?'':'on'}" aria-label="Ver captura ${i+1}"><img src="${esc(s)}" alt="" loading="lazy" decoding="async" width="96" height="54"></button>`).join('')}</div>`:''}`:''}
-<div class="desc"><h2>Descripción</h2>${paras}${m.tags.length?`<p class="tags">${m.tags.map(t=>`<span>#${esc(t)}</span>`).join('')}</p>`:''}</div>${hist(m)}</div>
-<aside><div class="box"><h2>Instalación</h2><p class="meta">Ruta predeterminada de pegado:</p>${ips.map(x=>`${x.label?`<p class="meta pl">${esc(x.label)}</p>`:''}<code class="path">${esc(x.path)}</code><button class="btn" type="button" data-copy="${esc(x.path)}">Copiar ruta de instalación</button>`).join('')}<ol class="steps">${steps}</ol><p class="meta" style="margin:12px 0 0"><a href="/como-instalar/" style="text-decoration:underline">¿Primera vez? Lee la guía completa de instalación</a></p></div><div class="box dlbox"><a class="btn primary big" data-dlc="${m.slug}" href="${esc(m.download_url)}" target="_blank" rel="nofollow noopener noreferrer">Descargar mod</a><div class="fb"><button class="btn like" type="button" data-like="${m.slug}" aria-pressed="false">👍 <span>Me gusta</span> <b></b></button><span class="dlc" data-dl="${m.slug}"></span></div>${ad('junto-descarga')}
-${report(m)}</div>
-${donate()}${xcta()}</aside></div></div>`}));
+  ld:{'@context':'https://schema.org','@type':'CreativeWork',name:m.title,description:(m.description||'').slice(0,300),author:m.auth.map(a=>({'@type':'Person',name:a.name,url:/^https?:/i.test(a.url||'')?a.url:undefined})),datePublished:m.date,dateModified:(m.upd[0]&&m.upd[0].date)||m.date,image:m.cover?C.url+m.cover:undefined,genre:cn.map(x=>x.n)},
+  body:R.detail(m,{extras:donate()+xcta()})}));
 }
 
 
@@ -197,6 +164,7 @@ W(`${OUT}/como-instalar/index.html`,page({path:'/como-instalar/',title:`Cómo in
 // SEO + estáticos
 W(`${OUT}/sitemap.xml`,`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${['/',...mods.map(m=>`/mod/${m.slug}/`),'/como-instalar/','/envia-tu-mod/','/peticiones/','/novedades/','/aviso-legal/','/privacidad/'].map(u=>{const m=mods.find(x=>u==='/mod/'+x.slug+'/'),d=m&&((m.upd[0]&&m.upd[0].date)||m.date);return `<url><loc>${C.url}${u}</loc>${d?`<lastmod>${String(d).slice(0,10)}</lastmod>`:''}</url>`}).join('')}</urlset>`);
 W(`${OUT}/robots.txt`,`User-agent: *\nAllow: /\nDisallow: /admin/\nSitemap: ${C.url}/sitemap.xml\n`);
+W(`${OUT}/data/meta.json`,JSON.stringify({C:{url:C.url,email:C.email,x:C.x,reload:C.reload},CATS,BADGE,LATEST,versions:ALLV}));
 fs.cpSync('public',OUT,{recursive:true});
 try{const up='public/img/uploads';fs.readdirSync(up).forEach(f=>{const sz=fs.statSync(p.join(up,f)).size;if(sz>400*1024)console.warn(`⚠ ${f} pesa ${(sz/1048576).toFixed(1)} MB: súbela más ligera (JPG o WebP, ~1200 px de ancho) para que cargue rápido`)})}catch{}
 if(C.adsense)W(`${OUT}/ads.txt`,`google.com, ${C.adsense.replace(/^ca-/,'')}, DIRECT, f08c47fec0942fa0\n`);
