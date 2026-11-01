@@ -1,0 +1,24 @@
+{
+  "authors": [
+    {
+      "name": "PandaFM",
+      "url": "https://x.com/f_mpanda"
+    }
+  ],
+  "screenshots": [
+    "https://pbs.twimg.com/media/HWDKjiNXwAA9Bbg?format=jpg&name=large",
+    "https://pbs.twimg.com/media/HWDKqUSXQAEsa5T?format=png&name=large",
+    "https://pbs.twimg.com/media/HWDKtbWWoAE_LNT?format=png&name=large"
+  ],
+  "date": "2026-11-01",
+  "fm_versions": [
+    "FM27"
+  ],
+  "cover": "https://pbs.twimg.com/media/HWDKhJHWsAAox0D?format=png&name=large",
+  "download_url": "https://www.fmsite.net/files/file/1941-panda-individual-la-vida-de-tu-entrenador-fuera-del-campo/",
+  "title": "Panda Individual",
+  "categories": [
+    "app-externa"
+  ],
+  "description": "Panda Individual — La vida de tu entrenador fuera del campo es una aplicación externa para Football Manager que añade una capa de simulación de rol sobre la vida personal del mánager.\n\nFunciones principales:\n\nEconomía y estilo de vida: Gestiona tu sueldo real del juego para comprar viviendas, vehículos y objetos personales, además de cubrir gastos de salud y transporte.\n\nRelaciones y desarrollo: Permite formar una familia y estudiar licencias de entrenador.\n\nAcontecimientos: Incluye un sistema de avisos de eventos diarios y un modo de «Descontrol total» con decisiones y ausencias automáticas (como vacaciones forzadas por enfermedad o prisión)."
+}
