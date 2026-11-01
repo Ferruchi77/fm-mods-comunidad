@@ -40,7 +40,7 @@ h1{font-size:clamp(1.8rem,5vw,3rem);margin:.4rem 0}h2{font-size:1.35rem;margin:2
 .btn{display:inline-flex;justify-content:center;align-items:center;gap:8px;padding:10px 18px;border-radius:8px;font:inherit;font-weight:700;border:1px solid var(--bd);background:var(--s2);color:var(--tx);cursor:pointer}
 .btn:hover{border-color:var(--ac)}.btn.primary{background:var(--ac);border-color:var(--ac);color:#fff}.btn.primary:hover{background:var(--ac2)}
 .btn.big{width:100%;font-size:1.1rem;padding:14px}.btn.ok{background:var(--gr);border-color:var(--gr);color:#04210f}
-.rep{display:inline-block;color:var(--mu);font-size:.85rem;text-decoration:underline}
+.rep-w{margin:12px 0 0;font-size:.85rem;color:var(--mu)}.rep-w a{text-decoration:underline}.rep-w a:hover{color:var(--ac)}
 .ad{display:grid;place-items:center;min-height:100px;border:1px dashed var(--bd);border-radius:var(--r);color:var(--mu);font-size:.78rem;margin:14px 0;overflow:hidden}
 .donate{background:linear-gradient(135deg,#2a1f5c,#392a86);border-color:var(--ac)}.donate p{color:#d6d0f5}
 .two{display:grid;gap:16px;margin-top:2.5rem}@media(min-width:760px){.two{grid-template-columns:1fr 1fr}}
@@ -145,3 +145,17 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;bac
 /* valoración y última actualización */
 .rate{margin:8px 0 4px}.stars button:hover,.stars button:focus-visible{transform:scale(1.12)}
 .byline .upd{margin-left:6px;padding:1px 9px;border-radius:4px;background:rgba(139,107,255,.16);color:var(--ac);font-size:.82rem;font-weight:700}
+
+/* estadísticas en tarjetas, orden, copiar y reportar */
+.selects{display:flex;gap:12px;flex-wrap:wrap}
+.st{display:flex;gap:12px;flex-wrap:wrap;align-items:center;color:var(--mu);font-size:.8rem;margin-top:8px}
+.st .r{color:#f5c542;font-weight:700}.st i{color:var(--mu);font-style:normal;font-weight:400}
+:root[data-theme="light"] .st .r{color:#b97d00}
+.btn[data-copy]{transition:background .2s,border-color .2s,color .2s}
+.btn[data-copy].ok{background:var(--gr);border-color:var(--gr);color:#04210f}
+:root[data-theme="light"] .btn[data-copy].ok{color:#fff}
+@media(prefers-reduced-motion:no-preference){
+.btn[data-copy].ok{animation:pop .35s ease}
+.path.flash{animation:flash 1.1s ease}}
+@keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.07)}100%{transform:scale(1)}}
+@keyframes flash{0%{box-shadow:0 0 0 0 rgba(53,208,127,.65);border-color:var(--gr)}100%{box-shadow:0 0 0 12px rgba(53,208,127,0)}}
