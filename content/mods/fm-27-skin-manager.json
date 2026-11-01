@@ -1,0 +1,27 @@
+{
+  "authors": [
+    {
+      "name": "lam2"
+    }
+  ],
+  "screenshots": [
+    "https://sortitoutsi.b-cdn.net/uploads/media_2026/twjyVWU9FhfbzZeiouepgfenJbBYOaVvQD7RwCjg.webp",
+    "https://sortitoutsi.b-cdn.net/uploads/media_2026/9v2XJ981d3Ahk4EBAfLMjFJDefQEnQLHArNrrvyo.webp"
+  ],
+  "date": "2026-10-31",
+  "badges": [
+    "Imprescindible"
+  ],
+  "fm_versions": [
+    "FM27",
+    "FM26"
+  ],
+  "cover": "https://sortitoutsi.b-cdn.net/uploads/media_2026/3cJQTMuNi4vT0AnJODxqkJj7tbZQYpnay5SuR5X4.webp",
+  "download_url": "https://sortitoutsi.net/content/78065/fm-27-skin-manager",
+  "title": "FM 27 Skin Manager",
+  "categories": [
+    "app-externa",
+    "skins"
+  ],
+  "description": "FM Skins Manager es una aplicación independiente diseñada para ayudarte a gestionar, instalar y realizar copias de seguridad de los archivos de *skins* (apariencias) originales del juego, así como para instalar archivos de *mods*. Ofrece una interfaz clara y fácil de usar que permite activar o desactivar *skins* rápidamente, aplicarlas de forma segura en el directorio del juego y crear copias de seguridad completas del estado de tu juego.\n\nLa aplicación permite instalar la mayoría de las *skins*, incluyendo aquellas que contienen archivos de catálogo, `.dll` o `.dylib`. Asimismo, gestiona la copia de seguridad y la restauración de estos archivos al instalar o desinstalar una *skin* que los incluya.\n\nPara instalar la *skin* interna de FM27, solo tienes que añadir la ruta de tu carpeta de *skins* en la aplicación, arrastrar y soltar el archivo en ella, reiniciar FM, ir a «Preferencias», seleccionar la *skin* y confirmar.\n\nEn cuanto a los paquetes (*bundles*), estos siguen instalándose de la forma habitual: activándolos o desactivándolos directamente desde la aplicación."
+}
