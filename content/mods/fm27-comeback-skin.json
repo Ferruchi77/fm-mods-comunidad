@@ -1,0 +1,22 @@
+{
+  "install_path": "Ejecuta el instalador: Abre la carpeta descomprimida y haz doble clic en el archivo Install.bat.",
+  "author": " FM Extra Time",
+  "screenshots": [
+    "https://fmextratime.com/assets/img/downloads/comeback-player-profile.webp?v=cad734d4",
+    "https://fmextratime.com/assets/img/downloads/comeback-squad.webp?v=c0ca6857",
+    "https://fmextratime.com/assets/img/downloads/comeback-competitions.webp?v=d370a917",
+    "https://fmextratime.com/assets/img/downloads/comeback-player-database.webp?v=e6fbf5b6"
+  ],
+  "date": "2026-10-31",
+  "fm_versions": [
+    "FM27"
+  ],
+  "cover": "https://pbs.twimg.com/media/HV-mD4uW4AAH1ld?format=jpg&name=large",
+  "download_url": "https://fmextratime.com/downloads/comeback-skin/",
+  "title": "FM27 Comeback Skin",
+  "author_url": "https://x.com/fmextratime",
+  "categories": [
+    "skins"
+  ],
+  "description": "La barra lateral de FM24 está de vuelta. Acceso a cualquier pantalla con un solo clic, en negro y dorado, y sin que se haya eliminado nada de lo que incluía FM27."
+}
