@@ -22,7 +22,7 @@ if(grid){
   const cards=$$('.card',grid),empty=$('#empty'),u=new URLSearchParams(location.search);
   const sel=$('#ver'),srt=$('#sort'),cnt=$('#count'),rs=$('#reset'),pos=new Map(cards.map((c,i)=>[c,i]));let cat=u.get('cat')||'';sel.value=u.get('ver')||'';srt.value=u.get('sort')||'';q.value=u.get('q')||'';
   // orden: «valorados» usa una media ponderada (así 1 voto de 5★ no gana a 50 votos de 4,8★)
-  const SCORE={valorados:s=>s.ratingCount?(s.ratingSum+3*3.5)/(s.ratingCount+3):0,descargados:s=>s.downloads,gustados:s=>s.likes};
+  const SCORE={valorados:s=>s.ratingCount?(s.ratingSum+3*3.5)/(s.ratingCount+3):0,descargados:s=>s.downloads};
   const sorted=()=>{const f=SCORE[srt.value];return [...cards].sort((a,b)=>(f?f(stat(b.dataset.slug))-f(stat(a.dataset.slug)):0)||pos.get(a)-pos.get(b))};
   const apply=()=>{const t=norm(q.value.trim());let n=0;
     cards.forEach(c=>{const ok=(!cat||c.dataset.c.split(' ').includes(cat))&&(!sel.value||c.dataset.v.split(' ').includes(sel.value))&&(!t||c.dataset.t.includes(t));c.hidden=!ok;n+=ok});
