@@ -8,6 +8,8 @@ const C={
   kofi:'https://ko-fi.com/fmmodscomunidad',      // Ko-fi / Buy Me a Coffee / PayPal.me
   adsense:'',                                // 'ca-pub-XXXXXXXXXXXXXXXX' cuando te aprueben AdSense
   email:'fmmodscomunidad@gmail.com',            // recibe los "enlace caído"
+  requests:'',       // formulario de peticiones (otro Google Form). Si lo dejas vacío, se pide por X
+  requestsEmbed:'',  // opcional: URL de "incrustar" del formulario para verlo dentro de la página
   slots:{'bajo-titulo':'','junto-descarga':''}, // IDs de bloque de anuncio (data-ad-slot) de AdSense
   submit:'https://forms.gle/MRgz9tF5xXea5EAn8'   // formulario "Envía tu mod"
 };
@@ -22,7 +24,7 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const norm=s=>String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
 const D='content/mods',OUT='dist';
 const mods=(fs.existsSync(D)?fs.readdirSync(D).filter(f=>f.endsWith('.json')):[]).map(f=>({tags:[],badges:[],screenshots:[],...JSON.parse(fs.readFileSync(p.join(D,f),'utf8')),slug:f.slice(0,-5)}))
-  .map(m=>({...m,cats:[].concat(m.categories||m.category||[]),vers:[].concat(m.fm_versions||m.fm_version||[]).sort()}))
+  .map(m=>({...m,cats:[].concat(m.categories||m.category||[]),vers:[].concat(m.fm_versions||m.fm_version||[]).sort(),upd:[].concat(m.updates||[]).filter(u=>u&&u.date).sort((a,b)=>new Date(b.date)-new Date(a.date))}))
   .sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
 const verYear=v=>2000+(parseInt(String(v).replace(/\D/g,''))||26);
 const installPaths=m=>m.install_path&&m.install_path.trim()?m.install_path.split(/\r?\n/).map(x=>x.trim()).filter(Boolean).map(path=>({label:'',path})):
@@ -58,12 +60,16 @@ ${ld?`<script type="application/ld+json">${JSON.stringify(ld)}</script>`:''}${C.
 <header class="hd"><div class="wrap hd-in"><a class="logo" href="/"><img src="/img/logo.png" width="40" height="40" alt="" style="border-radius:9px"><span>FM Mods <b>Comunidad</b></span></a>
 <form class="search" action="/" role="search"><input id="q" name="q" type="search" placeholder="Buscar mod por nombre…" autocomplete="off" aria-label="Buscar mods"></form>
 <a class="x" href="${XU}" target="_blank" rel="noopener" aria-label="X: @${C.x}">${XI}</a></div>
-<nav class="wrap nav" aria-label="Categorías">${Object.entries(CATS).map(([k,v])=>`<a href="/?cat=${k}" data-cat="${k}" title="${v.d}">${v.n}</a>`).join('')}<a href="/como-instalar/">Cómo instalar</a></nav></header>
+<nav class="wrap nav" aria-label="Categorías">${Object.entries(CATS).map(([k,v])=>`<a href="/?cat=${k}" data-cat="${k}" title="${v.d}">${v.n}</a>`).join('')}<span class="navsep" aria-hidden="true"></span><a class="nl" href="/como-instalar/">Cómo instalar</a><a class="nl" href="/envia-tu-mod/">Envía tu mod</a><a class="nl" href="/peticiones/">Peticiones</a><a class="nl" href="/novedades/">Novedades</a></nav></header>
 <main>${body}</main>
-<footer class="ft"><div class="wrap"><nav><a href="/como-instalar/">Cómo instalar</a><a href="/aviso-legal/">Aviso Legal</a><a href="/privacidad/">Política de Privacidad</a><a href="${C.submit}" target="_blank" rel="noopener">Envía tu Mod / Colabora</a><a href="${XU}" target="_blank" rel="noopener">@${C.x} en X</a></nav>
+<footer class="ft"><div class="wrap"><nav><a href="/como-instalar/">Cómo instalar</a><a href="/envia-tu-mod/">Envía tu mod</a><a href="/peticiones/">Peticiones</a><a href="/novedades/">Novedades</a><a href="/aviso-legal/">Aviso Legal</a><a href="/privacidad/">Política de Privacidad</a><a href="/envia-tu-mod/">Colabora</a><a href="${XU}" target="_blank" rel="noopener">@${C.x} en X</a></nav>
 <p>${C.name} es un proyecto de aficionados y no está afiliado, asociado ni respaldado por SEGA ni Sports Interactive. Football Manager es marca registrada de sus respectivos propietarios. Los mods pertenecen a sus creadores; aquí solo enlazamos a descargas externas.</p></div></footer>
 <script src="/js/app.js" defer></script></body></html>`;
 
+// NOVEDADES: nuevos mods + actualizaciones registradas en cada ficha
+const ups=mods.flatMap(m=>[...m.upd.map(u=>({m,date:u.date,ver:u.version,note:u.note,type:'update'})),...(m.date?[{m,date:m.date,type:'new'}]:[])]).filter(x=>x.date).sort((a,b)=>new Date(b.date)-new Date(a.date));
+const upItem=(u,full)=>`<li class="${u.type==='new'?'new':''}"><time datetime="${esc(u.date)}">${dts(u.date)}</time><h3><a href="/mod/${u.m.slug}/">${esc(u.m.title)}</a> <span class="b ${u.type==='new'?'b-verde':'b-violeta'}">${u.type==='new'?'Nuevo':'Actualizado'}${u.ver?' '+esc(u.ver):''}</span></h3>${full?`<p class="by">${UI}<strong>${esc(u.m.author)}</strong></p><p class="vc">${vchips(u.m)}</p>`:''}${u.note?`<p>${esc(u.note)}</p>`:''}</li>`;
+const hist=m=>m.upd.length?`<div class="desc"><h2>Historial de versiones</h2><ul class="tl">${m.upd.map(u=>`<li><time datetime="${esc(u.date)}">${dt(u.date)}</time><h3>${u.version?esc(u.version):'Actualización'}</h3>${u.note?`<p>${esc(u.note)}</p>`:''}</li>`).join('')}${m.date?`<li class="new"><time datetime="${esc(m.date)}">${dt(m.date)}</time><h3>Publicación inicial</h3></li>`:''}</ul></div>`:'';
 // HOME
 const feat=mods.filter(m=>m.badges.includes('Imprescindible'));
 W(`${OUT}/index.html`,page({home:1,path:'/',title:`${C.name} — Mods de Football Manager: bases de datos, gráficos y skins`,
@@ -74,7 +80,8 @@ W(`${OUT}/index.html`,page({home:1,path:'/',title:`${C.name} — Mods de Footbal
 ${feat.length?`<section class="wrap"><h2>Mods imprescindibles</h2><div class="rail-w"><button class="rail-btn prev" type="button" aria-label="Anterior" hidden>‹</button><div class="rail">${feat.map(card).join('')}</div><button class="rail-btn next" type="button" aria-label="Siguiente">›</button></div></section>`:''}
 <section class="wrap" id="ultimos"><h2>Últimos mods</h2><div class="tools"><div class="chips"><button class="on" data-cat="">Todos</button>${Object.entries(CATS).map(([k,v])=>`<button data-cat="${k}">${v.n}</button>`).join('')}</div><label class="vsel"><span>Versión de FM</span><select id="ver"><option value="">Todas</option>${ALLV.map(v=>`<option value="${esc(vk(v))}">${esc(v)}</option>`).join('')}</select></label></div>
 <p class="meta resline"><span id="count"></span> <button class="btn small" id="reset" type="button" hidden>Limpiar filtros</button></p>
-<div class="grid" id="grid">${mods.map(card).join('')}</div><p id="empty" class="empty" hidden>No hay mods con ese nombre. Prueba con otra palabra o <a href="${C.submit}">envíanos el que echas en falta</a>.</p></section>
+<div class="grid" id="grid">${mods.map(card).join('')}</div><p id="empty" class="empty" hidden>No hay mods con ese nombre. Prueba con otra palabra o <a href="/peticiones/">pídenos el mod que echas en falta</a>.</p></section>
+${ups.length?`<section class="wrap"><h2>Últimas novedades</h2><div class="box"><ul class="tl news">${ups.slice(0,4).map(u=>upItem(u)).join('')}</ul><a class="btn" href="/novedades/">Ver el historial completo</a></div></section>`:''}
 <section class="wrap two">${donate()}${xcta()}</section>`}));
 
 // FICHAS
@@ -94,11 +101,60 @@ ${compat(m)}
 ${ad('bajo-titulo')}
 <div class="det"><div>
 ${shots.length?`<img class="shot" id="shot" data-zoom tabindex="0" title="Pulsa para ampliar" src="${esc(shots[0])}" alt="Captura de ${esc(m.title)}" width="960" height="540">${shots.length>1?`<div class="thumbs">${shots.map((s,i)=>`<button type="button" data-src="${esc(s)}" class="${i?'':'on'}" aria-label="Ver captura ${i+1}"><img src="${esc(s)}" alt="" loading="lazy" width="96" height="54"></button>`).join('')}</div>`:''}`:''}
-<div class="desc"><h2>Descripción</h2>${paras}${m.tags.length?`<p class="tags">${m.tags.map(t=>`<span>#${esc(t)}</span>`).join('')}</p>`:''}</div></div>
+<div class="desc"><h2>Descripción</h2>${paras}${m.tags.length?`<p class="tags">${m.tags.map(t=>`<span>#${esc(t)}</span>`).join('')}</p>`:''}</div>${hist(m)}</div>
 <aside><div class="box"><h2>Instalación</h2><p class="meta">Ruta predeterminada de pegado:</p>${ips.map(x=>`${x.label?`<p class="meta pl">${esc(x.label)}</p>`:''}<code class="path">${esc(x.path)}</code><button class="btn" type="button" data-copy="${esc(x.path)}">Copiar ruta de instalación</button>`).join('')}<ol class="steps">${steps}</ol><p class="meta" style="margin:12px 0 0"><a href="/como-instalar/" style="text-decoration:underline">¿Primera vez? Lee la guía completa de instalación</a></p></div><div class="box dlbox"><a class="btn primary big" data-dlc="${m.slug}" href="${esc(m.download_url)}" target="_blank" rel="nofollow noopener noreferrer">Descargar mod</a><div class="fb" hidden><button class="btn like" type="button" data-like="${m.slug}" aria-pressed="false">👍 <span>Me gusta</span> <b></b></button><span class="dlc" data-dl="${m.slug}"></span></div><div class="rate" data-rate="${m.slug}" hidden><div class="stars" role="group" aria-label="Valora este mod">${[1,2,3,4,5].map(n=>`<button type="button" data-star="${n}" aria-label="${n} de 5">★</button>`).join('')}</div><span class="rtxt"></span></div>${ad('junto-descarga')}
 <a class="rep" href="mailto:${C.email}?subject=${encodeURIComponent('Enlace caído: '+m.title)}&body=${encodeURIComponent(C.url+url)}">Reportar enlace caído</a></div>
 ${donate()}${xcta()}</aside></div></div>`}));
 }
+
+
+// ===== PÁGINAS DE COMUNIDAD =====
+const XU2=`https://x.com/${C.x}`;
+const cta=(t,p,href,label,ext=1)=>`<div class="cta"><h2>${t}</h2><p>${p}</p><a class="btn primary" href="${href}"${ext?' target="_blank" rel="noopener"':''}>${label}</a></div>`;
+W(`${OUT}/envia-tu-mod/index.html`,page({path:'/envia-tu-mod/',title:`Envía tu mod de Football Manager | ${C.name}`,
+ desc:'¿Creas gráficos, skins, bases de datos o elementos de día de partido para Football Manager? Envíanos tu mod y lo publicamos con tu nombre y tu enlace.',
+ body:`<div class="wrap prose"><h1>Envía tu mod</h1>
+<p class="lead">${C.name} es un escaparate para el trabajo de los creadores de la comunidad. Si haces gráficos, skins, bases de datos o elementos de día de partido, aquí tu mod llega a más gente y siempre con tu nombre y tu enlace por delante.</p>
+${cta('¿Listo para compartirlo?','El envío se hace con un formulario externo y solo lleva unos minutos.',C.submit,'Rellenar el formulario')}
+<h2>Qué estamos buscando</h2>
+<div class="cards3"><div class="box"><h3>Gráficos</h3><p>Facepacks, kitpacks, logopacks y estadios.</p></div><div class="box"><h3>Skins</h3><p>Mejoras y rediseños de la interfaz.</p></div><div class="box"><h3>Bases de datos</h3><p>Ligas, parches de transferencias, nombres reales y archivos de editor data.</p></div><div class="box"><h3>Día de partido</h3><p>Marcadores, vallas, balones y otros elementos del partido.</p></div></div>
+<h2>Requisitos</h2>
+<ul class="checks"><li>Eres el autor del mod o tienes permiso expreso del autor para compartirlo.</li><li>Tienes un enlace de descarga estable en un servicio externo (MediaFire, MEGA, Google Drive…).</li><li>Indicas con qué versión de Football Manager es compatible (FM24, FM25, FM26…) y, si puedes, con qué parche lo has probado.</li><li>Incluyes al menos una imagen de portada y, mejor, varias capturas que muestren el resultado.</li><li>Añades una descripción clara de qué incluye el mod y qué cambia en el juego.</li><li>Explicas dónde se instala (la subcarpeta de destino) y cualquier paso especial.</li><li>Nos das el nombre con el que quieres figurar y un enlace a tu perfil (X, foro, web…).</li></ul>
+<h2>Qué no publicamos</h2>
+<ul class="checks no"><li>Contenido que no sea tuyo o que use material de otros autores sin su permiso.</li><li>Archivos de pago, cracks, versiones pirateadas del juego o cualquier cosa que infrinja licencias.</li><li>Enlaces que lleven a software malicioso o que obliguen a instalar programas ajenos al mod.</li></ul>
+<h2>Cómo funciona</h2>
+<ol class="steps4"><li><b>Envía</b> el formulario con los datos de tu mod.</li><li><b>Revisamos</b> el enlace, las imágenes y la información.</li><li><b>Publicamos</b> la ficha con tus créditos y tu enlace de creador.</li><li><b>Actualiza</b> cuando quieras: envíanos la nueva versión y aparecerá en <a href="/novedades/">Novedades</a>.</li></ol>
+<h2>Si eres autor y quieres retirar o corregir una ficha</h2><p>Escríbenos a <a href="mailto:${C.email}">${C.email}</a> o por <a href="${XU2}" target="_blank" rel="noopener">X</a> y lo resolvemos.</p>
+<p>¿Echas en falta un mod que nadie ha hecho todavía? Mira las <a href="/peticiones/">peticiones de la comunidad</a>.</p></div>`}));
+
+const REQ=readDir('content/peticiones').sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
+const ST={abierta:['Abierta','b-azul'],desarrollo:['En desarrollo','b-amarillo'],completada:['Completada','b-verde']};
+const reqItem=r=>{const st=ST[r.status]||ST.abierta,mod=r.mod&&mods.find(m=>m.slug===r.mod);
+  return `<div class="req"><div><span class="b ${st[1]}">${st[0]}</span></div><div><h3>${esc(r.title)}</h3>${r.description?`<p>${esc(r.description)}</p>`:''}${mod?`<p><a href="/mod/${mod.slug}/">Ver el mod: ${esc(mod.title)}</a></p>`:''}</div></div>`};
+const reqOpen=REQ.filter(r=>r.status!=='completada'),reqDone=REQ.filter(r=>r.status==='completada');
+const reqUrl=C.requests||XU2;
+W(`${OUT}/peticiones/index.html`,page({path:'/peticiones/',title:`Peticiones de la comunidad: pide el mod que te falta | ${C.name}`,
+ desc:'Pide el mod de Football Manager que te gustaría ver: ligas regionales, packs de gráficos, skins, estadios… Los creadores de la comunidad pueden recoger tu idea.',
+ body:`<div class="wrap prose"><h1>Peticiones de la comunidad</h1>
+<p class="lead">¿Hay una liga, un pack de gráficos o una skin que te gustaría tener y no encuentras? Cuéntanoslo. Publicamos las ideas aquí para que los creadores puedan verlas y animarse a hacerlas realidad.</p>
+${cta('Haz tu petición',C.requests?'Rellena el formulario con lo que buscas.':'Escríbenos por X mencionando a @'+C.x+' con lo que buscas.',reqUrl,C.requests?'Enviar una petición':'Pedir por X')}
+${C.requestsEmbed?`<iframe class="embed" src="${esc(C.requestsEmbed)}" title="Formulario de peticiones" loading="lazy">Cargando…</iframe>`:''}
+<h2>Ejemplos de cosas que puedes pedir</h2>
+<div class="cards3"><div class="box"><h3>Ligas y competiciones</h3><p>Divisiones regionales, ligas amateur o torneos que no vienen en el juego.</p></div><div class="box"><h3>Packs de gráficos</h3><p>Caras, escudos o equipaciones de una liga o de un periodo concreto.</p></div><div class="box"><h3>Skins</h3><p>Un estilo de interfaz, colores o una vista que echas en falta.</p></div><div class="box"><h3>Estadios y día de partido</h3><p>Estadios, marcadores, vallas o balones de tu competición favorita.</p></div></div>
+<h2>Cómo hacer una buena petición</h2>
+<ul class="checks"><li>Explica qué quieres con detalle (liga, equipos, temporada, estilo…).</li><li>Indica para qué versión de Football Manager lo necesitas.</li><li>Si puedes, añade ejemplos o imágenes de referencia.</li><li>Revisa antes la <a href="/">lista de mods</a> por si ya existe.</li></ul>
+<p>Publicar una petición no garantiza que alguien la haga: dependemos de los creadores voluntarios. Si eres creador y quieres coger una, <a href="/envia-tu-mod/">envíanos tu mod</a> cuando esté listo.</p>
+${reqOpen.length?`<h2>Peticiones abiertas</h2>${reqOpen.map(reqItem).join('')}`:''}
+${reqDone.length?`<h2>Peticiones cumplidas</h2>${reqDone.map(reqItem).join('')}`:''}</div>`}));
+
+const mkh=d=>new Date(d).toLocaleDateString('es-ES',{month:'long',year:'numeric'});
+let grp='';const tlHtml=ups.map(u=>{const g=mkh(u.date),h=g!==grp?(grp?'</ul>':'')+`<h2 class="month">${g}</h2><ul class="tl">`:'';grp=g;return h+upItem(u,1)}).join('')+(ups.length?'</ul>':'');
+W(`${OUT}/novedades/index.html`,page({path:'/novedades/',title:`Historial de actualizaciones de mods | ${C.name}`,
+ desc:'Todas las novedades de FM Mods Comunidad: mods nuevos y actualizaciones de skins, packs de caras, bases de datos y más, ordenadas por fecha.',
+ body:`<div class="wrap prose"><h1>Historial de actualizaciones</h1>
+<p class="lead">Aquí ves de un vistazo qué mods son nuevos y cuáles han recibido una versión nueva, de lo más reciente a lo más antiguo.</p>
+${tlHtml||'<p>Todavía no hay novedades registradas.</p>'}
+<p class="meta">¿Eres autor y has publicado una versión nueva? <a href="/envia-tu-mod/">Avísanos</a> y la añadiremos.</p></div>`}));
 
 // LEGALES (plantillas: revísalas y completa tus datos)
 const legal=(s,t,h)=>W(`${OUT}/${s}/index.html`,page({path:`/${s}/`,title:`${t} | ${C.name}`,desc:t,body:`<div class="wrap prose"><h1>${t}</h1>${h}</div>`}));
@@ -125,7 +181,7 @@ W(`${OUT}/como-instalar/index.html`,page({path:'/como-instalar/',title:`Cómo in
 <p><a class="btn primary" href="/">Volver a los mods</a></p></div>`}));
 
 // SEO + estáticos
-W(`${OUT}/sitemap.xml`,`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${['/',...mods.map(m=>`/mod/${m.slug}/`),'/como-instalar/','/aviso-legal/','/privacidad/'].map(u=>`<url><loc>${C.url}${u}</loc></url>`).join('')}</urlset>`);
+W(`${OUT}/sitemap.xml`,`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${['/',...mods.map(m=>`/mod/${m.slug}/`),'/como-instalar/','/envia-tu-mod/','/peticiones/','/novedades/','/aviso-legal/','/privacidad/'].map(u=>`<url><loc>${C.url}${u}</loc></url>`).join('')}</urlset>`);
 W(`${OUT}/robots.txt`,`User-agent: *\nAllow: /\nDisallow: /admin/\nSitemap: ${C.url}/sitemap.xml\n`);
 fs.cpSync('public',OUT,{recursive:true});
 if(C.adsense)W(`${OUT}/ads.txt`,`google.com, ${C.adsense.replace(/^ca-/,'')}, DIRECT, f08c47fec0942fa0\n`);
