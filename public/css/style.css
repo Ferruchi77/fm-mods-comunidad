@@ -159,3 +159,7 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;bac
 .path.flash{animation:flash 1.1s ease}}
 @keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.07)}100%{transform:scale(1)}}
 @keyframes flash{0%{box-shadow:0 0 0 0 rgba(53,208,127,.65);border-color:var(--gr)}100%{box-shadow:0 0 0 12px rgba(53,208,127,0)}}
+
+/* distintivos: colores extra y vista previa del panel */
+.b-naranja{background:#f97316;color:#fff}.b-rosa{background:#ec4899;color:#fff}.b-cian{background:#06b6d4;color:#062a33}
+.byline strong{overflow-wrap:anywhere}.fm-preview{padding-bottom:24px}

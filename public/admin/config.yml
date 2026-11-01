@@ -21,7 +21,12 @@ collections:
     extension: json
     format: json
     slug: "{{slug}}"
-    summary: "{{title}}"
+    summary: "{{title}} ({{date}})"
+    sortable_fields:
+      fields: [date, title]
+      default:
+        field: date
+        direction: Descending
     fields:
       - { label: Título, name: title, widget: string }
       - label: Categorías (puedes elegir varias)
@@ -42,8 +47,18 @@ collections:
         display_fields: [name]
         multiple: true
         min: 1
-      - { label: Creador / Autor, name: author, widget: string }
-      - { label: Enlace del creador (X, web…), name: author_url, widget: string, required: false }
+      - label: Creadores / Autores (pulsa «Añadir» para poner más de uno)
+        name: authors
+        widget: list
+        required: false
+        hint: "Obligatorio en los mods nuevos. En los mods antiguos, añade aquí al autor para pasarlo al formato nuevo."
+        summary: "{{fields.name}}"
+        fields:
+          - { label: Nombre, name: name, widget: string }
+          - { label: Enlace del creador (X, web, perfil…), name: url, widget: string, required: false }
+      # Campos antiguos: se conservan ocultos para no perder datos de los mods creados antes
+      - { label: Autor (antiguo), name: author, widget: hidden, required: false }
+      - { label: Enlace del autor (antiguo), name: author_url, widget: hidden, required: false }
       - { label: Imagen de portada, name: cover, widget: image, required: false }
       - { label: Capturas de pantalla, name: screenshots, widget: list, required: false, field: { label: Captura, name: shot, widget: image } }
       - { label: Descripción, name: description, widget: text }
@@ -51,6 +66,7 @@ collections:
       - { label: Flags / Etiquetas, name: tags, widget: list, required: false }
       - label: Distintivos (puedes elegir varios; Imprescindible = sale en la portada)
         name: badges
+        hint: "¿No ves el que buscas? Créalo antes en la sección «Distintivos» del menú (nombre, color e icono)."
         widget: relation
         collection: distintivos
         search_fields: [name]
@@ -121,7 +137,13 @@ collections:
           - { label: Amarillo, value: amarillo }
           - { label: Azul, value: azul }
           - { label: Rojo, value: rojo }
+          - { label: Naranja, value: naranja }
+          - { label: Rosa, value: rosa }
+          - { label: Cian, value: cian }
           - { label: Gris, value: gris }
+      - { label: "Color personalizado (opcional, ej. #ff8800; sustituye al color de arriba)", name: hex, widget: string, required: false, pattern: ['^#[0-9a-fA-F]{6}$', 'Usa el formato #rrggbb'] }
+      - { label: "Icono (opcional, un emoji. Ej. ⭐ ✅)", name: icon, widget: string, required: false }
+      - { label: "Mostrar los mods con este distintivo en el carrusel «Mods imprescindibles» de la portada", name: featured, widget: boolean, default: false, required: false }
 
   - name: peticiones
     label: Peticiones de la comunidad
