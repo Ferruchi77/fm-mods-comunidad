@@ -22,11 +22,7 @@ collections:
     format: json
     slug: "{{slug}}"
     summary: "{{title}} ({{date}})"
-    sortable_fields:
-      fields: [date, title]
-      default:
-        field: date
-        direction: Descending
+    sortable_fields: [date, title]
     fields:
       - { label: Título, name: title, widget: string }
       - label: Categorías (puedes elegir varias)
