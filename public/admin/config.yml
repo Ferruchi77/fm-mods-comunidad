@@ -62,7 +62,16 @@ collections:
       - { label: "Aviso de compatibilidad (opcional, ej. Requiere la última actualización)", name: compat_note, widget: string, required: false }
       - { label: Ruta de instalación (vacío = se calcula sola; una ruta por línea si hay varias), name: install_path, widget: text, required: false }
       - { label: Instrucciones (una línea por paso; vacío = genéricas), name: instructions, widget: text, required: false }
-      - { label: Fecha, name: date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+      - label: Historial de actualizaciones (añade una entrada cada vez que subas una versión nueva)
+        name: updates
+        widget: list
+        required: false
+        summary: "{{fields.date}} {{fields.version}}"
+        fields:
+          - { label: Fecha, name: date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+          - { label: "Versión del mod (ej. v1.2)", name: version, widget: string, required: false }
+          - { label: Qué ha cambiado, name: note, widget: text, required: false }
+      - { label: Fecha de publicación, name: date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
 
   - name: categorias
     label: Categorías
@@ -113,3 +122,32 @@ collections:
           - { label: Azul, value: azul }
           - { label: Rojo, value: rojo }
           - { label: Gris, value: gris }
+
+  - name: peticiones
+    label: Peticiones de la comunidad
+    label_singular: Petición
+    folder: content/peticiones
+    create: true
+    extension: json
+    format: json
+    summary: "{{title}} ({{status}})"
+    fields:
+      - { label: Título (ej. Pack de caras de la liga X), name: title, widget: string }
+      - { label: Descripción, name: description, widget: text, required: false }
+      - label: Estado
+        name: status
+        widget: select
+        default: abierta
+        options:
+          - { label: Abierta, value: abierta }
+          - { label: En desarrollo, value: desarrollo }
+          - { label: Completada, value: completada }
+      - label: Mod que la cumple (cuando esté completada)
+        name: mod
+        widget: relation
+        collection: mods
+        search_fields: [title]
+        value_field: "{{slug}}"
+        display_fields: [title]
+        required: false
+      - { label: Fecha, name: date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
