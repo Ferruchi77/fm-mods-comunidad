@@ -11,14 +11,19 @@ export default async req=>{
   if(req.method!=='POST')return json({error:'method'},405);
   let b;try{b=await req.json()}catch{return json({error:'json'},400)}
   const {slug,action}=b||{};
-  if(!SLUG.test(slug||'')||!['download','like','unlike'].includes(action))return json({error:'bad'},400);
+  if(!SLUG.test(slug||'')||!['download','like','unlike','rate'].includes(action))return json({error:'bad'},400);
   // solo cuenta fichas que existen de verdad
   const ok=await fetch(new URL(`/mod/${slug}/`,req.url),{method:'HEAD'}).then(r=>r.ok).catch(()=>false);
   if(!ok)return json({error:'unknown'},404);
-  const cur=(await store.get(slug,{type:'json'}))||{likes:0,downloads:0};
+  const cur={likes:0,downloads:0,ratingSum:0,ratingCount:0,...((await store.get(slug,{type:'json'}))||{})};
   if(action==='download')cur.downloads++;
   if(action==='like')cur.likes++;
   if(action==='unlike')cur.likes=Math.max(0,cur.likes-1);
+  if(action==='rate'){
+    const v=Number(b.value),p=Number(b.prev)||0;
+    if(!Number.isInteger(v)||v<1||v>5||!Number.isInteger(p)||p<0||p>5)return json({error:'bad'},400);
+    if(p&&cur.ratingCount>0)cur.ratingSum+=v-p; else{cur.ratingSum+=v;cur.ratingCount++}
+  }
   await store.setJSON(slug,cur);
   return json(cur);
 };

@@ -49,7 +49,15 @@ collections:
       - { label: Descripción, name: description, widget: text }
       - { label: Enlace de descarga (Mediafire, MEGA, Drive…), name: download_url, widget: string, pattern: ['^https?://', 'Debe empezar por https://'] }
       - { label: Flags / Etiquetas, name: tags, widget: list, required: false }
-      - { label: Distintivos, name: badges, widget: select, multiple: true, required: false, options: [Imprescindible, Probado, Oficial] }
+      - label: Distintivos (puedes elegir varios; Imprescindible = sale en la portada)
+        name: badges
+        widget: relation
+        collection: distintivos
+        search_fields: [name]
+        value_field: name
+        display_fields: [name]
+        multiple: true
+        required: false
       - { label: "Parche del juego con el que lo has probado (ej. 27.0.1)", name: compat_patch, widget: string, required: false }
       - { label: "Aviso de compatibilidad (opcional, ej. Requiere la última actualización)", name: compat_note, widget: string, required: false }
       - { label: Ruta de instalación (vacío = se calcula sola; una ruta por línea si hay varias), name: install_path, widget: text, required: false }
@@ -82,3 +90,26 @@ collections:
     summary: "{{name}}"
     fields:
       - { label: "Nombre (ej. FM28)", name: name, widget: string }
+
+  - name: distintivos
+    label: Distintivos
+    label_singular: Distintivo
+    folder: content/distintivos
+    create: true
+    extension: json
+    format: json
+    identifier_field: name
+    summary: "{{name}} ({{color}})"
+    fields:
+      - { label: Nombre (ej. Imprescindible, Probado, Oficial, Nuevo), name: name, widget: string }
+      - label: Color
+        name: color
+        widget: select
+        default: violeta
+        options:
+          - { label: Violeta, value: violeta }
+          - { label: Verde, value: verde }
+          - { label: Amarillo, value: amarillo }
+          - { label: Azul, value: azul }
+          - { label: Rojo, value: rojo }
+          - { label: Gris, value: gris }
