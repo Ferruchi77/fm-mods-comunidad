@@ -23,6 +23,7 @@ export default async req=>{
     const v=Number(b.value),p=Number(b.prev)||0;
     if(!Number.isInteger(v)||v<1||v>5||!Number.isInteger(p)||p<0||p>5)return json({error:'bad'},400);
     if(p&&cur.ratingCount>0)cur.ratingSum+=v-p; else{cur.ratingSum+=v;cur.ratingCount++}
+    cur.ratingSum=Math.min(5*cur.ratingCount,Math.max(cur.ratingCount,cur.ratingSum));
   }
   await store.setJSON(slug,cur);
   return json(cur);
