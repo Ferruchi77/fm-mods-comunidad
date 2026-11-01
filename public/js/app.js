@@ -1,6 +1,10 @@
 (()=>{
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
 const q=$('#q'),grid=$('#grid'),norm=s=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+const th=$('#theme');
+if(th){const cur=()=>document.documentElement.getAttribute('data-theme')==='light'?'light':'dark';
+  const sync=()=>{const l=cur()==='light';th.setAttribute('aria-label',l?'Cambiar a modo oscuro':'Cambiar a modo claro');th.title=th.getAttribute('aria-label')};
+  sync();th.addEventListener('click',()=>{const t=cur()==='light'?'dark':'light';document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('fm_theme',t)}catch{}sync()})}
 if(grid){
   const cards=$$('.card',grid),empty=$('#empty'),u=new URLSearchParams(location.search);
   const sel=$('#ver'),cnt=$('#count'),rs=$('#reset');let cat=u.get('cat')||'';sel.value=u.get('ver')||'';q.value=u.get('q')||'';
@@ -26,28 +30,39 @@ $$('.rail-w').forEach(w=>{const r=$('.rail',w),p=$('.prev',w),n=$('.next',w);
   const up=()=>{p.hidden=r.scrollLeft<8;n.hidden=r.scrollLeft+r.clientWidth>=r.scrollWidth-8};
   p.onclick=()=>r.scrollBy({left:-r.clientWidth*.8,behavior:'smooth'});n.onclick=()=>r.scrollBy({left:r.clientWidth*.8,behavior:'smooth'});
   r.addEventListener('scroll',up,{passive:true});addEventListener('resize',up);up()});
-// Me gusta y descargas (necesita /api/stats; si no existe, no se muestra nada)
-const store=(k,v)=>{try{if(v===undefined)return JSON.parse(localStorage.getItem(k)||'[]');localStorage.setItem(k,JSON.stringify(v))}catch{return[]}};
+// Me gusta, descargas y valoraciones. Los controles se ven siempre y el voto se guarda en el navegador;
+// los totales de la comunidad se sincronizan con /api/stats cuando el servicio responde.
+const ls={get:(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k));return v==null?d:v}catch{return d}},set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
 const post=(slug,action,extra={})=>fetch('/api/stats',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({slug,action,...extra}),keepalive:true}).then(r=>r.ok?r.json():null).catch(()=>null);
 const fmt=n=>new Intl.NumberFormat('es').format(n);
-const likeBtn=$('[data-like]'),dlLink=$('[data-dlc]');
-if($('[data-s]')||likeBtn)fetch('/api/stats').then(r=>r.ok?r.json():null).then(S=>{
-  if(!S)return;
-  $$('[data-s]').forEach(el=>{const s=S[el.dataset.s]||{},t=[];if(s.downloads)t.push('↓ '+fmt(s.downloads));if(s.likes)t.push('👍 '+fmt(s.likes));if(s.ratingCount)t.push('★ '+(s.ratingSum/s.ratingCount).toFixed(1).replace('.',',')+' ('+s.ratingCount+')');if(t.length){el.textContent=t.join('   ');el.hidden=false}});
-  if(likeBtn){const slug=likeBtn.dataset.like,s=S[slug]||{likes:0,downloads:0};let likes=s.likes||0;
-    const paint=()=>{const on=store('fm_likes').includes(slug);likeBtn.classList.toggle('on',on);likeBtn.setAttribute('aria-pressed',on);$('b',likeBtn).textContent=likes?fmt(likes):''};
-    paint();$('[data-dl]').textContent=s.downloads?fmt(s.downloads)+' descargas':'';likeBtn.parentElement.hidden=false;
-    likeBtn.addEventListener('click',()=>{const L=store('fm_likes'),on=L.includes(slug);store('fm_likes',on?L.filter(x=>x!==slug):[...L,slug]);likes=Math.max(0,likes+(on?-1:1));paint();post(slug,on?'unlike':'like')})}
-  const rb=$('[data-rate]');
-  if(rb){const slug=rb.dataset.rate,s=S[slug]||{};let sum=s.ratingSum||0,n=s.ratingCount||0;
-    const R=()=>{try{return JSON.parse(localStorage.getItem('fm_rate')||'{}')}catch{return{}}},stars=$$('[data-star]',rb),txt=$('.rtxt',rb);
-    const paint=h=>{const mine=R()[slug]||0,v=h||mine;stars.forEach((b,i)=>b.classList.toggle('on',i<v));
-      txt.textContent=(n?`${(sum/n).toFixed(1).replace('.',',')} de 5 · ${n} ${n===1?'voto':'votos'}`:'Sé el primero en valorar')+(mine&&!h?` · Tu voto: ${mine}`:'')};
-    paint(0);rb.hidden=false;
-    stars.forEach(b=>{const v=+b.dataset.star;b.addEventListener('mouseenter',()=>paint(v));b.addEventListener('click',()=>{const r=R(),prev=r[slug]||0;if(prev){sum+=v-prev}else{sum+=v;n++}r[slug]=v;try{localStorage.setItem('fm_rate',JSON.stringify(r))}catch{}paint(0);post(slug,'rate',{value:v,prev})})});
-    rb.addEventListener('mouseleave',()=>paint(0))}
-}).catch(()=>{});
-if(dlLink)dlLink.addEventListener('click',()=>{const slug=dlLink.dataset.dlc,D=store('fm_dl');if(!D.includes(slug)){store('fm_dl',[...D,slug]);post(slug,'download')}});
+const likeBtn=$('[data-like]'),dlLink=$('[data-dlc]'),rb=$('[data-rate]');
+let S={},hov=0;
+const stat=slug=>({likes:0,downloads:0,ratingSum:0,ratingCount:0,...(S[slug]||{})});
+const avg=s=>(s.ratingSum/s.ratingCount).toFixed(1).replace('.',',');
+const renderCards=()=>$$('[data-s]').forEach(el=>{const s=stat(el.dataset.s),t=[];
+  if(s.downloads)t.push('↓ '+fmt(s.downloads));if(s.likes)t.push('👍 '+fmt(s.likes));if(s.ratingCount)t.push('★ '+avg(s)+' ('+s.ratingCount+')');
+  el.textContent=t.join('   ');el.hidden=!t.length});
+const renderDetail=()=>{
+  if(likeBtn){const slug=likeBtn.dataset.like,s=stat(slug),on=ls.get('fm_likes',[]).includes(slug),d=$('[data-dl]');
+    likeBtn.classList.toggle('on',on);likeBtn.setAttribute('aria-pressed',on);$('b',likeBtn).textContent=s.likes?fmt(s.likes):'';
+    if(d)d.textContent=s.downloads?fmt(s.downloads)+' descargas':''}
+  if(rb){const slug=rb.dataset.rate,s=stat(slug),mine=ls.get('fm_rate',{})[slug]||0,v=hov||mine;
+    $$('[data-star]',rb).forEach((b,i)=>{b.classList.toggle('on',i<v);b.setAttribute('aria-pressed',mine===i+1)});
+    $('.rtxt',rb).textContent=hov?'Valorar con '+hov+(hov===1?' estrella':' estrellas'):s.ratingCount?avg(s)+' de 5 · '+s.ratingCount+(s.ratingCount===1?' voto':' votos')+(mine?' · Tu voto: '+mine:''):mine?'Tu voto: '+mine+' · totales no disponibles ahora':'Sé el primero en valorar'}};
+if(likeBtn)likeBtn.addEventListener('click',()=>{const slug=likeBtn.dataset.like,L=ls.get('fm_likes',[]),on=L.includes(slug),s=stat(slug);
+  ls.set('fm_likes',on?L.filter(x=>x!==slug):[...L,slug]);S[slug]={...s,likes:Math.max(0,s.likes+(on?-1:1))};renderDetail();
+  post(slug,on?'unlike':'like').then(r=>{if(r){S[slug]=r;renderDetail()}})});
+if(rb){
+  $$('[data-star]',rb).forEach(b=>{const v=+b.dataset.star;
+    b.addEventListener('mouseenter',()=>{hov=v;renderDetail()});
+    b.addEventListener('click',()=>{const slug=rb.dataset.rate,R=ls.get('fm_rate',{}),SY=ls.get('fm_rate_sync',{}),prev=R[slug]||0,s=stat(slug);
+      R[slug]=v;ls.set('fm_rate',R);hov=0;
+      S[slug]=prev?{...s,ratingSum:s.ratingSum+v-prev}:{...s,ratingSum:s.ratingSum+v,ratingCount:s.ratingCount+1};renderDetail();
+      post(slug,'rate',{value:v,prev:SY[slug]?prev:0}).then(r=>{if(r){S[slug]=r;SY[slug]=1;ls.set('fm_rate_sync',SY);renderDetail()}})})});
+  rb.addEventListener('mouseleave',()=>{hov=0;renderDetail()})}
+if(dlLink)dlLink.addEventListener('click',()=>{const slug=dlLink.dataset.dlc,D=ls.get('fm_dl',[]);if(!D.includes(slug)){ls.set('fm_dl',[...D,slug]);post(slug,'download')}});
+renderDetail();
+if($('[data-s]')||likeBtn||rb)fetch('/api/stats').then(r=>r.ok?r.json():null).then(d=>{if(!d)return;S=d;renderCards();renderDetail()}).catch(()=>{});
 // Visor de imágenes (lightbox)
 const shot=$('#shot');
 if(shot){let idx=0,ov,img,cnt,pv,nx,last;
