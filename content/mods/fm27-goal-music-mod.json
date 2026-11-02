@@ -1,5 +1,12 @@
 {
   "install_path": "\\Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins",
+  "updates": [
+    {
+      "date": "2026-11-01",
+      "note": "- Se ajusta la duración de la música y del archivo de configuración.\n- Se ha ampliado considerablemente la selección de música para los goles en el fútbol alemán: ¡ahora se incluyen la 3. Liga y todas las divisiones de la Regionalliga!",
+      "version": "GoalMusic FM27 (NEW UPDATE).zip"
+    }
+  ],
   "author": " joni9",
   "date": "2026-10-30",
   "badges": [],
