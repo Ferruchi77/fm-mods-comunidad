@@ -1,0 +1,19 @@
+{
+  "title": "Easy Talks",
+  "categories": [
+    "bases-de-datos"
+  ],
+  "description": "Elogia o critica el entrenamiento de toda la plantilla a la vez en FM27 y envía ojeadores a los 50 jóvenes de la lista NXGN en un clic, con su potencial real.",
+  "cover": "https://fmseasonhub.com/_astro/01.DChipa-9_e0rgw.webp",
+  "authors": [
+    {
+      "name": "FM Season Hub",
+      "url": "https://x.com/FMSeasonHub"
+    }
+  ],
+  "download_url": "https://fmseasonhub.com/plugins/easytalks-fm27",
+  "fm_versions": [
+    "FM27"
+  ],
+  "date": "2026-11-01"
+}
