@@ -1,0 +1,22 @@
+{
+  "authors": [
+    {
+      "name": "Wannachup FM",
+      "url": "https://x.com/Wannachupbrew"
+    }
+  ],
+  "date": "2026-11-02",
+  "badges": [
+    "Imprescindible"
+  ],
+  "fm_versions": [
+    "FM27"
+  ],
+  "cover": "https://sortitoutsi.b-cdn.net/uploads/media_2026/6uVOrTBG0BPzEQFxXCQrfQOU6VTRotTsCCqbtIjh.png",
+  "download_url": "https://sortitoutsi.net/content/78131/dressing-room-kit-fix-fm27-v100",
+  "title": "Dressing Room Kit Fix",
+  "categories": [
+    "bases-de-datos"
+  ],
+  "description": "Dressing Room Kit Fix (FM27) es un mod tipo plugin de BepInEx para Football Manager 27 que soluciona un error visual del juego [cite:].\n\nQué hace: Corrige el error por el cual las equipaciones 3D personalizadas muestran colores alterados (tintes rojos o incorrectos) al visualizarse en la pantalla del vestuario [cite:].\n\nCómo funciona: Intercepta la carga de texturas para asegurar que los canales de color de las camisetas se lean correctamente sin alterar los partidos oficiales."
+}
