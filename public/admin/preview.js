@@ -10,7 +10,7 @@
     raw.cover=asset(raw.cover);raw.screenshots=(raw.screenshots||[]).map(asset);
     const meta=META||{C:{url:'',email:'',x:'FMModsComunidad',reload:['FM24']},CATS:{},BADGE:{},LATEST:''};
     const F=FMFicha.make({C:meta.C,CATS:meta.CATS,BADGE:meta.BADGE,LATEST:meta.LATEST,ad:()=>''});
-    const m=FMFicha.normalize(raw,entry.get('slug')||'vista-previa');
+    const m=FMFicha.normalize(raw,entry.get('slug')||'vista-previa',null,meta.AUTHORS||{});
     return H('div',{className:'fm-preview',dangerouslySetInnerHTML:{__html:F.detail(m,{extras:''})}});
   };
   CMS.registerPreviewStyle('/css/style.css');

@@ -46,10 +46,19 @@ collections:
         name: authors
         widget: list
         required: false
-        hint: "Obligatorio en los mods nuevos. En los mods antiguos, añade aquí al autor para pasarlo al formato nuevo."
-        summary: "{{fields.name}}"
+        hint: "Por cada creador: elige uno de la lista (se rellena solo su nombre y enlace) o, si es nuevo, escribe su nombre y enlace a mano. Para que aparezca en la lista la próxima vez, créalo en la sección «Autores»."
+        summary: "{{fields.ref}} {{fields.name}}"
         fields:
-          - { label: Nombre, name: name, widget: string }
+          - label: Elegir autor existente
+            name: ref
+            widget: relation
+            collection: autores
+            search_fields: [name, url]
+            value_field: "{{slug}}"
+            display_fields: [name]
+            required: false
+            hint: "Empieza a escribir para buscar. Déjalo vacío si es un autor nuevo."
+          - { label: Nombre (autor nuevo, o para sustituir al elegido), name: name, widget: string, required: false }
           - { label: Enlace del creador (X, web, perfil…), name: url, widget: string, required: false }
       # Campos antiguos: se conservan ocultos para no perder datos de los mods creados antes
       - { label: Autor (antiguo), name: author, widget: hidden, required: false }
@@ -168,3 +177,18 @@ collections:
         display_fields: [title]
         required: false
       - { label: Fecha, name: date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+
+  - name: autores
+    label: Autores
+    label_singular: Autor
+    description: "Lista de modders que se repiten. Aparecen en el desplegable «Elegir autor existente» al crear o editar un mod. Si cambias aquí un nombre o enlace, se actualiza en todos los mods que lo usan."
+    folder: content/autores
+    create: true
+    extension: json
+    format: json
+    identifier_field: name
+    slug: "{{slug}}"
+    summary: "{{name}}"
+    fields:
+      - { label: Nombre, name: name, widget: string }
+      - { label: Enlace (X, web, perfil…), name: url, widget: string, required: false }

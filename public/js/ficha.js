@@ -12,11 +12,12 @@ const UI='<svg class="ui" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12
 const http=u=>/^https?:\/\//i.test(String(u||''));
 
 // Datos crudos de la ficha (JSON del CMS) -> estructura lista para pintar. Acepta fichas antiguas (author/category/fm_version).
-const normalize=(raw,slug,warn)=>{
+const normalize=(raw,slug,warn,db)=>{
   const m={...raw,slug};
   m.date=iso(m.date);m.tags=list(m.tags);m.badges=list(m.badges);m.screenshots=list(m.screenshots).filter(Boolean);
   m.cats=list(m.categories||m.category);m.vers=list(m.fm_versions||m.fm_version).filter(v=>String(v).replace(/\s+/g,'').toUpperCase()!=='FM25').sort();
-  const A=list(m.authors).map(a=>typeof a==='string'?{name:a}:a).filter(a=>a&&String(a.name||'').trim());
+  // Cada autor puede venir de la lista global (campo ref) y/o escrito a mano; lo escrito a mano manda. Resultado: siempre {name,url}.
+  const A=list(m.authors).map(a=>{if(typeof a==='string')return{name:a};if(!a)return null;const d=a.ref&&db&&db[a.ref];if(a.ref&&!d&&warn&&!String(a.name||'').trim())warn(`⚠ ${slug}: el autor "${a.ref}" ya no existe en Autores`);const name=String(a.name||'').trim()||(d&&d.name)||'',url=String(a.url||'').trim()||(d&&d.url)||'';return{name,url}}).filter(a=>a&&a.name);
   m.auth=A.length?A:[m.author?{name:m.author,url:m.author_url}:{name:'Autor desconocido'}];
   m.upd=list(m.updates).map(u=>u&&{...u,date:iso(u.date)}).filter(u=>{const ok=u&&u.date&&!isNaN(new Date(u.date));if(!ok&&warn)warn(`⚠ ${slug}: hay una actualización sin fecha válida y se ha ignorado`);return ok}).sort((a,b)=>new Date(b.date)-new Date(a.date));
   return m;
