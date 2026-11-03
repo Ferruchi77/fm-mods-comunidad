@@ -21,6 +21,8 @@ const BADGE={};readDir('content/distintivos').forEach(b=>BADGE[b.name]={color:b.
 if(!Object.keys(BADGE).length)Object.assign(BADGE,{Imprescindible:{color:'violeta',featured:true},Probado:{color:'verde'},Oficial:{color:'amarillo'}});
 const FEAT=Object.keys(BADGE).filter(k=>BADGE[k].featured);if(BADGE.Imprescindible&&!FEAT.includes('Imprescindible'))FEAT.push('Imprescindible'); // distintivos que llevan al carrusel de la portada
 // La lógica de la ficha vive en public/js/ficha.js (la comparte la vista previa del panel)
+const hv=f=>require('crypto').createHash('md5').update(fs.readFileSync(f)).digest('hex').slice(0,8);
+const V={css:hv('public/css/style.css'),app:hv('public/js/app.js'),ficha:hv('public/js/ficha.js')};
 const F=require('./public/js/ficha.js'),{esc,vk,verYear,dt,UI,normalize}=F;
 const ctx={C,CATS,BADGE,LATEST:'',ad:null},R=F.make(ctx);
 const {catOf,badges,authText,vchips,compat,needsReload,installPaths,hist,report}=R;
@@ -48,7 +50,7 @@ const ogImg=m=>[m.cover,...m.screenshots].find(i=>i&&!/\.(avif|svg)(\?|$)/i.test
 const page=({title,desc,path,body,img,ld,home,type,imgAlt})=>`<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(title)}</title><meta name="description" content="${esc(desc)}"><link rel="canonical" href="${C.url}${path}">
 <meta property="og:type" content="${type||'website'}"><meta property="og:site_name" content="${C.name}"><meta property="og:locale" content="es_ES"><meta property="og:url" content="${C.url}${path}"><meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:image" content="${esc(absImg(img))}"><meta property="og:image:alt" content="${esc(imgAlt||title)}">${img?'':'<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">'}<meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@${C.x}"><meta name="twitter:title" content="${esc(title)}"><meta name="twitter:description" content="${esc(desc)}"><meta name="twitter:image" content="${esc(absImg(img))}">
-<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png"><link rel="apple-touch-icon" href="/img/apple-touch-icon.png"><link rel="stylesheet" href="/css/style.css">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png"><link rel="apple-touch-icon" href="/img/apple-touch-icon.png"><link rel="stylesheet" href="/css/style.css?v=${V.css}"><link rel="alternate" type="application/rss+xml" title="${esc(C.name)} — Novedades" href="/rss.xml">
 ${ld?`<script type="application/ld+json">${JSON.stringify(ld)}</script>`:''}${C.adsense?`<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${C.adsense}" crossorigin="anonymous"></script>`:''}
 <script>try{var t=localStorage.getItem('fm_theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
 <script>if(/(invite|recovery|confirmation)_token/.test(location.hash))location.replace('/admin/'+location.hash)</script></head>
@@ -58,9 +60,9 @@ ${ld?`<script type="application/ld+json">${JSON.stringify(ld)}</script>`:''}${C.
 <button class="x tbtn" id="theme" type="button" aria-label="Cambiar a modo claro" title="Cambiar a modo claro">${TI}</button><a class="x" href="${XU}" target="_blank" rel="noopener" aria-label="X: @${C.x}">${XI}</a></div>
 <nav class="wrap nav" aria-label="Categorías">${Object.entries(CATS).map(([k,v])=>`<a href="/?cat=${k}" data-cat="${k}" title="${v.d}">${v.n}</a>`).join('')}<span class="navsep" aria-hidden="true"></span><a class="nl" href="/como-instalar/">Cómo instalar</a><a class="nl" href="/envia-tu-mod/">Envía tu mod</a><a class="nl" href="/peticiones/">Peticiones</a><a class="nl" href="/novedades/">Novedades</a></nav></header>
 <main>${body}</main>
-<footer class="ft"><div class="wrap"><nav><a href="/como-instalar/">Cómo instalar</a><a href="/envia-tu-mod/">Envía tu mod</a><a href="/peticiones/">Peticiones</a><a href="/novedades/">Novedades</a><a href="/aviso-legal/">Aviso Legal</a><a href="/privacidad/">Política de Privacidad</a><a href="/envia-tu-mod/">Colabora</a><a href="${XU}" target="_blank" rel="noopener">@${C.x} en X</a></nav>
+<footer class="ft"><div class="wrap"><nav><a href="/como-instalar/">Cómo instalar</a><a href="/envia-tu-mod/">Envía tu mod</a><a href="/peticiones/">Peticiones</a><a href="/novedades/">Novedades</a><a href="/rss.xml">RSS</a><a href="/aviso-legal/">Aviso Legal</a><a href="/privacidad/">Política de Privacidad</a><a href="/envia-tu-mod/">Colabora</a><a href="${XU}" target="_blank" rel="noopener">@${C.x} en X</a></nav>
 <p>${C.name} es un proyecto de aficionados y no está afiliado, asociado ni respaldado por SEGA ni Sports Interactive. Football Manager es marca registrada de sus respectivos propietarios. Los mods pertenecen a sus creadores; aquí solo enlazamos a descargas externas.</p></div></footer>
-<script src="/js/app.js" defer></script></body></html>`;
+<script src="/js/app.js?v=${V.app}" defer></script></body></html>`;
 
 // NOVEDADES: nuevos mods + actualizaciones registradas en cada ficha
 const ups=mods.flatMap(m=>[...m.upd.map(u=>({m,date:u.date,ver:u.version,note:u.note,type:'update'})),...(m.date?[{m,date:m.date,type:'new'}]:[])]).filter(x=>x.date).sort((a,b)=>new Date(b.date)-new Date(a.date));
@@ -75,7 +77,7 @@ W(`${OUT}/index.html`,page({home:1,path:'/',title:`${C.name} — Mods de Footbal
 ${feat.length?`<section class="wrap"><h2>Mods imprescindibles</h2><div class="rail-w"><button class="rail-btn prev" type="button" aria-label="Anterior" hidden>‹</button><div class="rail">${feat.map((m,i)=>card(m,i<2)).join('')}</div><button class="rail-btn next" type="button" aria-label="Siguiente">›</button></div></section>`:''}
 <section class="wrap" id="ultimos"><h2>Últimos mods</h2><div class="tools"><div class="chips"><button class="on" data-cat="">Todos</button>${Object.entries(CATS).map(([k,v])=>`<button data-cat="${k}">${v.n}</button>`).join('')}</div><div class="selects"><label class="vsel"><span>Versión de FM</span><select id="ver"><option value="">Todas</option>${ALLV.map(v=>`<option value="${esc(vk(v))}">${esc(v)}</option>`).join('')}</select></label><label class="vsel"><span>Ordenar</span><select id="sort"><option value="">Más recientes</option><option value="valorados">Más valorados</option><option value="descargados">Más descargados</option><option value="gustados">Más me gusta</option></select></label></div></div>
 <p class="meta resline"><span id="count"></span> <button class="btn small" id="reset" type="button" hidden>Limpiar filtros</button></p>
-<div class="grid" id="grid">${mods.map(m=>card(m)).join('')}</div><div id="empty" class="empty-st" role="status" hidden><svg class="empty-ic" viewBox="0 0 120 120" aria-hidden="true"><rect x="14" y="26" width="92" height="62" rx="8" fill="none" stroke="currentColor" stroke-width="3" opacity=".45"/><path d="M60 26v62" stroke="currentColor" stroke-width="3" opacity=".45"/><circle cx="60" cy="57" r="11" fill="none" stroke="currentColor" stroke-width="3" opacity=".45"/><circle cx="80" cy="72" r="22" fill="var(--bg)" stroke="var(--ac)" stroke-width="5"/><path d="M96 88l14 14" stroke="var(--ac)" stroke-width="7" stroke-linecap="round"/><path d="M73 66c0-5 14-5 14 1 0 4-7 4-7 9M80 82v1" fill="none" stroke="var(--ac)" stroke-width="4" stroke-linecap="round"/></svg><h3>No hemos encontrado ningún mod</h3><p id="empty-msg">Prueba con otra palabra o quita algún filtro.</p><ul class="empty-tips"><li>Revisa la ortografía o busca solo una palabra.</li><li>Prueba con el nombre del autor, la categoría o la versión (FM26…).</li></ul><div class="empty-act"><button class="btn primary" id="empty-reset" type="button">Limpiar filtros</button><a class="btn" href="/peticiones/">Pedir este mod</a></div></div></section>
+<div class="grid" id="grid">${mods.map(m=>card(m)).join('')}</div><div class="more-w" id="more-w" hidden><button class="btn" id="more" type="button">Cargar más</button><span class="meta" id="more-n" aria-live="polite"></span></div><div id="empty" class="empty-st" role="status" hidden><svg class="empty-ic" viewBox="0 0 120 120" aria-hidden="true"><rect x="14" y="26" width="92" height="62" rx="8" fill="none" stroke="currentColor" stroke-width="3" opacity=".45"/><path d="M60 26v62" stroke="currentColor" stroke-width="3" opacity=".45"/><circle cx="60" cy="57" r="11" fill="none" stroke="currentColor" stroke-width="3" opacity=".45"/><circle cx="80" cy="72" r="22" fill="var(--bg)" stroke="var(--ac)" stroke-width="5"/><path d="M96 88l14 14" stroke="var(--ac)" stroke-width="7" stroke-linecap="round"/><path d="M73 66c0-5 14-5 14 1 0 4-7 4-7 9M80 82v1" fill="none" stroke="var(--ac)" stroke-width="4" stroke-linecap="round"/></svg><h3>No hemos encontrado ningún mod</h3><p id="empty-msg">Prueba con otra palabra o quita algún filtro.</p><ul class="empty-tips"><li>Revisa la ortografía o busca solo una palabra.</li><li>Prueba con el nombre del autor, la categoría o la versión (FM26…).</li></ul><div class="empty-act"><button class="btn primary" id="empty-reset" type="button">Limpiar filtros</button><a class="btn" href="/peticiones/">Pedir este mod</a></div></div></section>
 ${ups.length?`<section class="wrap"><h2>Últimas novedades</h2><div class="box"><ul class="tl news">${ups.slice(0,4).map(u=>upItem(u)).join('')}</ul><a class="btn" href="/novedades/">Ver el historial completo</a></div></section>`:''}
 <section class="wrap two">${donate()}${xcta()}</section>`}));
 
@@ -89,6 +91,16 @@ for(const m of mods){
   body:R.detail(m,{extras:donate()+xcta()})}));
 }
 
+// AUTORES: una página por autor de la colección «Autores» que tenga mods publicados (/autor/<slug>/)
+const nk=s=>norm(String(s||'').trim());
+const authPages=Object.entries(AUTHORS).map(([slug,a])=>({slug,a,ms:mods.filter(m=>m.auth.some(x=>nk(x.name)===nk(a.name)))})).filter(x=>x.ms.length);
+for(const {slug,a,ms} of authPages){
+ const url=`/autor/${slug}/`,ext=/^https?:/i.test(a.url||'');
+ W(`${OUT}${url}index.html`,page({path:url,title:`Mods de ${a.name} para Football Manager | ${C.name}`,
+  desc:`${ms.length} mod${ms.length===1?'':'s'} de ${a.name} para Football Manager: ${ms.slice(0,3).map(m=>m.title).join(', ')}.`.slice(0,155),
+  ld:{'@context':'https://schema.org','@type':'Person',name:a.name,url:ext?a.url:undefined,sameAs:ext?[a.url]:undefined},
+  body:`<div class="wrap"><h1>Mods de ${esc(a.name)}</h1><p class="meta">${ms.length} mod${ms.length===1?'':'s'}${ext?` · <a href="${esc(a.url)}" target="_blank" rel="noopener nofollow">Perfil del creador</a>`:''}</p><div class="grid">${ms.map(m=>card(m)).join('')}</div></div>`}));
+}
 
 // ===== PÁGINAS DE COMUNIDAD =====
 const XU2=`https://x.com/${C.x}`;
@@ -164,11 +176,17 @@ W(`${OUT}/como-instalar/index.html`,page({path:'/como-instalar/',title:`Cómo in
 <p><a class="btn primary" href="/">Volver a los mods</a></p></div>`}));
 
 // SEO + estáticos
-W(`${OUT}/sitemap.xml`,`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${['/',...mods.map(m=>`/mod/${m.slug}/`),'/como-instalar/','/envia-tu-mod/','/peticiones/','/novedades/','/aviso-legal/','/privacidad/'].map(u=>{const m=mods.find(x=>u==='/mod/'+x.slug+'/'),d=m&&((m.upd[0]&&m.upd[0].date)||m.date);return `<url><loc>${C.url}${u}</loc>${d?`<lastmod>${String(d).slice(0,10)}</lastmod>`:''}</url>`}).join('')}</urlset>`);
+W(`${OUT}/sitemap.xml`,`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${['/',...mods.map(m=>`/mod/${m.slug}/`),...authPages.map(x=>`/autor/${x.slug}/`),'/como-instalar/','/envia-tu-mod/','/peticiones/','/novedades/','/aviso-legal/','/privacidad/'].map(u=>{const m=mods.find(x=>u==='/mod/'+x.slug+'/'),ap=authPages.find(x=>u==='/autor/'+x.slug+'/'),lm=x=>(x.upd[0]&&x.upd[0].date)||x.date,d=m?lm(m):ap?ap.ms.map(lm).filter(Boolean).sort().pop():'';return `<url><loc>${C.url}${u}</loc>${d?`<lastmod>${String(d).slice(0,10)}</lastmod>`:''}</url>`}).join('')}</urlset>`);
+const rd=d=>new Date(d).toUTCString();
+W(`${OUT}/rss.xml`,`<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>${esc(C.name)} — Novedades</title><link>${C.url}/</link><atom:link href="${C.url}/rss.xml" rel="self" type="application/rss+xml"/><description>Mods nuevos y actualizaciones de Football Manager publicados en ${esc(C.name)}.</description><language>es-ES</language>${ups.length?`<lastBuildDate>${rd(ups[0].date)}</lastBuildDate>`:''}${ups.slice(0,30).map(u=>{const link=`${C.url}/mod/${u.m.slug}/`,t=u.type==='new'?'Nuevo: '+u.m.title:'Actualizado: '+u.m.title+(u.ver?' '+u.ver:''),dsc=u.type==='new'?(u.m.description||''):(u.note||u.m.description||'');return `<item><title>${esc(t+' ('+u.m.vers.join(', ')+')')}</title><link>${link}</link><guid isPermaLink="false">${link}#${u.type}-${String(u.date).slice(0,10)}</guid><pubDate>${rd(u.date)}</pubDate>${u.m.cats.map(c=>`<category>${esc(catOf(c).n)}</category>`).join('')}<description>${esc(String(dsc).replace(/\s+/g,' ').trim().slice(0,300))}</description></item>`}).join('')}</channel></rss>`);
 W(`${OUT}/robots.txt`,`User-agent: *\nAllow: /\nDisallow: /admin/\nSitemap: ${C.url}/sitemap.xml\n`);
 W(`${OUT}/data/search.json`,JSON.stringify(mods.map(m=>({s:m.slug,t:m.title,a:authText(m),v:m.vers,c:m.cats.map(c=>catOf(c).n),i:m.cover||'',n:norm([m.title,...m.auth.map(a=>a.name),...m.vers,...m.cats.map(c=>catOf(c).n),...m.tags].join(' '))}))));
 W(`${OUT}/data/meta.json`,JSON.stringify({C:{url:C.url,email:C.email,x:C.x,reload:C.reload},CATS,BADGE,LATEST,versions:ALLV,AUTHORS}));
 fs.cpSync('public',OUT,{recursive:true});
+// El panel carga /js/ficha.js y /css/style.css: se versionan también (esas rutas se cachean un año)
+{const f=p.join(OUT,'admin/index.html'),g=p.join(OUT,'admin/preview.js');
+ if(fs.existsSync(f))fs.writeFileSync(f,fs.readFileSync(f,'utf8').replace('/js/ficha.js"','/js/ficha.js?v='+V.ficha+'"'));
+ if(fs.existsSync(g))fs.writeFileSync(g,fs.readFileSync(g,'utf8').replace("'/css/style.css'","'/css/style.css?v="+V.css+"'"))}
 try{const up='public/img/uploads';fs.readdirSync(up).forEach(f=>{const sz=fs.statSync(p.join(up,f)).size;if(sz>400*1024)console.warn(`⚠ ${f} pesa ${(sz/1048576).toFixed(1)} MB: súbela más ligera (JPG o WebP, ~1200 px de ancho) para que cargue rápido`)})}catch{}
 if(C.adsense)W(`${OUT}/ads.txt`,`google.com, ${C.adsense.replace(/^ca-/,'')}, DIRECT, f08c47fec0942fa0\n`);
 console.log(`OK: ${mods.length} mods → ${OUT}/`);
