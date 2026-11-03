@@ -28,7 +28,7 @@ const {catOf,badges,authText,vchips,compat,needsReload,installPaths,hist,report}
 const norm=s=>String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
 const D='content/mods',OUT='dist';
 const AUTHORS={};readDir('content/autores').forEach(a=>{if(String(a.name||'').trim())AUTHORS[a.slug]={name:String(a.name).trim(),url:String(a.url||'').trim()}});
-const mods=(fs.existsSync(D)?fs.readdirSync(D).filter(f=>f.endsWith('.json')):[]).map(f=>normalize(JSON.parse(fs.readFileSync(p.join(D,f),'utf8')),f.slice(0,-5),console.warn,AUTHORS))
+const mods=(fs.existsSync(D)?fs.readdirSync(D).filter(f=>f.endsWith('.json')):[]).map(f=>normalize(JSON.parse(fs.readFileSync(p.join(D,f),'utf8')),f.slice(0,-5),console.warn,AUTHORS)).filter(m=>{if(/borrador|revisi[oó]n/i.test(String(m.status||''))){console.log('· '+m.slug+': borrador, no se publica');return false}return true})
   .sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
 const W=(f,t)=>{fs.mkdirSync(p.dirname(f),{recursive:true});fs.writeFileSync(f,t)};
 const XI='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>';
