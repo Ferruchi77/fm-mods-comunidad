@@ -1,5 +1,10 @@
 {
   "install_path": "Steam\\steamapps\\common\\Football Manager 27\\fm_Data\\StreamingAssets\\aa\\StandaloneWindows64",
+  "updates": [
+    {
+      "date": "2026-11-02"
+    }
+  ],
   "author": "James Prisk",
   "date": "2026-10-30",
   "fm_versions": [
