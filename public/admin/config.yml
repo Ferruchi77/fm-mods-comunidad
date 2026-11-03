@@ -21,10 +21,36 @@ collections:
     extension: json
     format: json
     slug: "{{slug}}"
-    summary: "{{title}} ({{date}})"
+    summary: "{{title}} · {{status}}"
+    # Ordenar la lista (menú «Ordenar por» del panel). Se usan campos reales de la ficha.
+    sortable_fields: [date, modified, status, featured, title]
+    # Filtros y agrupaciones rápidas de la lista
+    view_filters:
+      - { label: "🟢 Publicados", field: status, pattern: "Publicado" }
+      - { label: "🟡 Borradores / en revisión", field: status, pattern: "Borrador" }
+      - { label: "🔴 Pendientes de actualización", field: status, pattern: "Pendiente" }
+      - { label: "⚪ Incompatibles", field: status, pattern: "Incompatible" }
+      - { label: "⭐ Imprescindibles", field: featured, pattern: true }
+    view_groups:
+      - { label: Estado, field: status }
+      - { label: Destacado, field: featured }
+    # El formulario se divide en 3 pestañas (script /admin/ui.js):
+    #   1 · Información principal   2 · Autores y enlaces   3 · Contenido y multimedia
+    # Los campos marcados con * son obligatorios: el panel no deja guardar si faltan.
     fields:
-      - { label: Título, name: title, widget: string }
-      - label: Categorías (puedes elegir varias)
+      # ───── Pestaña 1 · Información principal ─────
+      - { label: "Título *", name: title, widget: string, hint: "Obligatorio." }
+      - label: "Estado de la ficha *"
+        name: status
+        widget: select
+        default: "🟢 Publicado"
+        hint: "Los «Borrador / En revisión» NO se publican en la web. Pendiente de actualización e Incompatible sí se ven, pero te sirven para saber qué toca revisar."
+        options:
+          - "🟢 Publicado"
+          - "🟡 Borrador / En revisión"
+          - "🔴 Pendiente de actualización"
+          - "⚪ Incompatible"
+      - label: "Categorías * (puedes elegir varias)"
         name: categories
         widget: relation
         collection: categorias
@@ -33,7 +59,8 @@ collections:
         display_fields: [name]
         multiple: true
         min: 1
-      - label: Versiones de FM (puedes elegir varias)
+        hint: "Obligatorio: al menos una."
+      - label: "Versiones de FM * (puedes elegir varias)"
         name: fm_versions
         widget: relation
         collection: versiones
@@ -42,6 +69,24 @@ collections:
         display_fields: [name]
         multiple: true
         min: 1
+        hint: "Obligatorio: al menos una."
+      - label: Distintivos (puedes elegir varios; Imprescindible = sale en la portada)
+        name: badges
+        hint: "¿No ves el que buscas? Créalo antes en la sección «Distintivos» del menú (nombre, color e icono)."
+        widget: relation
+        collection: distintivos
+        search_fields: [name]
+        value_field: name
+        display_fields: [name]
+        multiple: true
+        required: false
+      - { label: "⭐ Destacado (Imprescindible)", name: featured, widget: boolean, default: false, required: false, hint: "Si lo marcas, el mod sale como Imprescindible en la portada y puedes ordenar la lista por esto." }
+      - { label: Flags / Etiquetas, name: tags, widget: list, required: false }
+      - { label: "Parche del juego con el que lo has probado (ej. 27.0.1)", name: compat_patch, widget: string, required: false }
+      - { label: "Aviso de compatibilidad (opcional, ej. Requiere la última actualización)", name: compat_note, widget: string, required: false }
+      - { label: "Fecha de publicación *", name: date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+      - { label: "Última modificación (sirve para ordenar la lista)", name: modified, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD", required: false }
+      # ───── Pestaña 2 · Autores y enlaces ─────
       - label: Creadores / Autores (pulsa «Añadir» para poner más de uno)
         name: authors
         widget: list
@@ -63,23 +108,11 @@ collections:
       # Campos antiguos: se conservan ocultos para no perder datos de los mods creados antes
       - { label: Autor (antiguo), name: author, widget: hidden, required: false }
       - { label: Enlace del autor (antiguo), name: author_url, widget: hidden, required: false }
-      - { label: Imagen de portada, name: cover, widget: image, required: false }
+      - { label: "Enlace de descarga * (Mediafire, MEGA, Drive…)", name: download_url, widget: string, hint: "Obligatorio. Debe empezar por https://", pattern: ['^https?://\S+$', 'Debe ser una URL válida que empiece por http:// o https://'] }
+      # ───── Pestaña 3 · Contenido y multimedia ─────
+      - { label: Imagen de portada, name: cover, widget: image, required: false, hint: "Sube un archivo o usa «Insertar desde URL». Mira la vista previa: comprueba que la imagen carga." }
       - { label: Capturas de pantalla, name: screenshots, widget: list, required: false, field: { label: Captura, name: shot, widget: image } }
-      - { label: Descripción, name: description, widget: text }
-      - { label: Enlace de descarga (Mediafire, MEGA, Drive…), name: download_url, widget: string, pattern: ['^https?://', 'Debe empezar por https://'] }
-      - { label: Flags / Etiquetas, name: tags, widget: list, required: false }
-      - label: Distintivos (puedes elegir varios; Imprescindible = sale en la portada)
-        name: badges
-        hint: "¿No ves el que buscas? Créalo antes en la sección «Distintivos» del menú (nombre, color e icono)."
-        widget: relation
-        collection: distintivos
-        search_fields: [name]
-        value_field: name
-        display_fields: [name]
-        multiple: true
-        required: false
-      - { label: "Parche del juego con el que lo has probado (ej. 27.0.1)", name: compat_patch, widget: string, required: false }
-      - { label: "Aviso de compatibilidad (opcional, ej. Requiere la última actualización)", name: compat_note, widget: string, required: false }
+      - { label: "Descripción *", name: description, widget: text }
       - { label: Ruta de instalación (vacío = se calcula sola; una ruta por línea si hay varias), name: install_path, widget: text, required: false }
       - { label: Instrucciones (una línea por paso; vacío = genéricas), name: instructions, widget: text, required: false }
       - label: Historial de actualizaciones (añade una entrada cada vez que subas una versión nueva)
@@ -91,7 +124,6 @@ collections:
           - { label: Fecha, name: date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
           - { label: "Versión del mod (ej. v1.2)", name: version, widget: string, required: false }
           - { label: Qué ha cambiado, name: note, widget: text, required: false }
-      - { label: Fecha de publicación, name: date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
 
   - name: categorias
     label: Categorías
