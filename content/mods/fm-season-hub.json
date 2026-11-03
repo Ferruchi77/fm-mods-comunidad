@@ -1,4 +1,11 @@
 {
+  "updates": [
+    {
+      "version": "0.9.1",
+      "note": "¡Acaba de lanzarse una actualización para FMSH para garantizar la compatibilidad con la nueva versión de FM27 que acaba de salir!!\nSolo reinicia tu app o haz clic en el botón de actualización.",
+      "date": "2026-11-02"
+    }
+  ],
   "author": "FM Season Hub",
   "screenshots": [
     "https://sortitoutsi.b-cdn.net/uploads/media_2026/MbdGSK9p4T3pWxlIkqM4FgqIGe8yUjm6uf6WwY4k.png",
