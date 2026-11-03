@@ -2,13 +2,18 @@
   "install_path": "Ejecuta el instalador: Abre la carpeta descomprimida y haz doble clic en el archivo Install.bat.",
   "updates": [
     {
-      "version": "1.3.1",
-      "date": "2026-11-01"
+      "date": "2026-11-03",
+      "version": "1.5.1",
+      "note": "• Ahora funciona en Xbox / PC Game Pass\n• ¿Páginas transparentes o fondo de pantalla morado tras una actualización de FM? Ejecuta el nuevo instalador una vez para solucionarlo; no volverá a ocurrir."
     },
     {
       "note": "La actualización de FM de hoy desactivó parte de la interfaz y evitó que el instalador se ejecutara. Esto lo soluciona.\n\n¿Ya lo tienes instalado? Simplemente ejecuta el nuevo archivo Install.bat.\n",
       "version": "1.4.2",
       "date": "2026-11-02"
+    },
+    {
+      "version": "1.3.1",
+      "date": "2026-11-01"
     }
   ],
   "author": " FM Extra Time",
