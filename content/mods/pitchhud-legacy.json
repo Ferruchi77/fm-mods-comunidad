@@ -1,0 +1,24 @@
+{
+  "authors": [
+    {
+      "ref": "fm-tigrotto"
+    }
+  ],
+  "updates": [
+    {
+      "date": "2026-11-02",
+      "version": "1.2.2"
+    }
+  ],
+  "date": "2026-10-30",
+  "fm_versions": [
+    "FM27"
+  ],
+  "cover": "https://fmseasonhub.com/_astro/01.BSBg9ghP_Z27oJc9.webp",
+  "download_url": "https://fmseasonhub.com/es/plugins/pitchhud-fm27",
+  "title": "PitchHUD Legacy",
+  "categories": [
+    "bases-de-datos"
+  ],
+  "description": "Etiquetas con estilo de transmisión en el partido 3D de FM27: la foto del facepack, el dorsal, los km recorridos y el % de pases de cada jugador."
+}
