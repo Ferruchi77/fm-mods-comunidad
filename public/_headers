@@ -1,0 +1,11 @@
+# Caché larga para estáticos inmutables. build.js añade ?v=<hash> a los enlaces de /css y /js,
+# así que cuando cambian se descargan de nuevo aunque el navegador los tenga guardados un año.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+/css/*
+  Cache-Control: public, max-age=31536000, immutable
+/js/*
+  Cache-Control: public, max-age=31536000, immutable
+# Imágenes del sitio: un día (los nombres de archivo pueden reutilizarse al subir una versión nueva)
+/img/*
+  Cache-Control: public, max-age=86400

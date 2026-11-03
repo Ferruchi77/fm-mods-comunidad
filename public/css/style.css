@@ -200,3 +200,6 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;bac
 :root[data-theme="light"] .fst .fr{color:#b97d00}
 .fst .dlc{padding:5px 12px}.fb .dlc{display:none}
 .stars button.half{background:linear-gradient(90deg,#f5c542 50%,var(--star-off) 50%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+
+/* botón «Cargar más» */
+.more-w{display:flex;flex-direction:column;align-items:center;gap:8px;margin:24px 0 8px}.more-w .btn{min-width:220px}
