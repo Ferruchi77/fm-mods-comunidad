@@ -1,0 +1,21 @@
+{
+  "authors": [
+    {
+      "name": "Yoshialfie"
+    }
+  ],
+  "date": "2026-11-02",
+  "badges": [
+    "Imprescindible"
+  ],
+  "fm_versions": [
+    "FM27"
+  ],
+  "cover": "https://sortitoutsi.b-cdn.net/uploads/media_2026/Fye3zBRPUHUjZETDMNgYIXNSLIsVOR1mL4rWbG1M.png",
+  "download_url": "https://sortitoutsi.net/content/78143/fm27-intro-skip",
+  "title": "Skip Intro FM27",
+  "categories": [
+    "bases-de-datos"
+  ],
+  "description": "Funciona con BepInEx 6, por lo que debería ser compatible con todos los aspectos (skins). El inicio del juego es más de un 50 % más rápido que en la versión original. Creado en Linux, así que debería funcionar igual que en Windows. No se ha probado en Mac."
+}
