@@ -1,5 +1,11 @@
 {
   "install_path": "\\Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins",
+  "updates": [
+    {
+      "date": "2026-11-02",
+      "version": "2.0.1"
+    }
+  ],
   "author": "FM Season Hub",
   "screenshots": [],
   "date": "2026-10-31",
@@ -9,7 +15,7 @@
   ],
   "cover": "https://www.footyheadlines.com/static/img/post/2026/10/02/pLoegJ4zCYQTLUM/3d-kits-plugin-released-for-football-manager.jpg",
   "download_url": "https://fmseasonhub.com/es/plugins/fmactionlink-kits3d-fm27",
-  "title": "ActionLink Kits 3D",
+  "title": "FM ActionLink - Kits 3D",
   "author_url": "https://x.com/FMSeasonHub",
   "categories": [
     "bases-de-datos"
