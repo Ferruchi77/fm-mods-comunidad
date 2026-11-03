@@ -1,0 +1,20 @@
+{
+  "title": "Kit Converter All",
+  "categories": [
+    "dia-de-partido"
+  ],
+  "fm_versions": [
+    "FM27",
+    "FM26"
+  ],
+  "authors": [
+    {
+      "name": "FM Tigrotto",
+      "url": "https://x.com/fmtigrotto"
+    }
+  ],
+  "cover": "https://pbs.twimg.com/media/HWJftgIWwAAAEyo?format=jpg&name=large",
+  "description": "Convierte equipaciones directamente en tu navegador, sin necesidad de instalar nada:\n- PES 2021 → FM27 / FM26\n- FM26 → FM27\n- FM26 / FM27 → PES 2021\n- Vista previa en 3D, procesamiento por lotes y descarga en formato .zip",
+  "download_url": "https://fmtigrotto.com/tools/kit-converter-online",
+  "date": "2026-11-02"
+}
