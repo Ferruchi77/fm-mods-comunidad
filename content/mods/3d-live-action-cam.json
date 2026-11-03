@@ -1,5 +1,12 @@
 {
   "install_path": "\\Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins",
+  "updates": [
+    {
+      "date": "2026-11-03",
+      "version": "5.2",
+      "note": "-Transiciones de cámara mediante cortes directos, en lugar de los movimientos de barrido que distorsionaban la imagen.\n\n-Detección de goleadores mejorada (precisión del 100 %) para la cámara de celebración de goles.\n\n-Reducción del lag y mejora de los FPS.\n\n-Se están corrigiendo errores poco frecuentes que provocaban el cierre inesperado del juego."
+    }
+  ],
   "author": " joni9",
   "screenshots": [
     "https://sortitoutsi.b-cdn.net/uploads/media_2026/eynyagdEYEe9sIvhTYOJvraMov7ZArp90iC81LVZ.png",
