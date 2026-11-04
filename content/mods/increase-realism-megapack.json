@@ -1,10 +1,13 @@
 {
   "install_path": "\\Documents\\Sports Interactive\\Football Manager 27\\editor data",
+  "modified": "2026-11-04",
   "author": " FM_Daveincid",
+  "featured": true,
   "date": "2026-10-30",
   "badges": [
     "Imprescindible"
   ],
+  "status": "🟢 Publicado",
   "fm_versions": [
     "FM27"
   ],
