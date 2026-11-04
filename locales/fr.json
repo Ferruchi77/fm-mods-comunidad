@@ -127,5 +127,7 @@
  "sg_none": "Aucun résultat pour « {q} »",
  "sg_none_hint": "Essayez un autre mot ou <a href=\"/peticiones/\">demandez-nous le mod qui vous manque</a>.",
  "likes_one": "j'aime",
- "likes_other": "j'aime"
+ "likes_other": "j'aime",
+ "lang_share": "Copier le lien dans cette langue",
+ "lang_copied": "Lien copié !"
 }

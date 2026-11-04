@@ -216,3 +216,4 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;bac
 .x.kofi:hover{border-color:#fff;filter:brightness(1.08)}
 @media(max-width:900px){.x.kofi{width:38px;padding:0;justify-content:center}.x.kofi .kt{display:none}}
 @media(max-width:600px){.hd-in{gap:6px}.x{width:34px;height:34px}.x.lbtn{width:34px;padding:0;justify-content:center}.x.lbtn .lcode{display:none}.x.kofi{width:34px}}
+.lmenu .lsep{margin-top:4px;padding-top:4px;border-top:1px solid var(--bd)}.lmenu .lshare{color:var(--mu);font-size:.85rem}

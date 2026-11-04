@@ -32,6 +32,7 @@ const make=ctx=>{
   const S=(k,v,tag='span',cls='')=>`<${tag}${cls?` class="${cls}"`:''}${I(k,v)}>${esc(T(k,v))}</${tag}>`;
   const AM=(a,v)=>Object.entries(a).map(([n,k])=>`${n}="${esc(T(k,v))}"`).join(' ')+` data-i18n-attr="${Object.entries(a).map(([n,k])=>n+':'+k).join(';')}"${pj(v)}`;
   const catOf=s=>CATS[s]||{n:s,d:'',dir:'graphics/'};
+  const trAttr=x=>x&&x.t?` data-tr="${esc(JSON.stringify(x.t))}"`:''; // nombre de categoría en otros idiomas (lo traduce i18n.js)
   const lum=h=>{const n=parseInt(h.slice(1),16);return(0.299*(n>>16)+0.587*((n>>8)&255)+0.114*(n&255))/255};
   const badge=b=>{const i=typeof BADGE[b]==='string'?{color:BADGE[b]}:(BADGE[b]||{}),hex=/^#[0-9a-f]{6}$/i.test(i.hex||'')?i.hex:'';
     return `<span class="b b-${i.color||'gris'}"${hex?` style="background:${hex};border-color:${hex};color:${lum(hex)>.55?'#111':'#fff'}"`:''}>${i.icon?esc(i.icon)+' ':''}${esc(b)}</span>`};
@@ -65,9 +66,9 @@ const make=ctx=>{
     const appOnly=m.cats.length>0&&m.cats.every(c=>c==='app-externa');
     const paras=esc(m.description||'').split(/\n{2,}/).map(t=>`<p>${t.replace(/\n/g,'<br>')}</p>`).join('');
     const steps=(m.instructions?String(m.instructions).split('\n').filter(Boolean).map(s=>`<li>${esc(s)}</li>`):(appOnly?['st_app1','st_app2','st_app3']:['st_def1','st_def2','st_def3',...(needsReload(m)?['st_def4']:[])]).map(k=>S(k,null,'li'))).join('');
-    return `<div class="wrap"><p class="crumb"><a href="/"${I('crumb_home')}>${esc(T('crumb_home'))}</a> / ${m.cats[0]?`<a href="/?cat=${m.cats[0]}">${esc(cn[0].n)}</a>`:S('crumb_mods')}</p>
+    return `<div class="wrap"><p class="crumb"><a href="/"${I('crumb_home')}>${esc(T('crumb_home'))}</a> / ${m.cats[0]?`<a href="/?cat=${m.cats[0]}"${trAttr(cn[0])}>${esc(cn[0].n)}</a>`:S('crumb_mods')}</p>
 <div class="bd">${badges(m)}</div><h1>${esc(m.title)}</h1>
-<p class="catlinks">${m.cats.map((c,i)=>`<a href="/?cat=${c}">${esc(cn[i].n)}</a>`).join('')}</p>
+<p class="catlinks">${m.cats.map((c,i)=>`<a href="/?cat=${c}"${trAttr(cn[i])}>${esc(cn[i].n)}</a>`).join('')}</p>
 <p class="byline">${UI}${S('byline',null,'span','lbl')} <strong>${authHtml(m)}</strong>${m.date?`<time datetime="${esc(m.date)}" data-d="long">${dt(m.date)}</time>`:''}${m.upd[0]?`<span class="upd">${S('upd_on')} <time datetime="${esc(m.upd[0].date)}" data-d="long">${dt(m.upd[0].date)}</time>${m.upd[0].version?' ('+esc(m.upd[0].version)+')':''}</span>`:''}</p>
 <div class="rate" data-rate="${m.slug}"><div class="stars" role="group" ${AM({'aria-label':'rate_aria'})}>${[1,2,3,4,5].map(n=>`<button type="button" data-star="${n}" ${AM({'aria-label':'star_aria'},{n})} aria-pressed="false">★</button>`).join('')}</div><span class="rtxt">Sé el primero en valorar</span></div>
 ${compat(m)}
@@ -79,7 +80,7 @@ ${shots.length?`<img class="shot" id="shot" data-zoom tabindex="0" ${AM({title:'
 ${report(m)}</div>
 ${opt.extras||''}</aside></div></div>`;
   };
-  return {catOf,badges,authText,authHtml,vchips,compat,needsReload,installPaths,hist,report,detail};
+  return {trAttr,catOf,badges,authText,authHtml,vchips,compat,needsReload,installPaths,hist,report,detail};
 };
 return {esc,vk,verYear,dt,UI,normalize,make};
 });

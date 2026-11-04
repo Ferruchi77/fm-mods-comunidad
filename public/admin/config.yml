@@ -1,4 +1,4 @@
-# Netlify: git-gateway + Identity. Vercel u otro host: cambia por
+# Netlify: git-gateway + Identity (el proyecto está pensado para Netlify: /api/stats y las cabeceras dependen de él). Otro host: cambia por
 #   backend: { name: github, repo: USUARIO/REPO, branch: main, base_url: https://TU-OAUTH-PROXY }
 backend:
   name: git-gateway
@@ -137,6 +137,10 @@ collections:
     fields:
       - { label: Nombre, name: name, widget: string }
       - { label: Descripción corta, name: description, widget: string, required: false }
+      - { label: "Nombre en inglés (opcional)", name: name_en, widget: string, required: false }
+      - { label: "Nombre en catalán (opcional)", name: name_ca, widget: string, required: false }
+      - { label: "Nombre en francés (opcional)", name: name_fr, widget: string, required: false }
+      - { label: "Nombre en portugués (opcional)", name: name_pt, widget: string, required: false }
       - { label: "Subcarpeta de instalación dentro de Football Manager (ej. graphics/ , skins/ , editor data/)", name: install_dir, widget: string, default: "graphics/" }
       - { label: Orden en el menú (1, 2, 3…), name: order, widget: number, value_type: int, default: 10, required: false }
 
