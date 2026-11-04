@@ -4,10 +4,12 @@
       "name": "Yoshialfie"
     }
   ],
+  "install_path": "Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins",
   "date": "2026-11-02",
   "badges": [
     "Imprescindible"
   ],
+  "status": "🟢 Publicado",
   "fm_versions": [
     "FM27"
   ],
