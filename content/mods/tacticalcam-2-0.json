@@ -1,0 +1,21 @@
+{
+  "authors": [
+    {
+      "ref": "fm-season-hub"
+    }
+  ],
+  "modified": "2026-11-04",
+  "featured": false,
+  "date": "2026-11-04",
+  "status": "🟢 Publicado",
+  "fm_versions": [
+    "FM27"
+  ],
+  "cover": "https://fmseasonhub.com/_astro/01.CIo87T7k_Z1LA1z0.webp",
+  "download_url": "https://fmseasonhub.com/es/plugins/tacticalcam-fm27",
+  "title": "TacticalCam 2.0",
+  "categories": [
+    "bases-de-datos"
+  ],
+  "description": "Ajusta en directo las cámaras táctica y de retransmisión de FM27 y el tamaño del balón, con ajustes por estadio. Incluye el nuevo modo Tactical Broadcast.\n\n"
+}
