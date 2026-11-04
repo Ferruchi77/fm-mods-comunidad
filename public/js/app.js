@@ -1,24 +1,27 @@
 (()=>{
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+// i18n (public/js/i18n.js se carga antes): tr = texto traducido, trp = con plural (clave_one / clave_other)
+const i18n=window.FMi18n||{t:k=>k,tp:k=>k,locale:'es-ES'},tr=(k,v)=>i18n.t(k,v),trp=(k,n,v)=>i18n.tp(k,n,v);
 const q=$('#q'),grid=$('#grid'),norm=s=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
 $$('[data-copy]').forEach(b=>b.setAttribute('aria-live','polite'));
+let syncTheme=()=>{};
 const th=$('#theme');
 if(th){const cur=()=>document.documentElement.getAttribute('data-theme')==='light'?'light':'dark';
-  const sync=()=>{const l=cur()==='light';th.setAttribute('aria-label',l?'Cambiar a modo oscuro':'Cambiar a modo claro');th.title=th.getAttribute('aria-label')};
-  sync();th.addEventListener('click',()=>{const t=cur()==='light'?'dark':'light';document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('fm_theme',t)}catch{}sync()})}
+  const sync=()=>{const l=cur()==='light';th.setAttribute('aria-label',tr(l?'theme_to_dark':'theme_to_light'));th.title=th.getAttribute('aria-label')};
+  syncTheme=sync;sync();th.addEventListener('click',()=>{const t=cur()==='light'?'dark':'light';document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('fm_theme',t)}catch{}sync()})}
 const ls={get:(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k));return v==null?d:v}catch{return d}},set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
 const post=(slug,action,extra={})=>fetch('/api/stats',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({slug,action,...extra}),keepalive:true}).then(r=>r.ok?r.json():null).catch(()=>null);
-const fmt=n=>new Intl.NumberFormat('es').format(n);
+const fmt=n=>new Intl.NumberFormat(i18n.locale).format(n);
 const DL='<svg class="dl-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v10m0 0l-4-4m4 4l4-4M4 15v3a3 3 0 003 3h10a3 3 0 003-3v-3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const likeBtn=$('[data-like]'),dlLink=$('[data-dlc]'),rb=$('[data-rate]');
 let S={},hov=0,loaded=false,onStats=()=>{};
 const stat=slug=>({likes:0,downloads:0,ratingSum:0,ratingCount:0,...(S[slug]||{})});
-const avg=s=>(s.ratingSum/s.ratingCount).toFixed(1).replace('.',',');
-const nf=v=>String(v).replace('.',',');
+const avg=s=>new Intl.NumberFormat(i18n.locale,{minimumFractionDigits:1,maximumFractionDigits:1}).format(s.ratingSum/s.ratingCount);
+const nf=v=>new Intl.NumberFormat(i18n.locale).format(v);
 const renderCards=()=>$$('[data-s]').forEach(el=>{const s=stat(el.dataset.s),t=[];
-  if(s.ratingCount)t.push(`<span class="r" title="Valoración media">★ ${avg(s)} <i>(${s.ratingCount})</i></span>`);
-  if(s.downloads)t.push(`<span class="dl" title="Descargas">${DL}${fmt(s.downloads)}</span>`);
-  if(s.likes)t.push(`<span title="Me gusta">👍 ${fmt(s.likes)}</span>`);
+  if(s.ratingCount)t.push(`<span class="r" title="${tr('st_rating')}">★ ${avg(s)} <i>(${s.ratingCount})</i></span>`);
+  if(s.downloads)t.push(`<span class="dl" title="${tr('st_dl')}">${DL}${fmt(s.downloads)}</span>`);
+  if(s.likes)t.push(`<span title="${tr('st_like')}">👍 ${fmt(s.likes)}</span>`);
   el.innerHTML=t.join('');el.hidden=!t.length});
 
 // Búsqueda en vivo: sugerencias al escribir (en todas las páginas) con retardo corto y teclado
@@ -34,8 +37,8 @@ if(q&&sg){let idx=null,items=[],act=-1,tm;
     const w=t.split(/\s+/).filter(Boolean);
     items=all.filter(m=>w.every(x=>m.n.includes(x))).map(m=>{const nt=norm(m.t);return{m,sc:nt.startsWith(w[0])?0:nt.includes(w[0])?1:2}}).sort((x,y)=>x.sc-y.sc).map(x=>x.m);
     const top=items.slice(0,6);
-    sg.innerHTML=top.length?top.map((m,i)=>`<a class="sg-i" role="option" id="sg-${i}" aria-selected="false" href="/mod/${eh(m.s)}/"><img src="${eh(m.i||'/img/placeholder.svg')}" alt="" loading="lazy" width="64" height="36"><span class="sg-t"><b>${hl(m.t,w[0])}</b><small>${eh(m.a)}${m.c.length?' · '+eh(m.c.join(', ')):''}</small></span><span class="sg-v">${m.v.map(x=>`<i>${eh(x)}</i>`).join('')}</span></a>`).join('')+`<a class="sg-all" href="/?q=${encodeURIComponent(v)}">Ver los ${items.length} resultado${items.length===1?'':'s'} de «${eh(v)}»</a>`
-      :`<div class="sg-no"><b>Sin resultados para «${eh(v)}»</b><span>Prueba con otra palabra o <a href="/peticiones/">pídenos el mod que echas en falta</a>.</span></div>`;
+    sg.innerHTML=top.length?top.map((m,i)=>`<a class="sg-i" role="option" id="sg-${i}" aria-selected="false" href="/mod/${eh(m.s)}/"><img src="${eh(m.i||'/img/placeholder.svg')}" alt="" loading="lazy" width="64" height="36"><span class="sg-t"><b>${hl(m.t,w[0])}</b><small>${eh(m.a)}${m.c.length?' · '+eh(m.c.join(', ')):''}</small></span><span class="sg-v">${m.v.map(x=>`<i>${eh(x)}</i>`).join('')}</span></a>`).join('')+`<a class="sg-all" href="/?q=${encodeURIComponent(v)}">${eh(trp('sg_all',items.length,{q:v}))}</a>`
+      :`<div class="sg-no"><b>${eh(tr('sg_none',{q:v}))}</b><span>${tr('sg_none_hint')}</span></div>`;
     sg.hidden=false;q.setAttribute('aria-expanded','true');act=-1};
   q.addEventListener('input',()=>{clearTimeout(tm);tm=setTimeout(run,120)});
   q.addEventListener('focus',()=>{load();if(q.value.trim().length>1)run()});
@@ -62,8 +65,8 @@ if(grid){
   const PAGE=12,more=$('#more'),mw=$('#more-w'),mn=$('#more-n');let limit=PAGE;
   const apply=()=>{const t=norm(q.value.trim());let n=0,k=0;
     sorted().forEach(c=>{const ok=(!cat||c.dataset.c.split(' ').includes(cat))&&(!sel.value||c.dataset.v.split(' ').includes(sel.value))&&(!t||c.dataset.t.includes(t));n+=ok;const vis=ok&&k<limit;if(vis)k++;c.hidden=!vis;grid.append(c)});
-    if(mw){mw.hidden=n<=k;if(n>k){more.textContent='Cargar '+Math.min(PAGE,n-k)+' más';mn.textContent='Mostrando '+k+' de '+n+' mods'}}
-    empty.hidden=n>0;if(!n&&emsg){const qq=q.value.trim(),f=[sel.value&&'la versión '+sel.options[sel.selectedIndex].text,cat&&'la categoría seleccionada'].filter(Boolean);emsg.textContent=(qq?'No hay resultados para «'+qq+'»':'No hay mods con esos filtros')+(f.length?(qq?' con ':' en ')+f.join(' y '):'')+'. Prueba con otra búsqueda o limpia los filtros.';if(erst)erst.hidden=!(cat||sel.value||srt.value||qq)}cnt.textContent=n+(n===1?' mod':' mods')+(srt.value&&!loaded?' · datos de la comunidad no disponibles':'');rs.hidden=!(cat||sel.value||srt.value||q.value.trim());
+    if(mw){mw.hidden=n<=k;if(n>k){more.textContent=tr('more',{n:Math.min(PAGE,n-k)});mn.textContent=tr('showing',{k,n})}}
+    empty.hidden=n>0;if(!n&&emsg){const qq=q.value.trim(),vv=sel.value&&sel.options[sel.selectedIndex].text;emsg.textContent=qq&&vv?tr('empty_qv',{q:qq,v:vv}):qq?tr('empty_q',{q:qq}):vv?tr('empty_v',{v:vv}):tr('empty_f');if(erst)erst.hidden=!(cat||sel.value||srt.value||qq)}cnt.textContent=trp('count',n)+(srt.value&&!loaded?' · '+tr('no_stats'):'');rs.hidden=!(cat||sel.value||srt.value||q.value.trim());
     $$('[data-cat]').forEach(b=>b.classList.toggle('on',b.dataset.cat===cat));
     const s=new URLSearchParams();if(cat)s.set('cat',cat);if(q.value.trim())s.set('q',q.value.trim());if(sel.value)s.set('ver',sel.value);if(srt.value)s.set('sort',srt.value);
     history.replaceState(null,'',s.toString()?'?'+s:location.pathname)};
@@ -76,10 +79,10 @@ document.addEventListener('click',async e=>{
   const b=e.target.closest('[data-copy]');
   if(b){let ok=true;
     try{await navigator.clipboard.writeText(b.dataset.copy)}catch{try{const t=document.createElement('textarea');t.value=b.dataset.copy;document.body.append(t);t.select();ok=document.execCommand('copy');t.remove()}catch{ok=false}}
-    b.dataset.o=b.dataset.o||b.textContent;clearTimeout(b._t);b.classList.remove('ok');void b.offsetWidth;
-    b.textContent=ok?'✓ ¡Ruta copiada!':'No se pudo copiar: cópiala a mano';b.classList.toggle('ok',ok);
+    clearTimeout(b._t);b.classList.remove('ok');void b.offsetWidth;
+    b.textContent=ok?tr('copy_ok'):tr('copy_fail');b.classList.toggle('ok',ok);
     const pth=b.previousElementSibling;if(ok&&pth&&pth.classList.contains('path')){pth.classList.remove('flash');void pth.offsetWidth;pth.classList.add('flash')}
-    b._t=setTimeout(()=>{b.textContent=b.dataset.o;b.classList.remove('ok')},1800)}
+    b._t=setTimeout(()=>{b.textContent=tr('copy_btn');b.classList.remove('ok')},1800)}
   const t=e.target.closest('.thumbs button');
   if(t){$('#shot').src=t.dataset.src;$$('.thumbs button').forEach(x=>x.classList.toggle('on',x===t))}
 });
@@ -92,11 +95,11 @@ $$('.rail-w').forEach(w=>{const r=$('.rail',w),p=$('.prev',w),n=$('.next',w);
 const renderDetail=()=>{
   if(likeBtn){const slug=likeBtn.dataset.like,s=stat(slug),on=ls.get('fm_likes',[]).includes(slug),d=$('[data-dl]');
     likeBtn.classList.toggle('on',on);likeBtn.setAttribute('aria-pressed',on);$('b',likeBtn).textContent=s.likes?fmt(s.likes):'';
-    if(d)d.innerHTML=DL+fmt(s.downloads)+(s.downloads===1?' descarga':' descargas');
-    const fr=$('[data-fr]'),fl=$('[data-fl]');if(fr)fr.innerHTML=s.ratingCount?'★ <b>'+avg(s)+'</b> <i>('+s.ratingCount+(s.ratingCount===1?' voto':' votos')+')</i>':'★ Sin valoraciones';if(fl)fl.innerHTML='👍 <b>'+fmt(s.likes)+'</b> '+(s.likes===1?'me gusta':'me gusta')}
+    if(d)d.innerHTML=DL+trp('dl',s.downloads,{n:fmt(s.downloads)});
+    const fr=$('[data-fr]'),fl=$('[data-fl]');if(fr)fr.innerHTML=s.ratingCount?'★ <b>'+avg(s)+'</b> <i>('+trp('vote',s.ratingCount)+')</i>':'★ '+tr('fr_none');if(fl)fl.innerHTML='👍 <b>'+fmt(s.likes)+'</b> '+trp('likes',s.likes)}
   if(rb){const slug=rb.dataset.rate,s=stat(slug),mine=ls.get('fm_rate',{})[slug]||0,v=hov||mine;
     $$('[data-star]',rb).forEach((b,i)=>{b.classList.toggle('on',v>=i+1);b.classList.toggle('half',v===i+.5);b.setAttribute('aria-pressed',mine>=i+1||mine===i+.5)});
-    $('.rtxt',rb).textContent=hov?'Valorar con '+nf(hov)+(hov===1?' estrella':' estrellas'):s.ratingCount?avg(s)+' de 5 · '+s.ratingCount+(s.ratingCount===1?' voto':' votos')+(mine?' · Tu voto: '+nf(mine):''):mine?'Tu voto: '+nf(mine)+' · totales no disponibles ahora':'Sé el primero en valorar'}};
+    $('.rtxt',rb).textContent=hov?trp('rate_hover',hov,{n:nf(hov)}):s.ratingCount?trp('rate_sum',s.ratingCount,{a:avg(s),n:s.ratingCount})+(mine?' · '+tr('rate_mine',{n:nf(mine)}):''):mine?tr('rate_mine_off',{n:nf(mine)}):tr('rate_none')}};
 if(likeBtn)likeBtn.addEventListener('click',()=>{const slug=likeBtn.dataset.like,L=ls.get('fm_likes',[]),on=L.includes(slug),s=stat(slug);
   ls.set('fm_likes',on?L.filter(x=>x!==slug):[...L,slug]);S[slug]={...s,likes:Math.max(0,s.likes+(on?-1:1))};renderDetail();
   post(slug,on?'unlike':'like').then(r=>{if(r){S[slug]=r;renderDetail()}})});
@@ -112,6 +115,7 @@ if(rb){
   rb.addEventListener('mouseleave',()=>{hov=0;renderDetail()})}
 if(dlLink)dlLink.addEventListener('click',()=>{const slug=dlLink.dataset.dlc,D=ls.get('fm_dl',[]);if(!D.includes(slug)){ls.set('fm_dl',[...D,slug]);post(slug,'download')}});
 renderDetail();
+addEventListener('fm:lang',()=>{syncTheme();renderCards();renderDetail();onStats()});
 if($('[data-s]')||likeBtn||rb)fetch('/api/stats').then(r=>r.ok?r.json():null).then(d=>{if(!d)return;S=d;loaded=true;renderCards();renderDetail();onStats()}).catch(()=>{});
 // Visor de imágenes (lightbox)
 const shot=$('#shot');
@@ -119,11 +123,11 @@ if(shot){let idx=0,ov,img,cnt,pv,nx,last;
   const list=()=>{const t=$$('.thumbs button');return t.length?t.map(b=>b.dataset.src):[shot.getAttribute('src')]};
   const show=i=>{const L=list();idx=(i+L.length)%L.length;img.src=L[idx];cnt.textContent=L.length>1?(idx+1)+' / '+L.length:'';pv.hidden=nx.hidden=L.length<2};
   const close=()=>{ov.hidden=true;document.documentElement.style.overflow='';if(last)last.focus()};
-  const build=()=>{ov=document.createElement('div');ov.className='lb';ov.hidden=true;ov.setAttribute('role','dialog');ov.setAttribute('aria-modal','true');ov.setAttribute('aria-label','Visor de imágenes');
-    ov.innerHTML='<button class="lb-x" type="button" aria-label="Cerrar">×</button><button class="lb-p" type="button" aria-label="Anterior">‹</button><img alt=""><button class="lb-nx" type="button" aria-label="Siguiente">›</button><span class="lb-c"></span>';
+  const build=()=>{ov=document.createElement('div');ov.className='lb';ov.hidden=true;ov.setAttribute('role','dialog');ov.setAttribute('aria-modal','true');ov.innerHTML='<button class="lb-x" type="button">×</button><button class="lb-p" type="button">‹</button><img alt=""><button class="lb-nx" type="button">›</button><span class="lb-c"></span>';
     document.body.append(ov);img=$('img',ov);cnt=$('.lb-c',ov);pv=$('.lb-p',ov);nx=$('.lb-nx',ov);
     ov.addEventListener('click',e=>{if(e.target===ov||e.target.closest('.lb-x'))close()});pv.onclick=()=>show(idx-1);nx.onclick=()=>show(idx+1)};
-  const open=()=>{if(!ov)build();last=document.activeElement;show(Math.max(0,list().indexOf(shot.getAttribute('src'))));ov.hidden=false;document.documentElement.style.overflow='hidden';$('.lb-x',ov).focus()};
+  const labels=()=>{ov.setAttribute('aria-label',tr('lb_aria'));$('.lb-x',ov).setAttribute('aria-label',tr('lb_close'));pv.setAttribute('aria-label',tr('prev'));nx.setAttribute('aria-label',tr('next'))};
+  const open=()=>{if(!ov)build();labels();last=document.activeElement;show(Math.max(0,list().indexOf(shot.getAttribute('src'))));ov.hidden=false;document.documentElement.style.overflow='hidden';$('.lb-x',ov).focus()};
   shot.addEventListener('click',open);shot.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open()}});
   document.addEventListener('keydown',e=>{if(!ov||ov.hidden)return;if(e.key==='Escape')close();if(e.key==='ArrowLeft')show(idx-1);if(e.key==='ArrowRight')show(idx+1)});
 }

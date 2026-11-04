@@ -91,7 +91,7 @@ collections:
         name: authors
         widget: list
         required: false
-        hint: "Por cada creador: elige uno de la lista (se rellena solo su nombre y enlace) o, si es nuevo, escribe su nombre y enlace a mano. Para que aparezca en la lista la próxima vez, créalo en la sección «Autores»."
+        hint: "Por cada creador: elige uno de la lista (se rellena solo su nombre y enlace) o, si es nuevo, escribe su nombre y enlace a mano. Al guardar, el autor nuevo se añade solo a la sección «Autores» (tarda un minuto) y la próxima vez ya sale en el desplegable."
         summary: "{{fields.ref}} {{fields.name}}"
         fields:
           - label: Elegir autor existente

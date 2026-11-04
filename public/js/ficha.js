@@ -25,6 +25,12 @@ const normalize=(raw,slug,warn,db)=>{
 
 const make=ctx=>{
   const {C,CATS,BADGE}=ctx;
+  // i18n: ctx.T(clave,vars) devuelve el texto en español (lo pone build.js o la vista previa). El navegador lo traduce con /js/i18n.js
+  const T=ctx.T||(k=>k);
+  const pj=v=>v?` data-p="${esc(JSON.stringify(v))}"`:'';
+  const I=(k,v)=>` data-i18n="${k}"${pj(v)}`;
+  const S=(k,v,tag='span',cls='')=>`<${tag}${cls?` class="${cls}"`:''}${I(k,v)}>${esc(T(k,v))}</${tag}>`;
+  const AM=(a,v)=>Object.entries(a).map(([n,k])=>`${n}="${esc(T(k,v))}"`).join(' ')+` data-i18n-attr="${Object.entries(a).map(([n,k])=>n+':'+k).join(';')}"${pj(v)}`;
   const catOf=s=>CATS[s]||{n:s,d:'',dir:'graphics/'};
   const lum=h=>{const n=parseInt(h.slice(1),16);return(0.299*(n>>16)+0.587*((n>>8)&255)+0.114*(n&255))/255};
   const badge=b=>{const i=typeof BADGE[b]==='string'?{color:BADGE[b]}:(BADGE[b]||{}),hex=/^#[0-9a-f]{6}$/i.test(i.hex||'')?i.hex:'';
@@ -34,40 +40,42 @@ const make=ctx=>{
   const authText=m=>join(m.auth.map(a=>a.name));
   const authHtml=m=>join(m.auth.map(a=>http(a.url)?`<a href="${esc(a.url)}" target="_blank" rel="noopener nofollow">${esc(a.name)}</a>`:esc(a.name)));
   const vchips=m=>m.vers.map(v=>`<span class="vchip${v===ctx.LATEST?' new':''}">${esc(v)}</span>`).join('');
-  const compat=m=>{const L=ctx.LATEST,ok=!L||m.vers.includes(L),t=[ok?(L?`Compatible con ${L}, la versión más reciente del juego.`:'Compatibilidad indicada por el autor.'):`Este mod no está marcado como compatible con ${L}, la versión más reciente. Puede no funcionar en ella.`];
-    if(m.compat_patch)t.push(`Probado con el parche ${m.compat_patch}.`);if(m.compat_note)t.push(m.compat_note);
-    return `<div class="compat${ok?'':' warn'}"><div class="vc"><strong>Compatibilidad</strong>${vchips(m)}</div><p>${esc(t.join(' '))}</p></div>`};
+  const compat=m=>{const L=ctx.LATEST,ok=!L||m.vers.includes(L),
+    t=[ok?(L?S('compat_latest',{v:L}):S('compat_noinfo')):S('compat_warn',{v:L})];
+    if(m.compat_patch)t.push(S('compat_patch',{p:m.compat_patch}));if(m.compat_note)t.push(esc(m.compat_note));
+    return `<div class="compat${ok?'':' warn'}"><div class="vc">${S('compat_h',null,'strong')}${vchips(m)}</div><p>${t.join(' ')}</p></div>`};
   const reload=C.reload||['FM24'];
   const needsReload=m=>m.vers.some(v=>reload.includes(vk(v).toUpperCase()));
   const installPaths=m=>m.install_path&&String(m.install_path).trim()?String(m.install_path).split(/\r?\n/).map(x=>x.trim()).filter(Boolean).map(path=>({label:'',path})):
     (m.vers.length?m.vers:['FM26']).flatMap(v=>[...new Set((m.cats.length?m.cats:['graficos']).map(c=>catOf(c).dir))].map(d=>({label:m.vers.length>1?v:'',path:`Documentos/Sports Interactive/Football Manager ${verYear(v)}/${d}`})));
-  const hist=m=>m.upd.length?`<div class="desc"><h2>Historial de versiones</h2><ul class="tl">${m.upd.map(u=>`<li><time datetime="${esc(u.date)}">${dt(u.date)}</time><h3>${u.version?esc(u.version):'Actualización'}</h3>${u.note?`<p>${esc(u.note)}</p>`:''}</li>`).join('')}${m.date?`<li class="new"><time datetime="${esc(m.date)}">${dt(m.date)}</time><h3>Publicación inicial</h3></li>`:''}</ul></div>`:'';
+  const hist=m=>m.upd.length?`<div class="desc">${S('hist_h',null,'h2')}<ul class="tl">${m.upd.map(u=>`<li><time datetime="${esc(u.date)}" data-d="long">${dt(u.date)}</time>${u.version?`<h3>${esc(u.version)}</h3>`:S('hist_upd',null,'h3')}${u.note?`<p>${esc(u.note)}</p>`:''}</li>`).join('')}${m.date?`<li class="new"><time datetime="${esc(m.date)}" data-d="long">${dt(m.date)}</time>${S('hist_init',null,'h3')}</li>`:''}</ul></div>`:'';
   // Reportar enlace caído: correo (mailto) con asunto y cuerpo, más alternativas web por si no hay cliente de correo
   const report=m=>{const url=`${C.url}/mod/${m.slug}/`,q=encodeURIComponent,subj=`Enlace caído: ${m.title}`,
     body=`Hola,\r\n\r\nEl enlace de descarga de «${m.title}» no funciona.\r\n\r\nFicha: ${url}\r\nEnlace roto: ${m.download_url}\r\n\r\nGracias.`,
     mail=C.email&&!/tudominio/.test(C.email)?C.email:'',
     x=`https://x.com/intent/post?text=${q(`@${C.x} El enlace de «${m.title}» parece caído: ${url}`)}`,
-    A=(h,t,ext)=>`<a href="${esc(h)}"${ext?' target="_blank" rel="noopener"':''}>${t}</a>`;
-    if(!mail)return `<p class="rep-w">${A(x,'Reportar enlace caído (por X)',1)}</p>`;
-    return `<p class="rep-w">${A(`mailto:${mail}?subject=${q(subj)}&body=${q(body)}`,'Reportar enlace caído')}<span class="rep-alt"> · ¿No se abre tu correo? ${A(`https://mail.google.com/mail/?view=cm&fs=1&to=${q(mail)}&su=${q(subj)}&body=${q(body)}`,'Gmail',1)} · ${A(`https://outlook.live.com/mail/0/deeplink/compose?to=${q(mail)}&subject=${q(subj)}&body=${q(body)}`,'Outlook',1)} · ${A(x,'Avisar por X',1)}</span></p>`};
+    // el asunto y el cuerpo del correo van siempre en español: es el idioma de quien los recibe
+    A=(h,t,ext,k)=>`<a${k?I(k):''} href="${esc(h)}"${ext?' target="_blank" rel="noopener"':''}>${k?esc(T(k)):t}</a>`;
+    if(!mail)return `<p class="rep-w">${A(x,'',1,'rep_x')}</p>`;
+    return `<p class="rep-w">${A(`mailto:${mail}?subject=${q(subj)}&body=${q(body)}`,'',0,'rep')}<span class="rep-alt"> · ${S('rep_alt')} ${A(`https://mail.google.com/mail/?view=cm&fs=1&to=${q(mail)}&su=${q(subj)}&body=${q(body)}`,'Gmail',1)} · ${A(`https://outlook.live.com/mail/0/deeplink/compose?to=${q(mail)}&subject=${q(subj)}&body=${q(body)}`,'Outlook',1)} · ${A(x,'',1,'rep_xalt')}</span></p>`};
 
   // Cuerpo completo de la ficha (sin cabecera ni pie de la web)
   const detail=(m,opt={})=>{
     const ad=opt.ad||ctx.ad||(()=>''),cn=m.cats.map(catOf),ips=installPaths(m),shots=[m.cover,...m.screenshots].filter(Boolean);
     const appOnly=m.cats.length>0&&m.cats.every(c=>c==='app-externa');
     const paras=esc(m.description||'').split(/\n{2,}/).map(t=>`<p>${t.replace(/\n/g,'<br>')}</p>`).join('');
-    const steps=(m.instructions?String(m.instructions).split('\n').filter(Boolean):appOnly?['Descarga el archivo.','Descomprímelo.','Instala el ejecutable (.exe).']:['Descarga el archivo y descomprímelo.','Abre la carpeta de destino (copia la ruta con el botón).','Si la carpeta no existe, créala y pega dentro los archivos del mod.',...(needsReload(m)?['Abre Football Manager y recarga el skin o la caché de gráficos desde Preferencias (solo si es FM24).']:[])]).map(s=>`<li>${esc(s)}</li>`).join('');
-    return `<div class="wrap"><p class="crumb"><a href="/">Inicio</a> / ${m.cats[0]?`<a href="/?cat=${m.cats[0]}">${esc(cn[0].n)}</a>`:'Mods'}</p>
+    const steps=(m.instructions?String(m.instructions).split('\n').filter(Boolean).map(s=>`<li>${esc(s)}</li>`):(appOnly?['st_app1','st_app2','st_app3']:['st_def1','st_def2','st_def3',...(needsReload(m)?['st_def4']:[])]).map(k=>S(k,null,'li'))).join('');
+    return `<div class="wrap"><p class="crumb"><a href="/"${I('crumb_home')}>${esc(T('crumb_home'))}</a> / ${m.cats[0]?`<a href="/?cat=${m.cats[0]}">${esc(cn[0].n)}</a>`:S('crumb_mods')}</p>
 <div class="bd">${badges(m)}</div><h1>${esc(m.title)}</h1>
 <p class="catlinks">${m.cats.map((c,i)=>`<a href="/?cat=${c}">${esc(cn[i].n)}</a>`).join('')}</p>
-<p class="byline">${UI}<span class="lbl">Creado por</span> <strong>${authHtml(m)}</strong>${m.date?`<time datetime="${esc(m.date)}">${dt(m.date)}</time>`:''}${m.upd[0]?`<span class="upd">Actualizado el ${dt(m.upd[0].date)}${m.upd[0].version?' ('+esc(m.upd[0].version)+')':''}</span>`:''}</p>
-<div class="rate" data-rate="${m.slug}"><div class="stars" role="group" aria-label="Valora este mod de 1 a 5 estrellas">${[1,2,3,4,5].map(n=>`<button type="button" data-star="${n}" aria-label="${n} de 5 (mitad izquierda: media estrella)" aria-pressed="false">★</button>`).join('')}</div><span class="rtxt">Sé el primero en valorar</span></div>
+<p class="byline">${UI}${S('byline',null,'span','lbl')} <strong>${authHtml(m)}</strong>${m.date?`<time datetime="${esc(m.date)}" data-d="long">${dt(m.date)}</time>`:''}${m.upd[0]?`<span class="upd">${S('upd_on')} <time datetime="${esc(m.upd[0].date)}" data-d="long">${dt(m.upd[0].date)}</time>${m.upd[0].version?' ('+esc(m.upd[0].version)+')':''}</span>`:''}</p>
+<div class="rate" data-rate="${m.slug}"><div class="stars" role="group" ${AM({'aria-label':'rate_aria'})}>${[1,2,3,4,5].map(n=>`<button type="button" data-star="${n}" ${AM({'aria-label':'star_aria'},{n})} aria-pressed="false">★</button>`).join('')}</div><span class="rtxt">Sé el primero en valorar</span></div>
 ${compat(m)}
 ${ad('bajo-titulo')}
 <div class="det"><div>
-${shots.length?`<img class="shot" id="shot" data-zoom tabindex="0" title="Pulsa para ampliar" src="${esc(shots[0])}" alt="Captura de ${esc(m.title)}" decoding="async" fetchpriority="high" width="960" height="540">${shots.length>1?`<div class="thumbs">${shots.map((s,i)=>`<button type="button" data-src="${esc(s)}" class="${i?'':'on'}" aria-label="Ver captura ${i+1}"><img src="${esc(s)}" alt="" loading="lazy" decoding="async" width="96" height="54"></button>`).join('')}</div>`:''}`:''}
-<div class="desc"><h2>Descripción</h2>${paras}${m.tags.length?`<p class="tags">${m.tags.map(t=>`<span>#${esc(t)}</span>`).join('')}</p>`:''}</div>${hist(m)}</div>
-<aside><div class="box"><h2>Instalación</h2>${appOnly?'':`<p class="meta">Ruta predeterminada de pegado:</p>${ips.map(x=>`${x.label?`<p class="meta pl">${esc(x.label)}</p>`:''}<code class="path">${esc(x.path)}</code><button class="btn" type="button" data-copy="${esc(x.path)}">Copiar ruta de instalación</button>`).join('')}`}<ol class="steps">${steps}</ol><p class="meta" style="margin:12px 0 0"><a href="/como-instalar/" style="text-decoration:underline">¿Primera vez? Lee la guía completa de instalación</a></p></div><div class="box dlbox"><a class="btn primary big" data-dlc="${m.slug}" href="${esc(m.download_url)}" target="_blank" rel="nofollow noopener noreferrer">Descargar mod</a><div class="fst"><span class="fr" data-fr>★ Sin valoraciones</span><span class="fl" data-fl>👍 0</span><span class="dlc" data-dl="${m.slug}"></span></div><div class="fb"><button class="btn like" type="button" data-like="${m.slug}" aria-pressed="false">👍 <span>Me gusta</span> <b></b></button></div>${ad('junto-descarga')}
+${shots.length?`<img class="shot" id="shot" data-zoom tabindex="0" ${AM({title:'shot_title',alt:'shot_alt'},{t:m.title})} src="${esc(shots[0])}" decoding="async" fetchpriority="high" width="960" height="540">${shots.length>1?`<div class="thumbs">${shots.map((s,i)=>`<button type="button" data-src="${esc(s)}" class="${i?'':'on'}" ${AM({'aria-label':'shot_n'},{n:i+1})}><img src="${esc(s)}" alt="" loading="lazy" decoding="async" width="96" height="54"></button>`).join('')}</div>`:''}`:''}
+<div class="desc">${S('desc_h',null,'h2')}${paras}${m.tags.length?`<p class="tags">${m.tags.map(t=>`<span>#${esc(t)}</span>`).join('')}</p>`:''}</div>${hist(m)}</div>
+<aside><div class="box">${S('inst_h',null,'h2')}${appOnly?'':`${S('inst_path',null,'p','meta')}${ips.map(x=>`${x.label?`<p class="meta pl">${esc(x.label)}</p>`:''}<code class="path">${esc(x.path)}</code><button class="btn" type="button"${I('copy_btn')} data-copy="${esc(x.path)}">${esc(T('copy_btn'))}</button>`).join('')}`}<ol class="steps">${steps}</ol><p class="meta" style="margin:12px 0 0"><a href="/como-instalar/"${I('inst_guide')} style="text-decoration:underline">${esc(T('inst_guide'))}</a></p></div><div class="box dlbox"><a class="btn primary big" data-dlc="${m.slug}" href="${esc(m.download_url)}" target="_blank" rel="nofollow noopener noreferrer"${I('dl_btn')}>${esc(T('dl_btn'))}</a><div class="fst"><span class="fr" data-fr>★ Sin valoraciones</span><span class="fl" data-fl>👍 0</span><span class="dlc" data-dl="${m.slug}"></span></div><div class="fb"><button class="btn like" type="button" data-like="${m.slug}" aria-pressed="false">👍 ${S('like_btn')} <b></b></button></div>${ad('junto-descarga')}
 ${report(m)}</div>
 ${opt.extras||''}</aside></div></div>`;
   };
