@@ -1,5 +1,9 @@
 {
   "install_dir": "Instalar el ejecutable .exe",
   "order": 5,
-  "name": "App externa"
+  "name": "App externa",
+  "name_en": "External app",
+  "name_ca": "App externa",
+  "name_fr": "Application externe",
+  "name_pt": "App externo"
 }

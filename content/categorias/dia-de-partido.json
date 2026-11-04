@@ -2,5 +2,9 @@
   "name": "Gráficos",
   "description": "Graficos dentro de FM",
   "install_dir": "\\Documents\\Sports Interactive\\Football Manager 27\\graphics",
-  "order": 2
+  "order": 2,
+  "name_en": "Graphics",
+  "name_ca": "Gràfics",
+  "name_fr": "Graphismes",
+  "name_pt": "Gráficos"
 }
