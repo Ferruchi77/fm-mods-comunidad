@@ -1,19 +1,27 @@
 {
-  "title": "Kit Converter",
-  "categories": [
-    "app-externa"
-  ],
-  "fm_versions": [
-    "FM27"
-  ],
   "authors": [
     {
       "name": "FM Tigrotto",
       "url": "https://x.com/fmtigrotto"
     }
   ],
+  "modified": "2026-11-04",
+  "updates": [
+    {
+      "version": "V.1.4.0",
+      "date": "2026-11-01"
+    }
+  ],
+  "date": "2026-11-01",
+  "status": "🟢 Publicado",
+  "fm_versions": [
+    "FM27"
+  ],
   "cover": "https://pbs.twimg.com/media/HWDof-kXIAAJnOR?format=jpg&name=large",
-  "description": "FM27 cuenta con una nueva plantilla 3D para las equipaciones. Kit Converter All adapta todas tus equipaciones a este formato con un solo clic: tanto miles de equipaciones de PES 2021 como las que ya tengas de FM26. Coloca la camiseta, el pantalón y las medias en su lugar correcto, aplica el cuello adecuado y añade el ID del club de FM al nombre del archivo. Puedes procesar una equipación individual o una carpeta completa de una sola vez.",
   "download_url": "https://fmtigrotto.com/tools/kit-converter",
-  "date": "2026-11-01"
+  "title": "Kit Converter",
+  "categories": [
+    "app-externa"
+  ],
+  "description": "FM27 cuenta con una nueva plantilla 3D para las equipaciones. Kit Converter All adapta todas tus equipaciones a este formato con un solo clic: tanto miles de equipaciones de PES 2021 como las que ya tengas de FM26. Coloca la camiseta, el pantalón y las medias en su lugar correcto, aplica el cuello adecuado y añade el ID del club de FM al nombre del archivo. Puedes procesar una equipación individual o una carpeta completa de una sola vez."
 }
