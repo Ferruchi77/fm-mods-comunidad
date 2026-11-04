@@ -4,6 +4,14 @@
       "name": "dzinus"
     }
   ],
+  "modified": "2026-11-04",
+  "updates": [
+    {
+      "version": "V.0.3.2",
+      "date": "2026-11-04",
+      "note": "¿Qué cambia? Regenesis ahora consulta la lista de incorporaciones pendientes del propio juego y solo permite editar la incorporación que aparece en dicha lista; cualquier otra copia se muestra en modo de solo lectura. Justo antes de realizar cada proceso de «junior write» (registro de juveniles), el programa vuelve a comprobar la lista y no realiza ninguna acción si el juvenil ya no figura en ella.\nSi, tras cargar otra partida guardada, una incorporación aparece en modo de solo lectura, vuelve a conectar o a escanear la incorporación. Si el problema persiste, reinicia FM, carga tu partida y vuelve a conectar. No hay más cambios respecto a la versión 0.3.1."
+    }
+  ],
   "screenshots": [
     "https://sortitoutsi.b-cdn.net/uploads/media_2026/gm3cndP68phHKjqa6hkSJp5a4fjyiDhqnYA2h00B.png",
     "https://sortitoutsi.b-cdn.net/uploads/media_2026/wrhQm7hYpTCvhT1RBvvWGaA5AC0ivHjZDvhO7hqx.png",
