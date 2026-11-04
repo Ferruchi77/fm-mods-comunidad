@@ -1,5 +1,6 @@
 {
   "install_path": "\\Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins",
+  "modified": "2026-11-04",
   "updates": [
     {
       "date": "2026-11-03",
@@ -15,6 +16,7 @@
   ],
   "date": "2026-10-29",
   "badges": [],
+  "status": "🟢 Publicado",
   "fm_versions": [
     "FM27",
     "FM26"
