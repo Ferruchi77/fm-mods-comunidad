@@ -1,13 +1,31 @@
 {
   "install_path": "\\Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins",
+  "modified": "2026-11-04",
+  "updates": [
+    {
+      "date": "2026-10-25",
+      "version": "V.1.8.5"
+    },
+    {
+      "date": "2026-10-31",
+      "version": "V.1.8.6"
+    },
+    {
+      "version": "V.1.8.6e",
+      "note": "Hotfix de la nueva actualización de FM",
+      "date": "2026-11-03"
+    }
+  ],
   "author": "MiguelFM",
   "screenshots": [
     "https://www.fmsite.net/applications/downloads/interface/legacy/screenshot.php?path=/monthly_2026_08/HIpjPJDXUAAY38y.png.c7f7e3d1668b77240cadd729697784f2.png"
   ],
-  "date": "2026-10-30",
+  "featured": true,
+  "date": "2026-09-09",
   "badges": [
     "Imprescindible"
   ],
+  "status": "🟢 Publicado",
   "fm_versions": [
     "FM26",
     "FM27"
