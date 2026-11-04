@@ -1,18 +1,27 @@
 {
   "fm_version": "FM27",
   "install_path": "Documents\\Sports Interactive\\Football Manager 26\\graphics",
+  "modified": "2026-11-04",
+  "updates": [
+    {
+      "version": "TCM27",
+      "note": "Actualizados los escudos y competiciones a la temporada 26-27",
+      "date": "2026-11-04"
+    }
+  ],
   "author": "Kinmar - TCM Logos",
   "date": "2026-05-29",
   "badges": [
     "Imprescindible"
   ],
+  "status": "🟢 Publicado",
   "fm_versions": [
     "FM24",
     "FM25",
     "FM26",
     "FM27"
   ],
-  "cover": "https://www.tcmlogos.com/wp-content/uploads/2025/11/TCM26-View.jpg",
+  "cover": "https://www.tcmlogos.com/wp-content/uploads/2026/10/TCM27FM27sombre.png",
   "download_url": "https://www.tcmlogos.com/",
   "title": "TCM Logos",
   "tags": [
@@ -23,6 +32,6 @@
   "categories": [
     "dia-de-partido"
   ],
-  "description": "¡Descarga el TCM26 Logopack, un megapaquete de 75.000 logotipos de clubes y competiciones para Football Manager 26!\n\nEsta es la 12.ª edición del megapaquete de logotipos TCM para Football Manager.\nTras más de 6 millones de descargas desde 2014, ¡queremos ofrecerte aún más!\nHazte con el fantástico megapaquete de logotipos TCM26 para Football Manager 26, creado por TCMLogos.com.",
+  "description": "Descarga TCM27, el megapaquete de logotipos para Football Manager 27 (FM27): 77 958 logotipos de clubes y competiciones, gratuitos para uso personal.\n\nTCM27 es la 13.ª edición del megapaquete de logotipos TCM para Football Manager. Tras más de 6,5 millones de descargas desde 2014, incluye 71 269 clubes y 6187 competiciones de 232 países —abarcando tanto el fútbol masculino como el femenino— en un paquete fácil de instalar.",
   "category": "graficos"
 }
