@@ -1,24 +1,25 @@
 {
+  "instructions": "Arrastra imágenes directamente sobre los jugadores, los *newgens* (jugadores generados por el juego) y tu propio mánager dentro del juego, o pégalas usando Ctrl+V",
   "authors": [
     {
       "url": "https://x.com/bifi_93",
       "name": "Steven"
     }
   ],
+  "install_path": "Arrastra imágenes directamente sobre los jugadores, los *newgens* (jugadores generados por el juego) y tu propio mánager dentro del juego, o pégalas usando Ctrl+V",
   "modified": "2026-11-04",
   "featured": false,
   "date": "2026-11-04",
-  "badges": [
-    "Imprescindible"
-  ],
-  "status": "🟡 Borrador / En revisión",
+  "badges": [],
+  "status": "🟢 Publicado",
   "fm_versions": [
     "FM27"
   ],
+  "cover": "https://storage.ko-fi.com/cdn/useruploads/display/ef1c5c4f-8543-4350-be41-dbab89a070c8_facedrop-thumbnail-1200x1200.png",
   "download_url": "https://ko-fi.com/s/789026e7b3",
   "title": "FaceDrop",
   "categories": [
-    "bases-de-datos"
+    "dia-de-partido"
   ],
-  "description": "."
+  "description": "FaceDrop para Football Manager 27 (Windows)\n\nArrastra imágenes directamente sobre los jugadores, los *newgens* (jugadores generados por el juego) y tu propio mánager dentro del juego, o pégalas usando Ctrl+V. Sin necesidad de editar archivos `config.xml`, sin tener que buscar identificadores (ID) y sin necesidad de reiniciar el juego.\n\n• Funciona tanto con jugadores que ya tienen una imagen como con aquellos que no la tienen.\n• Instalador de un solo clic que permite instalar, actualizar y desinstalar.\n• Las imágenes de *newgens*, mánagers y jugadores sin foto se almacenan de forma independiente para cada partida guardada.\n• Tus partidas guardadas permanecen intactas.\n• Se desactiva automáticamente tras una actualización del juego para evitar errores en Football Manager.\n\nLas actualizaciones son gratuitas; no tienes que volver a pagar. Cuando hay una actualización, simplemente reemplazo el archivo aquí y tú conservas el acceso. Encontrarás el enlace de descarga en el correo electrónico de confirmación de Ko-fi o, si tienes una cuenta en dicha plataforma, en la sección de tus compras.\n\nEs posible que Windows muestre una advertencia al ejecutarlo por primera vez, ya que el instalador aún no está firmado digitalmente: haz clic en «Más información» → «Ejecutar de todas formas».\n\nIncluye instrucciones en inglés y alemán.\nSoporte: <Support>\nIncluye BepInEx (bajo licencia LGPL) y otros componentes de terceros; consulta el archivo LIZENZEN.txt.\nModificación no oficial; no está afiliada a Sports Interactive ni a SEGA."
 }
