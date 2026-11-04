@@ -1,0 +1,77 @@
+{
+  "authors": [
+    {
+      "name": "BassyBoy",
+      "url": "https://x.com/BassyBoy"
+    }
+  ],
+  "install_path": "Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins",
+  "modified": "2026-11-04",
+  "updates": [
+    {
+      "date": "2025-12-28",
+      "version": "V1.1.4",
+      "note": "¡para arreglar las líneas del terreno de juego!"
+    },
+    {
+      "version": "V1.2",
+      "note": "New/Overhauled stadiums:\n- Estadio da Luz (Benfica) - No custom lighting\n- Estadio do Dragao (FC Porto) - No custom lighting\n- Estádio José Alvalade (Sporting CP) - No custom lighting\n- Allianz Parque (Palmeiras) - No custom lighting\n- Arena MRV (Clube Atlético Mineiro) - Has custom lighting\n- Fritz-Walter-Stadion (1. FC Kaiserslautern) - Has custom lighting\n- Estádio Beira-Rio (SC Internacional) - Has custom lighting",
+      "date": "2025-12-30"
+    },
+    {
+      "version": "V.1.4",
+      "date": "2026-01-14"
+    },
+    {
+      "version": "V2.0",
+      "date": "2026-02-07",
+      "note": "CrowdV2: Esta versión elimina los tirones (stuttering) y permite jugar con cualquier configuración gráfica. Los tirones han desaparecido y el rendimiento es mucho más estable.\nTambién incluye un número de espectadores más preciso.\nSe acabó el comportamiento «norcoreano» (movimientos sincronizados artificialmente).\nAhora los espectadores se mueven de forma más independiente.\nColores de los equipos:\nEl público cuenta ahora con una codificación de colores coherente para partidos en casa y fuera. Se trata de una segmentación sencilla, que admite la posibilidad de aplicar equipaciones 3D (mediante mapeado UV) a los espectadores.\nCondiciones meteorológicas:\nNuevo sistema meteorológico.\nRenovación completa de los efectos de nieve y lluvia, basados ​​en su intensidad, ¡y con una mejora en el rendimiento!\nLos efectos están vinculados a la intensidad meteorológica real de tus partidos.\nSe acabaron los cambios de clima aleatorios e injustificados.\nCielos (Skyboxes):\nDando continuidad a los exitosos *skyboxes* anteriores, he añadido cielos precisos que dependen de la hora del día y de las condiciones meteorológicas, incluyendo cielos nublados.\nPuedes pulsar la tecla 0 del teclado numérico para elegir el *skybox* que prefieras.\nPaquete de balones"
+    },
+    {
+      "version": "V.2.1",
+      "note": "Ajax' ArenA revamped.\nCheltenham Town's \"Whaddon Road\"\nClub Brugge's \"Jan Breydelstadion\"\nJuventude BR's \"Alfredo Jaconi\"\nSt. Johnstone's \"McDiarmid Park\"\nMilwall's “The Den”\nNagoya Grampus' \"Toyota Stadium\"\nPacos de Ferreira's \"Estádio Capital do Móvel\"\nRB Salzburg's \"Red Bull Arena\"\nSalford City's \"Peninsula Stadium\"\nSheffield United's \"Bramall Lane\"\nStade de France (Coupe de France version)\nVitoria de Guimaraes' \"Estádio D. Afonso Henriques\"\nWatford's \"Vicarage Road\"",
+      "date": "2026-02-18"
+    },
+    {
+      "version": "V.2.3",
+      "date": "2026-03-03"
+    },
+    {
+      "version": "V.2.4",
+      "date": "2026-03-14",
+      "note": "Rendimiento, corrección de errores y estabilidad:\nLas multitudes han sido objeto de tres rondas de optimización:\n\nEl sistema LOD (nivel de detalle) estaba activado por defecto, pero no existían mallas LOD en el paquete; esto triplicaba las llamadas de dibujo (draw calls) sin aportar absolutamente nada. Ahora se ha desactivado de forma forzosa.\n\nLos arrays de argumentos para la GPU se creaban desde cero en cada fotograma para cada lote (batch). Ahora se asignan una sola vez y se reutilizan.\n\nCiertos procesos de configuración de sombreadores (shaders) se ejecutaban en cada fotograma, a pesar de no ser necesario. Se han reubicado donde realmente corresponde."
+    },
+    {
+      "version": "V.3.0",
+      "note": "¡Añade los estadios de la Copa del Mundo actualizados!",
+      "date": "2026-06-01"
+    },
+    {
+      "date": "2026-07-04",
+      "version": "V.3.14",
+      "note": "Los estadios agregados en este parche son:\nDe Galgenwaard (Utrecht)\nEstadio Druso (FC Südtirol)\nEl Sardinero (Real Racing Santander)\nCiudad de Lanús-Néstor Díaz Pérez (Lanus)\nEstádio Ciudade de Barcelos (Gil Vicente)"
+    }
+  ],
+  "screenshots": [
+    "https://www.fmsite.net/applications/downloads/interface/legacy/screenshot.php?path=/monthly_2025_12/G8XfEuPW4AM7Z_Z.jpeg.15cb08bb76b60f7cc9b466e312d87d8e.jpeg",
+    "https://www.fmsite.net/applications/downloads/interface/legacy/screenshot.php?path=/monthly_2025_12/G8SaWNRWgAUFGfi.jpeg.2caab40a1c5aeb5643f08868b05af848.jpeg",
+    "https://www.fmsite.net/applications/downloads/interface/legacy/screenshot.php?path=/monthly_2025_12/G8x8P-iWsAAAPWo.jpeg.d4f5ad70d0e8c1d553dfed5c12715655.jpeg"
+  ],
+  "featured": true,
+  "date": "2025-12-24",
+  "badges": [
+    "Imprescindible"
+  ],
+  "status": "🟢 Publicado",
+  "fm_versions": [
+    "FM26",
+    "FM27"
+  ],
+  "cover": "https://www.fmsite.net/applications/downloads/interface/legacy/screenshot.php?path=/monthly_2025_12/G8Xfmb5XoAE0-gH.jpeg.ac5b415444cad7d1457c42737635f6b4.jpeg",
+  "download_url": "https://www.bassyboy.com/downloads/cmr6fcc8r00012epu8uli5vaf",
+  "title": "Stadium Megapack",
+  "categories": [
+    "bases-de-datos"
+  ],
+  "description": "El paquete incluye 213 estadios de todo el mundo. Contiene un sistema de público personalizado que ha recibido una importante mejora de rendimiento, provocando casi ningún tirón ni retraso, incluso en hardware antiguo.\n\nAhora además cuenta con la posibilidad de que el público lleve equipaciones personalizadas.\n\nIncluye un sistema de público creado a medida, que ha recibido una mejora significativa de rendimiento, provocando casi ningún tirón ni lag, incluso en hardware más antiguo. Las animaciones pueden verse algo toscas, pero se irán mejorando durante el soporte posterior al lanzamiento y las actualizaciones.\n\nEs hora de la 3.0, ¡la grande! Esta versión reúne todo lo que ha pasado desde que la 2.4 se publicó en marzo, y ha cambiado MUCHÍSIMO en estos dos meses. Abajo está organizado según lo que ahora es diferente. Si vienes directamente de la 2.4, cada sección de abajo es nueva para ti. Estas son las notas del parche, así que si te interesan, léelas a tu ritmo. ¡Son bastante largas!\n\nPero antes de entrar en materia, quiero expresar mi gratitud a todos los que han apoyado este proyecto mental. Tanto si llevas aquí desde el primer día como si es tu primera vez, vuestro apoyo permitió que este idiota dedicara tiempo y esfuerzo a esto y, con suerte, mejorara vuestra experiencia.\n\nPero, sobre todo, de verdad, gracias."
+}
