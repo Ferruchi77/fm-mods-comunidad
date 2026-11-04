@@ -1,7 +1,16 @@
 {
   "install_path": "\\Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins",
+  "modified": "2026-11-04",
+  "updates": [
+    {
+      "date": "2026-11-02",
+      "version": "V.1.1.3",
+      "note": "Corrección de licencias: tras una actualización del juego, o al cambiar entre la versión de Xbox y la de Epic, la aplicación de una corrección ya no falla mostrando el error «Archivo en uso». Si una corrección se aplicó a otra instalación, esta se conserva en lugar de revertirse, y los archivos que añadió se trasladan a la carpeta de copias de seguridad de FMDB Hub.\nCuando Windows deniega el acceso a los archivos del juego, FMDB Hub ahora lo notifica explícitamente, en lugar de pedirte que cierres el editor."
+    }
+  ],
   "author": " FM Season Hub",
   "date": "2026-10-29",
+  "status": "🟢 Publicado",
   "fm_versions": [
     "FM27",
     "FM26"
