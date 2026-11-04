@@ -1,7 +1,15 @@
 {
   "install_path": "\\Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins",
+  "updates": [
+    {
+      "date": "2026-11-01",
+      "version": "V.0.2",
+      "note": "Diseñado para FM27: todas las plantillas siguen el nuevo formato de equipaciones de FM27, por lo que los cuellos, pantalones y medias se ajustan correctamente a los nuevos modelos de jugadores en 3D.\n\n1948 plantillas de 92 marcas, tanto para jugadores de campo como para porteros, además de diseños propios para clubes que no cuentan con un proveedor oficial.\n\nVisualización en 3D: observa la equipación sobre un modelo de jugador real, no solo como una camiseta flotante.\n\nImágenes y pósteres de presentación: convierte tus equipaciones en imágenes listas para publicar.\n\nTipografías para nombres y números basadas en las de clubes reales, incluyendo ajustes de tamaño, posición y curvatura.\n\nColecciones de equipaciones: cada partida guardada mantiene sus propias equipaciones, sin afectar a las que ya tenías creadas.\n\nEquipaciones en 2D al estilo FM27 para las pantallas del juego, disponibles tanto para clubes masculinos como femeninos."
+    }
+  ],
   "author": "FM Tigrotto",
   "date": "2026-10-31",
+  "status": "🟢 Publicado",
   "fm_versions": [
     "FM27"
   ],
