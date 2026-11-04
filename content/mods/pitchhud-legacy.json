@@ -4,6 +4,7 @@
       "ref": "fm-tigrotto"
     }
   ],
+  "install_path": "Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins",
   "modified": "2026-11-04",
   "updates": [
     {
