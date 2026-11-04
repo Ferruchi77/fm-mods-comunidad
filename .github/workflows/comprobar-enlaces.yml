@@ -1,0 +1,29 @@
+# Cada lunes revisa los enlaces de descarga y mantiene UN issue abierto con los rotos (lo cierra cuando ya no hay).
+# También se puede lanzar a mano: Actions → Comprobar enlaces → Run workflow.
+name: Comprobar enlaces
+on:
+  schedule: [{cron: '0 6 * * 1'}]
+  workflow_dispatch:
+permissions:
+  contents: read
+  issues: write
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node scripts/check-links.js
+      - name: Abrir, actualizar o cerrar el issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          T="Enlaces de descarga caídos"
+          N=$(gh issue list --state open --search "\"$T\" in:title" --json number --jq '.[0].number')
+          if [ -s link-report.md ] && [ "$(node -p "require('./link-report.json').broken")" != "0" ]; then
+            if [ -n "$N" ]; then gh issue edit "$N" --body-file link-report.md; else gh issue create --title "$T" --body-file link-report.md; fi
+          elif [ -n "$N" ]; then
+            gh issue close "$N" --comment "Ya no hay enlaces rotos en la última revisión."
+          fi
