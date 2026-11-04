@@ -1,6 +1,18 @@
 {
+  "authors": [
+    {
+      "ref": "fm-extra-time",
+      "url": "https://x.com/fmextratime"
+    }
+  ],
   "install_path": "Ejecuta el instalador: Abre la carpeta descomprimida y haz doble clic en el archivo Install.bat.",
+  "modified": "2026-11-04",
   "updates": [
+    {
+      "date": "2026-11-03",
+      "version": "1.6",
+      "note": "🏟️ Perfil de club de FM24 con fotos reales del estadio y la ciudad\n🏆 Vitrina de trofeos para cada club\n⭐ Estrellas doradas al estilo de FM24\n📌 Barra lateral de FM24"
+    },
     {
       "date": "2026-11-03",
       "version": "1.5.1",
@@ -24,6 +36,7 @@
     "https://fmextratime.com/assets/img/downloads/comeback-player-database.webp?v=e6fbf5b6"
   ],
   "date": "2026-10-31",
+  "status": "🟢 Publicado",
   "fm_versions": [
     "FM27"
   ],
