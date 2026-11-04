@@ -1,8 +1,22 @@
 {
   "install_path": "\\Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins",
+  "modified": "2026-11-04",
+  "updates": [
+    {
+      "version": "V.0.2",
+      "date": "2026-10-22",
+      "note": "NUEVO Balones: más de 160 en el pack, elegidos por competición, con balón de invierno\nNUEVO Equipaciones de árbitro de más de 50 competiciones, con vista previa 3D de cuerpo entero\nNUEVO Pestaña aparte para las equipaciones de portero\nNUEVO Equipaciones alternativas: pon clubid_1.png en graphics\\Kits\\Alt\\3D, sin configurar nada\nMEJORADO La pantalla del partido usa los colores de las equipaciones que se llevan de verdad\nMEJORADO Ya no necesita otros plugins"
+    },
+    {
+      "date": "2026-10-30",
+      "version": "V.0.3",
+      "note": "NUEVO Hecho para FM27, con el aspecto del propio juego: fuentes, botones e iconos\nNUEVO Nombre y número en la espalda de la vista previa 3D, del tamaño del partido\nNUEVO Ventana de colores: número, contorno y colores del marcador de cada equipo\nNUEVO Jugadores animados en la vista previa, y jugadoras en los partidos femeninos"
+    }
+  ],
   "author": "FM Tigrotto",
-  "date": "2026-10-30",
+  "date": "2026-06-30",
   "badges": [],
+  "status": "🟢 Publicado",
   "fm_versions": [
     "FM27",
     "FM26"
