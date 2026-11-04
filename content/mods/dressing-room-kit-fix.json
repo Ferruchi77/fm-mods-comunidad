@@ -5,10 +5,20 @@
       "url": "https://x.com/Wannachupbrew"
     }
   ],
+  "modified": "2026-11-04",
+  "updates": [
+    {
+      "note": "Corrige el retardo en la interfaz (UI) detectado en la versión 1.0, probablemente causado por los rostros 3D de los *newgens*, los cuales emplean el mismo código del juego al que se conecta el *mod*. Ahora, el *mod* solo se activa en el momento en que se crea una equipación personalizada en el vestuario, en lugar de permanecer activo de forma constante.",
+      "date": "2026-11-02",
+      "version": "V.1.1.0"
+    }
+  ],
+  "featured": true,
   "date": "2026-11-02",
   "badges": [
     "Imprescindible"
   ],
+  "status": "🟢 Publicado",
   "fm_versions": [
     "FM27",
     "FM26"
