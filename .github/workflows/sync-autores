@@ -1,0 +1,29 @@
+# Cuando se guarda un mod desde el panel (commit a main), detecta autores escritos a mano que no estén en
+# content/autores/ y crea su archivo JSON, para que salgan en el desplegable «Elegir autor existente».
+# Un build en Netlify/Vercel no puede guardar archivos en el repositorio; por eso esto se hace aquí.
+# Requiere: Settings → Actions → General → Workflow permissions → «Read and write permissions».
+name: Sincronizar autores
+on:
+  push:
+    branches: [main]
+    paths: ['content/mods/**']
+permissions:
+  contents: write
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node build.js --authors-only
+      - name: Guardar autores nuevos
+        run: |
+          if [ -n "$(git status --porcelain content/autores)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add content/autores
+            git commit -m "chore: autores nuevos detectados en los mods"
+            git push
+          fi
