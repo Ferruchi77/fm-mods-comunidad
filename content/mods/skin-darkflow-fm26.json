@@ -1,11 +1,21 @@
 {
   "fm_version": "FM27",
   "install_path": "Documents\\Sports Interactive\\Football Manager 27\\graphics",
+  "modified": "2026-11-04",
+  "updates": [
+    {
+      "version": "Actualización verano",
+      "date": "2026-07-25",
+      "note": "Summer Update – 2026/2027 Season Matchballs\n\n-Generic Balls\nAdded 5 new Adidas Tiro variants.\n\nConfig updated to include all club and international friendlies (men's, women's and youth competitions).\n\n\n-Africa\nSouth Africa: Premiership.\n\n\n-Europe\nUEFA: Champions League, Champions League Knockout Stage, Champions League Alternative Match Ball, Europa League, Conference League, Nations League.\n\nConfig updated to include all UEFA Nations League groups.\n\nBelgium: Pro League.\n\nEngland: Premier League, Premier League Winter, EFL, Carabao Cup, Enterprise Premier.\n\nFrance: Ligue 1, Ligue 1 Winter, Ligue 2.\n\nGermany: Bundesliga, Bundesliga Winter, 3. Liga.\n\nGreece: Stoiximan Super League, Kypello Ellados.\n\nItaly: Serie A, Serie B, Serie C.\n\nNetherlands: Eredivisie, Keuken Kampioen Divisie.\n\nPoland: Ekstraklasa.\n\nPortugal: Liga Portugal.\n\nScotland: Scottish Premiership.\n\nSpain: La Liga, Copa del Rey, Copa de la Reina, Supercopa de España, RFEF Competitions.\n\nTurkey: Süper Lig.\n\n\n-South America\nArgentina: Primera División.\n\n\n-International\nAdded the FIFA World Cup Final match ball (used in-game for the knockout stage as well).\n\nFixed the World Cup knockout stage match ball configuration.\n\nAdded every official FIFA World Cup match ball from 1930 to 2022.\n\n"
+    }
+  ],
   "author": "BabaYaga89",
-  "date": "2026-07-25",
+  "featured": true,
+  "date": "2026-04-28",
   "badges": [
     "Imprescindible"
   ],
+  "status": "🟢 Publicado",
   "fm_versions": [
     "FM26",
     "FM27"
