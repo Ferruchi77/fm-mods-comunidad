@@ -1,9 +1,11 @@
 {
+  "instructions": "Descargar el archivo\nInstalar el ejecutable .exe\nConfigura la app",
   "authors": [
     {
       "name": "lam2"
     }
   ],
+  "install_path": "Instalar el ejecutable .exe",
   "screenshots": [
     "https://sortitoutsi.b-cdn.net/uploads/media_2026/twjyVWU9FhfbzZeiouepgfenJbBYOaVvQD7RwCjg.webp",
     "https://sortitoutsi.b-cdn.net/uploads/media_2026/9v2XJ981d3Ahk4EBAfLMjFJDefQEnQLHArNrrvyo.webp"
@@ -12,6 +14,7 @@
   "badges": [
     "Imprescindible"
   ],
+  "status": "🟢 Publicado",
   "fm_versions": [
     "FM27",
     "FM26"
