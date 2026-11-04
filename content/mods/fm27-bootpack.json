@@ -6,20 +6,28 @@
       "url": "https://x.com/benithemaker"
     }
   ],
+  "modified": "2026-11-04",
+  "updates": [
+    {
+      "version": "V.2.0.1",
+      "date": "2026-03-03"
+    }
+  ],
   "screenshots": [
     "https://sortitoutsi.b-cdn.net/uploads/media_2025/s4iqbj4EQxJgULbmpVWtNSDqJz96B3ZWsbXgtF9r.png"
   ],
-  "date": "2026-11-03",
+  "date": "2025-11-03",
   "badges": [
     "Imprescindible"
   ],
+  "status": "🟢 Publicado",
   "fm_versions": [
     "FM27",
     "FM26"
   ],
   "cover": "https://sortitoutsi.b-cdn.net/uploads/media_2025/4TzJ7NIMF3vWSX9YxeXV6lxb8pk9yt3WOiPqvfW2.png",
   "download_url": "https://sortitoutsi.net/content/74959/fm26-bootpack",
-  "title": "FM27 Bootpack",
+  "title": "FM Bootpack",
   "categories": [
     "app-externa"
   ],
