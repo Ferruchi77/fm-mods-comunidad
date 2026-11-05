@@ -3,9 +3,9 @@
    Solo cambia lo que se ve: no toca los datos que se guardan. */
 (function(){
   const TABS=[
-    {n:1,t:'1 · Información principal',f:['title','status','categories','fm_versions','badges','featured','tags','compat_patch','compat_note','date','modified']},
+    {n:1,t:'1 · Información principal',f:['title','card_text','status','categories','fm_versions','badges','featured','tags','compat_patch','compat_note','date','modified']},
     {n:2,t:'2 · Autores y enlaces',f:['authors','download_url']},
-    {n:3,t:'3 · Contenido y multimedia',f:['cover','screenshots','description','install_path','instructions','updates']}
+    {n:3,t:'3 · Contenido y multimedia',f:['cover','screenshots','description','install_path','install_paths','instructions','updates']}
   ];
   const q=(s,r)=>(r||document).querySelector(s);
   const inForm=()=>/#\/collections\/mods\/(new|entries\/)/.test(location.hash);
@@ -54,7 +54,32 @@
       if(s){a.dataset.fmSt=s[1];a.dataset.fmLbl=s[2]}else{delete a.dataset.fmSt;delete a.dataset.fmLbl}
     });
   }
-  const run=()=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(()=>{try{tabs();list()}catch(e){console.warn('ui.js',e)}})};
+  // Aviso flotante de error: Decap solo dice «falta un campo obligatorio». Aquí se añade QUÉ campos faltan y en qué pestaña.
+  const clean=s=>String(s||'').replace(/\*/g,'').replace(/\s*\([^)]*\)/g,'').replace(/\s+/g,' ').trim();
+  function missingList(){
+    const out=[],seen=new Set();
+    document.querySelectorAll('[class*="ControlErrorsList"] li').forEach(li=>{
+      const top=li.closest('[class*="ControlTopbar"]'),lab=top&&top.querySelector('label'),name=clean(lab&&lab.textContent)||'Campo';
+      const txt=li.textContent.trim(),req=/obligatori|required|empty/i.test(txt),tab=(li.closest('[data-fmt]')||{dataset:{}}).dataset.fmt;
+      const msg=req?name:name+': '+clean(txt.replace(lab?lab.textContent:'','')).replace(/^[:\s-]+/,'');
+      const key=msg+'|'+tab;if(seen.has(key))return;seen.add(key);out.push({msg,tab,req})});
+    return out}
+  function toasts(){
+    let shown=false;
+    document.querySelectorAll('.Toastify__toast--error').forEach(t=>{
+      if(t.dataset.fmDone){return}
+      const body=t.querySelector('.Toastify__toast-body');if(!body)return;
+      if(!/obligatori|required field|campo/i.test(body.textContent))return;
+      if(shown){t.style.display='none';t.dataset.fmDone='dup';return}   // Decap lanza el mismo aviso varias veces
+      const L=missingList();if(!L.length)return;
+      shown=true;t.dataset.fmDone='1';
+      const d=document.createElement('div');d.className='fm-miss';
+      d.innerHTML='<b>Falta por revisar ('+L.length+'):</b><ul>'+L.map(x=>'<li>'+x.msg.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))+(x.tab?' <i>· pestaña '+x.tab+'</i>':'')+'</li>').join('')+'</ul>';
+      body.appendChild(d)});
+  }
+  // Insignia de versión del proyecto (sale de /data/meta.json)
+  fetch('/data/meta.json').then(r=>r.json()).then(m=>{if(!m.version)return;const v=document.createElement('div');v.className='fm-ver';v.textContent='Panel '+m.version;document.body.appendChild(v)}).catch(()=>{});
+  const run=()=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(()=>{try{tabs();list();toasts()}catch(e){console.warn('ui.js',e)}})};
   new MutationObserver(run).observe(document.body,{childList:true,subtree:true,characterData:true});
   run();
 })();

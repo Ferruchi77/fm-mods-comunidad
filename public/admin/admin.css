@@ -15,3 +15,8 @@ a[data-fm-st="draft"]{--c:#f59e0b;--t:#422006}
 a[data-fm-st="pend"]{--c:#dc2626}
 a[data-fm-st="inc"]{--c:#6b7280}
 a[data-fm-st]:after{content:attr(data-fm-lbl);position:absolute;top:10px;right:10px;padding:2px 10px;border-radius:999px;background:var(--c);color:var(--t);font:700 12px/1.6 system-ui,sans-serif;pointer-events:none}
+
+/* v.12 · aviso de error con la lista de campos y versión del panel */
+.fm-miss{margin-top:8px;font-size:13px;line-height:1.4}.fm-miss ul{margin:4px 0 0;padding-left:18px}.fm-miss i{opacity:.85}
+.Toastify__toast--error{min-width:320px}
+.fm-ver{position:fixed;left:10px;bottom:8px;z-index:5;padding:2px 10px;border-radius:999px;background:#1f2937;color:#fff;font:600 11px/1.8 system-ui,sans-serif;opacity:.75;pointer-events:none}

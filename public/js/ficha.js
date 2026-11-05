@@ -47,8 +47,18 @@ const make=ctx=>{
     return `<div class="compat${ok?'':' warn'}"><div class="vc">${S('compat_h',null,'strong')}${vchips(m)}</div><p>${t.join(' ')}</p></div>`};
   const reload=C.reload||['FM24'];
   const needsReload=m=>m.vers.some(v=>reload.includes(vk(v).toUpperCase()));
-  const installPaths=m=>m.install_path&&String(m.install_path).trim()?String(m.install_path).split(/\r?\n/).map(x=>x.trim()).filter(Boolean).map(path=>({label:'',path})):
-    (m.vers.length?m.vers:['FM26']).flatMap(v=>[...new Set((m.cats.length?m.cats:['graficos']).map(c=>catOf(c).dir))].map(d=>({label:m.vers.length>1?v:'',path:`Documentos/Sports Interactive/Football Manager ${verYear(v)}/${d}`})));
+  // Rutas de instalación. Prioridad: 1) una ruta por versión de FM (campo install_paths) · 2) texto libre (install_path, una por línea) · 3) automática según la categoría.
+  // La ruta de la categoría es libre: si parece completa (Steam…, Documents…, C:\…, «Football Manager NN») se usa tal cual, cambiando el año por el de cada versión; si no, se cuelga de la carpeta de documentos de FM.
+  const isFull=d=>/^([a-z]:|\\|\/|~|%)|football manager|steamapps|documents|documentos/i.test(d);
+  const forVer=(d,v)=>{const y=String(verYear(v));return d.replace(/Football Manager (\d{4}|\d{2})/gi,(_,n)=>'Football Manager '+(n.length===4?y:y.slice(-2)))};
+  const autoPaths=(m,vs)=>{const dirs=[...new Set((m.cats.length?m.cats:['graficos']).map(c=>String(catOf(c).dir||'').trim()).filter(Boolean))];
+    return vs.flatMap(v=>dirs.map(d=>({label:m.vers.length>1?v:'',path:isFull(d)?forVer(d,v):`Documentos/Sports Interactive/Football Manager ${verYear(v)}/${d}`})))};
+  const installPaths=m=>{
+    const vs=m.vers.length?m.vers:['FM26'];
+    const cp=list(m.install_paths).map(x=>x&&{label:String(x.version||'').trim(),path:String(x.path||'').trim()}).filter(x=>x&&x.path&&(!x.label||m.vers.includes(x.label))).sort((a,b)=>m.vers.indexOf(a.label)-m.vers.indexOf(b.label));
+    if(cp.length){const have=new Set(cp.map(x=>x.label));return [...cp,...autoPaths(m,vs.filter(v=>!have.has(v)))]}
+    if(m.install_path&&String(m.install_path).trim())return String(m.install_path).split(/\r?\n/).map(x=>x.trim()).filter(Boolean).map(path=>({label:'',path}));
+    return autoPaths(m,vs)};
   const hist=m=>m.upd.length?`<div class="desc">${S('hist_h',null,'h2')}<ul class="tl">${m.upd.map(u=>`<li><time datetime="${esc(u.date)}" data-d="long">${dt(u.date)}</time>${u.version?`<h3>${esc(u.version)}</h3>`:S('hist_upd',null,'h3')}${u.note?`<p>${esc(u.note)}</p>`:''}</li>`).join('')}${m.date?`<li class="new"><time datetime="${esc(m.date)}" data-d="long">${dt(m.date)}</time>${S('hist_init',null,'h3')}</li>`:''}</ul></div>`:'';
   // Reportar enlace caído: correo (mailto) con asunto y cuerpo, más alternativas web por si no hay cliente de correo
   const report=m=>{const url=`${C.url}/mod/${m.slug}/`,q=encodeURIComponent,subj=`Enlace caído: ${m.title}`,
@@ -76,7 +86,7 @@ ${ad('bajo-titulo')}
 <div class="det"><div>
 ${shots.length?`<img class="shot" id="shot" data-zoom tabindex="0" ${AM({title:'shot_title',alt:'shot_alt'},{t:m.title})} src="${esc(shots[0])}" decoding="async" fetchpriority="high" width="960" height="540">${shots.length>1?`<div class="thumbs">${shots.map((s,i)=>`<button type="button" data-src="${esc(s)}" class="${i?'':'on'}" ${AM({'aria-label':'shot_n'},{n:i+1})}><img src="${esc(s)}" alt="" loading="lazy" decoding="async" width="96" height="54"></button>`).join('')}</div>`:''}`:''}
 <div class="desc">${S('desc_h',null,'h2')}${paras}${m.tags.length?`<p class="tags">${m.tags.map(t=>`<span>#${esc(t)}</span>`).join('')}</p>`:''}</div>${hist(m)}</div>
-<aside><div class="box">${S('inst_h',null,'h2')}${appOnly?'':`${S('inst_path',null,'p','meta')}${ips.map(x=>`${x.label?`<p class="meta pl">${esc(x.label)}</p>`:''}<code class="path">${esc(x.path)}</code><button class="btn" type="button"${I('copy_btn')} data-copy="${esc(x.path)}">${esc(T('copy_btn'))}</button>`).join('')}`}<ol class="steps">${steps}</ol><p class="meta" style="margin:12px 0 0"><a href="/como-instalar/"${I('inst_guide')} style="text-decoration:underline">${esc(T('inst_guide'))}</a></p></div><div class="box dlbox"><a class="btn primary big" data-dlc="${m.slug}" href="${esc(m.download_url)}" target="_blank" rel="nofollow noopener noreferrer"${I('dl_btn')}>${esc(T('dl_btn'))}</a><div class="fst"><span class="fr" data-fr>★ Sin valoraciones</span><span class="fl" data-fl>👍 0</span><span class="dlc" data-dl="${m.slug}"></span></div><div class="fb"><button class="btn like" type="button" data-like="${m.slug}" aria-pressed="false">👍 ${S('like_btn')} <b></b></button></div>${ad('junto-descarga')}
+<aside><div class="box">${S('inst_h',null,'h2')}${appOnly||!ips.length?'':`${S('inst_path',null,'p','meta')}${ips.map((x,i)=>{const k=x.label?'copy_btn_ver':ips.length>1?'copy_btn_n':'copy_btn',v=x.label?{v:x.label}:ips.length>1?{n:i+1}:null;return `<div class="pr"><code class="path">${esc(x.path)}</code><button class="btn" type="button"${I(k,v)} data-copy="${esc(x.path)}">${esc(T(k,v))}</button></div>`}).join('')}`}<ol class="steps">${steps}</ol><p class="meta" style="margin:12px 0 0"><a href="/como-instalar/"${I('inst_guide')} style="text-decoration:underline">${esc(T('inst_guide'))}</a></p></div><div class="box dlbox"><a class="btn primary big" data-dlc="${m.slug}" href="${esc(m.download_url)}" target="_blank" rel="nofollow noopener noreferrer"${I('dl_btn')}>${esc(T('dl_btn'))}</a><div class="fst"><span class="fr" data-fr>★ Sin valoraciones</span><span class="fl" data-fl>👍 0</span><span class="dlc" data-dl="${m.slug}"></span></div><div class="fb"><button class="btn like" type="button" data-like="${m.slug}" aria-pressed="false">👍 ${S('like_btn')} <b></b></button></div>${ad('junto-descarga')}
 ${report(m)}</div>
 ${opt.extras||''}</aside></div></div>`;
   };

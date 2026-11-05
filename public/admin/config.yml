@@ -40,6 +40,7 @@ collections:
     fields:
       # ───── Pestaña 1 · Información principal ─────
       - { label: "Título *", name: title, widget: string, hint: "Obligatorio." }
+      - { label: "Texto breve en la tarjeta (opcional)", name: card_text, widget: string, required: false, hint: "Una frase corta (máx. 140 caracteres) que se ve en la lista ANTES de entrar al mod, para identificar de qué va de un vistazo. Si lo dejas vacío se muestra el principio de la descripción.", pattern: ['^[\s\S]{0,140}$', 'Máximo 140 caracteres'] }
       - label: "Estado de la ficha *"
         name: status
         widget: select
@@ -84,8 +85,8 @@ collections:
       - { label: Flags / Etiquetas, name: tags, widget: list, required: false }
       - { label: "Parche del juego con el que lo has probado (ej. 27.0.1)", name: compat_patch, widget: string, required: false }
       - { label: "Aviso de compatibilidad (opcional, ej. Requiere la última actualización)", name: compat_note, widget: string, required: false }
-      - { label: "Fecha de publicación *", name: date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
-      - { label: "Última modificación (sirve para ordenar la lista)", name: modified, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD", required: false }
+      - { label: "Fecha de publicación *", name: date, widget: fmdate }
+      - { label: "Última modificación (sirve para ordenar la lista)", name: modified, widget: fmdate, required: false }
       # ───── Pestaña 2 · Autores y enlaces ─────
       - label: Creadores / Autores (pulsa «Añadir» para poner más de uno)
         name: authors
@@ -113,7 +114,8 @@ collections:
       - { label: Imagen de portada, name: cover, widget: image, required: false, hint: "Sube un archivo o usa «Insertar desde URL». Mira la vista previa: comprueba que la imagen carga." }
       - { label: Capturas de pantalla, name: screenshots, widget: list, required: false, field: { label: Captura, name: shot, widget: image } }
       - { label: "Descripción *", name: description, widget: text }
-      - { label: Ruta de instalación (vacío = se calcula sola; una ruta por línea si hay varias), name: install_path, widget: text, required: false }
+      - { label: "Ruta de instalación (la misma para todas las versiones; vacío = se calcula sola; una ruta por línea si hay varias)", name: install_path, widget: text, required: false }
+      - { label: "Rutas de instalación por versión de FM (opcional)", name: install_paths, widget: fmpaths, required: false, hint: "Aparece una casilla por cada versión que hayas elegido en «Versiones de FM». Si rellenas alguna, manda sobre el campo de arriba." }
       - { label: Instrucciones (una línea por paso; vacío = genéricas), name: instructions, widget: text, required: false }
       - label: Historial de actualizaciones (añade una entrada cada vez que subas una versión nueva)
         name: updates
@@ -121,7 +123,7 @@ collections:
         required: false
         summary: "{{fields.date}} {{fields.version}}"
         fields:
-          - { label: Fecha, name: date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+          - { label: Fecha, name: date, widget: fmdate }
           - { label: "Versión del mod (ej. v1.2)", name: version, widget: string, required: false }
           - { label: Qué ha cambiado, name: note, widget: text, required: false }
 
@@ -141,7 +143,7 @@ collections:
       - { label: "Nombre en catalán (opcional)", name: name_ca, widget: string, required: false }
       - { label: "Nombre en francés (opcional)", name: name_fr, widget: string, required: false }
       - { label: "Nombre en portugués (opcional)", name: name_pt, widget: string, required: false }
-      - { label: "Subcarpeta de instalación dentro de Football Manager (ej. graphics/ , skins/ , editor data/)", name: install_dir, widget: string, default: "graphics/" }
+      - { label: "Ruta de instalación de esta categoría (escríbela libremente)", name: install_dir, widget: string, required: false, hint: "Empieza vacío. Puedes poner cualquier ruta, completa o relativa, por ejemplo: Documents\\Sports Interactive\\Football Manager 27\\graphics  ·  Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins  ·  graphics/. Si pones «Football Manager 27», en los mods de otras versiones se cambia sola por su año. Cada mod puede además tener su propia ruta." }
       - { label: Orden en el menú (1, 2, 3…), name: order, widget: number, value_type: int, default: 10, required: false }
 
   - name: versiones
@@ -212,7 +214,7 @@ collections:
         value_field: "{{slug}}"
         display_fields: [title]
         required: false
-      - { label: Fecha, name: date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+      - { label: Fecha, name: date, widget: fmdate }
 
   - name: autores
     label: Autores

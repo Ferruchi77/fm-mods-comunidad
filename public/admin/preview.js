@@ -9,10 +9,12 @@
   const isUrl=u=>/^https?:\/\/[^\s/$.?#][^\s]*$/i.test(u);
   const isImg=u=>isUrl(u)||/^(\/|blob:|data:image)/i.test(u);
   const host=u=>{try{return new URL(u).hostname.replace(/^www\./,'')}catch(e){return u}};
-  const TXT={pending:'⏳ Comprobando si el servidor responde…',ok:'✓ El servidor responde (no se puede comprobar si el archivo existe)',bad:'⚠ El servidor no responde: el enlace puede estar caído o mal escrito'};
+  const TXT={pending:'⏳ Comprobando si el servidor responde…',ok:'✓ El servidor responde (no se puede comprobar si el archivo existe)',bad:'⚠ El servidor no responde: el enlace puede estar caído o mal escrito',skip:'✓ Enlace de X: X bloquea las comprobaciones automáticas, así que se da por válido (ábrelo para verlo)'};
+  // Webs que bloquean al navegador/robots aunque el enlace sea correcto: no se comprueban (evita el falso «caído»)
+  const NOPROBE=/(^|\.)(x\.com|twitter\.com|t\.co)$/i;
   // Comprobación de enlaces: una petición «no-cors» solo falla si el servidor no existe / no responde
   const CK=window.FMLK=window.FMLK||new Map();
-  const probe=u=>{const c=new AbortController(),t=setTimeout(()=>c.abort(),7000);return fetch(u,{mode:'no-cors',cache:'no-store',signal:c.signal}).then(()=>'ok',()=>'bad').finally(()=>clearTimeout(t))};
+  const probe=u=>{if(NOPROBE.test(host(u)))return Promise.resolve('skip');const c=new AbortController(),t=setTimeout(()=>c.abort(),7000);return fetch(u,{mode:'no-cors',cache:'no-store',signal:c.signal}).then(()=>'ok',()=>'bad').finally(()=>clearTimeout(t))};
   const paint=(el,st)=>{el.className='fmx-st fmx-'+st;el.textContent=TXT[st]};
   window.FMLinkCheck=function(img){
     const d=img.ownerDocument,all=()=>d.querySelectorAll('[data-u]');

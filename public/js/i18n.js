@@ -41,6 +41,7 @@ const apply=(root=document)=>{
 const box=()=>document.getElementById('lang');
 const ui=()=>{const b=box();if(!b)return;
   const c=b.querySelector('.lcode');if(c)c.textContent=lang.toUpperCase();
+  const fl=b.querySelector('.lflag'),src=b.querySelector('[data-lang="'+lang+'"] .fl');if(fl&&src)fl.innerHTML=src.innerHTML;
   b.querySelectorAll('[data-lang]').forEach(x=>{const on=x.dataset.lang===lang;x.classList.toggle('on',on);if(on)x.setAttribute('aria-current','true');else x.removeAttribute('aria-current')})};
 const menu=(open)=>{const b=box();if(!b)return;const m=b.querySelector('.lmenu'),btn=b.querySelector('.lbtn');
   m.hidden=!open;btn.setAttribute('aria-expanded',open)};

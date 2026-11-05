@@ -1,5 +1,10 @@
 (()=>{
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+// Imprescindibles: plegar / desplegar (se recuerda en localStorage; el estado inicial lo pone un script del <head> para que no parpadee)
+(()=>{const bt=document.getElementById('feat-toggle');if(!bt)return;const root=document.documentElement;
+  const paint=()=>{const open=root.getAttribute('data-feat')!=='0',k=open?'feat_hide':'feat_show';bt.setAttribute('aria-expanded',open);bt.dataset.i18n=k;bt.textContent=window.FMi18n?FMi18n.t(k):k;bt.classList.toggle('closed',!open)};
+  bt.addEventListener('click',()=>{const open=root.getAttribute('data-feat')!=='0';root.setAttribute('data-feat',open?'0':'1');try{localStorage.setItem('fm_feat',open?'0':'1')}catch{}paint()});
+  paint();addEventListener('fm:lang',paint)})();
 // i18n (public/js/i18n.js se carga antes): tr = texto traducido, trp = con plural (clave_one / clave_other)
 const i18n=window.FMi18n||{t:k=>k,tp:k=>k,locale:'es-ES'},tr=(k,v)=>i18n.t(k,v),trp=(k,n,v)=>i18n.tp(k,n,v);
 const q=$('#q'),grid=$('#grid'),norm=s=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
@@ -82,7 +87,7 @@ document.addEventListener('click',async e=>{
     clearTimeout(b._t);b.classList.remove('ok');void b.offsetWidth;
     b.textContent=ok?tr('copy_ok'):tr('copy_fail');b.classList.toggle('ok',ok);
     const pth=b.previousElementSibling;if(ok&&pth&&pth.classList.contains('path')){pth.classList.remove('flash');void pth.offsetWidth;pth.classList.add('flash')}
-    b._t=setTimeout(()=>{b.textContent=tr('copy_btn');b.classList.remove('ok')},1800)}
+    b._t=setTimeout(()=>{let v=null;try{v=b.dataset.p?JSON.parse(b.dataset.p):null}catch{}b.textContent=tr(b.dataset.i18n||'copy_btn',v);b.classList.remove('ok')},1800)}
   const t=e.target.closest('.thumbs button');
   if(t){$('#shot').src=t.dataset.src;$$('.thumbs button').forEach(x=>x.classList.toggle('on',x===t))}
 });
