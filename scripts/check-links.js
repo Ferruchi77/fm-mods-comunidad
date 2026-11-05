@@ -11,8 +11,10 @@ const mods=fs.readdirSync(DIR).filter(f=>f.endsWith('.json')).map(f=>{try{return
 const byUrl=new Map();for(const m of mods){const u=m.download_url.trim();(byUrl.get(u)||byUrl.set(u,[]).get(u)).push(m)}
 const req=async(url,method)=>{const c=new AbortController(),t=setTimeout(()=>c.abort(),TO);
   try{return await fetch(url,{method,redirect:'follow',signal:c.signal,headers:{'user-agent':UA,accept:'text/html,*/*','accept-language':'es,en;q=0.8',...(method==='GET'?{range:'bytes=0-0'}:{})}})}finally{clearTimeout(t)}};
+// Webs que bloquean a los robots aunque el enlace sea correcto (X/Twitter): se dan por buenas para no abrir falsos avisos
+const SKIP=/(^|\.)(x\.com|twitter\.com|t\.co)$/i;
 const check=async url=>{
-  try{let r=await req(url,'HEAD');if(r.status>=400&&r.status!==404&&r.status!==410)r=await req(url,'GET');
+  try{if(SKIP.test(new URL(url).hostname))return{s:'ok',d:'omitido (X bloquea robots)'};let r=await req(url,'HEAD');if(r.status>=400&&r.status!==404&&r.status!==410)r=await req(url,'GET');
     if(r.status===404||r.status===410)return{s:'broken',d:'HTTP '+r.status};
     if(r.status<400)return{s:'ok',d:'HTTP '+r.status};
     return{s:'unsure',d:'HTTP '+r.status}}
