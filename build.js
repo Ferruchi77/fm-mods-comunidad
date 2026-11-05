@@ -169,42 +169,43 @@ for(const {slug,a,ms} of authPages){
 
 // ===== PÁGINAS DE COMUNIDAD =====
 const XU2=`https://x.com/${C.x}`;
-const cta=(t,p,href,label,ext=1)=>`<div class="cta"><h2>${t}</h2><p>${p}</p><a class="btn primary" href="${href}"${ext?' target="_blank" rel="noopener"':''}>${label}</a></div>`;
+const ctaK=(hk,pk,href,bk,{ext=1,pp=null}={})=>`<div class="cta">${S(hk,null,'h2')}${S(pk,pp,'p')}<a class="btn primary" href="${href}"${ext?' target="_blank" rel="noopener"':''}${I(bk)}>${esc(T(bk))}</a></div>`;
+const nl=(p,n)=>Array.from({length:n},(_,k)=>p+(k+1));
 W(`${OUT}/envia-tu-mod/index.html`,page({path:'/envia-tu-mod/',title:`Envía tu mod de Football Manager | ${C.name}`,
  desc:'¿Creas gráficos, skins, bases de datos o elementos de día de partido para Football Manager? Envíanos tu mod y lo publicamos con tu nombre y tu enlace.',
- body:`<div class="wrap prose"><h1>Envía tu mod</h1>
-<p class="lead">${C.name} es un escaparate para el trabajo de los creadores de la comunidad. Si haces gráficos, skins, bases de datos o elementos de día de partido, aquí tu mod llega a más gente y siempre con tu nombre y tu enlace por delante.</p>
-${cta('¿Listo para compartirlo?','El envío se hace con un formulario externo y solo lleva unos minutos.',C.submit,'Rellenar el formulario')}
-<h2>Qué estamos buscando</h2>
-<div class="cards3"><div class="box"><h3>Gráficos</h3><p>Facepacks, kitpacks, logopacks y estadios.</p></div><div class="box"><h3>Skins</h3><p>Mejoras y rediseños de la interfaz.</p></div><div class="box"><h3>Bases de datos</h3><p>Ligas, parches de transferencias, nombres reales y archivos de editor data.</p></div><div class="box"><h3>Día de partido</h3><p>Marcadores, vallas, balones y otros elementos del partido.</p></div></div>
-<h2>Requisitos</h2>
-<ul class="checks"><li>Eres el autor del mod o tienes permiso expreso del autor para compartirlo.</li><li>Tienes un enlace de descarga estable en un servicio externo (MediaFire, MEGA, Google Drive…).</li><li>Indicas con qué versión de Football Manager es compatible (FM24, FM26, FM27…) y, si puedes, con qué parche lo has probado.</li><li>Incluyes al menos una imagen de portada y, mejor, varias capturas que muestren el resultado.</li><li>Añades una descripción clara de qué incluye el mod y qué cambia en el juego.</li><li>Explicas dónde se instala (la subcarpeta de destino) y cualquier paso especial.</li><li>Nos das el nombre con el que quieres figurar y un enlace a tu perfil (X, foro, web…).</li></ul>
-<h2>Qué no publicamos</h2>
-<ul class="checks no"><li>Contenido que no sea tuyo o que use material de otros autores sin su permiso.</li><li>Archivos de pago, cracks, versiones pirateadas del juego o cualquier cosa que infrinja licencias.</li><li>Enlaces que lleven a software malicioso o que obliguen a instalar programas ajenos al mod.</li></ul>
-<h2>Cómo funciona</h2>
-<ol class="steps4"><li><b>Envía</b> el formulario con los datos de tu mod.</li><li><b>Revisamos</b> el enlace, las imágenes y la información.</li><li><b>Publicamos</b> la ficha con tus créditos y tu enlace de creador.</li><li><b>Actualiza</b> cuando quieras: envíanos la nueva versión y aparecerá en <a href="/novedades/">Novedades</a>.</li></ol>
-<h2>Si eres autor y quieres retirar o corregir una ficha</h2><p>Escríbenos a <a href="mailto:${C.email}">${C.email}</a> o por <a href="${XU2}" target="_blank" rel="noopener">X</a> y lo resolvemos.</p>
-<p>¿Echas en falta un mod que nadie ha hecho todavía? Mira las <a href="/peticiones/">peticiones de la comunidad</a>.</p></div>`}));
+ body:`<div class="wrap prose">${S('sub_h1',null,'h1')}
+${S('sub_lead',{name:C.name},'p','lead')}
+${ctaK('sub_cta_h','sub_cta_p',C.submit,'sub_cta_btn')}
+${S('sub_seek_h',null,'h2')}
+<div class="cards3">${[1,2,3,4].map(n=>`<div class="box">${S('sub_c'+n+'_h',null,'h3')}${S('sub_c'+n+'_p',null,'p')}</div>`).join('')}</div>
+${S('sub_req_h',null,'h2')}
+<ul class="checks">${nl('sub_r',7).map(k=>S(k,null,'li')).join('')}</ul>
+${S('sub_no_h',null,'h2')}
+<ul class="checks no">${nl('sub_n',3).map(k=>S(k,null,'li')).join('')}</ul>
+${S('sub_how_h',null,'h2')}
+<ol class="steps4">${nl('sub_s',4).map(k=>SH(k,null,'li')).join('')}</ol>
+${S('sub_fix_h',null,'h2')}${SH('sub_fix_p',{email:C.email,xurl:XU2},'p')}
+${SH('sub_end',null,'p')}</div>`}));
 
 const REQ=readDir('content/peticiones').sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
-const ST={abierta:['Abierta','b-azul'],desarrollo:['En desarrollo','b-amarillo'],completada:['Completada','b-verde']};
+const ST={abierta:['st_open','b-azul'],desarrollo:['st_dev','b-amarillo'],completada:['st_done','b-verde']};
 const reqItem=r=>{const st=ST[r.status]||ST.abierta,mod=r.mod&&mods.find(m=>m.slug===r.mod);
-  return `<div class="req"><div><span class="b ${st[1]}">${st[0]}</span></div><div><h3>${esc(r.title)}</h3>${r.description?`<p>${esc(r.description)}</p>`:''}${mod?`<p><a href="/mod/${mod.slug}/">Ver el mod: ${esc(mod.title)}</a></p>`:''}</div></div>`};
+  return `<div class="req"><div><span class="b ${st[1]}">${S(st[0])}</span></div><div><h3>${esc(r.title)}</h3>${r.description?`<p>${esc(r.description)}</p>`:''}${mod?`<p><a href="/mod/${mod.slug}/"${I('req_see',{t:mod.title})}>${esc(T('req_see',{t:mod.title}))}</a></p>`:''}</div></div>`};
 const reqOpen=REQ.filter(r=>r.status!=='completada'),reqDone=REQ.filter(r=>r.status==='completada');
 const reqUrl=C.requests||XU2;
 W(`${OUT}/peticiones/index.html`,page({path:'/peticiones/',title:`Peticiones de la comunidad: pide el mod que te falta | ${C.name}`,
  desc:'Pide el mod de Football Manager que te gustaría ver: ligas regionales, packs de gráficos, skins, estadios… Los creadores de la comunidad pueden recoger tu idea.',
- body:`<div class="wrap prose"><h1>Peticiones de la comunidad</h1>
-<p class="lead">¿Hay una liga, un pack de gráficos o una skin que te gustaría tener y no encuentras? Cuéntanoslo. Publicamos las ideas aquí para que los creadores puedan verlas y animarse a hacerlas realidad.</p>
-${cta('Haz tu petición',C.requests?'Rellena el formulario con lo que buscas.':'Escríbenos por X mencionando a @'+C.x+' con lo que buscas.',reqUrl,C.requests?'Enviar una petición':'Pedir por X')}
-${C.requestsEmbed?`<iframe class="embed" src="${esc(C.requestsEmbed)}" title="Formulario de peticiones" loading="lazy">Cargando…</iframe>`:''}
-<h2>Ejemplos de cosas que puedes pedir</h2>
-<div class="cards3"><div class="box"><h3>Ligas y competiciones</h3><p>Divisiones regionales, ligas amateur o torneos que no vienen en el juego.</p></div><div class="box"><h3>Packs de gráficos</h3><p>Caras, escudos o equipaciones de una liga o de un periodo concreto.</p></div><div class="box"><h3>Skins</h3><p>Un estilo de interfaz, colores o una vista que echas en falta.</p></div><div class="box"><h3>Estadios y día de partido</h3><p>Estadios, marcadores, vallas o balones de tu competición favorita.</p></div></div>
-<h2>Cómo hacer una buena petición</h2>
-<ul class="checks"><li>Explica qué quieres con detalle (liga, equipos, temporada, estilo…).</li><li>Indica para qué versión de Football Manager lo necesitas.</li><li>Si puedes, añade ejemplos o imágenes de referencia.</li><li>Revisa antes la <a href="/">lista de mods</a> por si ya existe.</li></ul>
-<p>Publicar una petición no garantiza que alguien la haga: dependemos de los creadores voluntarios. Si eres creador y quieres coger una, <a href="/envia-tu-mod/">envíanos tu mod</a> cuando esté listo.</p>
-${reqOpen.length?`<h2>Peticiones abiertas</h2>${reqOpen.map(reqItem).join('')}`:''}
-${reqDone.length?`<h2>Peticiones cumplidas</h2>${reqDone.map(reqItem).join('')}`:''}</div>`}));
+ body:`<div class="wrap prose">${S('req_h1',null,'h1')}
+${S('req_lead',null,'p','lead')}
+${ctaK('req_cta_h',C.requests?'req_cta_p_form':'req_cta_p_x',reqUrl,C.requests?'req_cta_btn_form':'req_cta_btn_x',{pp:{x:C.x}})}
+${C.requestsEmbed?`<iframe class="embed" src="${esc(C.requestsEmbed)}" ${AM({title:'req_form_title'})} loading="lazy">…</iframe>`:''}
+${S('req_ex_h',null,'h2')}
+<div class="cards3">${[1,2,3,4].map(n=>`<div class="box">${S('req_e'+n+'_h',null,'h3')}${S('req_e'+n+'_p',null,'p')}</div>`).join('')}</div>
+${S('req_how_h',null,'h2')}
+<ul class="checks">${[1,2,3].map(n=>S('req_t'+n,null,'li')).join('')}${SH('req_t4',null,'li')}</ul>
+${SH('req_note',null,'p')}
+${reqOpen.length?`${S('req_open_h',null,'h2')}${reqOpen.map(reqItem).join('')}`:''}
+${reqDone.length?`${S('req_done_h',null,'h2')}${reqDone.map(reqItem).join('')}`:''}</div>`}));
 
 const mkh=d=>new Date(d).toLocaleDateString('es-ES',{month:'long',year:'numeric'});
 let grp='';const tlHtml=ups.map(u=>{const g=mkh(u.date),h=g!==grp?(grp?'</ul>':'')+`<h2 class="month">${g}</h2><ul class="tl">`:'';grp=g;return h+upItem(u,1)}).join('')+(ups.length?'</ul>':'');
@@ -227,24 +228,19 @@ ${C.adsense?`<h2>Publicidad</h2><p>Mostramos publicidad de Google AdSense. Googl
 <h2>Tus derechos</h2><p>Puedes ejercer tus derechos de acceso, rectificación y supresión escribiendo a <a href="mailto:${C.email}">${C.email}</a>.</p>`);
 
 
-const rows=Object.values(CATS).map(c=>`<tr><td>${esc(c.n)}</td><td>${esc(c.d)}</td><td><code>${esc(c.dir)}</code></td></tr>`).join('');
+const rows=Object.values(CATS).map(c=>`<tr><td${trAttr(c)}>${esc(c.n)}</td><td>${esc(c.d)}</td><td><code>${esc(c.dir)}</code></td></tr>`).join('');
 W(`${OUT}/como-instalar/index.html`,page({path:'/como-instalar/',title:`Cómo instalar mods en Football Manager: guía paso a paso | ${C.name}`,desc:'Aprende a instalar facepacks, logos, skins, bases de datos y elementos de día de partido en Football Manager: rutas en Windows, Mac y Linux y solución a problemas.',
- body:`<div class="wrap prose"><h1>Cómo instalar mods en Football Manager</h1>
-<p>Esta guía sirve para casi cualquier mod: gráficos, skins, bases de datos y elementos de día de partido. Si la ficha del mod indica una ruta o instrucciones concretas, sigue siempre las de la ficha.</p>
-<h2>Antes de empezar</h2><ul><li>Cierra Football Manager.</li><li>Comprueba en la ficha que el mod es compatible con tu versión del juego (FM24, FM26, FM27…).</li><li>Necesitas un programa para descomprimir, como 7-Zip o WinRAR.</li><li>Si el mod es un <b>plugin</b>, necesitas tener instalado previamente <b>BepInEx Unity (IL2CPP)</b> (ver el aviso de abajo).</li><li>Haz una copia de seguridad de la carpeta que vayas a modificar si ya tienes otros mods.</li></ul>
-<div class="compat warn"><p><b>⚠ Los plugins necesitan BepInEx.</b> Antes de instalar cualquier plugin debes tener instalado <b>BepInEx Unity (IL2CPP)</b>. Descárgalo aquí: <a href="https://builds.bepinex.dev/projects/bepinex_be" target="_blank" rel="noopener">https://builds.bepinex.dev/projects/bepinex_be</a></p></div>
-<h2>Paso a paso</h2><ol class="steps">
-<li><b>Descarga</b> el archivo desde el botón de la ficha. Se abrirá un servicio externo (MediaFire, MEGA, Drive…). Mientras se abrirá la página donde el creador del mod ha subido su mod, no directamente el link de mediafire o mega</li>
-<li><b>Descomprime</b> el archivo (clic derecho → extraer aquí).</li>
-<li><b>Abre la carpeta de destino.</b> En cada ficha tienes el botón «Copiar ruta de instalación»; pégala en la barra del explorador de archivos.</li>
-<li><b>Crea la carpeta si no existe</b> (por ejemplo <code>graphics</code> o <code>skins</code>) y copia dentro los archivos del mod. Si te pregunta si quieres combinar carpetas, acepta.</li>
-<li><b>Abre el juego.</b> En FM26 y posteriores los gráficos se cargan automáticamente; en FM24 hay que recargar el skin (ver más abajo).</li></ol>
-<h2>Dónde va cada tipo de mod</h2><div class="tbl"><table><thead><tr><th>Categoría</th><th>Qué incluye</th><th>Subcarpeta habitual</th></tr></thead><tbody>${rows}</tbody></table></div>
-<p>Se cuelgan de la carpeta <code>Football Manager 20XX</code> de tu sistema. Las subcarpetas son orientativas: algunos mods (sobre todo los parches de nombres reales) indican otra ruta distinta.</p>
-<h2>Rutas según tu sistema</h2><ul><li><b>Windows:</b> <code>Documentos/Sports Interactive/Football Manager 2027/</code></li><li><b>Mac:</b> <code>~/Library/Application Support/Sports Interactive/Football Manager 2027/</code></li><li><b>Linux:</b> <code>~/.local/share/Sports Interactive/Football Manager 2027/</code></li></ul><p>Cambia 2027 por el año de tu versión del juego (FM27 → 2027, FM26 → 2026…).</p>
-<h2>Recargar los cambios en el juego</h2><ul><li>Gráficos, skins, app externa y plugin en FM26 o posterior: no tienes que hacer nada, se cargan automáticamente al abrir el juego o la app.</li><li>Gráficos y skins en FM24: entra en Preferencias → Interfaz y pulsa el botón para recargar el skin. Si no ves los cambios, borra la caché desde esa misma pantalla (los nombres pueden variar según el idioma). Para cambiar de skin, elígelo en el desplegable de skins.</li><li>Editor data: se eligen al crear una partida nueva, en la pantalla de selección de base de datos. Normalmente no afectan a partidas ya empezadas, es decir hay que crear una de nueva.</li></ul>
-<h2>Problemas frecuentes</h2><ul><li><b>No veo ningún cambio:</b> revisa que la carpeta tenga el año correcto del juego y que no hayas dejado una carpeta de más (por ejemplo <code>graphics/graphics</code>).</li><li><b>Las caras o logos salen en blanco:</b> algunos packs incluyen un archivo <code>config.xml</code>; no lo borres.</li><li><b>El juego va lento tras instalar un pack grande:</b> es normal la primera vez, mientras se construye la caché.</li><li><b>El enlace no funciona:</b> usa «Reportar enlace caído» en la ficha del mod.</li></ul>
-<p><a class="btn primary" href="/">Volver a los mods</a></p></div>`}));
+ body:`<div class="wrap prose">${S('inst_h1',null,'h1')}
+${S('inst_intro',null,'p')}
+${S('inst_before_h',null,'h2')}<ul>${nl('inst_b',5).map(k=>k==='inst_b4'?SH(k,null,'li'):S(k,null,'li')).join('')}</ul>
+<div class="compat warn">${SH('inst_bep',null,'p')}</div>
+${S('inst_steps_h',null,'h2')}<ol class="steps">${nl('inst_p',5).map(k=>SH(k,null,'li')).join('')}</ol>
+${S('inst_where_h',null,'h2')}<div class="tbl"><table><thead><tr>${S('inst_th1',null,'th')}${S('inst_th2',null,'th')}${S('inst_th3',null,'th')}</tr></thead><tbody>${rows}</tbody></table></div>
+${SH('inst_where_p',null,'p')}
+${S('inst_paths_h',null,'h2')}<ul>${['inst_win','inst_mac','inst_lin'].map(k=>SH(k,null,'li')).join('')}</ul>${S('inst_year',null,'p')}
+${S('inst_reload_h',null,'h2')}<ul>${nl('inst_l',3).map(k=>S(k,null,'li')).join('')}</ul>
+${S('inst_prob_h',null,'h2')}<ul>${nl('inst_q',4).map(k=>SH(k,null,'li')).join('')}</ul>
+<p><a class="btn primary" href="/"${I('inst_back')}>${esc(T('inst_back'))}</a></p></div>`}));
 
 // SEO + estáticos
 W(`${OUT}/sitemap.xml`,`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${['/',...mods.map(m=>`/mod/${m.slug}/`),...authPages.map(x=>`/autor/${x.slug}/`),'/como-instalar/','/envia-tu-mod/','/peticiones/','/novedades/','/aviso-legal/','/privacidad/'].map(u=>{const m=mods.find(x=>u==='/mod/'+x.slug+'/'),ap=authPages.find(x=>u==='/autor/'+x.slug+'/'),lm=x=>(x.upd[0]&&x.upd[0].date)||x.date,d=m?lm(m):ap?ap.ms.map(lm).filter(Boolean).sort().pop():'';return `<url><loc>${C.url}${u}</loc>${d?`<lastmod>${String(d).slice(0,10)}</lastmod>`:''}</url>`}).join('')}</urlset>`);
