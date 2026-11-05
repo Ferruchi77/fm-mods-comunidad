@@ -227,5 +227,9 @@
  "inst_q2": "<b>Les visages ou logos s'affichent en blanc :</b> certains packs incluent un fichier <code>config.xml</code> ; ne le supprimez pas.",
  "inst_q3": "<b>Le jeu est lent après l'installation d'un gros pack :</b> c'est normal la première fois, le temps que le cache se construise.",
  "inst_q4": "<b>Le lien ne fonctionne pas :</b> utilisez « Signaler un lien mort » sur la fiche du mod.",
- "inst_back": "Retour aux mods"
+ "inst_back": "Retour aux mods",
+ "feat_hide": "Masquer",
+ "feat_show": "Afficher",
+ "copy_btn_ver": "Copier le chemin · {v}",
+ "copy_btn_n": "Copier le chemin {n}"
 }

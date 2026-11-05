@@ -227,5 +227,9 @@
  "inst_q2": "<b>Las caras o logos salen en blanco:</b> algunos packs incluyen un archivo <code>config.xml</code>; no lo borres.",
  "inst_q3": "<b>El juego va lento tras instalar un pack grande:</b> es normal la primera vez, mientras se construye la caché.",
  "inst_q4": "<b>El enlace no funciona:</b> usa «Reportar enlace caído» en la ficha del mod.",
- "inst_back": "Volver a los mods"
+ "inst_back": "Volver a los mods",
+ "feat_hide": "Ocultar",
+ "feat_show": "Mostrar",
+ "copy_btn_ver": "Copiar ruta · {v}",
+ "copy_btn_n": "Copiar ruta {n}"
 }

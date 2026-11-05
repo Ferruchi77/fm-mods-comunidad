@@ -227,5 +227,9 @@
  "inst_q2": "<b>Rostos ou logos aparecem em branco:</b> alguns pacotes incluem um arquivo <code>config.xml</code>; não o apague.",
  "inst_q3": "<b>O jogo fica lento após instalar um pacote grande:</b> é normal na primeira vez, enquanto o cache é construído.",
  "inst_q4": "<b>O link não funciona:</b> use «Reportar link quebrado» na página do mod.",
- "inst_back": "Voltar aos mods"
+ "inst_back": "Voltar aos mods",
+ "feat_hide": "Ocultar",
+ "feat_show": "Mostrar",
+ "copy_btn_ver": "Copiar caminho · {v}",
+ "copy_btn_n": "Copiar caminho {n}"
 }

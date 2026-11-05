@@ -227,5 +227,9 @@
  "inst_q2": "<b>Les cares o logos surten en blanc:</b> alguns packs inclouen un arxiu <code>config.xml</code>; no l'esborris.",
  "inst_q3": "<b>El joc va lent després d'instal·lar un pack gran:</b> és normal la primera vegada, mentre es construeix la memòria cau.",
  "inst_q4": "<b>L'enllaç no funciona:</b> fes servir «Informa d'un enllaç caigut» a la fitxa del mod.",
- "inst_back": "Torna als mods"
+ "inst_back": "Torna als mods",
+ "feat_hide": "Amaga",
+ "feat_show": "Mostra",
+ "copy_btn_ver": "Copia la ruta · {v}",
+ "copy_btn_n": "Copia la ruta {n}"
 }

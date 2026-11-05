@@ -227,5 +227,9 @@
  "inst_q2": "<b>Faces or logos appear blank:</b> some packs include a <code>config.xml</code> file; don't delete it.",
  "inst_q3": "<b>The game is slow after installing a big pack:</b> that's normal the first time, while the cache is being built.",
  "inst_q4": "<b>The link doesn't work:</b> use “Report broken link” on the mod's page.",
- "inst_back": "Back to the mods"
+ "inst_back": "Back to the mods",
+ "feat_hide": "Hide",
+ "feat_show": "Show",
+ "copy_btn_ver": "Copy path · {v}",
+ "copy_btn_n": "Copy path {n}"
 }
