@@ -1,0 +1,58 @@
+{
+  "15dc3a1f4c68": {
+    "en": "-Camera transitions using direct cuts instead of the sweeping movements that distorted the image.\n\n-Improved goalscorer detection (100% accuracy) for the goal celebration camera.\n\n-Reduced lag and improved FPS.\n\n-Rare bugs that caused the game to crash unexpectedly are being fixed.",
+    "ca": "-Transicions de càmera mitjançant talls directes, en lloc dels moviments de panoràmica que distorsionaven la imatge.\n\n-Detecció de golejadors millorada (precisió del 100 %) per a la càmera de celebració de gols.\n\n-Reducció del lag i millora dels FPS.\n\n-S'estan corregint errors poc freqüents que provocaven el tancament inesperat del joc.",
+    "fr": "-Transitions de caméra par coupes franches, à la place des mouvements de balayage qui déformaient l'image.\n\n-Détection des buteurs améliorée (précision de 100 %) pour la caméra de célébration des buts.\n\n-Réduction du lag et amélioration des FPS.\n\n-Correction en cours d'erreurs rares qui provoquaient la fermeture inattendue du jeu.",
+    "pt": "-Transições de câmera por cortes diretos, em vez dos movimentos de varredura que distorciam a imagem.\n\n-Detecção de artilheiros aprimorada (precisão de 100%) para a câmera de comemoração de gols.\n\n-Redução do lag e melhora dos FPS.\n\n-Estamos corrigindo erros raros que causavam o fechamento inesperado do jogo.",
+    "it": "-Transizioni di camera con tagli diretti, al posto dei movimenti di panoramica che deformavano l'immagine.\n\n-Rilevamento dei marcatori migliorato (precisione del 100%) per la camera di esultanza dopo i gol.\n\n-Meno lag e FPS migliorati.\n\n-Stiamo correggendo errori rari che causavano la chiusura inaspettata del gioco."
+  },
+  "30c9e3ca1407": {
+    "en": "- Music length and configuration file adjusted.\n- The goal music selection for German football has been greatly expanded: it now includes the 3. Liga and all the Regionalliga divisions!",
+    "ca": "- S'ajusta la durada de la música i de l'arxiu de configuració.\n- S'ha ampliat considerablement la selecció de música per als gols al futbol alemany: ara s'inclouen la 3. Liga i totes les divisions de la Regionalliga!",
+    "fr": "- Ajustement de la durée de la musique et du fichier de configuration.\n- La sélection de musiques de but pour le football allemand a été considérablement élargie : elle inclut désormais la 3. Liga et toutes les divisions de la Regionalliga !",
+    "pt": "- Ajuste da duração da música e do arquivo de configuração.\n- A seleção de músicas de gol para o futebol alemão foi bastante ampliada: agora inclui a 3. Liga e todas as divisões da Regionalliga!",
+    "it": "- Regolata la durata della musica e del file di configurazione.\n- La selezione di musiche per i gol nel calcio tedesco è stata ampliata notevolmente: ora include la 3. Liga e tutte le divisioni della Regionalliga!"
+  },
+  "9e3eb1f815e3": {
+    "en": "Today's FM update disabled part of the interface and stopped the installer from running. This fixes it.\n\nAlready installed it? Just run the new Install.bat file.",
+    "ca": "L'actualització de FM d'avui ha desactivat part de la interfície i ha impedit que s'executés l'instal·lador. Això ho soluciona.\n\nJa el tens instal·lat? Simplement executa el nou arxiu Install.bat.",
+    "fr": "La mise à jour de FM d'aujourd'hui a désactivé une partie de l'interface et empêché l'installateur de se lancer. Ceci corrige le problème.\n\nVous l'avez déjà installé ? Lancez simplement le nouveau fichier Install.bat.",
+    "pt": "A atualização do FM de hoje desativou parte da interface e impediu a execução do instalador. Isto resolve o problema.\n\nJá instalou? Basta executar o novo arquivo Install.bat.",
+    "it": "L'aggiornamento di FM di oggi ha disattivato parte dell'interfaccia e impedito l'esecuzione dell'installer. Questo lo risolve.\n\nL'hai già installato? Esegui semplicemente il nuovo file Install.bat."
+  },
+  "a7947034df4c": {
+    "en": "The new look of the Panda Individual APP, which now has its own name and 5 languages\n\nBuying a club now lets you upgrade the facilities and improve the youth policies, paying out of your own pocket. Your children can carry on your legacy.",
+    "ca": "La nova imatge de l'APP Panda Individual, que ja té nom propi i 5 idiomes\n\nComprar un club ja permet millorar les instal·lacions i millorar les polítiques juvenils, aportant de la pròpia butxaca. Els teus fills poden continuar el teu llegat.",
+    "fr": "La nouvelle image de l'APP Panda Individual, qui a désormais son propre nom et 5 langues\n\nAcheter un club permet maintenant d'améliorer les installations et les politiques de jeunes, en payant de sa poche. Vos enfants peuvent poursuivre votre héritage.",
+    "pt": "A nova imagem do APP Panda Individual, que já tem nome próprio e 5 idiomas\n\nComprar um clube agora permite melhorar as instalações e as políticas de jovens, pagando do próprio bolso. Seus filhos podem continuar seu legado.",
+    "it": "La nuova immagine dell'APP Panda Individual, che ora ha un nome tutto suo e 5 lingue\n\nAcquistare un club ora permette di migliorare le strutture e le politiche giovanili, mettendo mano al proprio portafoglio. I tuoi figli possono portare avanti la tua eredità."
+  },
+  "d3fb22144674": {
+    "en": "9376 faces updated",
+    "ca": "9376 cares actualitzades",
+    "fr": "9376 visages mis à jour",
+    "pt": "9376 rostos atualizados",
+    "it": "9376 volti aggiornati"
+  },
+  "e231aed54e09": {
+    "en": "• Now works on Xbox / PC Game Pass\n• Transparent pages or a purple wallpaper after an FM update? Run the new installer once to fix it; it won't happen again.",
+    "ca": "• Ara funciona a Xbox / PC Game Pass\n• Pàgines transparents o fons de pantalla morat després d'una actualització de FM? Executa el nou instal·lador una vegada per solucionar-ho; no tornarà a passar.",
+    "fr": "• Fonctionne désormais sur Xbox / PC Game Pass\n• Pages transparentes ou fond d'écran violet après une mise à jour de FM ? Lancez le nouvel installateur une fois pour corriger cela ; cela ne se reproduira plus.",
+    "pt": "• Agora funciona no Xbox / PC Game Pass\n• Páginas transparentes ou papel de parede roxo depois de uma atualização do FM? Execute o novo instalador uma vez para resolver; não vai acontecer de novo.",
+    "it": "• Ora funziona su Xbox / PC Game Pass\n• Pagine trasparenti o sfondo viola dopo un aggiornamento di FM? Esegui una volta il nuovo installer per risolvere; non succederà più."
+  },
+  "f29b7e727eec": {
+    "en": "An update for FMSH has just been released to ensure compatibility with the new FM27 version that has just come out!!\nJust restart your app or click the update button.",
+    "ca": "Acaba de llançar-se una actualització per a FMSH per garantir la compatibilitat amb la nova versió de FM27 que acaba de sortir!!\nNomés cal reiniciar l'app o fer clic al botó d'actualització.",
+    "fr": "Une mise à jour de FMSH vient d'être publiée pour garantir la compatibilité avec la nouvelle version de FM27 qui vient de sortir !!\nRedémarrez simplement votre application ou cliquez sur le bouton de mise à jour.",
+    "pt": "Acaba de ser lançada uma atualização do FMSH para garantir a compatibilidade com a nova versão do FM27 que acabou de sair!!\nBasta reiniciar o app ou clicar no botão de atualização.",
+    "it": "È appena uscito un aggiornamento di FMSH per garantire la compatibilità con la nuova versione di FM27 appena uscita!!\nBasta riavviare l'app o cliccare sul pulsante di aggiornamento."
+  },
+  "fd27bc0eb333": {
+    "en": "5028 faces updated",
+    "ca": "5028 cares actualitzades",
+    "fr": "5028 visages mis à jour",
+    "pt": "5028 rostos atualizados",
+    "it": "5028 volti aggiornati"
+  }
+}
