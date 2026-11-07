@@ -6,12 +6,17 @@
     }
   ],
   "install_path": "\\Steam\\steamapps\\common\\Football Manager 26\\fm_Data\\StreamingAssets\\aa\\StandaloneWindows64",
-  "modified": "2026-11-04",
+  "modified": "2026-11-07",
   "updates": [
     {
       "version": "V.1.0.1",
       "date": "2026-11-02",
       "note": "Nueva pantalla de procesamiento: incluye la clasificación actual y un panel del próximo partido con el rival, la fecha, la competición, el nombre del estadio y una foto del mismo.\nSección dedicada al entrenador rival en la pantalla de procesamiento, que muestra su foto, edad, licencia de entrenador y formación más utilizada.\nFinanzas del club en su perfil: saldo, presupuesto para fichajes y presupuesto para salarios, situados junto a las equipaciones.\nPizarra táctica de mayor tamaño: se ha eliminado el panel de suplentes para evitar que los jugadores se solapen. Los suplentes ahora se seleccionan en una tabla situada junto a la pizarra.\nPerfil del jugador: la personalidad aparece ahora en la cabecera, mientras que la reputación se ha trasladado al panel de información."
+    },
+    {
+      "date": "2026-11-06",
+      "version": "V.1.0.2",
+      "note": "✅ Encabezado de jugador totalmente nuevo\n✅ Coste del traspaso y club anterior\n✅ Vitrina de trofeos"
     }
   ],
   "screenshots": [
@@ -29,6 +34,7 @@
   "cover": "https://sortitoutsi.b-cdn.net/uploads/media_2026/g49vaVdaKCFpWWc60ayFBxnZTj2UeHqIfmWcbm9g.png",
   "download_url": "https://sortitoutsi.net/content/78125/golden-boy-skin-for-fm27-by-bifi93",
   "title": "Golden Boy Skin",
+  "card_text": "Diseño elegante en negro, gris oscuro y dorado con perfiles rediseñados y soporte integrado para fotos de estadios y ciudades.",
   "categories": [
     "skins"
   ],
