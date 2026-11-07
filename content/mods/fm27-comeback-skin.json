@@ -6,7 +6,7 @@
     }
   ],
   "install_path": "Ejecuta el instalador: Abre la carpeta descomprimida y haz doble clic en el archivo Install.bat.",
-  "modified": "2026-11-04",
+  "modified": "2026-11-07",
   "updates": [
     {
       "date": "2026-11-03",
@@ -15,22 +15,27 @@
     },
     {
       "date": "2026-11-03",
-      "version": "1.5.1",
+      "version": "V.1.5.1",
       "note": "• Ahora funciona en Xbox / PC Game Pass\n• ¿Páginas transparentes o fondo de pantalla morado tras una actualización de FM? Ejecuta el nuevo instalador una vez para solucionarlo; no volverá a ocurrir."
     },
     {
       "note": "La actualización de FM de hoy desactivó parte de la interfaz y evitó que el instalador se ejecutara. Esto lo soluciona.\n\n¿Ya lo tienes instalado? Simplemente ejecuta el nuevo archivo Install.bat.\n",
-      "version": "1.4.2",
+      "version": "V.1.4.2",
       "date": "2026-11-02"
     },
     {
-      "version": "1.3.1",
+      "version": "V.1.3.1",
       "date": "2026-11-01"
     },
     {
-      "version": "V.1.6.3",
-      "note": "Los trofeos ahora permanecen en la vitrina de trofeos, y tus logos de competición están de vuelta en todos los demás lugares. Además, el Resumen de Noticias se adapta a pantallas de 1080p.",
-      "date": "2026-11-05"
+      "version": "V.1.7",
+      "date": "2026-11-05",
+      "note": "• Perfil de jugador en FM24\n• Barra superior de FM24\n• Atributos del personal mostrados de nuevo como números\n• Indicadores de estado en FM24\n• Informes de ojeo de la nueva hornada de juveniles\n• Barra lateral cuando no tienes equipo"
+    },
+    {
+      "date": "2026-11-07",
+      "version": "V.1.7.6",
+      "note": "- La barra lateral permanece después del resultado instantáneo y los botones de confirmación que faltan vuelven\n- Noticias de última hora de ancho completo\n- Detalles del perfil arreglados, etiquetas U21/U18.\n- Una nueva pantalla de inicio"
     }
   ],
   "author": " FM Extra Time",
@@ -49,6 +54,7 @@
   "download_url": "https://fmextratime.com/downloads/comeback-skin/",
   "title": "FM27 Comeback Skin",
   "author_url": "https://x.com/fmextratime",
+  "card_text": "Devuelve la mítica interfaz de FM24 a FM27: recupera la barra lateral clásica, la pantalla de inicio, perfiles y un realismo total.",
   "categories": [
     "skins"
   ],
