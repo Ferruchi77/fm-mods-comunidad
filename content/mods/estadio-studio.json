@@ -1,0 +1,23 @@
+{
+  "authors": [
+    {
+      "ref": "miguelfm"
+    }
+  ],
+  "modified": "2026-11-07",
+  "featured": false,
+  "date": "2026-11-07",
+  "status": "🟢 Publicado",
+  "fm_versions": [
+    "FM26"
+  ],
+  "cover": "https://pbs.twimg.com/media/HWifEzCXEAAIUVb?format=jpg&name=900x900",
+  "download_url": "https://www.patreon.com/MiguelFMAdboards/posts/estadio-studio-0-173398733?utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=postshare_creator&utm_content=join_link",
+  "title": "Estadio Studio",
+  "card_text": "Editor 3D y mod para FM26: rompe la monotonía creando estadios únicos con control total de tribunas, techos, redes y entorno urbano.",
+  "categories": [
+    "app-externa",
+    "bases-de-datos"
+  ],
+  "description": "EstadioEstudio v1.0 es un mod y aplicación de escritorio para Football Manager 26 que revoluciona la generación de estadios en el juego, permitiendo que cada recinto sea único y rompiendo con la simetría y monotonía por defecto.\n\n¿Qué incluye y cómo funciona?\nStadiumStyler (El mod): Se conecta al generador interno del juego para indicarle con precisión cómo construir el estadio (capacidad, distribución en las ocho tribunas, era de los modelos, techos, colores de asientos y el entorno urbano). Utiliza los 66 modelos de gradas que ya incluye el juego de forma nativa.\n\nEstadio Studio (La aplicación de escritorio): Un editor visual con un modelo en 3D interactivo que se reconstruye en tiempo real a medida que modificas los controles deslizantes (capacidad, proporciones, número de gradas, etc.), permitiendo asignarlo directamente a cualquier club.\n\nCaracterísticas clave\nModo automático (auto): Si prefieres no diseñar estadio por estadio, con una sola línea de configuración el mod asigna una forma coherente a cada club según su tamaño, antigüedad y región, respetando aquellos recintos especiales que el juego ya trae con diseños asimétricos o únicos.\n\nPersonalización total del estadio:\n\nControl de capacidad total, distribución independiente por cada una de las 4 tribunas y 4 esquinas (pudiendo crear estadios de uno, dos o tres lados), y épocas (desde antes de 1990 hasta diseños modernos).\n\nElección de colores de asientos y escaleras, techos personalizables (incluyendo el nombre del club impreso sobre la estructura al estilo Old Trafford), y opciones para gradas de pie o con asientos.\n\nModificación del entorno urbano de la ciudad (edificios, vegetación y horizonte) eligiendo entre 29 regiones del mundo y densidad de población.\n\nDiseño personalizado de porterías y redes: Permite configurar redes con texturas rayadas (hasta 4 colores en múltiples patrones), grosor del cordón, forma de la malla (cuadrada, de diamante o hexagonal), e incluso el escudo del club tejido en la red, además de modelar desde cero la estructura tubular de los postes (marcos de caja, soportes ingleses, barras traseras, etc.).\n\nComodidades y seguridad: Incluye historial de deshacer/rehacer (Ctrl+Z), validación automática de datos al guardar para evitar errores comunes, copias de seguridad automáticas y compatibilidad total con la tecla F9 para recargar los cambios con el juego abierto."
+}
