@@ -1,0 +1,39 @@
+{
+  "authors": [
+    {
+      "name": "Codexx",
+      "url": "https://x.com/codexx01"
+    }
+  ],
+  "modified": "2026-11-07",
+  "updates": [
+    {
+      "date": "2026-11-07",
+      "version": "V.1.0.2",
+      "note": "Ahora, cada mánager conserva su propio rostro, vinculado a su nombre y a su ID dentro de la partida. Solo tienes que abrir la pantalla de apariencia de cada mánager y cargar su rostro mediante la opción «Load Manager Face»."
+    }
+  ],
+  "screenshots": [
+    "https://sortitoutsi.b-cdn.net/uploads/media_2026/6bgG5j32OvkuxYjBEGEfYxti63Z09uha1gUqjOcj.jpg",
+    "https://sortitoutsi.b-cdn.net/uploads/media_2026/DIid9u1KoW5ZnUvIReqqMfhHICdi129SWooqAXJA.jpg",
+    "https://sortitoutsi.b-cdn.net/uploads/media_2026/J0s9fryvWMlGlcBWKXu7PGVBOKlQqnCtmm0fLsTz.jpg",
+    "https://sortitoutsi.b-cdn.net/uploads/media_2026/PZH8X3rmUELzM9FRPjvp6xjFET6w6ZPKuTaidNPa.jpg"
+  ],
+  "featured": true,
+  "date": "2026-11-05",
+  "badges": [
+    "Imprescindible"
+  ],
+  "status": "🟢 Publicado",
+  "fm_versions": [
+    "FM27"
+  ],
+  "cover": "https://sortitoutsi.b-cdn.net/uploads/media_2026/AydjeYuiivec9cTSygseHCYOaLb1WFrDQeWBGkeJ.jpg",
+  "download_url": "https://sortitoutsi.net/content/78249/fm-manager-3d-head-your-own-3d-face-for-your-fm27-manager",
+  "title": " FM Manager 3D Head",
+  "card_text": "Importa tu propia cara en 3D al juego para modelar el avatar exacto de tu mánager y vivir una inmersión total en los banquillos.",
+  "categories": [
+    "bases-de-datos"
+  ],
+  "description": "FM Manager 3D Head es un plugin gratuito para Football Manager 27 que reemplaza la cabeza 3D predeterminada del mánager por un escaneo 3D personalizado de tu propia cara, visible tanto en la banda del campo como en el vestuario, las cinemáticas y opcionalmente en el retrato 2D.\n\nCómo funciona: Requiere escanear tu cabeza mediante una aplicación externa compatible (como KeenFace) para exportarla en formato .glb. Posteriormente, se importa desde la pantalla de apariencia del mánager dentro del juego mediante el panel de configuración del mod (atajo Ctrl+Shift+H en Windows o Cmd+Shift+H en Mac).\n\nPersonalización y ajustes: El panel in-game permite calibrar el tamaño, la forma, los ojos, el cuello, la piel, las gafas o los accesorios sin necesidad de editar archivos de configuración manuales.\n\nRequisitos: Funciona con Football Manager 27 en Windows o macOS, requiriendo previamente la instalación de BepInEx 6 (IL2CPP) en el directorio del juego."
+}
