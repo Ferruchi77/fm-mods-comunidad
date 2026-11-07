@@ -1,0 +1,23 @@
+{
+  "authors": [
+    {
+      "name": "GuruOfNauru"
+    }
+  ],
+  "modified": "2026-11-07",
+  "featured": false,
+  "date": "2026-11-06",
+  "status": "🟢 Publicado",
+  "fm_versions": [
+    "FM26",
+    "FM27"
+  ],
+  "cover": "https://sortitoutsi.b-cdn.net/uploads/media_2026/Tx64z69gRT5nr4uBx3bMCJNgxTOYLVdnVVXaxrEv.png",
+  "download_url": "https://sortitoutsi.net/content/78271/fm27-broadcast-and-immersion",
+  "title": "Broadcast and Immersion",
+  "card_text": "Recrea el realismo televisivo con marcadores, gráficos oficiales y una inmersión visual total en cada partido.",
+  "categories": [
+    "bases-de-datos"
+  ],
+  "description": "FM27 Broadcast Suite es un plugin «todo en uno» para BepInEx, diseñado para transformar la experiencia de los partidos en 3D de Football Manager 2027 en una retransmisión futbolística al estilo televisivo, más inmersiva y realista.\n\nCombina dirección de cámara dinámica, repeticiones inteligentes, una presentación visual limpia, transiciones entre repeticiones, perspectiva del entrenador (POV), elementos gráficos de competiciones y canales de televisión, además de un reproductor de vídeo personalizado para ver los momentos destacados tras el partido; todo ello integrado en un único plugin.\n\n— REQUIERE los plugins de BASSYBOY (especialmente CameraInject) —\nhttps://www.bassyboy.com/downloads"
+}
