@@ -8,6 +8,13 @@
   ],
   "install_path": "Arrastra imágenes directamente sobre los jugadores, los *newgens* (jugadores generados por el juego) y tu propio mánager dentro del juego, o pégalas usando Ctrl+V",
   "modified": "2026-11-04",
+  "updates": [
+    {
+      "note": "✅ Real players new face drop across ALL saves\n✅ Women's teams fixed\n✅ Removing a face brings back the standard head",
+      "version": "V.0.2",
+      "date": "2026-11-07"
+    }
+  ],
   "featured": false,
   "date": "2026-11-04",
   "badges": [],
@@ -18,6 +25,7 @@
   "cover": "https://storage.ko-fi.com/cdn/useruploads/display/ef1c5c4f-8543-4350-be41-dbab89a070c8_facedrop-thumbnail-1200x1200.png",
   "download_url": "https://ko-fi.com/s/789026e7b3",
   "title": "FaceDrop",
+  "card_text": "Arrastra y suelta o pega fotos de cara directamente sobre cualquier jugador, newgen o mánager en FM27 al instante y sin editar configs.",
   "categories": [
     "dia-de-partido"
   ],
