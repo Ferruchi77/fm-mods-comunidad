@@ -238,3 +238,8 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;bac
 @media(min-width:1500px){body[data-home] .grid.feat-grid{grid-template-columns:repeat(auto-fill,minmax(min(100%,225px),1fr))}}
 @media(min-width:1900px){body[data-home] .grid:not(.feat-grid),body[data-wide] .grid{grid-template-columns:repeat(auto-fill,minmax(min(100%,335px),1fr))}}
 @media(max-width:600px){body[data-home] .grid.feat-grid,.feat-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.feat-grid .ex{display:none}}
+
+/* v.15 · idiomas como enlaces (una URL por idioma) */
+.lmenu a{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;color:var(--tx);text-decoration:none;font:inherit}
+.lmenu a:hover,.lmenu a:focus-visible{background:var(--s2)}
+.lmenu a.on{color:var(--ac);font-weight:700}.lmenu a.on::after{content:"✓";margin-left:auto}

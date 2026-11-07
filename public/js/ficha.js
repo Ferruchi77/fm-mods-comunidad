@@ -7,7 +7,8 @@ const vk=v=>String(v).replace(/\s+/g,'');
 const verYear=v=>2000+(parseInt(String(v).replace(/\D/g,''))||26);
 const list=x=>x==null||x===''?[]:[].concat(x);
 const iso=d=>!d?'':typeof d==='string'?d:d.toISOString?d.toISOString().slice(0,10):String(d);
-const dt=d=>d?new Date(d).toLocaleDateString('es-ES',{day:'numeric',month:'long',year:'numeric'}):'';
+let LOCALE='es-ES';const setLocale=l=>{LOCALE=l};  // idioma de las fechas (build.js lo cambia en cada idioma)
+  const dt=d=>d?new Date(d).toLocaleDateString(LOCALE,{day:'numeric',month:'long',year:'numeric'}):'';
 const UI='<svg class="ui" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-4.4 0-8 2.2-8 5v1h16v-1c0-2.8-3.6-5-8-5z"/></svg>';
 const http=u=>/^https?:\/\//i.test(String(u||''));
 
@@ -27,12 +28,13 @@ const make=ctx=>{
   const {C,CATS,BADGE}=ctx;
   // i18n: ctx.T(clave,vars) devuelve el texto en español (lo pone build.js o la vista previa). El navegador lo traduce con /js/i18n.js
   const T=ctx.T||(k=>k);
+  const tx=ctx.tx||(t=>t);  // texto libre del editor en el idioma de la página (lo pone build.js; en el panel, el original)
   const pj=v=>v?` data-p="${esc(JSON.stringify(v))}"`:'';
   const I=(k,v)=>` data-i18n="${k}"${pj(v)}`;
   const S=(k,v,tag='span',cls='')=>`<${tag}${cls?` class="${cls}"`:''}${I(k,v)}>${esc(T(k,v))}</${tag}>`;
   const AM=(a,v)=>Object.entries(a).map(([n,k])=>`${n}="${esc(T(k,v))}"`).join(' ')+` data-i18n-attr="${Object.entries(a).map(([n,k])=>n+':'+k).join(';')}"${pj(v)}`;
   const catOf=s=>CATS[s]||{n:s,d:'',dir:'graphics/'};
-  const trAttr=x=>x&&x.t?` data-tr="${esc(JSON.stringify(x.t))}"`:''; // nombre de categoría en otros idiomas (lo traduce i18n.js)
+  const trAttr=()=>''; // (antes marcaba el nombre traducido; ahora build.js escribe cada página ya en su idioma)
   const lum=h=>{const n=parseInt(h.slice(1),16);return(0.299*(n>>16)+0.587*((n>>8)&255)+0.114*(n&255))/255};
   const badge=b=>{const i=typeof BADGE[b]==='string'?{color:BADGE[b]}:(BADGE[b]||{}),hex=/^#[0-9a-f]{6}$/i.test(i.hex||'')?i.hex:'';
     return `<span class="b b-${i.color||'gris'}"${hex?` style="background:${hex};border-color:${hex};color:${lum(hex)>.55?'#111':'#fff'}"`:''}>${i.icon?esc(i.icon)+' ':''}${esc(b)}</span>`};
@@ -59,7 +61,7 @@ const make=ctx=>{
     if(cp.length){const have=new Set(cp.map(x=>x.label));return [...cp,...autoPaths(m,vs.filter(v=>!have.has(v)))]}
     if(m.install_path&&String(m.install_path).trim())return String(m.install_path).split(/\r?\n/).map(x=>x.trim()).filter(Boolean).map(path=>({label:'',path}));
     return autoPaths(m,vs)};
-  const hist=m=>m.upd.length?`<div class="desc">${S('hist_h',null,'h2')}<ul class="tl">${m.upd.map(u=>`<li><time datetime="${esc(u.date)}" data-d="long">${dt(u.date)}</time>${u.version?`<h3>${esc(u.version)}</h3>`:S('hist_upd',null,'h3')}${u.note?`<p>${esc(u.note)}</p>`:''}</li>`).join('')}${m.date?`<li class="new"><time datetime="${esc(m.date)}" data-d="long">${dt(m.date)}</time>${S('hist_init',null,'h3')}</li>`:''}</ul></div>`:'';
+  const hist=m=>m.upd.length?`<div class="desc">${S('hist_h',null,'h2')}<ul class="tl">${m.upd.map(u=>`<li><time datetime="${esc(u.date)}" data-d="long">${dt(u.date)}</time>${u.version?`<h3>${esc(u.version)}</h3>`:S('hist_upd',null,'h3')}${u.note?`<p>${esc(tx(u.note))}</p>`:''}</li>`).join('')}${m.date?`<li class="new"><time datetime="${esc(m.date)}" data-d="long">${dt(m.date)}</time>${S('hist_init',null,'h3')}</li>`:''}</ul></div>`:'';
   // Reportar enlace caído: correo (mailto) con asunto y cuerpo, más alternativas web por si no hay cliente de correo
   const report=m=>{const url=`${C.url}/mod/${m.slug}/`,q=encodeURIComponent,subj=`Enlace caído: ${m.title}`,
     body=`Hola,\r\n\r\nEl enlace de descarga de «${m.title}» no funciona.\r\n\r\nFicha: ${url}\r\nEnlace roto: ${m.download_url}\r\n\r\nGracias.`,
@@ -92,5 +94,5 @@ ${opt.extras||''}</aside></div></div>`;
   };
   return {trAttr,catOf,badges,authText,authHtml,vchips,compat,needsReload,installPaths,hist,report,detail};
 };
-return {esc,vk,verYear,dt,UI,normalize,make};
+return {esc,vk,verYear,dt,setLocale,UI,normalize,make};
 });

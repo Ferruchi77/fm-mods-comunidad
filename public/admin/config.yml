@@ -142,7 +142,8 @@ collections:
       - { label: "Nombre en inglés (opcional)", name: name_en, widget: string, required: false }
       - { label: "Nombre en catalán (opcional)", name: name_ca, widget: string, required: false }
       - { label: "Nombre en francés (opcional)", name: name_fr, widget: string, required: false }
-      - { label: "Nombre en portugués (opcional)", name: name_pt, widget: string, required: false }
+      - { label: "Nombre en portugués de Brasil (opcional)", name: name_pt, widget: string, required: false }
+      - { label: "Nombre en italiano (opcional)", name: name_it, widget: string, required: false }
       - { label: "Ruta de instalación de esta categoría (escríbela libremente)", name: install_dir, widget: string, required: false, hint: "Empieza vacío. Puedes poner cualquier ruta, completa o relativa, por ejemplo: Documents\\Sports Interactive\\Football Manager 27\\graphics  ·  Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins  ·  graphics/. Si pones «Football Manager 27», en los mods de otras versiones se cambia sola por su año. Cada mod puede además tener su propia ruta." }
       - { label: Orden en el menú (1, 2, 3…), name: order, widget: number, value_type: int, default: 10, required: false }
 
