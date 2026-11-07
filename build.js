@@ -10,14 +10,14 @@ const C={
   email:'fmmodscomunidad@gmail.com',            // recibe los "enlace caído"
   requests:'',       // formulario de peticiones (otro Google Form). Si lo dejas vacío, se pide por X
   requestsEmbed:'',  // opcional: URL de "incrustar" del formulario para verlo dentro de la página
-  version:'v.12',   // versión del proyecto: súbela +1 en cada entrega (sale en el pie de la web y en el panel)
+  version:'v.15',   // versión del proyecto: súbela +1 en cada entrega (sale en el pie de la web y en el panel)
   reload:['FM24'],   // versiones de FM en las que hay que recargar el skin/caché (en el resto el juego lo hace solo)
   slots:{'bajo-titulo':'','junto-descarga':''}, // IDs de bloque de anuncio (data-ad-slot) de AdSense
   submit:'https://forms.gle/MRgz9tF5xXea5EAn8'   // formulario "Envía tu mod"
 };
 const readDir=d=>fs.existsSync(d)?fs.readdirSync(d).filter(f=>f.endsWith('.json')).map(f=>({...JSON.parse(fs.readFileSync(p.join(d,f),'utf8')),slug:f.slice(0,-5)})):[];
 const CATS={}; // se rellena desde content/categorias (editable en /admin)
-readDir('content/categorias').sort((a,b)=>(a.order??99)-(b.order??99)||String(a.name).localeCompare(String(b.name),'es')).forEach(c=>{const t={es:c.name};['en','ca','fr','pt'].forEach(l=>{const v=String(c['name_'+l]||'').trim();if(v)t[l]=v});CATS[c.slug]={n:c.name,d:c.description||'',dir:String(c.install_dir==null?'graphics/':c.install_dir).trim(),...(Object.keys(t).length>1?{t}:{})}});
+readDir('content/categorias').sort((a,b)=>(a.order??99)-(b.order??99)||String(a.name).localeCompare(String(b.name),'es')).forEach(c=>{const t={es:c.name};['en','ca','fr','pt','it'].forEach(l=>{const v=String(c['name_'+l]||'').trim();if(v)t[l]=v});CATS[c.slug]={n:c.name,n0:c.name,d:c.description||'',dir:String(c.install_dir==null?'graphics/':c.install_dir).trim(),...(Object.keys(t).length>1?{t}:{})}});
 const BADGE={};readDir('content/distintivos').forEach(b=>BADGE[b.name]={color:b.color||'gris',hex:b.hex||'',icon:b.icon||'',featured:!!b.featured});
 if(!Object.keys(BADGE).length)Object.assign(BADGE,{Imprescindible:{color:'violeta',featured:true},Probado:{color:'verde'},Oficial:{color:'amarillo'}});
 const FEAT=Object.keys(BADGE).filter(k=>BADGE[k].featured);if(BADGE.Imprescindible&&!FEAT.includes('Imprescindible'))FEAT.push('Imprescindible'); // distintivos que llevan al carrusel de la portada
@@ -27,19 +27,31 @@ const V={css:hv('public/css/style.css'),app:hv('public/js/app.js'),ficha:hv('pub
 const F=require('./public/js/ficha.js'),{esc,vk,verYear,dt,UI,normalize}=F;
 // ===== i18n =====
 // Diccionarios en locales/*.json (es = texto base del HTML). Se incrustan en dist/js/i18n.js; el navegador traduce lo marcado con data-i18n.
-const LANGS=['es','en','ca','fr','pt'],DICT={};
+const LANGS=['es','en','ca','fr','pt','it'],DICT={};
+// Una URL por idioma: español en la raíz (/) y el resto bajo /en/, /ca/, /fr/, /pt-br/, /it/.
+// «pt» es portugués de Brasil (pt-BR): la dirección es /pt-br/ y el atributo lang es pt-BR.
+const LM={es:{slug:'',html:'es',hl:'es',loc:'es-ES',og:'es_ES',name:'Español',code:'ES'},en:{slug:'en',html:'en',hl:'en',loc:'en-GB',og:'en_GB',name:'English',code:'EN'},
+ca:{slug:'ca',html:'ca',hl:'ca',loc:'ca-ES',og:'ca_ES',name:'Català',code:'CA'},fr:{slug:'fr',html:'fr',hl:'fr',loc:'fr-FR',og:'fr_FR',name:'Français',code:'FR'},
+pt:{slug:'pt-br',html:'pt-BR',hl:'pt-BR',loc:'pt-BR',og:'pt_BR',name:'Português (Brasil)',code:'PT-BR'},it:{slug:'it',html:'it',hl:'it',loc:'it-IT',og:'it_IT',name:'Italiano',code:'IT'}};
+let CUR='es',BASE='';   // idioma que se está generando y su prefijo de URL
 LANGS.forEach(l=>{try{DICT[l]=JSON.parse(fs.readFileSync(`locales/${l}.json`,'utf8'))}catch(e){console.warn(`⚠ locales/${l}.json: ${e.message}`);DICT[l]={}}});
 LANGS.slice(1).forEach(l=>{Object.keys(DICT.es).forEach(k=>{if(!(k in DICT[l]))console.warn(`⚠ locales/${l}.json: falta «${k}» (se mostrará en español)`)});Object.keys(DICT[l]).forEach(k=>{if(!(k in DICT.es))console.warn(`⚠ locales/${l}.json: «${k}» no existe en es.json`)})});
-const I18N_JS='window.FM_DICT='+JSON.stringify(DICT)+';\n'+fs.readFileSync('public/js/i18n.js','utf8');
+const I18N_JS='window.FM_DICT='+JSON.stringify(DICT)+';window.FM_LM='+JSON.stringify(LM)+';\n'+fs.readFileSync('public/js/i18n.js','utf8');
 V.i18n=require('crypto').createHash('md5').update(I18N_JS).digest('hex').slice(0,8);
 const fmtT=(s,v)=>String(s).replace(/\{(\w+)\}/g,(_,k)=>v&&v[k]!=null?v[k]:'');
-const T=(k,v)=>k in DICT.es?fmtT(DICT.es[k],v):(console.warn('⚠ clave i18n sin definir: '+k),k);
+const T=(k,v)=>k in DICT.es?fmtT((DICT[CUR]&&DICT[CUR][k])??DICT.es[k],v):(console.warn('⚠ clave i18n sin definir: '+k),k);
 const pj=v=>v?` data-p="${esc(JSON.stringify(v))}"`:'';
 const I=(k,v)=>` data-i18n="${k}"${pj(v)}`;                                                    // atributo para un elemento que solo lleva texto
 const S=(k,v,tag='span',cls='')=>`<${tag}${cls?` class="${cls}"`:''}${I(k,v)}>${esc(T(k,v))}</${tag}>`;
 const SH=(k,v,tag='span',cls='')=>`<${tag}${cls?` class="${cls}"`:''} data-i18n-html="${k}"${pj(v)}>${T(k,v)}</${tag}>`;  // textos propios con <b>/<a>
 const AM=(a,v)=>Object.entries(a).map(([n,k])=>`${n}="${esc(T(k,v))}"`).join(' ')+` data-i18n-attr="${Object.entries(a).map(([n,k])=>n+':'+k).join(';')}"${pj(v)}`;
-const ctx={C,CATS,BADGE,LATEST:'',ad:null,T},R=F.make(ctx);
+// Textos libres de los editores (novedades, texto breve) traducidos por scripts/translate.js → content/traducciones.json
+let TRC={};try{TRC=JSON.parse(fs.readFileSync('content/traducciones.json','utf8'))}catch{}
+const trMissing=new Set();
+// Devuelve el texto libre del editor en el idioma de la página (si aún no está traducido, el original en español)
+const tx=t=>{if(CUR==='es')return t;const x=String(t||'').trim();if(!x)return t;const h=require('crypto').createHash('sha1').update(x,'utf8').digest('hex').slice(0,12),e=TRC[h];
+  if(e&&e[CUR])return e[CUR];trMissing.add(h);return t};
+const ctx={C,CATS,BADGE,LATEST:'',ad:null,T,tx},R=F.make(ctx);
 const {catOf,badges,authText,vchips,compat,needsReload,installPaths,hist,report,trAttr}=R;
 // ========================================
 const norm=s=>String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
@@ -103,31 +115,32 @@ es:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><path fill="#c60b1e" d="
 en:'<svg viewBox="0 0 60 30" preserveAspectRatio="none"><clipPath id="fmuj"><path d="M30 15h30v15zv15H0zH0V15zV0h30z"/></clipPath><path d="M0 0v30h60V0z" fill="#012169"/><path d="M0 0l60 30M60 0L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0l60 30M60 0L0 30" clip-path="url(#fmuj)" stroke="#c8102e" stroke-width="4"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#c8102e" stroke-width="6"/></svg>',
 ca:'<svg viewBox="0 0 9 9" preserveAspectRatio="none"><path fill="#fcdd09" d="M0 0h9v9H0z"/><path stroke="#da121a" stroke-width="1" d="M0 1h9M0 3h9M0 5h9M0 7h9"/></svg>',
 fr:'<svg viewBox="0 0 3 2" preserveAspectRatio="none"><path fill="#ed2939" d="M0 0h3v2H0z"/><path fill="#fff" d="M0 0h2v2H0z"/><path fill="#002395" d="M0 0h1v2H0z"/></svg>',
-pt:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><path fill="#f00" d="M0 0h30v20H0z"/><path fill="#060" d="M0 0h12v20H0z"/><circle cx="12" cy="10" r="4" fill="#ff0"/><circle cx="12" cy="10" r="2.2" fill="#f00"/></svg>'};
+it:'<svg viewBox="0 0 3 2" preserveAspectRatio="none"><path fill="#ce2b37" d="M0 0h3v2H0z"/><path fill="#fff" d="M0 0h2v2H0z"/><path fill="#009246" d="M0 0h1v2H0z"/></svg>',
+pt:'<svg viewBox="0 0 20 14" preserveAspectRatio="none"><rect width="20" height="14" fill="#009c3b"/><path d="M10 1.3 18.4 7 10 12.7 1.6 7z" fill="#ffdf00"/><circle cx="10" cy="7" r="3.2" fill="#002776"/><path d="M6.9 6.2c2-.5 4.3-.2 6.2 1" stroke="#fff" stroke-width=".55" fill="none"/></svg>'};
 const XU=`https://x.com/${C.x}`;
 const ad=l=>C.adsense&&C.slots[l]?`<aside class="ad" aria-label="Publicidad"><ins class="adsbygoogle" style="display:block;width:100%" data-ad-client="${C.adsense}" data-ad-slot="${C.slots[l]}" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({})</script></aside>`:'';
 const donate=()=>`<div class="box donate">${S('donate_h2',null,'h2')}${S('donate_p',null,'p')}<a class="btn primary" href="${C.kofi}" target="_blank" rel="noopener"${I('kofi_label')}>${esc(T('kofi_label'))}</a></div>`;
 const xcta=()=>`<div class="box xcta">${S('xcta_h2',null,'h2')}${S('xcta_p',{x:C.x},'p')}<a class="btn" href="${XU}" target="_blank" rel="noopener">${XI}${S('xcta_btn',{x:C.x})}</a></div>`;
 const ALLV=[...new Set([...readDir('content/versiones').map(v=>v.name),...mods.flatMap(m=>m.vers)])].filter(v=>vk(v).toUpperCase()!=='FM25').sort((a,b)=>verYear(b)-verYear(a)||String(a).localeCompare(String(b)));
 const LATEST=ALLV[0];ctx.LATEST=LATEST;ctx.ad=ad;
-const dts=d=>d?new Date(d).toLocaleDateString('es-ES',{day:'numeric',month:'short',year:'numeric'}):'';
+const dts=d=>d?new Date(d).toLocaleDateString(LM[CUR].loc,{day:'numeric',month:'short',year:'numeric'}):'';
 const exc=t=>{t=String(t||'').replace(/\s+/g,' ').trim();return t.length>120?t.slice(0,117)+'…':t};
-const card=(m,eager)=>`<a class="card" href="/mod/${m.slug}/" data-slug="${m.slug}" data-c="${esc(m.cats.join(' '))}" data-v="${esc(m.vers.map(vk).join(' '))}" data-t="${esc(norm([m.title,...m.auth.map(a=>a.name),...m.vers,...m.cats.map(c=>catOf(c).n),...m.cats.flatMap(c=>Object.values(catOf(c).t||{})),...m.tags,m.card_text||''].join(' ')))}"><div class="ph"><img src="${esc(m.cover||'/img/placeholder.svg')}" alt="${esc(m.title)}" loading="${eager?'eager':'lazy'}" decoding="async" width="640" height="360">${m.vers.length?`<span class="ph-v" ${AM({'aria-label':'card_vers'})}>${vchips(m)}</span>`:''}${m.badges.length?`<span class="ph-b">${badges(m)}</span>`:''}</div><div class="cb"><h3>${esc(m.title)}</h3><p class="by">${UI}<strong title="${esc(authText(m))}">${esc(authText(m))}</strong></p><p class="ex${m.card_text?' hook':''}">${esc(m.card_text?String(m.card_text).trim():exc(m.description))}</p><div class="cf"><span class="cat">${m.cats.map(c=>{const x=catOf(c);return `<span${trAttr(x)}>${esc(x.n)}</span>`}).join(', ')}</span>${m.upd[0]?`<time datetime="${esc(m.upd[0].date)}" data-d="short" data-pre="↻ " ${AM({title:'card_upd'})}>↻ ${dts(m.upd[0].date)}</time>`:m.date?`<time datetime="${esc(m.date)}" data-d="short">${dts(m.date)}</time>`:''}</div><p class="st" data-s="${m.slug}" hidden></p></div></a>`;
+const card=(m,eager)=>`<a class="card" href="/mod/${m.slug}/" data-slug="${m.slug}" data-c="${esc(m.cats.join(' '))}" data-v="${esc(m.vers.map(vk).join(' '))}" data-t="${esc(norm([m.title,...m.auth.map(a=>a.name),...m.vers,...m.cats.map(c=>catOf(c).n),...m.cats.flatMap(c=>Object.values(catOf(c).t||{})),...m.tags,m.card_text||''].join(' ')))}"><div class="ph"><img src="${esc(m.cover||'/img/placeholder.svg')}" alt="${esc(m.title)}" loading="${eager?'eager':'lazy'}" decoding="async" width="640" height="360">${m.vers.length?`<span class="ph-v" ${AM({'aria-label':'card_vers'})}>${vchips(m)}</span>`:''}${m.badges.length?`<span class="ph-b">${badges(m)}</span>`:''}</div><div class="cb"><h3>${esc(m.title)}</h3><p class="by">${UI}<strong title="${esc(authText(m))}">${esc(authText(m))}</strong></p><p class="ex${m.card_text?' hook':''}">${esc(m.card_text?tx(String(m.card_text).trim()):exc(m.description))}</p><div class="cf"><span class="cat">${m.cats.map(c=>{const x=catOf(c);return `<span${trAttr(x)}>${esc(x.n)}</span>`}).join(', ')}</span>${m.upd[0]?`<time datetime="${esc(m.upd[0].date)}" data-d="short" data-pre="↻ " ${AM({title:'card_upd'})}>↻ ${dts(m.upd[0].date)}</time>`:m.date?`<time datetime="${esc(m.date)}" data-d="short">${dts(m.date)}</time>`:''}</div><p class="st" data-s="${m.slug}" hidden></p></div></a>`;
 
 const absImg=i=>!i?C.url+'/img/og-image.jpg':/^https?:/i.test(i)?i:C.url+encodeURI(i);
 const ogImg=m=>[m.cover,...m.screenshots].find(i=>i&&!/\.(avif|svg)(\?|$)/i.test(i));
-const page=({title,desc,path,body,img,ld,home,type,imgAlt,wide})=>`<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="generator" content="${esc(C.name)} ${esc(C.version)}">
-<title>${esc(title)}</title><meta name="description" content="${esc(desc)}"><link rel="canonical" href="${C.url}${path}">
-<meta property="og:type" content="${type||'website'}"><meta property="og:site_name" content="${C.name}"><meta property="og:locale" content="es_ES"><meta property="og:url" content="${C.url}${path}"><meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:image" content="${esc(absImg(img))}"><meta property="og:image:alt" content="${esc(imgAlt||title)}">${img?'':'<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">'}<meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@${C.x}"><meta name="twitter:title" content="${esc(title)}"><meta name="twitter:description" content="${esc(desc)}"><meta name="twitter:image" content="${esc(absImg(img))}">
+const pageRaw=({title,desc,path,body,img,ld,home,type,imgAlt,wide,alt=true})=>`<!doctype html><html lang="${LM[CUR].html}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="generator" content="${esc(C.name)} ${esc(C.version)}">
+<title>${esc(title)}</title><meta name="description" content="${esc(desc)}"><link rel="canonical" href="${C.url}${BASE}${path}">${alt?LANGS.map(l=>`<link rel="alternate" hreflang="${LM[l].hl}" href="${C.url}${LM[l].slug?'/'+LM[l].slug:''}${path}">`).join('')+`<link rel="alternate" hreflang="x-default" href="${C.url}${path}">`:''}
+<meta property="og:type" content="${type||'website'}"><meta property="og:site_name" content="${C.name}"><meta property="og:locale" content="${LM[CUR].og}"><meta property="og:url" content="${C.url}${BASE}${path}"><meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:image" content="${esc(absImg(img))}"><meta property="og:image:alt" content="${esc(imgAlt||title)}">${img?'':'<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">'}<meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@${C.x}"><meta name="twitter:title" content="${esc(title)}"><meta name="twitter:description" content="${esc(desc)}"><meta name="twitter:image" content="${esc(absImg(img))}">
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png"><link rel="apple-touch-icon" href="/img/apple-touch-icon.png"><link rel="stylesheet" href="/css/style.css?v=${V.css}"><link rel="alternate" type="application/rss+xml" title="${esc(C.name)} — Novedades" href="/rss.xml">
 ${ld?`<script type="application/ld+json">${JSON.stringify(ld)}</script>`:''}${C.adsense?`<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${C.adsense}" crossorigin="anonymous"></script>`:''}
-<script>try{if(localStorage.getItem('fm_feat')==='0')document.documentElement.setAttribute('data-feat','0')}catch(e){}</script>
+${CUR==='es'&&path==='/'?`<script>try{var l=localStorage.getItem('fm_lang'),m={en:'en',ca:'ca',fr:'fr',pt:'pt-br',it:'it'};if(l&&m[l])location.replace('/'+m[l]+'/'+location.search+location.hash)}catch(e){}</script>\n`:''}<script>try{if(localStorage.getItem('fm_feat')==='0')document.documentElement.setAttribute('data-feat','0')}catch(e){}</script>
 <script>try{var t=localStorage.getItem('fm_theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
 <script>if(/(invite|recovery|confirmation)_token/.test(location.hash))location.replace('/admin/'+location.hash)</script></head>
 <body${home?' data-home':''}${wide?' data-wide':''}>
 <header class="hd"><div class="wrap hd-in"><a class="logo" href="/"><img src="/img/logo.png" width="40" height="40" alt="" style="border-radius:9px"><span>FM Mods <b>Comunidad</b></span></a>
 <form class="search" action="/" role="search"><input id="q" name="q" type="search" ${AM({placeholder:'search_ph','aria-label':'search_aria'})} autocomplete="off" role="combobox" aria-expanded="false" aria-controls="sg" aria-autocomplete="list"><div class="sg" id="sg" role="listbox" ${AM({'aria-label':'sg_aria'})} hidden></div></form>
-<div class="lang" id="lang"><button class="x lbtn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="lang-menu" ${AM({'aria-label':'lang_label',title:'lang_label'})}><span class="lflag" aria-hidden="true">${FL.es}</span><span class="lcode">ES</span></button><ul class="lmenu" id="lang-menu" hidden>${[['es','Español'],['en','English'],['ca','Català'],['fr','Français'],['pt','Português']].map(([c,n])=>`<li><button type="button" lang="${c}" data-lang="${c}"><span class="fl" aria-hidden="true">${FL[c]}</span><span>${n}</span></button></li>`).join('')}<li class="lsep"><button type="button" class="lshare" data-share${I('lang_share')}>${esc(T('lang_share'))}</button></li></ul></div>\
+<div class="lang" id="lang"><button class="x lbtn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="lang-menu" ${AM({'aria-label':'lang_label',title:'lang_label'})}><span class="lflag" aria-hidden="true">${FL[CUR]}</span><span class="lcode">${LM[CUR].code}</span></button><ul class="lmenu" id="lang-menu" hidden>${LANGS.map(l=>{const pre=LM[l].slug?'/'+LM[l].slug:'';return `<li><a href="${l==='es'?path:alt?pre+path:pre+'/'}" lang="${LM[l].html}" hreflang="${LM[l].hl}" data-lang="${l}"${l===CUR?' class="on" aria-current="true"':''}><span class="fl" aria-hidden="true">${FL[l]}</span><span>${LM[l].name}</span></a></li>`}).join('')}</ul></div>\
 <button class="x tbtn" id="theme" type="button" aria-label="${esc(T('theme_to_light'))}" title="${esc(T('theme_to_light'))}">${TI}</button>\
 <a class="x kofi" href="${esc(C.kofi)}" target="_blank" rel="noopener" ${AM({'aria-label':'kofi_label',title:'kofi_label'})}>${KI}<span class="kt"${I('kofi_label')}>${esc(T('kofi_label'))}</span></a>\
 <a class="x" href="${XU}" target="_blank" rel="noopener" aria-label="X: @${C.x}">${XI}</a></div>
@@ -137,13 +150,22 @@ ${ld?`<script type="application/ld+json">${JSON.stringify(ld)}</script>`:''}${C.
 ${S('ft_disclaimer',{name:C.name},'p')}<p class="ver">${esc(C.name)} · ${esc(C.version)}</p></div></footer>
 <script src="/js/i18n.js?v=${V.i18n}" defer></script><script src="/js/app.js?v=${V.app}" defer></script></body></html>`;
 
-// NOVEDADES: nuevos mods + actualizaciones registradas en cada ficha
+// Enlaces internos de cada idioma: /mod/x/ → /en/mod/x/ (los legales, RSS y recursos no cambian; el selector de idioma tampoco)
+const LINK_OK=/^\/(?:$|\?|mod\/|autor\/|como-instalar\/|envia-tu-mod\/|peticiones\/|novedades\/)/,SITE={pages:[]};
+const fin=h=>{
+  if(BASE)h=h.replace(/<(?:a|form)\b[^>]*>/g,tag=>/ data-lang=/.test(tag)?tag:tag.replace(/\b(href|action)="(\/[^"]*)"/,(m,a,u)=>LINK_OK.test(u)?`${a}="${BASE}${u}"`:m));
+  return h.replace(/<[a-z][^>]*\sdata-i18n[^>]*>/g,tag=>/ data-copy=|id="feat-toggle"/.test(tag)?tag:tag.replace(/\sdata-(?:i18n|i18n-html|i18n-attr|p)="[^"]*"/g,''))};
+const page=o=>{if(CUR==='es')SITE.pages.push({path:o.path,alt:o.alt!==false});return fin(pageRaw(o))};
 const ups=mods.flatMap(m=>[...m.upd.map(u=>({m,date:u.date,ver:u.version,note:u.note,type:'update'})),...(m.date?[{m,date:m.date,type:'new'}]:[])]).filter(x=>x.date).sort((a,b)=>new Date(b.date)-new Date(a.date));
-const upItem=(u,full)=>`<li class="${u.type==='new'?'new':''}"><time datetime="${esc(u.date)}" data-d="short">${dts(u.date)}</time><h3><a href="/mod/${u.m.slug}/">${esc(u.m.title)}</a> <span class="b ${u.type==='new'?'b-verde':'b-violeta'}">${S(u.type==='new'?'b_new':'b_upd')}${u.ver?' '+esc(u.ver):''}</span></h3>${full?`<p class="by">${UI}<strong>${esc(authText(u.m))}</strong></p><p class="vc">${vchips(u.m)}</p>`:''}${u.note?`<p>${esc(u.note)}</p>`:''}</li>`;
+const renderSite=L=>{
+CUR=L;BASE=LM[L].slug?'/'+LM[L].slug:'';F.setLocale(LM[L].loc);const OL=OUT+BASE;
+for(const c of Object.values(CATS))c.n=(c.t&&c.t[L])||c.n0;
+// NOVEDADES: nuevos mods + actualizaciones registradas en cada ficha
+const upItem=(u,full)=>`<li class="${u.type==='new'?'new':''}"><time datetime="${esc(u.date)}" data-d="short">${dts(u.date)}</time><h3><a href="/mod/${u.m.slug}/">${esc(u.m.title)}</a> <span class="b ${u.type==='new'?'b-verde':'b-violeta'}">${S(u.type==='new'?'b_new':'b_upd')}${u.ver?' '+esc(u.ver):''}</span></h3>${full?`<p class="by">${UI}<strong>${esc(authText(u.m))}</strong></p><p class="vc">${vchips(u.m)}</p>`:''}${u.note?`<p>${esc(tx(u.note))}</p>`:''}</li>`;
 // HOME
 const feat=mods.filter(m=>m.badges.some(b=>FEAT.includes(b)));
-W(`${OUT}/index.html`,page({home:1,path:'/',title:`${C.name} — Mods de Football Manager: bases de datos, gráficos y skins`,
- desc:'Portal comunitario de mods para Football Manager: bases de datos, facepacks, kitpacks, logopacks, skins y elementos de día de partido. Descargas gratis.',
+W(`${OL}/index.html`,page({home:1,path:'/',title:T('seo_home_t',{name:C.name}),
+ desc:T('seo_home_d'),
  ld:{'@context':'https://schema.org','@type':'WebSite',name:C.name,url:C.url,potentialAction:{'@type':'SearchAction',target:`${C.url}/?q={q}`,'query-input':'required name=q'}},
  body:`<div class="hero-w"><section class="wrap hero">${S('hero_h1',null,'h1')}${S('hero_p',null,'p')}</section></div>
 <section class="wrap"><div class="box howto">${S('howto_h2',null,'h2')}<ol class="steps4">${[1,2,3,4].map(n=>SH('howto_'+n,null,'li')).join('')}</ol><a class="btn" href="/como-instalar/"${I('howto_btn')}>${esc(T('howto_btn'))}</a></div></section>
@@ -158,7 +180,7 @@ ${ups.length?`<section class="wrap">${S('news_h2',null,'h2')}<div class="box"><u
 for(const m of mods){
  if(m.cover&&/\.avif(\?|$)/i.test(m.cover))console.warn(`⚠ ${m.slug}: la portada es AVIF y X/WhatsApp no la muestran; para la vista previa se usa otra imagen. Súbela en JPG, PNG o WebP.`);
  const cn=m.cats.map(catOf),url=`/mod/${m.slug}/`;
- W(`${OUT}${url}index.html`,page({path:url,img:ogImg(m),type:'article',imgAlt:`Portada de ${m.title}`,title:`${m.title} (${m.vers.join(', ')}) — ${cn.map(x=>x.n).join(', ')} | ${C.name}`,
+ W(`${OL}${url}index.html`,page({path:url,img:ogImg(m),type:'article',imgAlt:T('seo_cover',{t:m.title}),title:`${m.title} (${m.vers.join(', ')}) — ${cn.map(x=>x.n).join(', ')} | ${C.name}`,
   desc:(m.description||'').replace(/\s+/g,' ').slice(0,155),
   ld:{'@context':'https://schema.org','@type':'CreativeWork',name:m.title,description:(m.description||'').slice(0,300),author:m.auth.map(a=>({'@type':'Person',name:a.name,url:/^https?:/i.test(a.url||'')?a.url:undefined})),datePublished:m.date,dateModified:(m.upd[0]&&m.upd[0].date)||m.date,image:m.cover?C.url+m.cover:undefined,genre:cn.map(x=>x.n)},
   body:R.detail(m,{extras:donate()+xcta()})}));
@@ -167,10 +189,11 @@ for(const m of mods){
 // AUTORES: una página por autor de la colección «Autores» que tenga mods publicados (/autor/<slug>/)
 const nk=s=>norm(String(s||'').trim());
 const authPages=Object.entries(AUTHORS).map(([slug,a])=>({slug,a,ms:mods.filter(m=>m.auth.some(x=>nk(x.name)===nk(a.name)))})).filter(x=>x.ms.length);
+SITE.authPages=authPages;
 for(const {slug,a,ms} of authPages){
  const url=`/autor/${slug}/`,ext=/^https?:/i.test(a.url||'');
- W(`${OUT}${url}index.html`,page({path:url,title:`Mods de ${a.name} para Football Manager | ${C.name}`,
-  desc:`${ms.length} mod${ms.length===1?'':'s'} de ${a.name} para Football Manager: ${ms.slice(0,3).map(m=>m.title).join(', ')}.`.slice(0,155),
+ W(`${OL}${url}index.html`,page({path:url,title:T('seo_auth_t',{a:a.name,name:C.name}),
+  desc:T(ms.length===1?'seo_auth_d_one':'seo_auth_d_other',{n:ms.length,a:a.name,l:ms.slice(0,3).map(m=>m.title).join(', ')}).slice(0,155),
   ld:{'@context':'https://schema.org','@type':'Person',name:a.name,url:ext?a.url:undefined,sameAs:ext?[a.url]:undefined},
   wide:1,body:`<div class="wrap">${S('auth_h1',{n:a.name},'h1')}<p class="meta">${S(ms.length===1?'count_one':'count_other',{n:ms.length})}${ext?` · <a href="${esc(a.url)}" target="_blank" rel="noopener nofollow"${I('auth_profile')}>${esc(T('auth_profile'))}</a>`:''}</p><div class="grid">${ms.map(m=>card(m)).join('')}</div></div>`}));
 }
@@ -179,8 +202,8 @@ for(const {slug,a,ms} of authPages){
 const XU2=`https://x.com/${C.x}`;
 const ctaK=(hk,pk,href,bk,{ext=1,pp=null}={})=>`<div class="cta">${S(hk,null,'h2')}${S(pk,pp,'p')}<a class="btn primary" href="${href}"${ext?' target="_blank" rel="noopener"':''}${I(bk)}>${esc(T(bk))}</a></div>`;
 const nl=(p,n)=>Array.from({length:n},(_,k)=>p+(k+1));
-W(`${OUT}/envia-tu-mod/index.html`,page({path:'/envia-tu-mod/',title:`Envía tu mod de Football Manager | ${C.name}`,
- desc:'¿Creas gráficos, skins, bases de datos o elementos de día de partido para Football Manager? Envíanos tu mod y lo publicamos con tu nombre y tu enlace.',
+W(`${OL}/envia-tu-mod/index.html`,page({path:'/envia-tu-mod/',title:T('seo_sub_t',{name:C.name}),
+ desc:T('seo_sub_d'),
  body:`<div class="wrap prose">${S('sub_h1',null,'h1')}
 ${S('sub_lead',{name:C.name},'p','lead')}
 ${ctaK('sub_cta_h','sub_cta_p',C.submit,'sub_cta_btn')}
@@ -201,8 +224,8 @@ const reqItem=r=>{const st=ST[r.status]||ST.abierta,mod=r.mod&&mods.find(m=>m.sl
   return `<div class="req"><div><span class="b ${st[1]}">${S(st[0])}</span></div><div><h3>${esc(r.title)}</h3>${r.description?`<p>${esc(r.description)}</p>`:''}${mod?`<p><a href="/mod/${mod.slug}/"${I('req_see',{t:mod.title})}>${esc(T('req_see',{t:mod.title}))}</a></p>`:''}</div></div>`};
 const reqOpen=REQ.filter(r=>r.status!=='completada'),reqDone=REQ.filter(r=>r.status==='completada');
 const reqUrl=C.requests||XU2;
-W(`${OUT}/peticiones/index.html`,page({path:'/peticiones/',title:`Peticiones de la comunidad: pide el mod que te falta | ${C.name}`,
- desc:'Pide el mod de Football Manager que te gustaría ver: ligas regionales, packs de gráficos, skins, estadios… Los creadores de la comunidad pueden recoger tu idea.',
+W(`${OL}/peticiones/index.html`,page({path:'/peticiones/',title:T('seo_req_t',{name:C.name}),
+ desc:T('seo_req_d'),
  body:`<div class="wrap prose">${S('req_h1',null,'h1')}
 ${S('req_lead',null,'p','lead')}
 ${ctaK('req_cta_h',C.requests?'req_cta_p_form':'req_cta_p_x',reqUrl,C.requests?'req_cta_btn_form':'req_cta_btn_x',{pp:{x:C.x}})}
@@ -215,17 +238,17 @@ ${SH('req_note',null,'p')}
 ${reqOpen.length?`${S('req_open_h',null,'h2')}${reqOpen.map(reqItem).join('')}`:''}
 ${reqDone.length?`${S('req_done_h',null,'h2')}${reqDone.map(reqItem).join('')}`:''}</div>`}));
 
-const mkh=d=>new Date(d).toLocaleDateString('es-ES',{month:'long',year:'numeric'});
+const mkh=d=>new Date(d).toLocaleDateString(LM[CUR].loc,{month:'long',year:'numeric'});
 let grp='';const tlHtml=ups.map(u=>{const g=mkh(u.date),h=g!==grp?(grp?'</ul>':'')+`<h2 class="month">${g}</h2><ul class="tl">`:'';grp=g;return h+upItem(u,1)}).join('')+(ups.length?'</ul>':'');
-W(`${OUT}/novedades/index.html`,page({path:'/novedades/',title:`Historial de actualizaciones de mods | ${C.name}`,
- desc:'Todas las novedades de FM Mods Comunidad: mods nuevos y actualizaciones de skins, packs de caras, bases de datos y más, ordenadas por fecha.',
+W(`${OL}/novedades/index.html`,page({path:'/novedades/',title:T('seo_news_t',{name:C.name}),
+ desc:T('seo_news_d',{name:C.name}),
  body:`<div class="wrap prose">${S('news_h1',null,'h1')}
 ${S('news_lead',null,'p','lead')}
 ${tlHtml||'<p>Todavía no hay novedades registradas.</p>'}
 ${SH('news_foot',null,'p','meta')}</div>`}));
 
 // LEGALES (plantillas: revísalas y completa tus datos)
-const legal=(s,t,h)=>W(`${OUT}/${s}/index.html`,page({path:`/${s}/`,title:`${t} | ${C.name}`,desc:t,body:`<div class="wrap prose"><h1>${t}</h1>${h}</div>`}));
+const legal=(s,t,h)=>CUR==='es'&&W(`${OL}/${s}/index.html`,page({alt:false,path:`/${s}/`,title:`${t} | ${C.name}`,desc:t,body:`<div class="wrap prose"><h1>${t}</h1>${h}</div>`}));
 legal('aviso-legal','Aviso Legal',`<p>Titular: Ferran — Contacto: ${C.email}.</p><p>${C.name} es un directorio no oficial de mods para Football Manager. No está afiliado a SEGA ni a Sports Interactive; todas las marcas pertenecen a sus propietarios. No alojamos archivos: enlazamos a servicios externos y no somos responsables de su contenido. Si eres autor y quieres retirar o corregir una ficha, escríbenos.</p>`);
 legal('privacidad','Política de Privacidad',`<p><b>Responsable:</b> Ferran — ${C.email}.</p><p>Esta web no tiene registro de usuarios ni formularios propios y no recoge datos que te identifiquen directamente. Los enlaces de «Reportar enlace caído» abren tu cliente de correo.</p>
 <h2>Datos que se guardan en tu navegador</h2><p>Guardamos en el almacenamiento local de tu navegador (localStorage) las preferencias que eliges y lo que has votado: tema claro/oscuro (<code>fm_theme</code>), idioma (<code>fm_lang</code>) y tus «me gusta», valoraciones y descargas ya contadas (<code>fm_likes</code>, <code>fm_rate</code>, <code>fm_rate_sync</code>, <code>fm_dl</code>). No se usan para publicidad ni para seguirte, y puedes borrarlas cuando quieras desde los ajustes del navegador.</p>
@@ -237,7 +260,7 @@ ${C.adsense?`<h2>Publicidad</h2><p>Mostramos publicidad de Google AdSense. Googl
 
 
 const rows=Object.values(CATS).map(c=>`<tr><td${trAttr(c)}>${esc(c.n)}</td><td>${esc(c.d)}</td><td>${c.dir?`<code>${esc(c.dir)}</code>`:'—'}</td></tr>`).join('');
-W(`${OUT}/como-instalar/index.html`,page({path:'/como-instalar/',title:`Cómo instalar mods en Football Manager: guía paso a paso | ${C.name}`,desc:'Aprende a instalar facepacks, logos, skins, bases de datos y elementos de día de partido en Football Manager: rutas en Windows, Mac y Linux y solución a problemas.',
+W(`${OL}/como-instalar/index.html`,page({path:'/como-instalar/',title:T('seo_inst_t',{name:C.name}),desc:T('seo_inst_d'),
  body:`<div class="wrap prose">${S('inst_h1',null,'h1')}
 ${S('inst_intro',null,'p')}
 ${S('inst_before_h',null,'h2')}<ul>${nl('inst_b',5).map(k=>k==='inst_b4'?SH(k,null,'li'):S(k,null,'li')).join('')}</ul>
@@ -250,8 +273,14 @@ ${S('inst_reload_h',null,'h2')}<ul>${nl('inst_l',3).map(k=>S(k,null,'li')).join(
 ${S('inst_prob_h',null,'h2')}<ul>${nl('inst_q',4).map(k=>SH(k,null,'li')).join('')}</ul>
 <p><a class="btn primary" href="/"${I('inst_back')}>${esc(T('inst_back'))}</a></p></div>`}));
 
+};
+for(const L of LANGS)renderSite(L);
+CUR='es';BASE='';F.setLocale('es-ES');for(const c of Object.values(CATS))c.n=c.n0;
 // SEO + estáticos
-W(`${OUT}/sitemap.xml`,`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${['/',...mods.map(m=>`/mod/${m.slug}/`),...authPages.map(x=>`/autor/${x.slug}/`),'/como-instalar/','/envia-tu-mod/','/peticiones/','/novedades/','/aviso-legal/','/privacidad/'].map(u=>{const m=mods.find(x=>u==='/mod/'+x.slug+'/'),ap=authPages.find(x=>u==='/autor/'+x.slug+'/'),lm=x=>(x.upd[0]&&x.upd[0].date)||x.date,d=m?lm(m):ap?ap.ms.map(lm).filter(Boolean).sort().pop():'';return `<url><loc>${C.url}${u}</loc>${d?`<lastmod>${String(d).slice(0,10)}</lastmod>`:''}</url>`}).join('')}</urlset>`);
+W(`${OUT}/sitemap.xml`,`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">${SITE.pages.map(({path:u,alt})=>{
+  const m=mods.find(x=>u==='/mod/'+x.slug+'/'),ap=SITE.authPages.find(x=>u==='/autor/'+x.slug+'/'),lm=x=>(x.upd[0]&&x.upd[0].date)||x.date,d=m?lm(m):ap?ap.ms.map(lm).filter(Boolean).sort().pop():'';
+  const url=l=>C.url+(LM[l].slug?'/'+LM[l].slug:'')+u,alts=alt?LANGS.map(l=>`<xhtml:link rel="alternate" hreflang="${LM[l].hl}" href="${url(l)}"/>`).join('')+`<xhtml:link rel="alternate" hreflang="x-default" href="${url('es')}"/>`:'';
+  return(alt?LANGS:['es']).map(l=>`<url><loc>${url(l)}</loc>${alts}${d?`<lastmod>${String(d).slice(0,10)}</lastmod>`:''}</url>`).join('')}).join('')}</urlset>`);
 const rd=d=>new Date(d).toUTCString();
 W(`${OUT}/rss.xml`,`<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>${esc(C.name)} — Novedades</title><link>${C.url}/</link><atom:link href="${C.url}/rss.xml" rel="self" type="application/rss+xml"/><description>Mods nuevos y actualizaciones de Football Manager publicados en ${esc(C.name)}.</description><language>es-ES</language>${ups.length?`<lastBuildDate>${rd(ups[0].date)}</lastBuildDate>`:''}${ups.slice(0,30).map(u=>{const link=`${C.url}/mod/${u.m.slug}/`,t=u.type==='new'?'Nuevo: '+u.m.title:'Actualizado: '+u.m.title+(u.ver?' '+u.ver:''),dsc=u.type==='new'?(u.m.description||''):(u.note||u.m.description||'');return `<item><title>${esc(t+' ('+u.m.vers.join(', ')+')')}</title><link>${link}</link><guid isPermaLink="false">${link}#${u.type}-${String(u.date).slice(0,10)}</guid><pubDate>${rd(u.date)}</pubDate>${u.m.cats.map(c=>`<category>${esc(catOf(c).n)}</category>`).join('')}<description>${esc(String(dsc).replace(/\s+/g,' ').trim().slice(0,300))}</description></item>`}).join('')}</channel></rss>`);
 W(`${OUT}/robots.txt`,`User-agent: *\nAllow: /\nDisallow: /admin/\nSitemap: ${C.url}/sitemap.xml\n`);
@@ -265,4 +294,5 @@ W(`${OUT}/js/i18n.js`,I18N_JS); // el núcleo + los 5 diccionarios en un solo ar
  if(fs.existsSync(g))fs.writeFileSync(g,fs.readFileSync(g,'utf8').replace("'/css/style.css'","'/css/style.css?v="+V.css+"'"))}
 try{const up='public/img/uploads';fs.readdirSync(up).forEach(f=>{const sz=fs.statSync(p.join(up,f)).size;if(sz>400*1024)console.warn(`⚠ ${f} pesa ${(sz/1048576).toFixed(1)} MB: súbela más ligera (JPG o WebP, ~1200 px de ancho) para que cargue rápido`)})}catch{}
 if(C.adsense)W(`${OUT}/ads.txt`,`google.com, ${C.adsense.replace(/^ca-/,'')}, DIRECT, f08c47fec0942fa0\n`);
+if(trMissing.size)console.warn(`⚠ ${trMissing.size} texto(s) de novedades/tarjetas sin traducir (se ven en español en los demás idiomas). Pásaselos a Claude: node scripts/translate.js --check`);
 console.log(`OK: ${mods.length} mods → ${OUT}/`);
