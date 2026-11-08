@@ -1,25 +1,38 @@
-import {getStore} from '@netlify/blobs';
 import {createHash} from 'node:crypto';
-// Contadores públicos (descargas, me gusta, valoraciones) con protección contra abuso:
-//  · cada persona (IP + clave secreta, en hash; nunca se guarda la IP) cuenta UNA vez por ficha: un «me gusta», una valoración (puede cambiarla) y una descarga cada 24 h;
+// Contadores públicos (descargas, me gusta, valoraciones, «funciona / no funciona») con protección contra abuso:
+//  · cada persona (IP + clave secreta, en hash; nunca se guarda la IP) cuenta UNA vez por ficha: un «me gusta», una valoración (puede cambiarla),
+//    un voto «funciona / no funciona» por versión de FM (puede cambiarlo) y una descarga cada 24 h;
 //  · el estado «ya ha votado» lo decide el servidor, no el navegador (el `prev` que envía el cliente se ignora);
 //  · máximo LIMIT acciones por hora y persona.
+// Lectura barata: GET devuelve un índice único (`_index`) en vez de leer un blob por ficha. El índice se reconstruye desde las fichas
+// (la fuente de verdad) como mucho cada INDEX_TTL; cada POST lo actualiza al momento. Si dos votos coinciden y uno se pisa en el índice,
+// el siguiente reconstruido lo corrige.
 // Define STATS_SALT en Netlify (Site settings → Environment variables) con un texto largo y aleatorio.
-const SLUG=/^[a-z0-9][a-z0-9-]{0,119}$/,HOUR=3600e3,DAY=24*HOUR,LIMIT=40;
+const SLUG=/^[a-z0-9][a-z0-9-]{0,119}$/,VER=/^FM\d{2}$/,HOUR=3600e3,DAY=24*HOUR,LIMIT=40,INDEX_TTL=5*60e3,IDX='_index';
+const ACTIONS=['download','like','unlike','rate','works'];
 const json=(d,s=200,h={})=>new Response(JSON.stringify(d),{status:s,headers:{'content-type':'application/json','cache-control':'no-store',...h}});
 const hid=(salt,s)=>createHash('sha256').update(salt+'|'+s).digest('hex').slice(0,24);
 const half=x=>Number.isFinite(x)&&Number.isInteger(x*2);
+const blank=()=>({likes:0,downloads:0,ratingSum:0,ratingCount:0});
+
+// Reconstruye el índice leyendo cada ficha (solo cuando el índice falta o ha caducado)
+const rebuild=async(stats,now)=>{
+  const {blobs}=await stats.list();const data={};
+  await Promise.all(blobs.filter(b=>b.key!==IDX).map(async b=>{const v=await stats.get(b.key,{type:'json'});if(v)data[b.key]=v}));
+  await stats.setJSON(IDX,{t:now,data});
+  return data;
+};
 
 export const handle=async(req,ip,{stats,votes,exists,salt='fm-mods-comunidad',now=Date.now()})=>{
   if(req.method==='GET'){
-    const {blobs}=await stats.list();const out={};
-    await Promise.all(blobs.map(async b=>{const v=await stats.get(b.key,{type:'json'});if(v)out[b.key]=v}));
-    return json(out,200,{'cache-control':'public, max-age=30'});
+    let idx=null;try{idx=await stats.get(IDX,{type:'json'})}catch{}
+    const data=idx&&idx.data&&now-idx.t<INDEX_TTL?idx.data:await rebuild(stats,now);
+    return json(data,200,{'cache-control':'public, max-age=30'});
   }
   if(req.method!=='POST')return json({error:'method'},405);
   let b;try{b=await req.json()}catch{return json({error:'json'},400)}
   const {slug,action}=b||{};
-  if(!SLUG.test(slug||'')||!['download','like','unlike','rate'].includes(action))return json({error:'bad'},400);
+  if(!SLUG.test(slug||'')||!ACTIONS.includes(action))return json({error:'bad'},400);
   const me=hid(salt,ip||'anon');
   // límite por hora y persona
   const rk='rl:'+me,rl=(await votes.get(rk,{type:'json'}))||{t:now,c:0};
@@ -27,8 +40,8 @@ export const handle=async(req,ip,{stats,votes,exists,salt='fm-mods-comunidad',no
   if(rl.c>=LIMIT)return json({error:'rate'},429,{'retry-after':'3600'});
   rl.c++;await votes.setJSON(rk,rl);
   if(!(await exists(slug)))return json({error:'unknown'},404);
-  const cur={likes:0,downloads:0,ratingSum:0,ratingCount:0,...((await stats.get(slug,{type:'json'}))||{})};
-  const vk=`${slug}:${me}`,mine={like:false,rate:0,dl:0,...((await votes.get(vk,{type:'json'}))||{})};
+  const cur={...blank(),...((await stats.get(slug,{type:'json'}))||{})};
+  const vk=`${slug}:${me}`,mine={like:false,rate:0,dl:0,w:{},...((await votes.get(vk,{type:'json'}))||{})};
   if(action==='download'&&now-mine.dl>DAY){cur.downloads++;mine.dl=now}
   if(action==='like'&&!mine.like){cur.likes++;mine.like=true}
   if(action==='unlike'&&mine.like){cur.likes=Math.max(0,cur.likes-1);mine.like=false}
@@ -39,11 +52,21 @@ export const handle=async(req,ip,{stats,votes,exists,salt='fm-mods-comunidad',no
     cur.ratingSum=Math.min(5*cur.ratingCount,Math.max(.5*cur.ratingCount,cur.ratingSum));
     mine.rate=v;
   }
+  if(action==='works'){
+    // «¿Te funciona con FMxx?»: un voto por persona y versión; se puede cambiar (ok ⇄ ko)
+    const ver=String(b.ver||'').toUpperCase(),v=b.value;
+    if(!VER.test(ver)||!['ok','ko'].includes(v))return json({error:'bad'},400);
+    const w=cur.works=cur.works||{},c=w[ver]=w[ver]||{ok:0,ko:0},prev=mine.w[ver];
+    if(prev!==v){if(prev)c[prev]=Math.max(0,c[prev]-1);c[v]++;mine.w[ver]=v}
+  }
   await Promise.all([stats.setJSON(slug,cur),votes.setJSON(vk,mine)]);
+  // actualiza el índice al momento (si falla, se reconstruirá solo)
+  try{const idx=await stats.get(IDX,{type:'json'});if(idx&&idx.data){idx.data[slug]=cur;await stats.setJSON(IDX,idx)}}catch{}
   return json(cur);
 };
 
-export default async (req,context)=>handle(req,context?.ip||req.headers.get('x-nf-client-connection-ip')||'',{
+// @netlify/blobs se importa aquí (y no arriba) para que las pruebas de handle() no lo necesiten
+export default async (req,context)=>{const {getStore}=await import('@netlify/blobs');return handle(req,context?.ip||req.headers.get('x-nf-client-connection-ip')||'',{
   stats:getStore('mod-stats'),votes:getStore('mod-votes'),salt:process.env.STATS_SALT||undefined,
-  exists:slug=>fetch(new URL(`/mod/${slug}/`,req.url),{method:'HEAD'}).then(r=>r.ok).catch(()=>false)});
+  exists:slug=>fetch(new URL(`/mod/${slug}/`,req.url),{method:'HEAD'}).then(r=>r.ok).catch(()=>false)})};
 export const config={path:'/api/stats'};
