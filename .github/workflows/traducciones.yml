@@ -1,0 +1,32 @@
+# Mantiene UN issue «Traducciones pendientes» con los textos nuevos de novedades/tarjetas que aún no están traducidos
+# (y con el JSON listo para pasárselo a Claude). Lo cierra solo cuando ya no queda nada pendiente.
+name: Traducciones pendientes
+on:
+  push:
+    branches: [main]
+    paths: ['content/mods/**', 'content/traducciones.json']
+  workflow_dispatch:
+permissions:
+  contents: read
+  issues: write
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node scripts/translate.js --check --report
+      - name: Abrir, actualizar o cerrar el issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          T="Traducciones pendientes"
+          N=$(gh issue list --state open --search "\"$T\" in:title" --json number --jq '.[0].number')
+          P=$(node -p "require('./trad-report.json').pending")
+          if [ "$P" != "0" ]; then
+            if [ -n "$N" ]; then gh issue edit "$N" --body-file trad-report.md; else gh issue create --title "$T" --body-file trad-report.md; fi
+          elif [ -n "$N" ]; then
+            gh issue close "$N" --comment "Todo traducido."
+          fi

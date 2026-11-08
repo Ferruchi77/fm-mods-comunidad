@@ -1,0 +1,25 @@
+# Comprobaciones automáticas en cada cambio: pruebas + compilación estricta (falla si faltan claves de idioma o hay categorías inexistentes).
+# Las traducciones pendientes NO hacen fallar nada (se avisan en el issue «Traducciones pendientes»).
+name: Comprobar
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node --test tests/*.test.js tests/*.test.mjs
+      - name: Compilar en modo estricto
+        env:
+          STRICT: '1'
+          SYNC_AUTHORS: '0'
+          NO_STATS_FETCH: '1'
+          OUT_DIR: ${{ runner.temp }}/dist
+        run: node build.js

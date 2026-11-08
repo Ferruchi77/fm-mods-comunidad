@@ -1,0 +1,31 @@
+# Cuando se guarda una ficha o se sube una imagen: descarga al repositorio las portadas/capturas externas y convierte a WebP
+# las subidas pesadas (PNG/JPG/AVIF), creando también la miniatura de 640 px que usan las tarjetas. Ver scripts/imagenes.js.
+# Requiere: Settings → Actions → General → Workflow permissions → «Read and write permissions».
+name: Optimizar imágenes
+on:
+  push:
+    branches: [main]
+    paths: ['content/mods/**', 'public/img/uploads/**']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  images:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm i --no-save --no-package-lock sharp
+      - run: node scripts/imagenes.js
+      - name: Guardar cambios
+        run: |
+          if [ -n "$(git status --porcelain public/img content/mods)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add public/img content/mods
+            git commit -m "chore: imágenes optimizadas"
+            git pull --rebase
+            git push
+          fi

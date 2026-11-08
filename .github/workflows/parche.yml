@@ -1,0 +1,47 @@
+# Cuando sale un parche del juego: marca en bloque como «🔴 Pendiente de actualización» los mods publicados de una versión
+# (Actions → Marcar pendientes → Run workflow), o los devuelve a «🟢 Publicado» una vez revisados. Ver scripts/marcar-pendientes.js.
+name: Marcar pendientes
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Versión de FM (por ejemplo FM27)'
+        required: true
+      accion:
+        description: 'marcar = pasar a Pendiente · liberar = volver a Publicado'
+        type: choice
+        options: [marcar, liberar]
+        default: marcar
+      solo:
+        description: 'Opcional: solo estos mods (slugs separados por comas)'
+        required: false
+permissions:
+  contents: write
+jobs:
+  mark:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Aplicar
+        env:
+          V: ${{ inputs.version }}
+          A: ${{ inputs.accion }}
+          SOLO: ${{ inputs.solo }}
+        run: |
+          ARGS="--apply"
+          [ "$A" = "liberar" ] && ARGS="$ARGS --clear"
+          [ -n "$SOLO" ] && ARGS="$ARGS --only=$SOLO"
+          node scripts/marcar-pendientes.js "$V" $ARGS
+      - name: Guardar cambios
+        run: |
+          if [ -n "$(git status --porcelain content/mods)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add content/mods
+            git commit -m "chore: estado de mods (${{ inputs.accion }} ${{ inputs.version }})"
+            git pull --rebase
+            git push
+          fi

@@ -5,7 +5,7 @@ on:
   schedule: [{cron: '0 6 * * 1'}]
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write   # guarda .github/link-state.json y las fichas marcadas como pendientes
   issues: write
 jobs:
   check:
@@ -16,13 +16,26 @@ jobs:
         with:
           node-version: 20
       - run: node scripts/check-links.js
+        env:
+          AUTO_MARK: '1'      # tras MARK_AFTER semanas seguidas con el enlace roto, la ficha pasa a «Pendiente de actualización»
+          MARK_AFTER: '3'
+      - name: Guardar estado y fichas marcadas
+        run: |
+          if [ -n "$(git status --porcelain .github/link-state.json content/mods)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add .github/link-state.json content/mods
+            git commit -m "chore: estado de la revisión de enlaces"
+            git pull --rebase
+            git push
+          fi
       - name: Abrir, actualizar o cerrar el issue
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           T="Enlaces de descarga caídos"
           N=$(gh issue list --state open --search "\"$T\" in:title" --json number --jq '.[0].number')
-          if [ -s link-report.md ] && [ "$(node -p "require('./link-report.json').broken")" != "0" ]; then
+          if [ -s link-report.md ] && [ "$(node -p "const r=require('./link-report.json');r.broken+r.imgBroken")" != "0" ]; then
             if [ -n "$N" ]; then gh issue edit "$N" --body-file link-report.md; else gh issue create --title "$T" --body-file link-report.md; fi
           elif [ -n "$N" ]; then
             gh issue close "$N" --comment "Ya no hay enlaces rotos en la última revisión."
