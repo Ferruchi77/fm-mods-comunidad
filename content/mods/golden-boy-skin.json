@@ -20,10 +20,10 @@
     }
   ],
   "screenshots": [
-    "https://sortitoutsi.b-cdn.net/uploads/media_2026/Fg803suM94FN4hFzhlkntVoOTQUAB5dXNULIxqcI.png",
-    "https://sortitoutsi.b-cdn.net/uploads/media_2026/XOi4FLDOEusZGEhKjeEQqKfjY8A2NnjZkTT4Y9u1.png",
-    "https://sortitoutsi.b-cdn.net/uploads/media_2026/35GsG9Mn7oWZRtXJErjPkg4ACkPhraZVuC5FF2FZ.png",
-    "https://sortitoutsi.b-cdn.net/uploads/media_2026/PsxUIq5VxmIjCnW1oRkGqa5Go5WkwQy2h8ESneJZ.png"
+    "/img/covers/golden-boy-skin-s1.webp",
+    "/img/covers/golden-boy-skin-s2.webp",
+    "/img/covers/golden-boy-skin-s3.webp",
+    "/img/covers/golden-boy-skin-s4.webp"
   ],
   "featured": false,
   "date": "2026-11-01",
@@ -31,7 +31,7 @@
   "fm_versions": [
     "FM27"
   ],
-  "cover": "https://sortitoutsi.b-cdn.net/uploads/media_2026/g49vaVdaKCFpWWc60ayFBxnZTj2UeHqIfmWcbm9g.png",
+  "cover": "/img/covers/golden-boy-skin-cover.webp",
   "download_url": "https://sortitoutsi.net/content/78125/golden-boy-skin-for-fm27-by-bifi93",
   "title": "Golden Boy Skin",
   "card_text": "Diseño elegante en negro, gris oscuro y dorado con perfiles rediseñados y soporte integrado para fotos de estadios y ciudades.",

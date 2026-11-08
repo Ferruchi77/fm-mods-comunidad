@@ -40,17 +40,17 @@
   ],
   "author": " FM Extra Time",
   "screenshots": [
-    "https://fmextratime.com/assets/img/downloads/comeback-player-profile.webp?v=cad734d4",
-    "https://fmextratime.com/assets/img/downloads/comeback-squad.webp?v=c0ca6857",
-    "https://fmextratime.com/assets/img/downloads/comeback-competitions.webp?v=d370a917",
-    "https://fmextratime.com/assets/img/downloads/comeback-player-database.webp?v=e6fbf5b6"
+    "/img/covers/fm27-comeback-skin-s1.webp",
+    "/img/covers/fm27-comeback-skin-s2.webp",
+    "/img/covers/fm27-comeback-skin-s3.webp",
+    "/img/covers/fm27-comeback-skin-s4.webp"
   ],
   "date": "2026-10-31",
   "status": "🟢 Publicado",
   "fm_versions": [
     "FM27"
   ],
-  "cover": "https://pbs.twimg.com/media/HV-mD4uW4AAH1ld?format=jpg&name=large",
+  "cover": "/img/covers/fm27-comeback-skin-cover.webp",
   "download_url": "https://fmextratime.com/downloads/comeback-skin/",
   "title": "FM27 Comeback Skin",
   "author_url": "https://x.com/fmextratime",

@@ -13,18 +13,18 @@
     }
   ],
   "screenshots": [
-    "https://sortitoutsi.b-cdn.net/uploads/media_2026/gm3cndP68phHKjqa6hkSJp5a4fjyiDhqnYA2h00B.png",
-    "https://sortitoutsi.b-cdn.net/uploads/media_2026/wrhQm7hYpTCvhT1RBvvWGaA5AC0ivHjZDvhO7hqx.png",
-    "https://sortitoutsi.b-cdn.net/uploads/media_2026/asJRmcs17dHxHcQoTfK4iyMPJQkiieSk8gfdycrP.png",
-    "https://sortitoutsi.b-cdn.net/uploads/media_2026/r4ZQ8YZDfc8e7iBtb4vppMNHlfsvPcIaKZRC2MyC.png",
-    "https://sortitoutsi.b-cdn.net/uploads/media_2026/KgDombZNchxnZaGPq5DNtqDl4AIenuuTGrW9w5fx.png"
+    "/img/covers/regenesis-27-s1.webp",
+    "/img/covers/regenesis-27-s2.webp",
+    "/img/covers/regenesis-27-s3.webp",
+    "/img/covers/regenesis-27-s4.webp",
+    "/img/covers/regenesis-27-s5.webp"
   ],
   "date": "2026-10-30",
   "status": "🟢 Publicado",
   "fm_versions": [
     "FM27"
   ],
-  "cover": "https://sortitoutsi.b-cdn.net/uploads/media_2026/pOE312Snh3mNEmWalrtjLHqlSYnntVcQgD4Aw0IN.png",
+  "cover": "/img/covers/regenesis-27-cover.webp",
   "download_url": "https://sortitoutsi.net/content/78082/regenesis-27-live-youth-academy-editor-for-fm27-windows-mac",
   "title": "Regenesis 27",
   "categories": [

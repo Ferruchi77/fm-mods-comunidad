@@ -7,8 +7,8 @@
   ],
   "install_path": "Instalar el ejecutable .exe",
   "screenshots": [
-    "https://sortitoutsi.b-cdn.net/uploads/media_2026/twjyVWU9FhfbzZeiouepgfenJbBYOaVvQD7RwCjg.webp",
-    "https://sortitoutsi.b-cdn.net/uploads/media_2026/9v2XJ981d3Ahk4EBAfLMjFJDefQEnQLHArNrrvyo.webp"
+    "/img/covers/fm-27-skin-manager-s1.webp",
+    "/img/covers/fm-27-skin-manager-s2.webp"
   ],
   "featured": true,
   "date": "2026-10-31",
@@ -20,7 +20,7 @@
     "FM27",
     "FM26"
   ],
-  "cover": "https://sortitoutsi.b-cdn.net/uploads/media_2026/3cJQTMuNi4vT0AnJODxqkJj7tbZQYpnay5SuR5X4.webp",
+  "cover": "/img/covers/fm-27-skin-manager-cover.webp",
   "download_url": "https://sortitoutsi.net/content/78065/fm-27-skin-manager",
   "title": "FM 27 Skin Manager",
   "categories": [

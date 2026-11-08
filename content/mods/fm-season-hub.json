@@ -13,8 +13,8 @@
   ],
   "author": "FM Season Hub",
   "screenshots": [
-    "https://sortitoutsi.b-cdn.net/uploads/media_2026/MbdGSK9p4T3pWxlIkqM4FgqIGe8yUjm6uf6WwY4k.png",
-    "https://sortitoutsi.b-cdn.net/uploads/media_2026/s3UWgMlPY418XI2ENaCyiNbnYD3dQggN50YhMYpx.png"
+    "/img/covers/fm-season-hub-s1.webp",
+    "/img/covers/fm-season-hub-s2.webp"
   ],
   "date": "2026-10-31",
   "status": "🟢 Publicado",
@@ -23,7 +23,7 @@
     "FM26",
     "FM24"
   ],
-  "cover": "https://sortitoutsi.b-cdn.net/uploads/media_2026/dhy0xvW3H6cKcmlmGhRt0UR4AaIBF90TcA9f10rS.png",
+  "cover": "/img/covers/fm-season-hub-cover.webp",
   "download_url": "https://fmseasonhub.com/en/download",
   "title": "FM Season Hub ",
   "author_url": "https://x.com/FMSeasonHub",

@@ -14,10 +14,10 @@
     }
   ],
   "screenshots": [
-    "https://sortitoutsi.b-cdn.net/uploads/media_2026/6bgG5j32OvkuxYjBEGEfYxti63Z09uha1gUqjOcj.jpg",
-    "https://sortitoutsi.b-cdn.net/uploads/media_2026/DIid9u1KoW5ZnUvIReqqMfhHICdi129SWooqAXJA.jpg",
-    "https://sortitoutsi.b-cdn.net/uploads/media_2026/J0s9fryvWMlGlcBWKXu7PGVBOKlQqnCtmm0fLsTz.jpg",
-    "https://sortitoutsi.b-cdn.net/uploads/media_2026/PZH8X3rmUELzM9FRPjvp6xjFET6w6ZPKuTaidNPa.jpg"
+    "/img/covers/fm-manager-3d-head-s1.webp",
+    "/img/covers/fm-manager-3d-head-s2.webp",
+    "/img/covers/fm-manager-3d-head-s3.webp",
+    "/img/covers/fm-manager-3d-head-s4.webp"
   ],
   "featured": true,
   "date": "2026-11-05",
@@ -28,7 +28,7 @@
   "fm_versions": [
     "FM27"
   ],
-  "cover": "https://sortitoutsi.b-cdn.net/uploads/media_2026/AydjeYuiivec9cTSygseHCYOaLb1WFrDQeWBGkeJ.jpg",
+  "cover": "/img/covers/fm-manager-3d-head-cover.webp",
   "download_url": "https://sortitoutsi.net/content/78249/fm-manager-3d-head-your-own-3d-face-for-your-fm27-manager",
   "title": " FM Manager 3D Head",
   "card_text": "Importa tu propia cara en 3D al juego para modelar el avatar exacto de tu mánager y vivir una inmersión total en los banquillos.",

@@ -3,8 +3,8 @@
   "modified": "2026-11-04",
   "author": " FM Tigrotto",
   "screenshots": [
-    "https://fmtigrotto.com/assets/img/plugin27-select.webp",
-    "https://fmtigrotto.com/assets/img/plugin27-club-menu.webp"
+    "/img/covers/fm-kitshub-in-game-s1.webp",
+    "/img/covers/fm-kitshub-in-game-s2.webp"
   ],
   "date": "2026-10-30",
   "status": "🟢 Publicado",
@@ -12,7 +12,7 @@
     "FM27",
     "FM26"
   ],
-  "cover": "https://pbs.twimg.com/media/HV6DpE6XAAAFeyK?format=jpg&name=large",
+  "cover": "/img/covers/fm-kitshub-in-game-cover.webp",
   "download_url": "https://fmtigrotto.com/tools/in-game-plugin",
   "title": "FM KitsHub in-game",
   "author_url": "https://x.com/fmtigrotto",

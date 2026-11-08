@@ -10,9 +10,9 @@
   ],
   "author": " joni9",
   "screenshots": [
-    "https://sortitoutsi.b-cdn.net/uploads/media_2026/eynyagdEYEe9sIvhTYOJvraMov7ZArp90iC81LVZ.png",
-    "https://sortitoutsi.b-cdn.net/uploads/media_2026/Xx1c0kmHz1ZbftSWh2udX3VSdMtOpOCvHeKAHO5D.png",
-    "https://sortitoutsi.b-cdn.net/uploads/media_2026/ZQVxq89sjzFeGW9GCVu9PmX9fZY4T8673v5rXXKn.png"
+    "/img/covers/3d-live-action-cam-s1.webp",
+    "/img/covers/3d-live-action-cam-s2.webp",
+    "/img/covers/3d-live-action-cam-s3.webp"
   ],
   "date": "2026-10-29",
   "badges": [],
@@ -21,7 +21,7 @@
     "FM27",
     "FM26"
   ],
-  "cover": "https://pbs.twimg.com/media/HV0tgzNWEAAzfMw?format=jpg&name=large",
+  "cover": "/img/covers/3d-live-action-cam-cover.webp",
   "download_url": "https://sortitoutsi.net/content/77170/mod-title-fm26-goal-celebration-cam-v10",
   "title": "3D Live Action Cam",
   "author_url": "https://x.com/joni9j",
