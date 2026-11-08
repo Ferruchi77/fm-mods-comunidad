@@ -1,0 +1,23 @@
+{
+  "authors": [
+    {
+      "name": "Paul | Graphics & Kit Designer",
+      "url": "https://x.com/ItsPaulOrNothin"
+    }
+  ],
+  "modified": "2026-11-08",
+  "featured": false,
+  "date": "2026-11-07",
+  "status": "🟢 Publicado",
+  "fm_versions": [
+    "FM27"
+  ],
+  "cover": "https://i0.wp.com/grassngear.com/wp-content/uploads/2026/11/64f04e57-259f-4bec-9759-ebffa7f761af.png?w=1672&ssl=1",
+  "download_url": "https://grassngear.com/2026/11/07/itspaulornothins-player-names-mod/",
+  "title": "Nombre jugadores",
+  "card_text": "Muestra únicamente los nombres de tus propios jugadores sobre el campo en el partido 3D de FM27, ocultando los del equipo rival.",
+  "categories": [
+    "bases-de-datos"
+  ],
+  "description": "Es un mod basado en un plugin de BepInEx que oculta los nombres de los jugadores del equipo rival durante los partidos en 3D, mostrando únicamente los de tu propio equipo.\n\nCómo funciona: Detecta automáticamente qué bando es el tuyo en partidos en directo. En repeticiones, permite alternar entre ver los nombres de los locales, los visitantes o ambos mediante la tecla F10.\n\nControles: Tecla F9 para activar o desactivar el mod, y F10 para cambiar el modo en las repeticiones. Es compatible con la opción nativa del juego de mostrar los nombres todo el tiempo o solo al tener el balón."
+}
