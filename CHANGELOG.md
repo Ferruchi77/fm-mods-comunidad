@@ -1,5 +1,41 @@
 # Cambios
 
+## v.16
+**Contenido y datos**
+- Traducidas las 38 novedades/tarjetas que faltaban (en, ca, fr, pt-br, it): ya no queda nada pendiente.
+- `skin-darkflow-fm26` apuntaba a la categoría inexistente `graficos`: ahora solo está en «Gráficos» (`dia-de-partido`). Se quita el campo antiguo `category` de 3 fichas.
+- Portadas: la AVIF (`df11-faces`) y el PNG de 1,4 MB (`realnamefix27_1`) pasan a WebP; se generan miniaturas `-640.webp` que usan las tarjetas.
+
+**Usuario**
+- Favoritos (botón «Favorito» en la ficha, ♥ en la tarjeta, filtro «Mis favoritos», exportar/importar en un `.json`).
+- Filtros nuevos en la portada: autor, precio (gratis/de pago) y «Mostrar» (favoritos, actualizados en 30 días, con capturas). Orden «Actualizados recientemente» y el orden elegido se recuerda.
+- Vista en lista o en cuadrícula (se recuerda).
+- Insignias «Nuevo» y «Actualizado» en las tarjetas (14 días).
+- Ficha: aviso del sitio de descarga (y si suele pedir cuenta o pago), «¿Te funciona?» por versión de FM (Funciona / No funciona), compartir (copiar enlace, X, WhatsApp) y «Más como este».
+- Páginas indexables por categoría (`/categoria/skins/`) y por versión (`/version/fm27/`), con enlaces en la ficha y en el pie.
+- PWA básica: `manifest.webmanifest` y `sw.js` (abre rápido y funciona sin conexión; no toca `/api` ni `/admin`).
+- Aviso cuando las estadísticas no están disponibles.
+
+**Visual y accesibilidad**
+- Esqueleto animado mientras cargan las portadas. Enlace «Saltar al contenido». Cambios de la ficha como tarjetas con la versión resaltada y respetando los saltos de línea de las notas.
+- Contraste AA: texto blanco sobre botones violeta (dark) y estrellas del tema claro corregidos (`--acb`, `--act`).
+- Estilos de impresión de la ficha.
+- Corregido: la unión de autores decía «y» en todos los idiomas; ahora usa «and», «i», «et», «e»…
+
+**Admin**
+- Nueva página `/admin/estadisticas.html` (botón «📊» en el panel): descargas, me gusta, valoración y «No funciona» por mod, posibles problemas y calidad de las fichas (`/admin/calidad.json`).
+- Flujo editorial activado (`publish_mode: editorial_workflow`): cada cambio del panel crea una rama y una vista previa de Netlify antes de publicar.
+- Acciones de GitHub nuevas: **Comprobar** (pruebas + build estricto), **Traducciones pendientes** (abre/cierra un issue con el JSON listo para Claude), **Optimizar imágenes** (descarga portadas externas y convierte a WebP), **Marcar pendientes** (pasa a «Pendiente» todos los mods de una versión tras un parche).
+- Comprobador de enlaces: revisa también portadas/capturas externas, cuenta semanas seguidas rotas y, tras 3, marca la ficha como «Pendiente de actualización».
+- `STRICT=1 node build.js` falla si faltan claves de idioma o hay categorías inexistentes (no por traducciones pendientes).
+
+**Técnico**
+- `/api/stats`: lectura con un índice único (`_index`, se reconstruye cada 5 min) en vez de leer un blob por ficha; nueva acción `works`.
+- Seguridad: CSP en las páginas públicas (omitida si hay AdSense), `X-Frame-Options`, `Permissions-Policy`.
+- JSON-LD: `BreadcrumbList`, `aggregateRating` (con ≥3 valoraciones, leído de `/api/stats` al compilar) y corregida la URL de imagen para portadas externas.
+- 19 pruebas automáticas (`npm test`): estadísticas, idiomas y compilación.
+- `package.json` sincronizado (1.16.0) y README nuevo.
+
 ## v.15 (incluye v.13 y v.14)
 - Una URL por idioma: español en la raíz (`/`) y el resto en `/en/`, `/ca/`, `/fr/`, `/pt-br/`, `/it/`. Cada página se genera ya traducida (título, descripción, `<html lang>`, `canonical`, `hreflang`, `x-default`) y el `sitemap.xml` lista todas con sus alternativas.
 - El selector de idioma son enlaces a la misma página en cada idioma. Al elegir uno se recuerda y, si abres la portada en español (`/`), se salta al idioma guardado. Elegir «Español» lo desactiva.

@@ -1,10 +1,13 @@
 {
   "name": "fm-mods-comunidad",
-  "version": "1.0.0",
+  "version": "1.16.0",
   "private": true,
   "scripts": {
     "build": "node build.js",
-    "translate": "node scripts/translate.js"
+    "test": "node --test tests/*.test.js tests/*.test.mjs",
+    "translate": "node scripts/translate.js",
+    "imagenes": "npm i --no-save --no-package-lock sharp && node scripts/imagenes.js",
+    "enlaces": "node scripts/check-links.js"
   },
   "engines": {
     "node": ">=18"
