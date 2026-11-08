@@ -79,6 +79,8 @@
   }
   // Insignia de versión del proyecto (sale de /data/meta.json)
   fetch('/data/meta.json').then(r=>r.json()).then(m=>{if(!m.version)return;const v=document.createElement('div');v.className='fm-ver';v.textContent='Panel '+m.version;document.body.appendChild(v)}).catch(()=>{});
+  // Acceso a la página de estadísticas y calidad
+  {const l=document.createElement('a');l.className='fm-stats-link';l.href='/admin/estadisticas.html';l.target='_blank';l.textContent='📊 Estadísticas y calidad';document.body.appendChild(l)}
   const run=()=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(()=>{try{tabs();list();toasts()}catch(e){console.warn('ui.js',e)}})};
   new MutationObserver(run).observe(document.body,{childList:true,subtree:true,characterData:true});
   run();

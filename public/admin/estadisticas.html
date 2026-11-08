@@ -1,0 +1,60 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>Estadísticas y calidad · FM Mods Comunidad</title>
+<style>
+:root{color-scheme:light dark;--bg:#f5f6fa;--s:#fff;--bd:#d9dce8;--tx:#1b1e33;--mu:#5b6188;--ac:#2563eb;--bad:#b91c1c;--ok:#15803d}
+@media(prefers-color-scheme:dark){:root{--bg:#0e1020;--s:#161a30;--bd:#2b3157;--tx:#e8eaf6;--mu:#a3aacf;--ac:#7aa2ff;--bad:#f87171;--ok:#4ade80}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:1100px;margin:0 auto;padding:20px 16px 60px}h1{font-size:1.5rem;margin:.2rem 0 1rem}a{color:var(--ac)}
+.top{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:16px 0}
+.c{background:var(--s);border:1px solid var(--bd);border-radius:12px;padding:12px 14px}.c b{display:block;font-size:1.6rem;line-height:1.2}.c span{color:var(--mu);font-size:.85rem}
+.tabs{display:flex;gap:6px;margin:18px 0 12px;flex-wrap:wrap}.tabs button{padding:8px 14px;border:1px solid var(--bd);border-radius:999px;background:var(--s);color:var(--tx);font:inherit;font-weight:600;cursor:pointer}.tabs button[aria-selected=true]{background:var(--ac);border-color:var(--ac);color:#fff}
+.w{overflow-x:auto;background:var(--s);border:1px solid var(--bd);border-radius:12px}table{border-collapse:collapse;width:100%;min-width:640px}
+th,td{padding:9px 12px;border-bottom:1px solid var(--bd);text-align:left;white-space:nowrap}td.n,th.n{text-align:right}td:first-child{white-space:normal;min-width:200px}
+th{font-size:.8rem;text-transform:uppercase;letter-spacing:.03em;color:var(--mu);cursor:pointer;user-select:none;position:sticky;top:0;background:var(--s)}th[aria-sort]::after{content:" ▲"}th[aria-sort=descending]::after{content:" ▼"}
+tr:last-child td{border-bottom:0}.bad{color:var(--bad);font-weight:700}.ok{color:var(--ok)}.tag{display:inline-block;margin:1px 4px 1px 0;padding:0 8px;border:1px solid var(--bd);border-radius:999px;font-size:.78rem;color:var(--mu)}
+.mu{color:var(--mu)}.note{color:var(--mu);font-size:.88rem;margin:10px 0 0}.err{color:var(--bad)}
+</style></head><body><main>
+<div class="top"><h1>📊 Estadísticas y calidad</h1><a href="/admin/">← Volver al panel</a></div>
+<p class="mu">Datos públicos de <code>/api/stats</code> (se refrescan cada pocos minutos) y revisión de campos opcionales de cada ficha.</p>
+<div class="cards" id="cards"></div>
+<div class="tabs" role="tablist"><button role="tab" aria-selected="true" data-t="st">Estadísticas por mod</button><button role="tab" aria-selected="false" data-t="pr">Posibles problemas</button><button role="tab" aria-selected="false" data-t="ql">Calidad de las fichas</button></div>
+<div class="w"><table><thead id="h"></thead><tbody id="b"></tbody></table></div>
+<p class="note" id="note"></p>
+<script>
+const $=s=>document.querySelector(s),T={};let tab='st',sort={st:['downloads',-1],pr:['ko',-1],ql:['n',-1]};
+const avg=s=>s&&s.ratingCount?s.ratingSum/s.ratingCount:0;
+const ko=s=>Object.values((s&&s.works)||{}).reduce((a,w)=>a+w.ko,0),ok=s=>Object.values((s&&s.works)||{}).reduce((a,w)=>a+w.ok,0);
+const cols={
+ st:[['t','Mod'],['downloads','Descargas',1],['likes','Me gusta',1],['avg','Valoración',1],['rc','Votos',1],['ok','Funciona',1],['ko','No funciona',1]],
+ pr:[['t','Mod'],['ko','No funciona',1],['ok','Funciona',1],['vers','Por versión'],['why','Motivo']],
+ ql:[['t','Mod'],['n','Campos sin rellenar',1],['missing','Detalle'],['status','Estado']]};
+let rows={st:[],pr:[],ql:[]};
+const cell=(r,c)=>{const td=document.createElement('td'),k=c[0],v=r[k];if(c[2])td.className='n';
+ if(k==='t'){const a=document.createElement('a');a.href='/mod/'+r.s+'/';a.target='_blank';a.textContent=r.t;td.append(a)}
+ else if(k==='missing'){(v||[]).forEach(x=>{const s=document.createElement('span');s.className='tag';s.textContent=x;td.append(s)});if(!(v||[]).length){td.className='ok';td.textContent='✓ completa'}}
+ else if(k==='avg')td.textContent=r.rc?v.toFixed(2)+' ★':'—';
+ else if(k==='ko'&&v>0){td.className='n bad';td.textContent=v}
+ else td.textContent=v==null?'':v;return td};
+function draw(){
+ const h=$('#h'),b=$('#b');h.replaceChildren();b.replaceChildren();
+ const tr=document.createElement('tr');cols[tab].forEach(c=>{const th=document.createElement('th');th.textContent=c[1];if(c[2])th.className='n';
+  if(sort[tab][0]===c[0])th.setAttribute('aria-sort',sort[tab][1]>0?'ascending':'descending');
+  th.onclick=()=>{sort[tab]=[c[0],sort[tab][0]===c[0]?-sort[tab][1]:(c[2]?-1:1)];draw()};tr.append(th)});h.append(tr);
+ const [k,d]=sort[tab],R=[...rows[tab]].sort((x,y)=>{const a=x[k],c=y[k];return (typeof a==='string'?a.localeCompare(c,'es'):((a||0)-(c||0)))*d});
+ R.forEach(r=>{const tr=document.createElement('tr');cols[tab].forEach(c=>tr.append(cell(r,c)));b.append(tr)});
+ $('#note').textContent=tab==='pr'?'Se listan los mods con 2 o más votos «No funciona», o con más «No funciona» que «Funciona» en alguna versión. Revisa el enlace y, si es por un parche del juego, márcalos como pendientes.':tab==='ql'?'Un campo opcional vacío no impide publicar, pero mejora la ficha. «Portada externa» = la imagen está en otro sitio (usa scripts/imagenes.js para traerla al repositorio).':'';
+}
+document.querySelectorAll('.tabs button').forEach(bt=>bt.onclick=()=>{tab=bt.dataset.t;document.querySelectorAll('.tabs button').forEach(x=>x.setAttribute('aria-selected',x===bt));draw()});
+Promise.all([fetch('/data/search.json').then(r=>r.json()),fetch('/api/stats').then(r=>r.ok?r.json():{}).catch(()=>null),fetch('/admin/calidad.json').then(r=>r.ok?r.json():{mods:[]}).catch(()=>({mods:[]}))]).then(([S,st,q])=>{
+ const stats=st||{},Q=Object.fromEntries((q.mods||[]).map(m=>[m.slug,m]));
+ rows.st=S.map(m=>{const s=stats[m.s]||{};return{s:m.s,t:m.t,downloads:s.downloads||0,likes:s.likes||0,avg:avg(s),rc:s.ratingCount||0,ok:ok(s),ko:ko(s)}});
+ rows.pr=S.map(m=>{const s=stats[m.s]||{},w=s.works||{},bad=Object.entries(w).filter(([v,c])=>c.ko>=2||c.ko>c.ok);
+  return{s:m.s,t:m.t,ko:ko(s),ok:ok(s),vers:Object.entries(w).map(([v,c])=>v+': '+c.ok+'✓/'+c.ko+'✗').join('  '),why:bad.map(([v])=>v).join(', '),_bad:bad.length}}).filter(r=>r._bad);
+ rows.ql=S.map(m=>{const x=Q[m.s]||{missing:[]};return{s:m.s,t:m.t,n:x.missing.length,missing:x.missing,status:x.status||''}});
+ const sum=k=>rows.st.reduce((a,r)=>a+r[k],0),rated=rows.st.filter(r=>r.rc);
+ [['Descargas',sum('downloads')],['Me gusta',sum('likes')],['Valoraciones',sum('rc')],['Media global',rated.length?(rated.reduce((a,r)=>a+r.avg,0)/rated.length).toFixed(2)+' ★':'—'],['Con avisos «No funciona»',rows.pr.length],['Fichas incompletas',rows.ql.filter(r=>r.n).length+' / '+rows.ql.length]]
+  .forEach(([l,v])=>{const c=document.createElement('div');c.className='c';const b=document.createElement('b');b.textContent=v;const s=document.createElement('span');s.textContent=l;c.append(b,s);$('#cards').append(c)});
+ if(!st){const p=document.createElement('p');p.className='err';p.textContent='No se pudieron cargar las estadísticas (/api/stats). Si estás en local, la función de Netlify no está activa.';$('#cards').before(p)}
+ draw()}).catch(e=>{$('#note').className='note err';$('#note').textContent='Error cargando datos: '+e.message});
+</script></main></body></html>

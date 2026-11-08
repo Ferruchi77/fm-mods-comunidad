@@ -1,0 +1,15 @@
+{
+  "name": "FM Mods Comunidad",
+  "short_name": "FM Mods",
+  "description": "Los mods de Football Manager que la comunidad realmente usa.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0e1020",
+  "theme_color": "#0e1020",
+  "icons": [
+    { "src": "/img/favicon-32.png", "sizes": "32x32", "type": "image/png" },
+    { "src": "/img/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "/img/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

@@ -1,3 +1,12 @@
+# Seguridad: nadie puede incrustar la web (el panel usa la vista previa en el mismo dominio) y se limitan permisos del navegador.
+/*
+  X-Frame-Options: SAMEORIGIN
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+# El service worker y el manifiesto no se cachean a lo bestia: así las actualizaciones llegan enseguida.
+/sw.js
+  Cache-Control: no-cache
+/manifest.webmanifest
+  Cache-Control: public, max-age=86400
 # Caché larga para estáticos inmutables. build.js añade ?v=<hash> a los enlaces de /css y /js,
 # así que cuando cambian se descargan de nuevo aunque el navegador los tenga guardados un año.
 /assets/*

@@ -3,6 +3,9 @@
 backend:
   name: git-gateway
   branch: main
+# Flujo editorial: cada cambio del panel crea una rama + pull request (Borrador → En revisión → Listo) y Netlify genera una VISTA PREVIA
+# de la web con ese cambio antes de publicarlo. «Publicar» lo fusiona en main. Si prefieres guardar directo en main, borra esta línea.
+publish_mode: editorial_workflow
 local_backend: true
 logo_url: /img/icon-512.png
 locale: es

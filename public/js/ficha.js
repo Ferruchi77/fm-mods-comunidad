@@ -11,6 +11,8 @@ let LOCALE='es-ES';const setLocale=l=>{LOCALE=l};  // idioma de las fechas (buil
   const dt=d=>d?new Date(d).toLocaleDateString(LOCALE,{day:'numeric',month:'long',year:'numeric'}):'';
 const UI='<svg class="ui" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-4.4 0-8 2.2-8 5v1h16v-1c0-2.8-3.6-5-8-5z"/></svg>';
 const http=u=>/^https?:\/\//i.test(String(u||''));
+const host=u=>{try{return new URL(u).hostname.replace(/^www\./,'')}catch{return ''}};
+const ACCT=/(^|\.)(patreon\.com|ko-fi\.com|buymeacoffee\.com|discord\.com|gumroad\.com)$/i;   // webs donde la descarga suele pedir cuenta o pago
 
 // Datos crudos de la ficha (JSON del CMS) -> estructura lista para pintar. Acepta fichas antiguas (author/category/fm_version).
 const normalize=(raw,slug,warn,db)=>{
@@ -39,7 +41,7 @@ const make=ctx=>{
   const badge=b=>{const i=typeof BADGE[b]==='string'?{color:BADGE[b]}:(BADGE[b]||{}),hex=/^#[0-9a-f]{6}$/i.test(i.hex||'')?i.hex:'';
     return `<span class="b b-${i.color||'gris'}"${hex?` style="background:${hex};border-color:${hex};color:${lum(hex)>.55?'#111':'#fff'}"`:''}>${i.icon?esc(i.icon)+' ':''}${esc(b)}</span>`};
   const badges=m=>m.badges.map(badge).join('');
-  const join=a=>a.length<2?(a[0]||''):a.slice(0,-1).join(', ')+' y '+a[a.length-1];
+  const join=a=>a.length<2?(a[0]||''):a.slice(0,-1).join(', ')+' '+T('and')+' '+a[a.length-1];
   const authText=m=>join(m.auth.map(a=>a.name));
   const authHtml=m=>join(m.auth.map(a=>http(a.url)?`<a href="${esc(a.url)}" target="_blank" rel="noopener nofollow">${esc(a.name)}</a>`:esc(a.name)));
   const vchips=m=>m.vers.map(v=>`<span class="vchip${v===ctx.LATEST?' new':''}">${esc(v)}</span>`).join('');
@@ -78,17 +80,17 @@ const make=ctx=>{
     const appOnly=m.cats.length>0&&m.cats.every(c=>c==='app-externa');
     const paras=esc(m.description||'').split(/\n{2,}/).map(t=>`<p>${t.replace(/\n/g,'<br>')}</p>`).join('');
     const steps=(m.instructions?String(m.instructions).split('\n').filter(Boolean).map(s=>`<li>${esc(s)}</li>`):(appOnly?['st_app1','st_app2','st_app3']:['st_def1','st_def2','st_def3',...(needsReload(m)?['st_def4']:[])]).map(k=>S(k,null,'li'))).join('');
-    return `<div class="wrap"><p class="crumb"><a href="/"${I('crumb_home')}>${esc(T('crumb_home'))}</a> / ${m.cats[0]?`<a href="/?cat=${m.cats[0]}"${trAttr(cn[0])}>${esc(cn[0].n)}</a>`:S('crumb_mods')}</p>
+    return `<div class="wrap"><p class="crumb"><a href="/"${I('crumb_home')}>${esc(T('crumb_home'))}</a> / ${m.cats[0]?`<a href="/categoria/${m.cats[0]}/"${trAttr(cn[0])}>${esc(cn[0].n)}</a>`:S('crumb_mods')}</p>
 <div class="bd">${badges(m)}</div><h1>${esc(m.title)}</h1>
-<p class="catlinks">${m.cats.map((c,i)=>`<a href="/?cat=${c}"${trAttr(cn[i])}>${esc(cn[i].n)}</a>`).join('')}</p>
+<p class="catlinks">${m.cats.map((c,i)=>`<a href="/categoria/${c}/"${trAttr(cn[i])}>${esc(cn[i].n)}</a>`).join('')}</p>
 <p class="byline">${UI}${S('byline',null,'span','lbl')} <strong>${authHtml(m)}</strong>${m.date?`<time datetime="${esc(m.date)}" data-d="long">${dt(m.date)}</time>`:''}${m.upd[0]?`<span class="upd">${S('upd_on')} <time datetime="${esc(m.upd[0].date)}" data-d="long">${dt(m.upd[0].date)}</time>${m.upd[0].version?' ('+esc(m.upd[0].version)+')':''}</span>`:''}</p>
-<div class="rate" data-rate="${m.slug}"><div class="stars" role="group" ${AM({'aria-label':'rate_aria'})}>${[1,2,3,4,5].map(n=>`<button type="button" data-star="${n}" ${AM({'aria-label':'star_aria'},{n})} aria-pressed="false">★</button>`).join('')}</div><span class="rtxt">Sé el primero en valorar</span></div>
+<div class="rate" data-rate="${m.slug}"><div class="stars" role="group" ${AM({'aria-label':'rate_aria'})}>${[1,2,3,4,5].map(n=>`<button type="button" data-star="${n}" ${AM({'aria-label':'star_aria'},{n})} aria-pressed="false">★</button>`).join('')}</div><span class="rtxt">${esc(T('rate_none'))}</span></div>
 ${compat(m)}
 ${ad('bajo-titulo')}
 <div class="det"><div>
 ${shots.length?`<img class="shot" id="shot" data-zoom tabindex="0" ${AM({title:'shot_title',alt:'shot_alt'},{t:m.title})} src="${esc(shots[0])}" decoding="async" fetchpriority="high" width="960" height="540">${shots.length>1?`<div class="thumbs">${shots.map((s,i)=>`<button type="button" data-src="${esc(s)}" class="${i?'':'on'}" ${AM({'aria-label':'shot_n'},{n:i+1})}><img src="${esc(s)}" alt="" loading="lazy" decoding="async" width="96" height="54"></button>`).join('')}</div>`:''}`:''}
 <div class="desc">${S('desc_h',null,'h2')}${paras}${m.tags.length?`<p class="tags">${m.tags.map(t=>`<span>#${esc(t)}</span>`).join('')}</p>`:''}</div>${hist(m)}</div>
-<aside><div class="box">${S('inst_h',null,'h2')}${appOnly||!ips.length?'':`${S('inst_path',null,'p','meta')}${ips.map((x,i)=>{const k=x.label?'copy_btn_ver':ips.length>1?'copy_btn_n':'copy_btn',v=x.label?{v:x.label}:ips.length>1?{n:i+1}:null;return `<div class="pr"><code class="path">${esc(x.path)}</code><button class="btn" type="button"${I(k,v)} data-copy="${esc(x.path)}">${esc(T(k,v))}</button></div>`}).join('')}`}<ol class="steps">${steps}</ol><p class="meta" style="margin:12px 0 0"><a href="/como-instalar/"${I('inst_guide')} style="text-decoration:underline">${esc(T('inst_guide'))}</a></p></div><div class="box dlbox"><a class="btn primary big" data-dlc="${m.slug}" href="${esc(m.download_url)}" target="_blank" rel="nofollow noopener noreferrer"${I('dl_btn')}>${esc(T('dl_btn'))}</a><div class="fst"><span class="fr" data-fr>★ Sin valoraciones</span><span class="fl" data-fl>👍 0</span><span class="dlc" data-dl="${m.slug}"></span></div><div class="fb"><button class="btn like" type="button" data-like="${m.slug}" aria-pressed="false">👍 ${S('like_btn')} <b></b></button></div>${ad('junto-descarga')}
+<aside><div class="box">${S('inst_h',null,'h2')}${appOnly||!ips.length?'':`${S('inst_path',null,'p','meta')}${ips.map((x,i)=>{const k=x.label?'copy_btn_ver':ips.length>1?'copy_btn_n':'copy_btn',v=x.label?{v:x.label}:ips.length>1?{n:i+1}:null;return `<div class="pr"><code class="path">${esc(x.path)}</code><button class="btn" type="button"${I(k,v)} data-copy="${esc(x.path)}">${esc(T(k,v))}</button></div>`}).join('')}`}<ol class="steps">${steps}</ol><p class="meta" style="margin:12px 0 0"><a href="/como-instalar/"${I('inst_guide')} style="text-decoration:underline">${esc(T('inst_guide'))}</a></p></div><div class="box dlbox"><a class="btn primary big" data-dlc="${m.slug}" href="${esc(m.download_url)}" target="_blank" rel="nofollow noopener noreferrer"${I('dl_btn')}>${esc(T('dl_btn'))}</a>${(()=>{const h=host(m.download_url);return h?`<p class="dlhost">${S('dl_host',{h},'span')}${ACCT.test(h)?' '+S('dl_acct'):''}</p>`:''})()}<div class="fst"><span class="fr" data-fr>★ ${esc(T('fr_none'))}</span><span class="fl" data-fl>👍 0</span><span class="dlc" data-dl="${m.slug}"></span></div><div class="fb"><button class="btn like" type="button" data-like="${m.slug}" aria-pressed="false">👍 ${S('like_btn')} <b></b></button><button class="btn fav" type="button" data-fav="${m.slug}" aria-pressed="false"><span class="fav-ic" aria-hidden="true">♡</span> ${S('fav_btn')}</button></div>${ad('junto-descarga')}
 ${report(m)}</div>
 ${opt.extras||''}</aside></div></div>`;
   };
