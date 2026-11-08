@@ -1,0 +1,25 @@
+{
+  "authors": [
+    {
+      "ref": "fm-season-hub"
+    }
+  ],
+  "modified": "2026-11-08",
+  "featured": false,
+  "date": "2026-11-07",
+  "badges": [
+    "De pago"
+  ],
+  "status": "🟢 Publicado",
+  "fm_versions": [
+    "FM27"
+  ],
+  "cover": "https://pbs.twimg.com/media/HWi4EyBXkAAMkX8?format=jpg&name=4096x4096",
+  "download_url": "https://www.patreon.com/fmsh/posts/new-plugin-for-174679774",
+  "title": "Training Assistant",
+  "card_text": "Automatiza y planifica los entrenamientos semanales en FM27 según tu táctica y calendario, adaptando cargas y con tu aprobación previa.",
+  "categories": [
+    "bases-de-datos"
+  ],
+  "description": "Es un plugin diseñado para Football Manager 27 que automatiza y planifica las sesiones de entrenamiento semanales en función de tu táctica y el calendario de partidos, requiriendo tu aprobación previa para aplicarlo al juego.\n\nCaracterísticas principales:\n\nFuncionamiento y Objetivos: Se integra directamente en la pantalla de calendario del juego (Entrenamiento > Vista general) y mediante una tarjeta en la bandeja de entrada. Permite elegir entre distintos enfoques semanales: sugerencia automática del plugin, equilibrado, táctico, físico o de efectividad táctica.\n\nPlanificación del calendario: Analiza las jornadas y clasifica cada semana (pretemporada, inicio de temporada, semana normal, final, doble partido o final de temporada), adaptando las cargas de trabajo para priorizar la condición física del equipo en semanas con múltiples encuentros.\n\nControl y personalización: Ofrece explicaciones de por qué se ha diseñado cada semana, permite intercambiar o arrastrar sesiones libremente, y extiende sus planes específicos de desarrollo a los equipos juveniles y filiales.\n\nSoporte multilingüe: Totalmente adaptado a 21 idiomas utilizando los términos oficiales del propio juego."
+}
