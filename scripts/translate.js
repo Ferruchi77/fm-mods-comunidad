@@ -39,5 +39,10 @@ if(i>-1){
   const todo=[...src].filter(([h])=>!done(cache[h]));
   console.log(`Textos: ${src.size} · traducidos: ${src.size-todo.length} · pendientes: ${todo.length}`);
   if(todo.length){console.log('\nPásale esto a Claude para que lo traduzca a en, ca, fr, pt (Brasil) e it:\n');console.log(JSON.stringify(Object.fromEntries(todo),null,2))}
+  // --report: deja trad-report.md y trad-report.json para la acción de GitHub «Traducciones pendientes» (abre/cierra un issue)
+  if(a.includes('--report')){
+    fs.writeFileSync('trad-report.json',JSON.stringify({pending:todo.length,total:src.size}));
+    fs.writeFileSync('trad-report.md',todo.length?`Hay **${todo.length}** texto(s) de novedades o tarjetas sin traducir (se ven en español en en, ca, fr, pt-br e it).\n\n**Cómo resolverlo:** pega el JSON de abajo en un chat con Claude, pídele que lo traduzca a en, ca, fr, pt (Brasil) e it manteniendo las claves, guarda su respuesta como \`nuevas.json\` y ejecuta \`node scripts/translate.js --import nuevas.json\`.\n\n\`\`\`json\n${JSON.stringify(Object.fromEntries(todo),null,2).slice(0,55000)}\n\`\`\`\n`:'');
+  }
   if(!a.includes('--check'))save();
 }
