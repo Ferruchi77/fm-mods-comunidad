@@ -5,12 +5,17 @@
       "url": "https://x.com/iamcagataysahin"
     }
   ],
-  "modified": "2026-11-07",
+  "modified": "2026-11-10",
+  "updates": [
+    {
+      "version": "V.1.1.1 (pago)",
+      "date": "2026-11-10",
+      "note": "Versión actualizada de pago"
+    }
+  ],
   "featured": false,
   "date": "2026-11-06",
-  "badges": [
-    "De pago"
-  ],
+  "badges": [],
   "status": "🟢 Publicado",
   "fm_versions": [
     "FM27"
