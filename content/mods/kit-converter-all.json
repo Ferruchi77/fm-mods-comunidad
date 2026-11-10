@@ -7,7 +7,7 @@
     }
   ],
   "install_path": "\\Documents\\Sports Interactive\\Football Manager 27\\graphics",
-  "modified": "2026-11-04",
+  "modified": "2026-11-10",
   "date": "2026-11-02",
   "status": "🟢 Publicado",
   "fm_versions": [
@@ -17,6 +17,7 @@
   "cover": "/img/covers/kit-converter-all-cover.webp",
   "download_url": "https://fmtigrotto.com/tools/kit-converter-online",
   "title": "Kit Converter All",
+  "card_text": "Herramienta online para adaptar y convertir texturas de equipaciones entre PES 2021, EA FC y las distintas versiones de Football Manager.",
   "categories": [
     "dia-de-partido"
   ],
