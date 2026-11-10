@@ -1,5 +1,6 @@
 {
   "install_path": "\\Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins",
+  "modified": "2026-11-10",
   "updates": [
     {
       "date": "2026-11-01",
@@ -9,6 +10,7 @@
   ],
   "author": "FM Tigrotto",
   "date": "2026-10-31",
+  "badges": [],
   "status": "🟢 Publicado",
   "fm_versions": [
     "FM27"
@@ -17,6 +19,7 @@
   "download_url": "https://www.patreon.com/FMTigrotto/posts/fm-kits-suite-is-173991362",
   "title": "FM Kits Suite",
   "author_url": "https://x.com/fmtigrotto",
+  "card_text": "Creador de equipaciones 3D integrado en FM27: diseña kits personalizados, marcas, patrocinadores y genera ligas enteras en un clic.",
   "categories": [
     "bases-de-datos"
   ],
