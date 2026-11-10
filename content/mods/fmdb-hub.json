@@ -1,6 +1,6 @@
 {
   "install_path": "\\Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins",
-  "modified": "2026-11-04",
+  "modified": "2026-11-10",
   "updates": [
     {
       "date": "2026-11-02",
@@ -8,8 +8,18 @@
       "note": "Corrección de licencias: tras una actualización del juego, o al cambiar entre la versión de Xbox y la de Epic, la aplicación de una corrección ya no falla mostrando el error «Archivo en uso». Si una corrección se aplicó a otra instalación, esta se conserva en lugar de revertirse, y los archivos que añadió se trasladan a la carpeta de copias de seguridad de FMDB Hub.\nCuando Windows deniega el acceso a los archivos del juego, FMDB Hub ahora lo notifica explícitamente, en lugar de pedirte que cierres el editor."
     }
   ],
+  "install_paths": [
+    {
+      "version": "FM26",
+      "path": "\\Steam\\steamapps\\common\\Football Manager 26\\BepInEx\\plugins"
+    }
+  ],
   "author": " FM Season Hub",
+  "featured": true,
   "date": "2026-10-29",
+  "badges": [
+    "Imprescindible"
+  ],
   "status": "🟢 Publicado",
   "fm_versions": [
     "FM27",
@@ -19,6 +29,7 @@
   "download_url": "https://fmdbhub.com/plugin",
   "title": "FMDB Hub",
   "author_url": "https://x.com/FMSeasonHub",
+  "card_text": "Gestiona, actualiza y aplica bases de datos personalizadas y correcciones de licencias directamente desde el interior de FM.",
   "categories": [
     "bases-de-datos"
   ],
