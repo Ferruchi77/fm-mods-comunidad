@@ -1,11 +1,12 @@
 {
+  "instructions": "Descargar el archivo\nDescomprime\nInstalar el ejecutable .bat\n",
   "authors": [
     {
       "ref": "fm-extra-time",
       "url": "https://x.com/fmextratime"
     }
   ],
-  "install_path": "Ejecuta el instalador: Abre la carpeta descomprimida y haz doble clic en el archivo Install.bat.",
+  "install_path": "Ejecuta el archivo Install.bat.",
   "modified": "2026-11-10",
   "updates": [
     {
