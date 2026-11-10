@@ -1,15 +1,15 @@
 {
   "install_path": "Steam\\steamapps\\common\\Football Manager 27\\fm_Data\\StreamingAssets\\aa\\StandaloneWindows64",
-  "modified": "2026-11-04",
+  "modified": "2026-11-10",
   "updates": [
     {
       "date": "2026-11-02",
       "note": "Se han añadido rostros de jugadores a las situaciones de posesión, sin posesión y ambas.",
-      "version": "1.1"
+      "version": "V.1.1"
     },
     {
-      "date": "2026-11-03",
-      "version": "1.2",
+      "date": "2026-11-04",
+      "version": "V.1.2",
       "note": "Paso oscuro para hacer que las blancas se destaquen más."
     }
   ],
@@ -28,6 +28,7 @@
   "download_url": "https://www.fmscout.com/c-fm27-skins.html?id=14057",
   "title": "Priisek Retro 27 Skin",
   "author_url": "https://x.com/priisek",
+  "card_text": "Skin retro para Football Manager 27 centrada en la claridad visual, con fondos oscurecidos y optimización de menús y perfiles.",
   "categories": [
     "skins"
   ],
