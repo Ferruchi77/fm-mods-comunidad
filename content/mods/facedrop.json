@@ -7,12 +7,17 @@
     }
   ],
   "install_path": "Arrastra imágenes directamente sobre los jugadores, los *newgens* (jugadores generados por el juego) y tu propio mánager dentro del juego, o pégalas usando Ctrl+V",
-  "modified": "2026-11-04",
+  "modified": "2026-11-10",
   "updates": [
     {
       "note": "✅ Real players new face drop across ALL saves\n✅ Women's teams fixed\n✅ Removing a face brings back the standard head",
       "version": "V.0.2",
       "date": "2026-11-07"
+    },
+    {
+      "note": "FaceDrop para #FM27 ya es GRATIS. 🆓",
+      "date": "2026-11-09",
+      "version": "V.0.3"
     }
   ],
   "featured": false,
