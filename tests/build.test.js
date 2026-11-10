@@ -32,3 +32,30 @@ test('sitemap con hreflang, calidad.json y service worker versionado',()=>{
   assert.ok(!/__BUILD__/.test(rd('sw.js')))});
 test('las portadas locales de las fichas existen en disco',()=>{
   for(const s of slugs){const c=JSON.parse(fs.readFileSync(`content/mods/${s}.json`,'utf8')).cover;if(c&&c.startsWith('/img/'))assert.ok(fs.existsSync(p.join('public',c)),`${s}: falta ${c}`)}});
+test('las tarjetas con portada local usan srcset 320/640',()=>{
+  const h=rd('index.html');assert.match(h,/srcset="\/img\/uploads\/df11-faces-320\.webp 320w, \/img\/uploads\/df11-faces-640\.webp 640w, \/img\/uploads\/df11-faces\.webp 740w"/)});
+test('netlify.toml: salta builds sin cambios publicables y no despliega previews',()=>{
+  const t=fs.readFileSync('netlify.toml','utf8');
+  assert.match(t,/ignore = "git diff --quiet \$CACHED_COMMIT_REF \$COMMIT_REF -- content/);
+  assert.match(t,/\[context\.deploy-preview\]\s+ignore = "exit 0"/);assert.match(t,/\[context\.branch-deploy\]\s+ignore = "exit 0"/)});
+test('los workflows que hacen commits automáticos que no cambian la web llevan [skip netlify]',()=>{
+  assert.match(fs.readFileSync('.github/workflows/sync-autores.yml','utf8'),/autores nuevos detectados en los mods \[skip ci\] \[skip netlify\]/);
+  assert.match(fs.readFileSync('.github/workflows/comprobar-enlaces.yml','utf8'),/\[skip netlify\]/)});
+test('ficha: la valoración con estrellas va dentro de la caja de descarga, tras las métricas y antes de «Me gusta»',()=>{
+  const h=rd(`mod/${slugs[0]}/index.html`),box=h.slice(h.indexOf('class="box dlbox"'));
+  assert.equal((h.match(/data-rate=/g)||[]).length,1,'solo debe haber un selector de valoración');
+  const iBtn=box.indexOf('data-dlc='),iFst=box.indexOf('class="fst"'),iRate=box.indexOf('data-rate='),iLike=box.indexOf('data-like=');
+  assert.ok(iBtn>=0&&iBtn<iFst&&iFst<iRate&&iRate<iLike,`orden incorrecto ${iBtn},${iFst},${iRate},${iLike}`);
+  assert.equal((box.match(/data-star="/g)||[]).length,5)});
+test('ficha: el contador de «me gusta» ya no usa la clase .fl de las banderas de idioma',()=>{
+  const h=rd(`mod/${slugs[0]}/index.html`);assert.match(h,/class="flk" data-fl/);assert.ok(!/class="fl" data-fl/.test(h))});
+test('tarjetas: el texto breve no se recorta con CSS',()=>{
+  const css=fs.readFileSync('public/css/style.css','utf8');
+  assert.match(css,/\.ex\.hook,\.feat-grid \.ex\.hook,\.grid\.list \.ex\.hook\{[^}]*-webkit-line-clamp:unset/);
+  // ninguna regla posterior vuelve a limitar las líneas de .ex.hook
+  assert.ok(!/\.ex\.hook\{[^}]*-webkit-line-clamp:\d/.test(css.slice(css.indexOf('===== v.18 ====='))))});
+test('srcset: tarjetas con 320/640 y ancho real del original; «Más como este» sin el original',()=>{
+  const h=rd('index.html');
+  assert.match(h,/srcset="\/img\/uploads\/realnamefix27_1-320\.webp 320w, \/img\/uploads\/realnamefix27_1-640\.webp 640w, \/img\/uploads\/realnamefix27_1\.webp 1200w" sizes="\(max-width:600px\) 46vw, 260px"/);
+  const all=slugs.map(s=>rd(`mod/${s}/index.html`)).join('\n');
+  for(const m of all.matchAll(/<li><a href="\/mod\/[^"]+"><img [^>]*srcset="([^"]+)" sizes="96px"/g))assert.ok(!/1200w|740w/.test(m[1]),m[1])});
