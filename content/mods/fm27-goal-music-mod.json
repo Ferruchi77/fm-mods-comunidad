@@ -1,6 +1,6 @@
 {
   "install_path": "\\Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins",
-  "modified": "2026-11-04",
+  "modified": "2026-11-10",
   "updates": [
     {
       "date": "2026-11-01",
@@ -20,6 +20,7 @@
   "download_url": "https://sortitoutsi.net/content/77200/fm26-goal-music-mod",
   "title": " FM27 Goal Music Mod",
   "author_url": "https://x.com/joni9j",
+  "card_text": "Añade música de gol oficial y efectos de sonido de estadio auténticos para cada equipo tras cada tanto anotado en los partidos.",
   "categories": [
     "bases-de-datos"
   ],
