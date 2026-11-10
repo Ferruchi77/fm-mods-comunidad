@@ -1,12 +1,26 @@
 {
   "fm_version": "FM27",
-  "install_path": "Documents\\Sports Interactive\\Football Manager 24\\graphics\nDocuments\\Sports Interactive\\Football Manager 26\\graphics\nDocuments\\Sports Interactive\\Football Manager 27\\graphics",
-  "modified": "2026-11-04",
+  "install_path": "\n\n",
+  "modified": "2026-11-10",
   "updates": [
     {
       "version": "TCM27",
       "note": "Actualizados los escudos y competiciones a la temporada 26-27",
       "date": "2026-11-04"
+    }
+  ],
+  "install_paths": [
+    {
+      "version": "FM24",
+      "path": "Documents\\Sports Interactive\\Football Manager 24\\graphics"
+    },
+    {
+      "version": "FM26",
+      "path": "Documents\\Sports Interactive\\Football Manager 26\\graphics"
+    },
+    {
+      "version": "FM27",
+      "path": "Documents\\Sports Interactive\\Football Manager 27\\graphics"
     }
   ],
   "author": "Kinmar - TCM Logos",
@@ -18,18 +32,15 @@
   "status": "🟢 Publicado",
   "fm_versions": [
     "FM24",
-    "FM25",
     "FM26",
     "FM27"
   ],
   "cover": "/img/covers/marcador-pro-fm26-cover.webp",
   "download_url": "https://www.tcmlogos.com/",
   "title": "TCM Logos",
-  "tags": [
-    "escudos",
-    "logos"
-  ],
+  "tags": [],
   "author_url": "https://x.com/tcmlogos",
+  "card_text": "Megapack gratuito de escudos y logotipos de clubes, selecciones y competiciones, tanto masculinas como femeninas, para Football Manager.",
   "categories": [
     "dia-de-partido"
   ],
