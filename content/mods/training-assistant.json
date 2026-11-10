@@ -4,7 +4,14 @@
       "ref": "fm-season-hub"
     }
   ],
-  "modified": "2026-11-08",
+  "modified": "2026-11-10",
+  "updates": [
+    {
+      "note": "- Corrección para identificar el inicio correcto del calendario.",
+      "version": "V.0.9.1",
+      "date": "2026-11-07"
+    }
+  ],
   "featured": false,
   "date": "2026-11-07",
   "badges": [
