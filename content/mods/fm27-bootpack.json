@@ -6,7 +6,7 @@
       "url": "https://x.com/benithemaker"
     }
   ],
-  "modified": "2026-11-04",
+  "modified": "2026-11-10",
   "updates": [
     {
       "version": "V.2.0.1",
@@ -29,6 +29,7 @@
   "cover": "/img/covers/fm27-bootpack-cover.webp",
   "download_url": "https://sortitoutsi.net/content/74959/fm26-bootpack",
   "title": "FM Bootpack",
+  "card_text": "Añade modelos y diseños reales de botas de fútbol al motor gráfico del juego mediante paquetes de colecciones.",
   "categories": [
     "app-externa"
   ],
