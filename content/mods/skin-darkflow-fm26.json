@@ -1,12 +1,18 @@
 {
   "fm_version": "FM27",
   "install_path": "Documents\\Sports Interactive\\Football Manager 27\\graphics",
-  "modified": "2026-11-04",
+  "modified": "2026-11-10",
   "updates": [
     {
       "version": "Actualización verano",
       "date": "2026-07-25",
-      "note": "Summer Update – 2026/2027 Season Matchballs\n\n-Generic Balls\nAdded 5 new Adidas Tiro variants.\n\nConfig updated to include all club and international friendlies (men's, women's and youth competitions).\n\n\n-Africa\nSouth Africa: Premiership.\n\n\n-Europe\nUEFA: Champions League, Champions League Knockout Stage, Champions League Alternative Match Ball, Europa League, Conference League, Nations League.\n\nConfig updated to include all UEFA Nations League groups.\n\nBelgium: Pro League.\n\nEngland: Premier League, Premier League Winter, EFL, Carabao Cup, Enterprise Premier.\n\nFrance: Ligue 1, Ligue 1 Winter, Ligue 2.\n\nGermany: Bundesliga, Bundesliga Winter, 3. Liga.\n\nGreece: Stoiximan Super League, Kypello Ellados.\n\nItaly: Serie A, Serie B, Serie C.\n\nNetherlands: Eredivisie, Keuken Kampioen Divisie.\n\nPoland: Ekstraklasa.\n\nPortugal: Liga Portugal.\n\nScotland: Scottish Premiership.\n\nSpain: La Liga, Copa del Rey, Copa de la Reina, Supercopa de España, RFEF Competitions.\n\nTurkey: Süper Lig.\n\n\n-South America\nArgentina: Primera División.\n\n\n-International\nAdded the FIFA World Cup Final match ball (used in-game for the knockout stage as well).\n\nFixed the World Cup knockout stage match ball configuration.\n\nAdded every official FIFA World Cup match ball from 1930 to 2022.\n\n"
+      "note": "Actualización de verano – Balones de la temporada 2026/2027\n\n-Balones genéricos\nSe han añadido 5 variantes nuevas del modelo Adidas Tiro.\n\n- Sudáfrica: Premiership.\n\n-Europa\nUEFA: Champions League, fase de eliminación directa de la Champions League, balón alternativo de la Champions League, Europa League, Conference League, Nations League.\nBélgica: Pro League.\nInglaterra: Premier League, Premier League (versión de invierno), EFL, Carabao Cup, Enterprise Premier.\nFrancia: Ligue 1, Ligue 1 (versión de invierno), Ligue 2.\nAlemania: Bundesliga, Bundesliga (versión de invierno), 3. Liga.\nGrecia: Stoiximan Super League, Kypello Ellados (Copa de Grecia).\nItalia: Serie A, Serie B, Serie C.\nPaíses Bajos: Eredivisie, Keuken Kampioen Divisie.\nPolonia: Ekstraklasa.\nPortugal: Liga Portugal.\nEscocia: Scottish Premiership.\nEspaña: La Liga, Copa del Rey, Copa de la Reina, Supercopa de España, competiciones de la RFEF.\nTurquía: Süper Lig.\n\n-Sudamérica\nArgentina: Primera División.\n\n-Competiciones internacionales\nSe ha añadido el balón utilizado en la final de la Copa Mundial de la FIFA (también empleado en el juego durante la fase de eliminación directa).\n\nSe ha corregido la configuración del balón para la fase de eliminación directa de la Copa Mundial.\n\nSe han añadido todos los balones oficiales de la Copa Mundial de la FIFA, desde 1930 hasta 2022."
+    }
+  ],
+  "install_paths": [
+    {
+      "version": "FM24",
+      "path": "Documents\\Sports Interactive\\Football Manager 24\\graphics"
     }
   ],
   "author": "BabaYaga89",
@@ -17,21 +23,17 @@
   ],
   "status": "🟢 Publicado",
   "fm_versions": [
+    "FM24",
     "FM26",
     "FM27"
   ],
   "cover": "/img/covers/skin-darkflow-fm26-cover.webp",
   "download_url": "https://sortitoutsi.net/content/66947/3d-matchballs-megapack-season-20242025",
   "title": "Balones 3D temporada 26/27",
-  "tags": [
-    "balones",
-    "balls",
-    "3d",
-    "partidos"
-  ],
+  "tags": [],
   "author_url": "https://sortitoutsi.net/user/profile/1360216",
+  "card_text": "Añade más de 130 balones oficiales en 3D para cada competición, torneo internacional y partidos con condiciones de invierno.",
   "categories": [
-    "graficos",
     "dia-de-partido"
   ],
   "description": "🔹 ¿Qué incluye?\nMás de 130 balones 3D personalizados\n\nDiseños específicos para cada competición\n\nVersiones de invierno, cuando corresponda\n\nPlantillas exclusivas para las fases de eliminación directa de las principales competiciones\n\nCada balón ha sido elaborado minuciosamente para aumentar el realismo y la variedad visual a lo largo de tu temporada.\n\nTodas las texturas están en alta definición (HD) siempre que ha sido posible.\nSi alguien tiene acceso a referencias de mayor resolución que puedan mejorar algunos de los balones, ¡cualquier aportación será bienvenida!",
