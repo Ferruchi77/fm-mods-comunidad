@@ -1,0 +1,37 @@
+{
+  "authors": [
+    {
+      "ref": "",
+      "name": "Sethem",
+      "url": "https://x.com/xSethem"
+    }
+  ],
+  "modified": "2026-11-10",
+  "updates": [
+    {
+      "version": "FM27 Scoreboard Megapack",
+      "date": "2026-11-10",
+      "note": "Actualizado para FM27"
+    }
+  ],
+  "screenshots": [
+    "https://sortitoutsi.b-cdn.net/uploads/media_2026/tBMn16bWCib8WZ8pvyUripqGq1KCabqVUd1u9PXp.jpg",
+    "https://sortitoutsi.b-cdn.net/uploads/media_2026/wTNGsuli4WIkxagGocSYMiSA2Q8PoRLR0gE12RiM.jpg",
+    "https://sortitoutsi.b-cdn.net/uploads/media_2026/GhhGxeoCdQQglkgsWjTUyBcvInmGCJe4of4F9ffg.jpg"
+  ],
+  "featured": false,
+  "date": "2026-04-13",
+  "status": "🟢 Publicado",
+  "fm_versions": [
+    "FM26",
+    "FM27"
+  ],
+  "cover": "https://sortitoutsi.b-cdn.net/uploads/media_2026/ZdLXyAukTUG4qqAuvHfPhUBjhGAdRXtPSrvafqpr.png",
+  "download_url": "https://sortitoutsi.net/content/76558/fm26-scoreboard-megapack-v10",
+  "title": "Megapack marcadores partido",
+  "card_text": "Megapack de marcadores televisivos personalizados y oficiales para las principales ligas y torneos internacionales en FM.",
+  "categories": [
+    "bases-de-datos"
+  ],
+  "description": "FM27 Scoreboard Megapack es un mod gráfico para Football Manager 27 diseñado para dotar a los partidos de una estética de retransmisión televisiva real mediante marcadores personalizados de las principales competiciones.\n\nQué incluye: Marcadores oficiales y personalizados para torneos internacionales (Champions League, Europa League, Conference League, Mundial de Clubes) y ligas de países como Inglaterra, España, Alemania, Francia, Italia, Bélgica, Países Bajos, Portugal, Turquía, Serbia, República Checa y Brasil.\n\nRequisitos: Requiere tener instalado previamente el entorno BepInEx 6 (IL2CPP) para Windows x64.\n\nCómo se instala:\n\nCopiar las carpetas BroadcastAssets y el archivo FMScoreboards.dll dentro del directorio Football Manager 27\\BepInEx\\plugins.\n\nReemplazar el archivo original ui-visualtreeassets_assets_matchvisualtreeassetpreload en la ruta Football Manager 27\\fm_Data\\StreamingAssets\\aa\\StandaloneWindows64 (se recomienda conservar una copia de seguridad del archivo original)."
+}
