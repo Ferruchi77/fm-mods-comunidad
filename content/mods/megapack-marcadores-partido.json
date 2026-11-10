@@ -15,9 +15,9 @@
     }
   ],
   "screenshots": [
-    "https://sortitoutsi.b-cdn.net/uploads/media_2026/tBMn16bWCib8WZ8pvyUripqGq1KCabqVUd1u9PXp.jpg",
-    "https://sortitoutsi.b-cdn.net/uploads/media_2026/wTNGsuli4WIkxagGocSYMiSA2Q8PoRLR0gE12RiM.jpg",
-    "https://sortitoutsi.b-cdn.net/uploads/media_2026/GhhGxeoCdQQglkgsWjTUyBcvInmGCJe4of4F9ffg.jpg"
+    "/img/covers/megapack-marcadores-partido-s1-14a63514.webp",
+    "/img/covers/megapack-marcadores-partido-s2-a4f2ca3b.webp",
+    "/img/covers/megapack-marcadores-partido-s3-8edda73e.webp"
   ],
   "featured": false,
   "date": "2026-04-13",
@@ -26,7 +26,7 @@
     "FM26",
     "FM27"
   ],
-  "cover": "https://sortitoutsi.b-cdn.net/uploads/media_2026/ZdLXyAukTUG4qqAuvHfPhUBjhGAdRXtPSrvafqpr.png",
+  "cover": "/img/covers/megapack-marcadores-partido-cover-f5644a1b.webp",
   "download_url": "https://sortitoutsi.net/content/76558/fm26-scoreboard-megapack-v10",
   "title": "Megapack marcadores partido",
   "card_text": "Megapack de marcadores televisivos personalizados y oficiales para las principales ligas y torneos internacionales en FM.",
