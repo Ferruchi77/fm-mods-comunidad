@@ -1,20 +1,28 @@
 {
   "install_path": "\\Documents\\Sports Interactive\\Football Manager 27\\editor data",
-  "modified": "2026-11-04",
+  "modified": "2026-11-10",
+  "updates": [
+    {
+      "version": "BETA DE NOVIEMBRE",
+      "date": "2026-11-06"
+    }
+  ],
   "author": " FM_Daveincid",
   "featured": true,
   "date": "2026-10-30",
   "badges": [
-    "Imprescindible"
+    "Imprescindible",
+    "De pago"
   ],
   "status": "🟢 Publicado",
   "fm_versions": [
     "FM27"
   ],
   "cover": "/img/covers/increase-realism-megapack-cover.webp",
-  "download_url": "https://www.patreon.com/daveincid/posts/fm27-increase-173874185?pr=true",
+  "download_url": "https://www.patreon.com/daveincid/posts/fm27-increase-174554202",
   "title": "Increase Realism Megapack",
   "author_url": "https://x.com/daveincid",
+  "card_text": "Megapack de realism que ajusta finanzas, mercado, salarios, lesiones y dificultad global para una experiencia de simulación ultra real.",
   "categories": [
     "editor-data"
   ],
