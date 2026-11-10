@@ -5,16 +5,24 @@
       "url": "https://x.com/mike94170"
     }
   ],
-  "install_path": "Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins",
-  "modified": "2026-11-04",
+  "install_path": "Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins\nDocuments\\Sports Interactive\\Football Manager 27\\graphics",
+  "modified": "2026-11-10",
+  "updates": [
+    {
+      "date": "2026-11-10",
+      "version": "V.1.1",
+      "note": "Actualización con la salida oficial del jugo"
+    }
+  ],
   "date": "2026-11-02",
   "status": "🟢 Publicado",
   "fm_versions": [
     "FM27"
   ],
   "cover": "/img/covers/referee-kits-cover.webp",
-  "download_url": "https://www.patreon.com/MikeAvelik/posts/referee-kit-for-174179205?utm_medium=social&utm_source=twitter&utm_campaign=postshare_creator&utm_content=join_link",
+  "download_url": "https://www.patreon.com/MikeAvelik/posts/referee-kit-for-174179205",
   "title": "Referee Kits",
+  "card_text": "Plugin y gráficos para Football Manager 27 que implementa equipaciones arbitrales personalizadas para evitar errores visuales.",
   "categories": [
     "bases-de-datos",
     "dia-de-partido"
