@@ -6,6 +6,13 @@
     }
   ],
   "install_path": "Instalar el ejecutable .exe",
+  "modified": "2026-11-10",
+  "updates": [
+    {
+      "date": "2026-11-05",
+      "version": "V.1.1"
+    }
+  ],
   "screenshots": [
     "/img/covers/fm-27-skin-manager-s1.webp",
     "/img/covers/fm-27-skin-manager-s2.webp"
@@ -23,6 +30,7 @@
   "cover": "/img/covers/fm-27-skin-manager-cover.webp",
   "download_url": "https://sortitoutsi.net/content/78065/fm-27-skin-manager",
   "title": "FM 27 Skin Manager",
+  "card_text": "Aplicación externa para instalar, activar y hacer copias de seguridad de las skins y archivos de interfaz de usuario en FM.",
   "categories": [
     "app-externa",
     "skins"
