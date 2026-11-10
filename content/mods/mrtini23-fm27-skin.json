@@ -1,6 +1,12 @@
 {
   "install_path": "\\steam\\steamapps\\common\\Football Manager 27\\fm_data\\StandaloneWindows64",
-  "modified": "2026-11-04",
+  "modified": "2026-11-10",
+  "updates": [
+    {
+      "version": "V.2.0",
+      "date": "2026-11-07"
+    }
+  ],
   "author": "MrTini23",
   "screenshots": [
     "/img/covers/mrtini23-fm27-skin-s1.webp",
@@ -8,14 +14,19 @@
     "/img/covers/mrtini23-fm27-skin-s3.webp"
   ],
   "date": "2026-10-30",
+  "compat_note": "",
+  "badges": [
+    "De pago"
+  ],
   "status": "🟢 Publicado",
   "fm_versions": [
     "FM27"
   ],
   "cover": "/img/covers/mrtini23-fm27-skin-cover.webp",
-  "download_url": "https://www.patreon.com/mrtini23/posts/mrtini23-fm27-v1-173849573",
+  "download_url": "https://www.patreon.com/mrtini23/posts/mrtini23-fm27-v2-174676377",
   "title": "MrTini23 FM27 skin",
   "author_url": "https://x.com/MrTini23",
+  "card_text": "Skin personalizada para FM27 con diseño rediseñado, barra lateral completa, modos oscuro/por defecto y opciones por resolución.",
   "categories": [
     "skins"
   ],
