@@ -2,7 +2,7 @@
   "fm_version": "FM27",
   "instructions": "",
   "install_path": "\\Steam\\steamapps\\common\\Football Manager 27\\shared\\data\\database\\db\\2700",
-  "modified": "2026-11-04",
+  "modified": "2026-11-10",
   "updates": [
     {
       "version": "V.1.1",
@@ -18,16 +18,13 @@
   ],
   "status": "🟢 Publicado",
   "fm_versions": [
-    "FM26",
     "FM27"
   ],
   "cover": "/img/uploads/realnamefix27_1.webp",
   "download_url": "https://www.fmsite.net/files/file/1932-fm27-real-name-fix-corrector-de-licencias/",
   "title": "Nombres Reales",
-  "tags": [
-    "licencias",
-    "nombres"
-  ],
+  "tags": [],
+  "card_text": "Corrige los nombres reales de clubes y competiciones sin licencia en FM27 y soluciona los errores en los kits de los equipos brasileños.",
   "categories": [
     "bases-de-datos"
   ],
