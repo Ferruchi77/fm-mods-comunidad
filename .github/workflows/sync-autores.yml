@@ -1,13 +1,20 @@
-# Cuando se guarda un mod desde el panel (commit a main) crea content/autores/<slug>.json para los autores escritos a mano que no existan
-# (así salen en el desplegable «Elegir autor existente»). Un build en Netlify no puede guardar archivos en el repositorio; por eso se hace aquí.
+# Cuando se guarda un mod desde el panel (commit a main), en UN solo trabajo y UN solo commit:
+#   1) crea content/autores/<slug>.json para los autores escritos a mano que no existan (salen en el desplegable «Elegir autor existente»);
+#   2) descarga a public/img/covers/ las portadas/capturas externas y convierte a WebP las subidas pesadas (scripts/imagenes.js).
+# AHORRO DE CRÉDITOS: si el commit solo trae autores (no cambia nada visible), lleva «[skip netlify]» y no provoca despliegue;
+# si cambia imágenes o fichas, se despliega UNA vez. Un build de Netlify no puede guardar archivos en el repo; por eso se hace aquí.
 # Requiere: Settings → Actions → General → Workflow permissions → «Read and write permissions».
-name: Sincronizar autores
+name: Sincronizar autores y optimizar imágenes
 on:
   push:
     branches: [main]
-    paths: ['content/mods/**']
+    paths: ['content/mods/**', 'public/img/uploads/**']
+  workflow_dispatch:
 permissions:
   contents: write
+concurrency:
+  group: sync-main
+  cancel-in-progress: false
 jobs:
   sync:
     runs-on: ubuntu-latest
@@ -17,13 +24,24 @@ jobs:
         with:
           node-version: 20
       - run: node build.js --authors-only
+      - name: Imágenes (solo si hay algo que hacer)
+        run: |
+          if node scripts/imagenes.js --dry | grep -qE '^(↓|⚙)'; then
+            npm i --no-save --no-package-lock sharp
+            node scripts/imagenes.js
+          fi
+      - name: Comprobar que no hay imágenes rotas (si falla, no se hace commit)
+        run: node scripts/imagenes.js --check
       - name: Guardar cambios
         run: |
-          if [ -n "$(git status --porcelain content/autores)" ]; then
+          VISIBLE=$(git status --porcelain public/img content/mods)
+          ALL=$(git status --porcelain content public/img)
+          if [ -n "$ALL" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add content/autores
-            git commit -m "chore: autores nuevos detectados en los mods"
+            git add content public/img
+            if [ -n "$VISIBLE" ]; then MSG="chore: imágenes optimizadas"; else MSG="chore: autores nuevos detectados en los mods [skip ci] [skip netlify]"; fi
+            git commit -m "$MSG"
             git pull --rebase
             git push
           fi

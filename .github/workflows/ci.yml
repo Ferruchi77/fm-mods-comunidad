@@ -15,7 +15,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+      - run: npm i --no-save --no-package-lock sharp   # para la prueba de descarga/WebP de scripts/imagenes.js
       - run: node --test tests/*.test.js tests/*.test.mjs
+      - run: node scripts/imagenes.js --check          # ninguna ficha apunta a una imagen local inexistente
       - name: Compilar en modo estricto
         env:
           STRICT: '1'
