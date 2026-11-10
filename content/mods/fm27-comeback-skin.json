@@ -6,7 +6,7 @@
     }
   ],
   "install_path": "Ejecuta el instalador: Abre la carpeta descomprimida y haz doble clic en el archivo Install.bat.",
-  "modified": "2026-11-07",
+  "modified": "2026-11-10",
   "updates": [
     {
       "date": "2026-11-03",
@@ -36,6 +36,11 @@
       "date": "2026-11-07",
       "version": "V.1.7.6",
       "note": "- La barra lateral permanece después del resultado instantáneo y los botones de confirmación que faltan vuelven\n- Noticias de última hora de ancho completo\n- Detalles del perfil arreglados, etiquetas U21/U18.\n- Una nueva pantalla de inicio"
+    },
+    {
+      "version": "V.1.8.1",
+      "date": "2026-11-10",
+      "note": "La actualización de lanzamiento desactivó la Piel de Regreso "
     }
   ],
   "author": " FM Extra Time",
