@@ -12,6 +12,25 @@
       "version": "Update 1",
       "note": "9376 caras actualizadas",
       "date": "2026-11-01"
+    },
+    {
+      "note": "¡350 rostros para posibles «Wonderkids» en Football Manager 27!",
+      "version": "Wonderkids",
+      "date": "2026-11-07"
+    }
+  ],
+  "install_paths": [
+    {
+      "version": "FM24",
+      "path": "Documents\\Sports Interactive\\Football Manager 24\\graphics"
+    },
+    {
+      "version": "FM26",
+      "path": "Documents\\Sports Interactive\\Football Manager 26\\graphics"
+    },
+    {
+      "version": "FM27",
+      "path": "Documents\\Sports Interactive\\Football Manager 27\\graphics"
     }
   ],
   "author": "DF11Faces",
@@ -23,18 +42,18 @@
   "status": "🟢 Publicado",
   "fm_versions": [
     "FM24",
-    "FM25",
     "FM26",
     "FM27"
   ],
   "cover": "/img/uploads/df11-faces.webp",
-  "download_url": "https://www.df11faces.com/post/df11-faces-classic-megapack-fm27",
+  "download_url": "https://www.df11faces.com/fm27-facepack-download",
   "title": "Megapack de Caras DF11",
   "tags": [
     "facepack",
     "jugadores"
   ],
   "author_url": "https://x.com/DF11Faces",
+  "card_text": "Pack definitivo de caras realistas para Football Manager 27 con actualizaciones mensuales gratuitas para todas las ligas del mundo.",
   "categories": [
     "dia-de-partido"
   ],
