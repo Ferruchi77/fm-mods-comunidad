@@ -8,7 +8,8 @@
     }
   ],
   "install_path": "\\Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins\n\\Documents\\Sports Interactive\\Football Manager 27\\graphics\\heads",
-  "modified": "2026-11-04",
+  "modified": "2026-11-10",
+  "install_paths": [],
   "author": " FM Console y Katsuo",
   "screenshots": [
     "/img/covers/megapack-de-caras-3d-s1.webp"
@@ -24,6 +25,7 @@
   "download_url": "https://discord.com/invite/ReanGfxmwc",
   "title": "Megapack de Caras 3D",
   "author_url": "https://x.com/katsuo_exe, https://x.com/fm_console",
+  "card_text": "Megapack masivo con cerca de 10.000 rostros convertidos desde PES que cubren 21 ligas nacionales de todo el mundo para Football Manager.",
   "categories": [
     "bases-de-datos",
     "dia-de-partido"
