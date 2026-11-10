@@ -8,6 +8,12 @@
       "version": "GoalMusic FM27 (NEW UPDATE).zip"
     }
   ],
+  "install_paths": [
+    {
+      "version": "FM26",
+      "path": "\\Steam\\steamapps\\common\\Football Manager 26\\BepInEx\\plugins"
+    }
+  ],
   "author": " joni9",
   "date": "2026-07-09",
   "badges": [],
