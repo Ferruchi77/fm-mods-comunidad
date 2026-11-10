@@ -5,11 +5,15 @@
       "url": "https://x.com/fmtigrotto"
     }
   ],
-  "modified": "2026-11-04",
+  "modified": "2026-11-10",
   "updates": [
     {
       "version": "V.1.4.0",
       "date": "2026-11-01"
+    },
+    {
+      "version": "V.1.5.2",
+      "date": "2026-11-10"
     }
   ],
   "date": "2026-11-01",
@@ -20,6 +24,7 @@
   "cover": "/img/covers/kit-converter-cover.webp",
   "download_url": "https://fmtigrotto.com/tools/kit-converter",
   "title": "Kit Converter",
+  "card_text": "Programa para Windows que convierte de forma masiva equipaciones de PES 2021 y FM26 para adaptarlas a la nueva plantilla 3D de FM27",
   "categories": [
     "app-externa"
   ],
