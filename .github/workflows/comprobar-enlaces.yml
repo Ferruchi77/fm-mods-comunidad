@@ -25,7 +25,8 @@ jobs:
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add .github/link-state.json content/mods
-            git commit -m "chore: estado de la revisión de enlaces"
+            if git diff --cached --quiet -- content/mods; then MSG="chore: estado de la revisión de enlaces [skip ci] [skip netlify]"; else MSG="chore: estado de la revisión de enlaces"; fi
+            git commit -m "$MSG"
             git pull --rebase
             git push
           fi
