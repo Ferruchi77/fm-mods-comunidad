@@ -1,0 +1,40 @@
+{
+  "authors": [
+    {
+      "name": "Stallion Duck",
+      "url": "https://x.com/MetalJimmy_A7X"
+    }
+  ],
+  "modified": "2026-11-10",
+  "updates": [
+    {
+      "version": "V.1.0.1",
+      "note": "Logró solucionar el problema de los FMHeads con el plugin MVP",
+      "date": "2026-11-09"
+    }
+  ],
+  "screenshots": [
+    "https://www.fmsite.net/applications/downloads/interface/legacy/screenshot.php?path=/monthly_2026_11/Screenshot2026-11-08172026.png.7f649133ea686e8c6faef5cfda584b77.png",
+    "https://www.fmsite.net/applications/downloads/interface/legacy/screenshot.php?path=/monthly_2026_11/Screenshot2026-11-08172725.png.ef851a754daa23f27e39d368d1c806d8.png",
+    "https://www.fmsite.net/applications/downloads/interface/legacy/screenshot.php?path=/monthly_2026_11/Screenshot2026-11-08162920.png.b9c1d0878dab48e10f65e160c27a4e79.png",
+    "https://www.fmsite.net/applications/downloads/interface/legacy/screenshot.php?path=/monthly_2026_11/Screenshot2026-11-08163854.png.68aeeecf7149bd9d4244932bd09b4fc5.png",
+    "https://www.fmsite.net/applications/downloads/interface/legacy/screenshot.php?path=/monthly_2026_11/Screenshot2026-11-08170344.png.7c1a34db0cf160079d795baf0bc7892e.png"
+  ],
+  "featured": true,
+  "date": "2026-11-08",
+  "badges": [
+    "Imprescindible"
+  ],
+  "status": "🟢 Publicado",
+  "fm_versions": [
+    "FM27"
+  ],
+  "cover": "https://www.fmsite.net/applications/downloads/interface/legacy/screenshot.php?path=/monthly_2026_11/Screenshot2026-11-08171233.png.e40a1d9fe74d0a88fad379753173722b.png",
+  "download_url": "https://www.fmsite.net/files/file/1949-mvp-graphics-jgt/",
+  "title": "MVP Graphics JGT",
+  "card_text": "Añade ceremonias interactivas y pantallas de celebración en 3D para el MVP de cada encuentro.",
+  "categories": [
+    "bases-de-datos"
+  ],
+  "description": "MVP Graphics JGT (por MetalJimmy) es un mod gráfico para Football Manager 27 que introduce una cinemática animada en 3D para la entrega del premio al Jugador del Partido (MVP) justo al finalizar los encuentros [cite:].\n\nQué incluye: Una secuencia de unos cinco segundos sobre el césped con el jugador vistiendo su equipación y posando junto al trofeo correspondiente y rótulos televisivos de la competición [cite:]. Soporta de serie competiciones como la Premier League, LaLiga EA Sports, Bundesliga, Serie A, Ligue 1 y la UEFA Champions League, además de un diseño predeterminado para amistosos u otros torneos [cite:].\n\nFuncionamiento: Al término de un partido, se pulsa el botón «MVP» situado en el resumen (en el mismo espacio donde aparece la dirección de equipo) para reproducir la escena antes de pasar a la charla táctica [cite:]. Incluye soporte y compatibilidad para parches de caras personalizadas como FMHeads"
+}
