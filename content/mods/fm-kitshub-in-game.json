@@ -1,12 +1,28 @@
 {
   "install_path": "\\Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins",
-  "modified": "2026-11-04",
+  "modified": "2026-11-10",
+  "updates": [
+    {
+      "date": "2026-11-10",
+      "version": "V.1.1.0"
+    }
+  ],
+  "install_paths": [
+    {
+      "version": "FM26",
+      "path": "\\Steam\\steamapps\\common\\Football Manager 26\\BepInEx\\plugins"
+    }
+  ],
   "author": " FM Tigrotto",
   "screenshots": [
     "/img/covers/fm-kitshub-in-game-s1.webp",
     "/img/covers/fm-kitshub-in-game-s2.webp"
   ],
+  "featured": true,
   "date": "2026-10-30",
+  "badges": [
+    "Imprescindible"
+  ],
   "status": "🟢 Publicado",
   "fm_versions": [
     "FM27",
@@ -16,6 +32,7 @@
   "download_url": "https://fmtigrotto.com/tools/in-game-plugin",
   "title": "FM KitsHub in-game",
   "author_url": "https://x.com/fmtigrotto",
+  "card_text": "Plugin para descargar equipaciones 2D y 3D directamente dentro de FM sin salir del juego.",
   "categories": [
     "bases-de-datos"
   ],
