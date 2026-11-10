@@ -286,3 +286,26 @@ main:focus{outline:none}
 .desc .tl li{background:var(--s1);border:1px solid var(--bd);border-radius:10px;padding:10px 14px 12px;margin-bottom:12px}.desc .tl li:before{top:17px}
 .desc .tl h3{display:inline-block;background:rgba(139,107,255,.16);color:var(--act);padding:1px 10px;border-radius:6px;font-size:.95rem;margin:4px 0 2px}
 @media print{.hd,.ft,.ad,.donate,.xcta,.skip,.share,.works,.rel,.dlbox .fb,.rate{display:none!important}body::before,body::after{display:none}}
+
+/* Detalle al pasar el ratón por la portada (solo con ratón; no en la vista en lista) */
+.hv{display:none}
+@media(hover:hover){
+  .grid:not(.list) .hv{display:flex;position:absolute;inset:0;z-index:3;flex-direction:column;justify-content:center;gap:6px;padding:12px;background:rgba(8,10,26,.82);color:#fff;font-size:.8rem;line-height:1.35;opacity:0;transition:opacity .15s;pointer-events:none}
+  .grid:not(.list) .hv p{margin:0}
+  .grid:not(.list) .card:hover .hv,.grid:not(.list) .card:focus-visible .hv{opacity:1}
+}
+@media(prefers-reduced-motion:reduce){.hv{transition:none}}
+
+/* ===== v.18 ===== */
+/* Valoración con estrellas dentro de la caja de descarga, debajo de las métricas */
+.dlbox .rate{display:flex;flex-direction:column;align-items:flex-start;gap:2px;margin:14px 0 0;padding-top:12px;border-top:1px solid var(--bd)}
+.dlbox .stars{gap:4px}.dlbox .stars button{font-size:1.9rem;padding:2px 3px}
+.dlbox .rtxt{display:block;min-height:1.3em}
+.dlbox .fb{margin-top:14px}
+/* Barra de métricas: contador de «me gusta» (antes compartía la clase .fl con las banderas de idioma y salía truncado) */
+.fst .flk{display:inline-flex;width:auto;height:auto;overflow:visible;box-shadow:none}
+/* Tarjetas: el texto breve se lee completo (sin cortar con «…»); la tarjeta crece lo necesario y la fila de la parrilla se iguala sola */
+.ex.hook,.feat-grid .ex.hook,.grid.list .ex.hook{display:block;-webkit-line-clamp:unset;overflow:visible;overflow-wrap:anywhere}
+@media(max-width:420px){.ex.hook{display:block}.ex:not(.hook){display:none}}
+@media(max-width:600px){.feat-grid .ex.hook{display:block}}
+.card .cb{height:auto}
