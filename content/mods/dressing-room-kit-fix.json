@@ -6,12 +6,18 @@
     }
   ],
   "install_path": "Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins",
-  "modified": "2026-11-04",
+  "modified": "2026-11-10",
   "updates": [
     {
       "note": "Corrige el retardo en la interfaz (UI) detectado en la versión 1.0, probablemente causado por los rostros 3D de los *newgens*, los cuales emplean el mismo código del juego al que se conecta el *mod*. Ahora, el *mod* solo se activa en el momento en que se crea una equipación personalizada en el vestuario, en lugar de permanecer activo de forma constante.",
       "date": "2026-11-02",
       "version": "V.1.1.0"
+    }
+  ],
+  "install_paths": [
+    {
+      "version": "FM26",
+      "path": "Steam\\steamapps\\common\\Football Manager 26\\BepInEx\\plugins"
     }
   ],
   "featured": true,
@@ -27,6 +33,7 @@
   "cover": "/img/covers/dressing-room-kit-fix-cover.webp",
   "download_url": "https://sortitoutsi.net/content/78131/dressing-room-kit-fix-fm27-v100",
   "title": "Dressing Room Kit Fix",
+  "card_text": "Corrige el error visual de los colores en las equipaciones 3D personalizadas dentro del vestuario de Football Manager 27.",
   "categories": [
     "bases-de-datos"
   ],
