@@ -6,7 +6,7 @@
     }
   ],
   "install_path": "Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins",
-  "modified": "2026-11-04",
+  "modified": "2026-11-10",
   "updates": [
     {
       "date": "2025-12-28",
@@ -70,6 +70,7 @@
   "cover": "https://www.fmsite.net/applications/downloads/interface/legacy/screenshot.php?path=/monthly_2025_12/G8Xfmb5XoAE0-gH.jpeg.ac5b415444cad7d1457c42737635f6b4.jpeg",
   "download_url": "https://www.bassyboy.com/downloads/cmr6fcc8r00012epu8uli5vaf",
   "title": "Stadium Megapack",
+  "card_text": "Mod de estadios realista para Football Manager",
   "categories": [
     "bases-de-datos"
   ],
