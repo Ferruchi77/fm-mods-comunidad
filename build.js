@@ -10,7 +10,7 @@ const C={
   email:'fmmodscomunidad@gmail.com',            // recibe los "enlace caído"
   requests:'',       // formulario de peticiones (otro Google Form). Si lo dejas vacío, se pide por X
   requestsEmbed:'',  // opcional: URL de "incrustar" del formulario para verlo dentro de la página
-  version:'v.16',   // versión del proyecto: súbela +1 en cada entrega (sale en el pie de la web y en el panel)
+  version:'v.18',   // versión del proyecto: súbela +1 en cada entrega (sale en el pie de la web y en el panel)
   reload:['FM24'],   // versiones de FM en las que hay que recargar el skin/caché (en el resto el juego lo hace solo)
   slots:{'bajo-titulo':'','junto-descarga':''}, // IDs de bloque de anuncio (data-ad-slot) de AdSense
   submit:'https://forms.gle/MRgz9tF5xXea5EAn8'   // formulario "Envía tu mod"
@@ -125,7 +125,22 @@ const xcta=()=>`<div class="box xcta">${S('xcta_h2',null,'h2')}${S('xcta_p',{x:C
 const ALLV=[...new Set([...readDir('content/versiones').map(v=>v.name),...mods.flatMap(m=>m.vers)])].filter(v=>vk(v).toUpperCase()!=='FM25').sort((a,b)=>verYear(b)-verYear(a)||String(a).localeCompare(String(b)));
 const LATEST=ALLV[0];ctx.LATEST=LATEST;ctx.ad=ad;
 const VPAGES=ALLV.filter(v=>mods.some(m=>m.vers.includes(v))),vslug=v=>vk(v).toLowerCase();   // versiones con página propia (/version/fm27/)
-const thumb=u=>{const x=String(u||''),t=x.replace(/\.webp$/i,'-640.webp');return /^\/img\/(covers|uploads)\//.test(x)&&t!==x&&fs.existsSync(p.join('public',t))?t:x};   // miniatura de 640 px si existe (la crea scripts/imagenes.js)
+const variant=(u,w)=>{const x=String(u||''),t=x.replace(/\.webp$/i,`-${w}.webp`);return /^\/img\/(covers|uploads)\//.test(x)&&t!==x&&fs.existsSync(p.join('public',t))?t:''};   // miniaturas -320/-640 que crea scripts/imagenes.js
+const thumb=u=>variant(u,640)||String(u||'');
+// Ancho real de un WebP leyendo su cabecera (VP8, VP8L o VP8X): permite poner el descriptor «Nw» correcto a la imagen original en el srcset
+const webpW=file=>{try{const fd=fs.openSync(file,'r'),b=Buffer.alloc(32);fs.readSync(fd,b,0,32,0);fs.closeSync(fd);
+  if(b.toString('ascii',0,4)!=='RIFF'||b.toString('ascii',8,12)!=='WEBP')return 0;
+  const k=b.toString('ascii',12,16);
+  if(k==='VP8 ')return b.readUInt16LE(26)&0x3fff;
+  if(k==='VP8L')return 1+(((b[22]&0x3f)<<8)|b[21]);
+  if(k==='VP8X')return 1+(b[24]|(b[25]<<8)|(b[26]<<16));
+  return 0}catch{return 0}};
+// srcset con las miniaturas existentes (320, 640) y la imagen original con su ancho real; `sizes` dice cuánto ocupa en pantalla para que el navegador elija la justa
+const srcset=(u,sizes,max=Infinity)=>{const x=String(u||''),L=[320,640].filter(w=>w<=max&&variant(x,w)).map(w=>`${esc(variant(x,w))} ${w}w`);
+  if(!L.length)return '';
+  const W=/^\/img\//.test(x)?webpW(p.join('public',x)):0;if(W>640&&W<=max)L.push(`${esc(x)} ${W}w`);
+  return ` srcset="${L.join(', ')}" sizes="${sizes}"`};
+const SZ_CARD='(max-width:600px) 46vw, 260px',SZ_REL='96px';   // tarjeta (≤240 px en la parrilla, 2 columnas en móvil) y miniatura de «Más como este»
 const lmOf=m=>[m.upd[0]&&m.upd[0].date,m.modified,m.date].filter(Boolean).map(x=>String(x).slice(0,10)).sort().pop()||'';
 const isPaid=m=>m.badges.some(b=>/pago|paid|premium/i.test(b));
 const AUTH_OPTS=[...new Map(mods.flatMap(m=>m.auth.map(a=>[norm(a.name).trim(),a.name]))).entries()].filter(([k])=>k&&k!=='autor desconocido').sort((a,b)=>a[1].localeCompare(b[1],'es',{sensitivity:'base'}));
@@ -134,7 +149,7 @@ let STATS={};
 if(process.env.NO_STATS_FETCH!=='1'&&/^https?:/.test(C.url)){try{STATS=JSON.parse(require('child_process').execFileSync(process.execPath,['-e',"fetch(process.argv[1],{signal:AbortSignal.timeout(7000)}).then(r=>r.ok?r.text():'{}').then(t=>process.stdout.write(t)).catch(()=>process.stdout.write('{}'))",C.url+'/api/stats'],{timeout:9000,encoding:'utf8'}))||{}}catch{STATS={}}}
 const dts=d=>d?new Date(d).toLocaleDateString(LM[CUR].loc,{day:'numeric',month:'short',year:'numeric'}):'';
 const exc=t=>{t=String(t||'').replace(/\s+/g,' ').trim();return t.length>120?t.slice(0,117)+'…':t};
-const card=(m,eager)=>`<a class="card" href="/mod/${m.slug}/" data-slug="${m.slug}" data-lm="${esc(lmOf(m))}" data-nw="${esc(String(m.date||'').slice(0,10))}" data-p="${isPaid(m)?1:0}" data-ss="${m.screenshots.length?1:0}" data-a="${esc(m.auth.map(a=>norm(a.name).trim()).join('|'))}" data-c="${esc(m.cats.join(' '))}" data-v="${esc(m.vers.map(vk).join(' '))}" data-t="${esc(norm([m.title,...m.auth.map(a=>a.name),...m.vers,...m.cats.map(c=>catOf(c).n),...m.cats.flatMap(c=>Object.values(catOf(c).t||{})),...m.tags,m.card_text||''].join(' ')))}"><div class="ph"><img src="${esc(thumb(m.cover)||'/img/placeholder.svg')}" alt="${esc(m.title)}" loading="${eager?'eager':'lazy'}" decoding="async" width="640" height="360">${m.vers.length?`<span class="ph-v" ${AM({'aria-label':'card_vers'})}>${vchips(m)}</span>`:''}<span class="ph-b">${badges(m)}</span></div><div class="cb"><h3>${esc(m.title)}</h3><p class="by">${UI}<strong title="${esc(authText(m))}">${esc(authText(m))}</strong></p><p class="ex${m.card_text?' hook':''}">${esc(m.card_text?tx(String(m.card_text).trim()):exc(m.description))}</p><div class="cf"><span class="cat">${m.cats.map(c=>{const x=catOf(c);return `<span${trAttr(x)}>${esc(x.n)}</span>`}).join(', ')}</span>${m.upd[0]?`<time datetime="${esc(m.upd[0].date)}" data-d="short" data-pre="↻ " ${AM({title:'card_upd'})}>↻ ${dts(m.upd[0].date)}</time>`:m.date?`<time datetime="${esc(m.date)}" data-d="short">${dts(m.date)}</time>`:''}</div><p class="st" data-s="${m.slug}" hidden></p></div></a>`;
+const card=(m,eager)=>`<a class="card" href="/mod/${m.slug}/" data-slug="${m.slug}" data-lm="${esc(lmOf(m))}" data-nw="${esc(String(m.date||'').slice(0,10))}" data-p="${isPaid(m)?1:0}" data-ss="${m.screenshots.length?1:0}" data-h="${esc((()=>{try{return new URL(m.download_url).hostname.replace(/^www\./,'')}catch{return ''}})())}" data-a="${esc(m.auth.map(a=>norm(a.name).trim()).join('|'))}" data-c="${esc(m.cats.join(' '))}" data-v="${esc(m.vers.map(vk).join(' '))}" data-t="${esc(norm([m.title,...m.auth.map(a=>a.name),...m.vers,...m.cats.map(c=>catOf(c).n),...m.cats.flatMap(c=>Object.values(catOf(c).t||{})),...m.tags,m.card_text||''].join(' ')))}"><div class="ph"><img src="${esc(thumb(m.cover)||'/img/placeholder.svg')}"${srcset(m.cover,SZ_CARD)} alt="${esc(m.title)}" loading="${eager?'eager':'lazy'}" decoding="async" width="640" height="360">${m.vers.length?`<span class="ph-v" ${AM({'aria-label':'card_vers'})}>${vchips(m)}</span>`:''}<span class="ph-b">${badges(m)}</span></div><div class="cb"><h3>${esc(m.title)}</h3><p class="by">${UI}<strong title="${esc(authText(m))}">${esc(authText(m))}</strong></p><p class="ex${m.card_text?' hook':''}">${esc(m.card_text?tx(String(m.card_text).trim()):exc(m.description))}</p><div class="cf"><span class="cat">${m.cats.map(c=>{const x=catOf(c);return `<span${trAttr(x)}>${esc(x.n)}</span>`}).join(', ')}</span>${m.upd[0]?`<time datetime="${esc(m.upd[0].date)}" data-d="short" data-pre="↻ " ${AM({title:'card_upd'})}>↻ ${dts(m.upd[0].date)}</time>`:m.date?`<time datetime="${esc(m.date)}" data-d="short">${dts(m.date)}</time>`:''}</div><p class="st" data-s="${m.slug}" hidden></p></div></a>`;
 
 const absImg=i=>!i?C.url+'/img/og-image.jpg':/^https?:/i.test(i)?i:C.url+encodeURI(i);
 const ogImg=m=>[m.cover,...m.screenshots].find(i=>i&&!/\.(avif|svg)(\?|$)/i.test(i));
@@ -197,7 +212,7 @@ const shareBox=m=>{const u=C.url+BASE+'/mod/'+m.slug+'/',t=T('share_text',{t:m.t
   return `<div class="box share">${S('share_h',null,'h2')}<div class="share-b"><button class="btn small" type="button" data-i18n="share_copy" data-copy="${esc(u)}">${esc(T('share_copy'))}</button><a class="btn small" href="https://x.com/intent/post?text=${qe(t)}&url=${qe(u)}" target="_blank" rel="noopener">${XI}${S('share_x')}</a><a class="btn small" href="https://wa.me/?text=${qe(t+' '+u)}" target="_blank" rel="noopener">WhatsApp</a></div></div>`};
 const relatedBox=m=>{const sc=x=>x.cats.filter(c=>m.cats.includes(c)).length*2+x.auth.filter(a=>m.auth.some(b=>norm(a.name)===norm(b.name))).length*3+x.vers.filter(v=>m.vers.includes(v)).length;
   const L=mods.filter(x=>x!==m).map(x=>({x,s:sc(x)})).filter(o=>o.s>0).sort((a,b)=>b.s-a.s||new Date(b.x.date||0)-new Date(a.x.date||0)).slice(0,3).map(o=>o.x);
-  return L.length?`<div class="box rel">${S('related_h',null,'h2')}<ul>${L.map(x=>`<li><a href="/mod/${x.slug}/"><img src="${esc(thumb(x.cover)||'/img/placeholder.svg')}" alt="" loading="lazy" decoding="async" width="96" height="54"><span><b>${esc(x.title)}</b><small>${esc(authText(x))} · ${esc(x.vers.join(', '))}</small></span></a></li>`).join('')}</ul></div>`:''};
+  return L.length?`<div class="box rel">${S('related_h',null,'h2')}<ul>${L.map(x=>`<li><a href="/mod/${x.slug}/"><img src="${esc(variant(x.cover,320)||thumb(x.cover)||'/img/placeholder.svg')}"${srcset(x.cover,SZ_REL,640)} alt="" loading="lazy" decoding="async" width="96" height="54"><span><b>${esc(x.title)}</b><small>${esc(authText(x))} · ${esc(x.vers.join(', '))}</small></span></a></li>`).join('')}</ul></div>`:''};
 
 // FICHAS
 for(const m of mods){

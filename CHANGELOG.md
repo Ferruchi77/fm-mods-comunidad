@@ -1,5 +1,39 @@
 # Cambios
 
+## v.18
+**Pendientes de la v.17**
+- `srcset` completo: las tarjetas de la parrilla llevan 320 w + 640 w + la imagen original con su **ancho real** (leído de la cabecera del WebP) y `sizes="(max-width:600px) 46vw, 260px"`; «Más como este» usa 320 w/640 w con `sizes="96px"` (sin cargar nunca el original).
+- Portadas externas → WebP en CI sin romper enlaces (`scripts/imagenes.js`):
+  - la imagen descargada se valida (debe decodificarse, tamaño máx. 25 MB, un reintento si hay fallo de red/5xx) y se escribe en un `.tmp` que se renombra al terminar;
+  - si una descarga falla, la ficha conserva el enlace original (probado con 404, HTML e imagen corrupta);
+  - una subida PNG/JPG compartida por varias fichas pasa a WebP en todas y el original solo se borra si ningún JSON de `content/` lo sigue usando;
+  - nuevo `--check`: falla si alguna ficha apunta a una imagen local que no existe. Se ejecuta en **Comprobar** (CI) y antes del commit de **Sincronizar autores y optimizar imágenes**.
+- CI: **Comprobar** instala `sharp` para ejecutar la prueba de descarga real con un servidor local.
+
+**Mejoras**
+- Tarjetas: el texto breve (hasta 140 caracteres) se lee **completo**, sin «…»; la tarjeta crece lo necesario y toda la fila de la parrilla mantiene la misma altura. También en la vista en lista, en «Imprescindibles» y en móvil (antes se ocultaba en pantallas ≤ 420 px). Sin texto breve se mantiene el extracto automático de la descripción.
+- Ficha: el selector de **valoración con estrellas** (con medias estrellas, ratón y teclado) pasa a la caja de descarga, justo debajo del botón «Descargar mod» y de las métricas, encima de «Me gusta» / «Favorito». Se elimina el duplicado que había bajo el título.
+- Ficha, **icono roto corregido**: el contador «👍 N me gusta» usaba la clase `.fl`, que también es la de las banderas de idioma (caja de 22×15 px con `overflow:hidden`), por eso aparecía como un interruptor truncado entre «★ Sin valoraciones» y «↓ descargas». Ahora usa `.flk` y la barra de métricas queda alineada.
+- 40 pruebas automáticas (+9): descarga a WebP, fallos de descarga, imágenes compartidas, `--check`, orden de la caja de descarga, clase `.flk`, texto sin recortar y `srcset`.
+
+## v.17 — menos créditos de Netlify y pendientes cerrados
+**Créditos de Netlify** (en la factura de ejemplo, 495 de 524 créditos eran despliegues de producción: 33 × 15)
+- `netlify.toml`: `ignore` cancela el build si el commit no toca nada que llegue a la web (workflows, pruebas, README, scripts, estado de enlaces…).
+- Vistas previas de PR y de ramas desactivadas (cada una gastaba un despliegue). Flujo editorial del panel desactivado por lo mismo.
+- Los commits automáticos que no cambian nada visible (autores nuevos, estado del comprobador de enlaces) llevan `[skip ci] [skip netlify]`.
+- `sync-autores` y la optimización de imágenes son ahora UN solo trabajo y UN solo commit (antes eran dos pushes y dos despliegues por guardado).
+- Nueva acción opcional **Desplegar (diario)**: despliega como mucho una vez al día y solo si hubo cambios (ver README, «Modo ahorro máximo»).
+- `/api/stats`: el GET se cachea en el CDN (`s-maxage=60`), se evita un HEAD por voto y no se reescribe la ficha si el voto no cambia nada.
+- Ancho de banda: portadas con `srcset` 320/640 (cada visitante baja solo la que necesita), WebP calidad 72, portadas descargadas con hash en el nombre y caché `immutable` de un año.
+
+**Pendientes cerrados**
+- `scripts/imagenes.js`: portadas/capturas externas → `public/img/covers/` en WebP (320, 640 y 1200/1600 px), sin hotlinking y sin tokens de Patreon que caducan. La acción lo ejecuta sola al guardar una ficha.
+- Imágenes responsive: `srcset` en las tarjetas y en «Más como este».
+- Login alternativo a Netlify Identity/Git Gateway (obsoletos): `netlify/functions/auth.mjs` + `callback.mjs` (OAuth de GitHub) y `node scripts/migrar-cms.js` que reconfigura el panel (con `--atras` para volver). `GITHUB_ALLOWED_USERS` limita quién entra.
+- Votos simultáneos: escritura condicional con etag y reintentos (requiere `@netlify/blobs` ≥ 8.2; con versiones anteriores se comporta como antes). Si hay demasiada cola responde 503 «reintenta» en vez de pisar un voto.
+- Tarjetas: al pasar el ratón (o enfocar con teclado) muestran «Actualizado hace…», votos «funciona» y el sitio de descarga.
+- 30 pruebas automáticas (+11): concurrencia de votos, OAuth (CSRF, usuarios permitidos), srcset y reglas de ahorro de Netlify.
+
 ## v.16
 **Contenido y datos**
 - Traducidas las 38 novedades/tarjetas que faltaban (en, ca, fr, pt-br, it): ya no queda nada pendiente.
