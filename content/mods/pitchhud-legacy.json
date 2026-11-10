@@ -5,11 +5,15 @@
     }
   ],
   "install_path": "Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins",
-  "modified": "2026-11-04",
+  "modified": "2026-11-10",
   "updates": [
     {
       "date": "2026-11-02",
       "version": "V.1.2.2"
+    },
+    {
+      "version": "V.1.2.3",
+      "date": "2026-11-10"
     }
   ],
   "date": "2026-10-30",
@@ -20,6 +24,7 @@
   "cover": "/img/covers/pitchhud-legacy-cover.webp",
   "download_url": "https://fmseasonhub.com/es/plugins/pitchhud-fm27",
   "title": "PitchHUD Legacy",
+  "card_text": "\"Plugin para el partido 3D de FM27 que muestra etiquetas flotantes con el rostro del facepack, dorsal, distancia y precisión de pases.",
   "categories": [
     "bases-de-datos"
   ],
