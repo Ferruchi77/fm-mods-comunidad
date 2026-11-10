@@ -25,6 +25,11 @@
       "version": "V.2.9",
       "date": "2026-11-07",
       "note": "Soluciona algunos problemas"
+    },
+    {
+      "note": "Soluciona todos los problemas de conectividad que manifestaron",
+      "version": "V.3.3",
+      "date": "2026-11-09"
     }
   ],
   "screenshots": [
@@ -34,8 +39,7 @@
     "https://www.fmsite.net/applications/downloads/interface/legacy/screenshot.php?path=/monthly_2026_11/03_academias_extranjeras.jpg.c4a9dd590c7938401acda33de4c5e34d.jpg",
     "https://www.fmsite.net/applications/downloads/interface/legacy/screenshot.php?path=/monthly_2026_11/02_instalaciones_y_estadio.jpg.6602108b8bdd44af79af398604308ddb.jpg",
     "https://www.fmsite.net/applications/downloads/interface/legacy/screenshot.php?path=/monthly_2026_11/04_merchandising.jpg.1b1e3a980026976be71cc54c5e56ebd0.jpg",
-    "https://www.fmsite.net/applications/downloads/interface/legacy/screenshot.php?path=/monthly_2026_11/05_grupo_de_clubes.jpg.f454bafe34dddb1ffe98bf06d1753966.jpg",
-    "https://www.fmsite.net/applications/downloads/interface/legacy/screenshot.php?path=/monthly_2026_11/06_apuestas_y_actualizaciones.jpg.9c158f5db669f2f8285e7c0702cff379.jpg"
+    "https://www.fmsite.net/applications/downloads/interface/legacy/screenshot.php?path=/monthly_2026_11/05_grupo_de_clubes.jpg.f454bafe34dddb1ffe98bf06d1753966.jpg"
   ],
   "featured": true,
   "date": "2026-11-01",
