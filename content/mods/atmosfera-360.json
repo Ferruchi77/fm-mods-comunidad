@@ -1,6 +1,6 @@
 {
   "install_path": "\\Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins",
-  "modified": "2026-11-07",
+  "modified": "2026-11-10",
   "updates": [
     {
       "date": "2026-10-25",
@@ -14,10 +14,12 @@
       "version": "V.1.8.6e",
       "note": "Hotfix de la nueva actualización de FM",
       "date": "2026-11-03"
-    },
+    }
+  ],
+  "install_paths": [
     {
-      "version": "Versión gratuita",
-      "date": "2026-11-07"
+      "version": "FM26",
+      "path": "\\Steam\\steamapps\\common\\Football Manager 26\\BepInEx\\plugins"
     }
   ],
   "author": "MiguelFM",
@@ -27,7 +29,8 @@
   "featured": true,
   "date": "2026-09-09",
   "badges": [
-    "Imprescindible"
+    "Imprescindible",
+    "De pago"
   ],
   "status": "🟢 Publicado",
   "fm_versions": [
@@ -35,7 +38,7 @@
     "FM27"
   ],
   "cover": "/img/covers/atmosfera-360-cover.webp",
-  "download_url": "https://www.patreon.com/MiguelFMAdboards/posts/atmosfera-360-152355234?utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=postshare_creator&utm_content=join_link",
+  "download_url": "https://www.patreon.com/MiguelFMAdboards/posts/atmosfera-360-v-173842807",
   "title": "Atmósfera 360",
   "author_url": "https://x.com/MiguelFMAds",
   "card_text": "Recrea una retransmisión de TV real con marcadores, gráficos, vallas LED dinámicas y pancartas personalizadas en decenas de ligas.",
