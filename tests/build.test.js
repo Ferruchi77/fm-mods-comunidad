@@ -5,6 +5,7 @@ const r=cp.spawnSync(process.execPath,['build.js'],{env:{...process.env,OUT_DIR:
 const rd=f=>fs.readFileSync(p.join(OUT,f),'utf8');
 const slugs=fs.readdirSync('content/mods').filter(f=>f.endsWith('.json')).map(f=>f.slice(0,-5));
 const PREF={es:'',en:'en/',ca:'ca/',fr:'fr/',pt:'pt-br/',it:'it/'};
+const wW=f=>fs.readFileSync(p.join('public',f)).readUInt16LE(26)&0x3fff;   // ancho real del WebP (VP8) para no fijar cifras que cambian al sustituir la imagen
 test('la compilación estricta termina sin errores',()=>{assert.equal(r.status,0,r.stderr+r.stdout)});
 test('cada idioma genera portada, ficha de cada mod, categorías y versiones',()=>{
   for(const [l,pre] of Object.entries(PREF)){
@@ -56,6 +57,6 @@ test('tarjetas: el texto breve no se recorta con CSS',()=>{
   assert.ok(!/\.ex\.hook\{[^}]*-webkit-line-clamp:\d/.test(css.slice(css.indexOf('===== v.18 ====='))))});
 test('srcset: tarjetas con 320/640 y ancho real del original; «Más como este» sin el original',()=>{
   const h=rd('index.html');
-  assert.match(h,/srcset="\/img\/uploads\/realnamefix27_1-320\.webp 320w, \/img\/uploads\/realnamefix27_1-640\.webp 640w, \/img\/uploads\/realnamefix27_1\.webp 1200w" sizes="\(max-width:600px\) 46vw, 260px"/);
+  assert.ok(h.includes(`srcset="/img/uploads/realnamefix27_1-320.webp 320w, /img/uploads/realnamefix27_1-640.webp 640w, /img/uploads/realnamefix27_1.webp ${wW('img/uploads/realnamefix27_1.webp')}w" sizes="(max-width:600px) 46vw, 260px"`));
   const all=slugs.map(s=>rd(`mod/${s}/index.html`)).join('\n');
   for(const m of all.matchAll(/<li><a href="\/mod\/[^"]+"><img [^>]*srcset="([^"]+)" sizes="96px"/g))assert.ok(!/1200w|740w/.test(m[1]),m[1])});
