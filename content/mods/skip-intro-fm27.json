@@ -5,7 +5,7 @@
     }
   ],
   "install_path": "Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins",
-  "modified": "2026-11-04",
+  "modified": "2026-11-10",
   "updates": [
     {
       "date": "2026-11-03",
@@ -25,6 +25,7 @@
   "cover": "/img/covers/skip-intro-fm27-cover.webp",
   "download_url": "https://sortitoutsi.net/content/78143/fm27-intro-skip",
   "title": "Skip Intro FM27",
+  "card_text": "Mod de optimización para Football Manager 27 que reduce significativamente el tiempo de arranque saltando las pantallas iniciales.",
   "categories": [
     "bases-de-datos"
   ],
