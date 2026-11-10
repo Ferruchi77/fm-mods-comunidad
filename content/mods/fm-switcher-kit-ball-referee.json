@@ -1,6 +1,6 @@
 {
   "install_path": "\\Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins",
-  "modified": "2026-11-04",
+  "modified": "2026-11-10",
   "updates": [
     {
       "version": "V.0.2",
@@ -11,11 +11,32 @@
       "date": "2026-10-30",
       "version": "V.0.3",
       "note": "NUEVO Hecho para FM27, con el aspecto del propio juego: fuentes, botones e iconos\nNUEVO Nombre y número en la espalda de la vista previa 3D, del tamaño del partido\nNUEVO Ventana de colores: número, contorno y colores del marcador de cada equipo\nNUEVO Jugadores animados en la vista previa, y jugadoras en los partidos femeninos"
+    },
+    {
+      "version": "V.0.4.10",
+      "date": "2026-11-10",
+      "note": "MEJORADO: Actualizado para el parche más reciente de Football Manager 27\nMEJORADO: La ventana de equipaciones ya no se cierra nada más abrirse\nMEJORADO: Las equipaciones de los árbitros vuelven a cambiar, y los dos porteros ya no llevan la misma equipación\nMEJORADO: Las pantallas de los partidos muestran la equipación que has elegido"
+    }
+  ],
+  "install_paths": [
+    {
+      "version": "FM26",
+      "path": "\\Steam\\steamapps\\common\\Football Manager 26\\BepInEx\\plugins"
     }
   ],
   "author": "FM Tigrotto",
+  "screenshots": [
+    "https://fmtigrotto.com/assets/img/ks3-alt.webp",
+    "https://fmtigrotto.com/assets/img/ks3-balls.webp",
+    "https://fmtigrotto.com/assets/img/ks3-referees.webp",
+    "https://fmtigrotto.com/assets/img/ks3-gk.webp",
+    "https://fmtigrotto.com/assets/img/ks3-colours.webp"
+  ],
+  "featured": true,
   "date": "2026-06-30",
-  "badges": [],
+  "badges": [
+    "Imprescindible"
+  ],
   "status": "🟢 Publicado",
   "fm_versions": [
     "FM27",
@@ -25,6 +46,7 @@
   "download_url": "https://fmtigrotto.com/tools/kit-switcher",
   "title": "FM Switcher (Kit / Ball / Referee)",
   "author_url": "https://x.com/fmtigrotto",
+  "card_text": "Plugin para elegir y previsualizar en 3D las equipaciones de ambos equipos, el balón oficial y los árbitros antes de cada partido en FM.",
   "categories": [
     "bases-de-datos"
   ],
