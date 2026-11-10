@@ -1,0 +1,40 @@
+{
+  "install_path": "\\Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins",
+  "modified": "2026-11-10",
+  "updates": [
+    {
+      "date": "2026-11-07",
+      "version": "Versión gratuita (equivale al 06/03/2026)",
+      "note": "Sirve tanto para FM26 como FM27"
+    }
+  ],
+  "install_paths": [
+    {
+      "version": "FM26",
+      "path": "\\Steam\\steamapps\\common\\Football Manager 26\\BepInEx\\plugins"
+    }
+  ],
+  "author": "MiguelFM",
+  "screenshots": [
+    "https://www.fmsite.net/applications/downloads/interface/legacy/screenshot.php?path=/monthly_2026_08/HIpjPJDXUAAY38y.png.c7f7e3d1668b77240cadd729697784f2.png"
+  ],
+  "featured": true,
+  "date": "2026-03-06",
+  "badges": [
+    "Imprescindible"
+  ],
+  "status": "🟢 Publicado",
+  "fm_versions": [
+    "FM26",
+    "FM27"
+  ],
+  "cover": "/img/covers/atmosfera-360-cover.webp",
+  "download_url": "https://www.patreon.com/MiguelFMAdboards/posts/atmosfera-360-152355234?utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=postshare_creator&utm_content=join_link",
+  "title": "Atmósfera 360 (gratuito)",
+  "author_url": "https://x.com/MiguelFMAds",
+  "card_text": "Recrea una retransmisión de TV real con marcadores, gráficos, vallas LED dinámicas y pancartas personalizadas en decenas de ligas.",
+  "categories": [
+    "bases-de-datos"
+  ],
+  "description": "Qué está incluido\nMarcador de la liga, en lugar del marcador genérico del juego.\n\nAlineaciones que muestran los once iniciales de ambos equipos antes del partido\n\nCinemáticas cuando aparece el estadio\n\nLogotipo de televisión en la esquina, como en una transmisión en vivo.\n\nAnuncios LED móviles en las vallas publicitarias junto al campo de juego.\n\nPancartas de los aficionados en las gradas del Camp Nou, el Bernabéu y el Metropolitano.\n\nHumo de colores del equipo local\n\nVisualización de goles, tarjetas, sustituciones y lesiones, con el diseño del mod."
+}
