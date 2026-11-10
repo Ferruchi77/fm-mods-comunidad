@@ -18,6 +18,12 @@
       "note": "MEJORADO: Actualizado para el parche más reciente de Football Manager 27\nMEJORADO: La ventana de equipaciones ya no se cierra nada más abrirse\nMEJORADO: Las equipaciones de los árbitros vuelven a cambiar, y los dos porteros ya no llevan la misma equipación\nMEJORADO: Las pantallas de los partidos muestran la equipación que has elegido"
     }
   ],
+  "install_paths": [
+    {
+      "version": "FM26",
+      "path": "\\Steam\\steamapps\\common\\Football Manager 26\\BepInEx\\plugins"
+    }
+  ],
   "author": "FM Tigrotto",
   "screenshots": [
     "https://fmtigrotto.com/assets/img/ks3-alt.webp",
