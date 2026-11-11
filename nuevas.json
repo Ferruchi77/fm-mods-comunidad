@@ -1,0 +1,30 @@
+{
+  "7426cf71d3ef": {
+    "en": "Kojuro Skin",
+    "ca": "Kojuro Skin",
+    "fr": "Kojuro Skin",
+    "pt": "Kojuro Skin",
+    "it": "Kojuro Skin"
+  },
+  "7762dd475f55": {
+    "en": "Minimalist black-and-white skin for FM27 that redesigns the main screens without needing to install BepInEx.",
+    "ca": "Skin minimalista en blanc i negre per a FM27 que redissenya les pantalles principals sense necessitat d'instal·lar BepInEx.",
+    "fr": "Skin minimaliste en noir et blanc pour FM27 qui repense les écrans principaux sans avoir besoin d'installer BepInEx.",
+    "pt": "Skin minimalista em preto e branco para o FM27 que redesenha as telas principais sem precisar instalar o BepInEx.",
+    "it": "Skin minimalista in bianco e nero per FM27 che ridisegna le schermate principali senza bisogno di installare BepInEx."
+  },
+  "2d9058b1239a": {
+    "en": "Leagues Megapack",
+    "ca": "Megapack de lligues",
+    "fr": "Mégapack de championnats",
+    "pt": "Megapack de ligas",
+    "it": "Megapack di campionati"
+  },
+  "de83e4e9a4ce": {
+    "en": "Database megapack for FM that adds South American leagues with real format, promotion, relegation, women's football and stadiums.",
+    "ca": "Megapack de bases de dades per a FM que afegeix lligues sud-americanes amb format real, ascensos, descensos, futbol femení i estadis.",
+    "fr": "Mégapack de bases de données pour FM qui ajoute des championnats sud-américains au format réel, avec promotions, relégations, football féminin et stades.",
+    "pt": "Megapack de bancos de dados para o FM que adiciona ligas sul-americanas com formato real, acessos, rebaixamentos, futebol feminino e estádios.",
+    "it": "Megapack di database per FM che aggiunge campionati sudamericani con formato reale, promozioni, retrocessioni, calcio femminile e stadi."
+  }
+}
