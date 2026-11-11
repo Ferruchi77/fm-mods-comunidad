@@ -10,7 +10,7 @@ const C={
   email:'fmmodscomunidad@gmail.com',            // recibe los "enlace caído"
   requests:'',       // formulario de peticiones (otro Google Form). Si lo dejas vacío, se pide por X
   requestsEmbed:'',  // opcional: URL de "incrustar" del formulario para verlo dentro de la página
-  version:'v.18',   // versión del proyecto: súbela +1 en cada entrega (sale en el pie de la web y en el panel)
+  version:'v.19',   // versión del proyecto: súbela +1 en cada entrega (sale en el pie de la web y en el panel)
   reload:['FM24'],   // versiones de FM en las que hay que recargar el skin/caché (en el resto el juego lo hace solo)
   slots:{'bajo-titulo':'','junto-descarga':''}, // IDs de bloque de anuncio (data-ad-slot) de AdSense
   submit:'https://forms.gle/MRgz9tF5xXea5EAn8'   // formulario "Envía tu mod"
@@ -24,7 +24,7 @@ const FEAT=Object.keys(BADGE).filter(k=>BADGE[k].featured);if(BADGE.Imprescindib
 // La lógica de la ficha vive en public/js/ficha.js (la comparte la vista previa del panel)
 const hv=f=>require('crypto').createHash('md5').update(fs.readFileSync(f)).digest('hex').slice(0,8);
 const V={css:hv('public/css/style.css'),app:hv('public/js/app.js'),ficha:hv('public/js/ficha.js')};
-const F=require('./public/js/ficha.js'),{esc,vk,verYear,dt,UI,normalize}=F;
+const F=require('./public/js/ficha.js'),{esc,vk,verYear,dt,UI,normalize,rich,plain}=F;
 // ===== i18n =====
 // Diccionarios en locales/*.json (es = texto base del HTML). Se incrustan en dist/js/i18n.js; el navegador traduce lo marcado con data-i18n.
 const LANGS=['es','en','ca','fr','pt','it'],DICT={};
@@ -50,10 +50,14 @@ const AM=(a,v)=>Object.entries(a).map(([n,k])=>`${n}="${esc(T(k,v))}"`).join(' '
 let TRC={};try{TRC=JSON.parse(fs.readFileSync('content/traducciones.json','utf8'))}catch{}
 const trMissing=new Set();
 // Devuelve el texto libre del editor en el idioma de la página (si aún no está traducido, el original en español)
-const tx=t=>{if(CUR==='es')return t;const x=String(t||'').trim();if(!x)return t;const h=require('crypto').createHash('sha1').update(x,'utf8').digest('hex').slice(0,12),e=TRC[h];
+const sha=x=>require('crypto').createHash('sha1').update(x,'utf8').digest('hex').slice(0,12);
+const tx=t=>{if(CUR==='es')return t;const x=String(t||'').trim();if(!x)return t;const h=sha(x),e=TRC[h];
   if(e&&e[CUR])return e[CUR];trMissing.add(h);return t};
+// Nombre del mod en cada idioma (v.19): usa las mismas traducciones (content/traducciones.json) y, si falta, el original.
+const trTo=(t,l)=>{const x=String(t||'').trim(),e=l==='es'||!x?null:TRC[sha(x)];return e&&e[l]?e[l]:x};
+const titles=m=>[...new Set([String(m.title||'').trim(),...LANGS.slice(1).map(l=>trTo(m.title,l))].filter(Boolean))];   // el nombre en todos los idiomas (para que el buscador lo encuentre en cualquiera)
 const ctx={C,CATS,BADGE,LATEST:'',ad:null,T,tx},R=F.make(ctx);
-const {catOf,badges,authText,vchips,compat,needsReload,installPaths,hist,report,trAttr}=R;
+const {catOf,badges,authText,vchips,compat,needsReload,installPaths,hist,report,trAttr,mt}=R;
 // ========================================
 const norm=s=>String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
 const D='content/mods',OUT=process.env.OUT_DIR||'dist';
@@ -148,8 +152,8 @@ const AUTH_OPTS=[...new Map(mods.flatMap(m=>m.auth.map(a=>[norm(a.name).trim(),a
 let STATS={};
 if(process.env.NO_STATS_FETCH!=='1'&&/^https?:/.test(C.url)){try{STATS=JSON.parse(require('child_process').execFileSync(process.execPath,['-e',"fetch(process.argv[1],{signal:AbortSignal.timeout(7000)}).then(r=>r.ok?r.text():'{}').then(t=>process.stdout.write(t)).catch(()=>process.stdout.write('{}'))",C.url+'/api/stats'],{timeout:9000,encoding:'utf8'}))||{}}catch{STATS={}}}
 const dts=d=>d?new Date(d).toLocaleDateString(LM[CUR].loc,{day:'numeric',month:'short',year:'numeric'}):'';
-const exc=t=>{t=String(t||'').replace(/\s+/g,' ').trim();return t.length>120?t.slice(0,117)+'…':t};
-const card=(m,eager)=>`<a class="card" href="/mod/${m.slug}/" data-slug="${m.slug}" data-lm="${esc(lmOf(m))}" data-nw="${esc(String(m.date||'').slice(0,10))}" data-p="${isPaid(m)?1:0}" data-ss="${m.screenshots.length?1:0}" data-h="${esc((()=>{try{return new URL(m.download_url).hostname.replace(/^www\./,'')}catch{return ''}})())}" data-a="${esc(m.auth.map(a=>norm(a.name).trim()).join('|'))}" data-c="${esc(m.cats.join(' '))}" data-v="${esc(m.vers.map(vk).join(' '))}" data-t="${esc(norm([m.title,...m.auth.map(a=>a.name),...m.vers,...m.cats.map(c=>catOf(c).n),...m.cats.flatMap(c=>Object.values(catOf(c).t||{})),...m.tags,m.card_text||''].join(' ')))}"><div class="ph"><img src="${esc(thumb(m.cover)||'/img/placeholder.svg')}"${srcset(m.cover,SZ_CARD)} alt="${esc(m.title)}" loading="${eager?'eager':'lazy'}" decoding="async" width="640" height="360">${m.vers.length?`<span class="ph-v" ${AM({'aria-label':'card_vers'})}>${vchips(m)}</span>`:''}<span class="ph-b">${badges(m)}</span></div><div class="cb"><h3>${esc(m.title)}</h3><p class="by">${UI}<strong title="${esc(authText(m))}">${esc(authText(m))}</strong></p><p class="ex${m.card_text?' hook':''}">${esc(m.card_text?tx(String(m.card_text).trim()):exc(m.description))}</p><div class="cf"><span class="cat">${m.cats.map(c=>{const x=catOf(c);return `<span${trAttr(x)}>${esc(x.n)}</span>`}).join(', ')}</span>${m.upd[0]?`<time datetime="${esc(m.upd[0].date)}" data-d="short" data-pre="↻ " ${AM({title:'card_upd'})}>↻ ${dts(m.upd[0].date)}</time>`:m.date?`<time datetime="${esc(m.date)}" data-d="short">${dts(m.date)}</time>`:''}</div><p class="st" data-s="${m.slug}" hidden></p></div></a>`;
+const exc=t=>{t=plain(t);return t.length>120?t.slice(0,117)+'…':t};
+const card=(m,eager)=>`<a class="card" href="/mod/${m.slug}/" data-slug="${m.slug}" data-lm="${esc(lmOf(m))}" data-nw="${esc(String(m.date||'').slice(0,10))}" data-p="${isPaid(m)?1:0}" data-ss="${m.screenshots.length?1:0}" data-h="${esc((()=>{try{return new URL(m.download_url).hostname.replace(/^www\./,'')}catch{return ''}})())}" data-a="${esc(m.auth.map(a=>norm(a.name).trim()).join('|'))}" data-c="${esc(m.cats.join(' '))}" data-v="${esc(m.vers.map(vk).join(' '))}" data-t="${esc(norm([...titles(m),...m.auth.map(a=>a.name),...m.vers,...m.cats.map(c=>catOf(c).n),...m.cats.flatMap(c=>Object.values(catOf(c).t||{})),...m.tags,m.card_text||''].join(' ')))}"><div class="ph"><img src="${esc(thumb(m.cover)||'/img/placeholder.svg')}"${srcset(m.cover,SZ_CARD)} alt="${esc(mt(m))}" loading="${eager?'eager':'lazy'}" decoding="async" width="640" height="360">${m.vers.length?`<span class="ph-v" ${AM({'aria-label':'card_vers'})}>${vchips(m)}</span>`:''}<span class="ph-b">${badges(m)}</span></div><div class="cb"><h3>${esc(mt(m))}</h3><p class="by">${UI}<strong title="${esc(authText(m))}">${esc(authText(m))}</strong></p><p class="ex${m.card_text?' hook':''}">${esc(m.card_text?tx(String(m.card_text).trim()):exc(m.description))}</p><div class="cf"><span class="cat">${m.cats.map(c=>{const x=catOf(c);return `<span${trAttr(x)}>${esc(x.n)}</span>`}).join(', ')}</span>${m.upd[0]?`<time datetime="${esc(m.upd[0].date)}" data-d="short" data-pre="↻ " ${AM({title:'card_upd'})}>↻ ${dts(m.upd[0].date)}</time>`:m.date?`<time datetime="${esc(m.date)}" data-d="short">${dts(m.date)}</time>`:''}</div><p class="st" data-s="${m.slug}" hidden></p></div></a>`;
 
 const absImg=i=>!i?C.url+'/img/og-image.jpg':/^https?:/i.test(i)?i:C.url+encodeURI(i);
 const ogImg=m=>[m.cover,...m.screenshots].find(i=>i&&!/\.(avif|svg)(\?|$)/i.test(i));
@@ -188,8 +192,10 @@ const ups=mods.flatMap(m=>[...m.upd.map(u=>({m,date:u.date,ver:u.version,note:u.
 const renderSite=L=>{
 CUR=L;BASE=LM[L].slug?'/'+LM[L].slug:'';F.setLocale(LM[L].loc);const OL=OUT+BASE;
 for(const c of Object.values(CATS))c.n=(c.t&&c.t[L])||c.n0;
-// NOVEDADES: nuevos mods + actualizaciones registradas en cada ficha
-const upItem=(u,full)=>`<li class="${u.type==='new'?'new':''}"><time datetime="${esc(u.date)}" data-d="short">${dts(u.date)}</time><h3><a href="/mod/${u.m.slug}/">${esc(u.m.title)}</a> <span class="b ${u.type==='new'?'b-verde':'b-violeta'}">${S(u.type==='new'?'b_new':'b_upd')}${u.ver?' '+esc(u.ver):''}</span></h3>${full?`<p class="by">${UI}<strong>${esc(authText(u.m))}</strong></p><p class="vc">${vchips(u.m)}</p>`:''}${u.note?`<p>${esc(tx(u.note))}</p>`:''}</li>`;
+// NOVEDADES (v.19): nuevos mods + actualizaciones registradas en cada ficha. Cada novedad es una tarjeta con portada, tipo (Nuevo / Actualizado + versión),
+// fecha destacada, autor, versiones de FM y la nota (recortada con «Leer más»). La página /novedades/ añade filtros (tipo, periodo, versión) y salto por meses (app.js).
+const nvItem=(u,compact)=>{const m=u.m,isNew=u.type==='new',d=String(u.date).slice(0,10),img=variant(m.cover,320)||thumb(m.cover)||'/img/placeholder.svg';
+  return `<li class="nv ${isNew?'nv-new':'nv-upd'}${compact?' nv-c':''}" data-nt="${isNew?'new':'update'}" data-dt="${esc(d)}" data-v="${esc(m.vers.map(vk).join(' '))}"><a class="nv-img" href="/mod/${m.slug}/" tabindex="-1" aria-hidden="true"><img src="${esc(img)}"${srcset(m.cover,'112px',640)} alt="" loading="lazy" decoding="async" width="160" height="90"></a><div class="nv-b"><div class="nv-top"><span class="b ${isNew?'b-verde':'b-violeta'}">${S(isNew?'b_new':'b_upd')}${u.ver?' '+esc(u.ver):''}</span><time class="ud${isNew?' ud-new':''}" datetime="${esc(d)}" data-d="short">${dts(d)}</time><span class="nv-ago" data-ago="${esc(d)}"></span></div><h3><a href="/mod/${m.slug}/">${esc(mt(m))}</a></h3><p class="by">${UI}<strong>${esc(authText(m))}</strong><span class="vc">${vchips(m)}</span></p>${u.note?`<div class="rt nv-note">${rich(tx(u.note))}</div>${compact?'':`<button class="nv-more" type="button" aria-expanded="false" hidden>${esc(T('nv_more'))}</button>`}`:''}</div></li>`};
 // HOME
 const feat=mods.filter(m=>m.badges.some(b=>FEAT.includes(b)));
 W(`${OL}/index.html`,page({home:1,path:'/',title:T('seo_home_t',{name:C.name}),
@@ -202,27 +208,28 @@ ${feat.length?`<section class="wrap feat" id="feat"><div class="feat-h">${S('fea
 <p class="meta resline"><span id="count"></span> <button class="btn small" id="reset" type="button"${I('f_reset')} hidden>${esc(T('f_reset'))}</button><span class="grow"></span><button class="btn small" id="view" type="button" aria-pressed="false">${esc(T('view_list'))}</button></p>
 <div class="favbar" id="favbar" hidden><span class="meta">${esc(T('fav_note'))}</span><button class="btn small" id="fav-exp" type="button">${esc(T('fav_export'))}</button><button class="btn small" id="fav-imp" type="button">${esc(T('fav_import'))}</button><input id="fav-file" type="file" accept="application/json,.json" hidden></div>
 <div class="grid" id="grid">${mods.map(m=>card(m)).join('')}</div><div class="more-w" id="more-w" hidden><button class="btn" id="more" type="button">${esc(T('more',{n:''}).trim())}</button><span class="meta" id="more-n" aria-live="polite"></span></div><div id="empty" class="empty-st" role="status" hidden><svg class="empty-ic" viewBox="0 0 120 120" aria-hidden="true"><rect x="14" y="26" width="92" height="62" rx="8" fill="none" stroke="currentColor" stroke-width="3" opacity=".45"/><path d="M60 26v62" stroke="currentColor" stroke-width="3" opacity=".45"/><circle cx="60" cy="57" r="11" fill="none" stroke="currentColor" stroke-width="3" opacity=".45"/><circle cx="80" cy="72" r="22" fill="var(--bg)" stroke="var(--ac)" stroke-width="5"/><path d="M96 88l14 14" stroke="var(--ac)" stroke-width="7" stroke-linecap="round"/><path d="M73 66c0-5 14-5 14 1 0 4-7 4-7 9M80 82v1" fill="none" stroke="var(--ac)" stroke-width="4" stroke-linecap="round"/></svg>${S('empty_h3',null,'h3')}<p id="empty-msg">${esc(T('empty_p'))}</p><ul class="empty-tips">${S('empty_tip1',null,'li')}${S('empty_tip2',null,'li')}</ul><div class="empty-act"><button class="btn primary" id="empty-reset" type="button"${I('f_reset')}>${esc(T('f_reset'))}</button><a class="btn" href="/peticiones/"${I('empty_req')}>${esc(T('empty_req'))}</a></div></div></section>
-${ups.length?`<section class="wrap">${S('news_h2',null,'h2')}<div class="box"><ul class="tl news">${ups.slice(0,4).map(u=>upItem(u)).join('')}</ul><a class="btn" href="/novedades/"${I('news_all')}>${esc(T('news_all'))}</a></div></section>`:''}
+${ups.length?`<section class="wrap">${S('news_h2',null,'h2')}<ul class="nvl nv-home">${ups.slice(0,6).map(u=>nvItem(u,1)).join('')}</ul><p class="nv-allw"><a class="btn" href="/novedades/"${I('news_all')}>${esc(T('news_all'))}</a></p></section>`:''}
 <section class="wrap two">${donate()}${xcta()}</section>`}));
 
 // Cajas laterales de la ficha: «¿te funciona?», compartir y relacionados
 const qe=encodeURIComponent;
 const worksBox=m=>m.vers.length?`<div class="box works" data-works="${m.slug}">${S('works_h',null,'h2')}${m.vers.map(v=>`<div class="wk" data-ver="${esc(vk(v).toUpperCase())}"><span class="vchip">${esc(v)}</span><span class="wk-s meta" data-wsum>${esc(T('works_none'))}</span><span class="wk-b"><button class="btn small" type="button" data-w="ok" aria-pressed="false">👍 ${S('works_yes')}</button><button class="btn small" type="button" data-w="ko" aria-pressed="false">👎 ${S('works_no')}</button></span></div>`).join('')}<p class="meta wk-thx" role="status" hidden>${S('works_thanks')}</p><p class="meta" data-stats-off hidden>${esc(T('stats_off'))}</p></div>`:'';
-const shareBox=m=>{const u=C.url+BASE+'/mod/'+m.slug+'/',t=T('share_text',{t:m.title});
+const shareBox=m=>{const u=C.url+BASE+'/mod/'+m.slug+'/',t=T('share_text',{t:mt(m)});
   return `<div class="box share">${S('share_h',null,'h2')}<div class="share-b"><button class="btn small" type="button" data-i18n="share_copy" data-copy="${esc(u)}">${esc(T('share_copy'))}</button><a class="btn small" href="https://x.com/intent/post?text=${qe(t)}&url=${qe(u)}" target="_blank" rel="noopener">${XI}${S('share_x')}</a><a class="btn small" href="https://wa.me/?text=${qe(t+' '+u)}" target="_blank" rel="noopener">WhatsApp</a></div></div>`};
 const relatedBox=m=>{const sc=x=>x.cats.filter(c=>m.cats.includes(c)).length*2+x.auth.filter(a=>m.auth.some(b=>norm(a.name)===norm(b.name))).length*3+x.vers.filter(v=>m.vers.includes(v)).length;
-  const L=mods.filter(x=>x!==m).map(x=>({x,s:sc(x)})).filter(o=>o.s>0).sort((a,b)=>b.s-a.s||new Date(b.x.date||0)-new Date(a.x.date||0)).slice(0,3).map(o=>o.x);
-  return L.length?`<div class="box rel">${S('related_h',null,'h2')}<ul>${L.map(x=>`<li><a href="/mod/${x.slug}/"><img src="${esc(variant(x.cover,320)||thumb(x.cover)||'/img/placeholder.svg')}"${srcset(x.cover,SZ_REL,640)} alt="" loading="lazy" decoding="async" width="96" height="54"><span><b>${esc(x.title)}</b><small>${esc(authText(x))} · ${esc(x.vers.join(', '))}</small></span></a></li>`).join('')}</ul></div>`:''};
+  const L=mods.filter(x=>x!==m).map(x=>({x,s:sc(x)})).filter(o=>o.s>0).sort((a,b)=>b.s-a.s||new Date(b.x.date||0)-new Date(a.x.date||0)).slice(0,4).map(o=>o.x);
+  // v.19: exactamente la misma tarjeta (card) y la misma parrilla (.feat-grid) que «Mods imprescindibles» de la portada
+  return L.length?`<section class="rel-sec">${S('related_h',null,'h2')}<div class="grid feat-grid">${L.map(x=>card(x)).join('')}</div></section>`:''};
 
 // FICHAS
 for(const m of mods){
  if(m.cover&&/\.avif(\?|$)/i.test(m.cover))console.warn(`⚠ ${m.slug}: la portada es AVIF y X/WhatsApp no la muestran; para la vista previa se usa otra imagen. Súbela en JPG, PNG o WebP.`);
  const cn=m.cats.map(catOf),url=`/mod/${m.slug}/`;
- W(`${OL}${url}index.html`,page({path:url,img:ogImg(m),type:'article',imgAlt:T('seo_cover',{t:m.title}),title:`${m.title} (${m.vers.join(', ')}) — ${cn.map(x=>x.n).join(', ')} | ${C.name}`,
-  desc:(m.description||'').replace(/\s+/g,' ').slice(0,155),
-  ld:[{'@context':'https://schema.org','@type':'CreativeWork',name:m.title,description:(m.description||'').slice(0,300),author:m.auth.map(a=>({'@type':'Person',name:a.name,url:/^https?:/i.test(a.url||'')?a.url:undefined})),datePublished:m.date,dateModified:(m.upd[0]&&m.upd[0].date)||m.date,image:m.cover?absImg(m.cover):undefined,genre:cn.map(x=>x.n),url:C.url+BASE+url,...(()=>{const st=STATS[m.slug];return st&&st.ratingCount>=3?{aggregateRating:{'@type':'AggregateRating',ratingValue:+(st.ratingSum/st.ratingCount).toFixed(1),ratingCount:st.ratingCount,bestRating:5,worstRating:0.5}}:{}})()},
-   {'@context':'https://schema.org','@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:T('crumb_home'),item:C.url+BASE+'/'},...(m.cats[0]?[{'@type':'ListItem',position:2,name:cn[0].n,item:C.url+BASE+'/categoria/'+m.cats[0]+'/'}]:[]),{'@type':'ListItem',position:m.cats[0]?3:2,name:m.title}]}],
-  body:R.detail(m,{extras:worksBox(m)+shareBox(m)+relatedBox(m)+donate()+xcta()})}));
+ W(`${OL}${url}index.html`,page({path:url,img:ogImg(m),type:'article',imgAlt:T('seo_cover',{t:mt(m)}),title:`${mt(m)} (${m.vers.join(', ')}) — ${cn.map(x=>x.n).join(', ')} | ${C.name}`,
+  desc:plain(m.description).slice(0,155),
+  ld:[{'@context':'https://schema.org','@type':'CreativeWork',name:mt(m),description:plain(m.description).slice(0,300),author:m.auth.map(a=>({'@type':'Person',name:a.name,url:/^https?:/i.test(a.url||'')?a.url:undefined})),datePublished:m.date,dateModified:(m.upd[0]&&m.upd[0].date)||m.date,image:m.cover?absImg(m.cover):undefined,genre:cn.map(x=>x.n),url:C.url+BASE+url,...(()=>{const st=STATS[m.slug];return st&&st.ratingCount>=3?{aggregateRating:{'@type':'AggregateRating',ratingValue:+(st.ratingSum/st.ratingCount).toFixed(1),ratingCount:st.ratingCount,bestRating:5,worstRating:0.5}}:{}})()},
+   {'@context':'https://schema.org','@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:T('crumb_home'),item:C.url+BASE+'/'},...(m.cats[0]?[{'@type':'ListItem',position:2,name:cn[0].n,item:C.url+BASE+'/categoria/'+m.cats[0]+'/'}]:[]),{'@type':'ListItem',position:m.cats[0]?3:2,name:mt(m)}]}],
+  body:R.detail(m,{extras:worksBox(m)+shareBox(m)+donate()+xcta(),below:relatedBox(m)})}));
 }
 
 // AUTORES: una página por autor de la colección «Autores» que tenga mods publicados (/autor/<slug>/)
@@ -232,7 +239,7 @@ SITE.authPages=authPages;
 for(const {slug,a,ms} of authPages){
  const url=`/autor/${slug}/`,ext=/^https?:/i.test(a.url||'');
  W(`${OL}${url}index.html`,page({path:url,title:T('seo_auth_t',{a:a.name,name:C.name}),
-  desc:T(ms.length===1?'seo_auth_d_one':'seo_auth_d_other',{n:ms.length,a:a.name,l:ms.slice(0,3).map(m=>m.title).join(', ')}).slice(0,155),
+  desc:T(ms.length===1?'seo_auth_d_one':'seo_auth_d_other',{n:ms.length,a:a.name,l:ms.slice(0,3).map(mt).join(', ')}).slice(0,155),
   ld:{'@context':'https://schema.org','@type':'Person',name:a.name,url:ext?a.url:undefined,sameAs:ext?[a.url]:undefined},
   wide:1,body:`<div class="wrap">${S('auth_h1',{n:a.name},'h1')}<p class="meta">${S(ms.length===1?'count_one':'count_other',{n:ms.length})}${ext?` · <a href="${esc(a.url)}" target="_blank" rel="noopener nofollow"${I('auth_profile')}>${esc(T('auth_profile'))}</a>`:''}</p><div class="grid">${ms.map(m=>card(m)).join('')}</div></div>`}));
 }
@@ -243,9 +250,9 @@ const listPage=({url,title,desc,h1,lead,ms,cur,name})=>W(`${OL}${url}index.html`
   ld:[{'@context':'https://schema.org','@type':'CollectionPage',name:h1,url:C.url+BASE+url,numberOfItems:ms.length},{'@context':'https://schema.org','@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:T('crumb_home'),item:C.url+BASE+'/'},{'@type':'ListItem',position:2,name:h1}]}],
   body:`<div class="wrap"><p class="crumb"><a href="/"${I('crumb_home')}>${esc(T('crumb_home'))}</a> / ${esc(h1)}</p><h1>${esc(h1)}</h1>${lead?`<p class="lead">${esc(lead)}</p>`:''}<p class="meta">${S(ms.length===1?'count_one':'count_other',{n:ms.length})}</p><div class="grid">${ms.map(m=>card(m)).join('')}</div>${browse(cur)}</div>`}));
 for(const [slug,c] of Object.entries(CATS)){const ms=mods.filter(m=>m.cats.includes(slug));if(!ms.length)continue;
-  listPage({url:`/categoria/${slug}/`,cur:'c:'+slug,ms,h1:c.n,lead:c.d,title:T('seo_cat_t',{c:c.n,name:C.name}),desc:T('seo_cat_d',{c:c.n,l:ms.slice(0,4).map(m=>m.title).join(', ')})})}
+  listPage({url:`/categoria/${slug}/`,cur:'c:'+slug,ms,h1:c.n,lead:c.d,title:T('seo_cat_t',{c:c.n,name:C.name}),desc:T('seo_cat_d',{c:c.n,l:ms.slice(0,4).map(mt).join(', ')})})}
 for(const v of VPAGES){const ms=mods.filter(m=>m.vers.includes(v));
-  listPage({url:`/version/${vslug(v)}/`,cur:'v:'+vslug(v),ms,h1:T('ver_h1',{v}),title:T('seo_ver_t',{v,name:C.name}),desc:T('seo_ver_d',{v,l:ms.slice(0,4).map(m=>m.title).join(', ')})})}
+  listPage({url:`/version/${vslug(v)}/`,cur:'v:'+vslug(v),ms,h1:T('ver_h1',{v}),title:T('seo_ver_t',{v,name:C.name}),desc:T('seo_ver_d',{v,l:ms.slice(0,4).map(mt).join(', ')})})}
 
 // ===== PÁGINAS DE COMUNIDAD =====
 const XU2=`https://x.com/${C.x}`;
@@ -270,7 +277,7 @@ ${SH('sub_end',null,'p')}</div>`}));
 const REQ=readDir('content/peticiones').sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
 const ST={abierta:['st_open','b-azul'],desarrollo:['st_dev','b-amarillo'],completada:['st_done','b-verde']};
 const reqItem=r=>{const st=ST[r.status]||ST.abierta,mod=r.mod&&mods.find(m=>m.slug===r.mod);
-  return `<div class="req"><div><span class="b ${st[1]}">${S(st[0])}</span></div><div><h3>${esc(r.title)}</h3>${r.description?`<p>${esc(r.description)}</p>`:''}${mod?`<p><a href="/mod/${mod.slug}/"${I('req_see',{t:mod.title})}>${esc(T('req_see',{t:mod.title}))}</a></p>`:''}</div></div>`};
+  return `<div class="req"><div><span class="b ${st[1]}">${S(st[0])}</span></div><div><h3>${esc(r.title)}</h3>${r.description?`<p>${esc(r.description)}</p>`:''}${mod?`<p><a href="/mod/${mod.slug}/"${I('req_see',{t:mt(mod)})}>${esc(T('req_see',{t:mt(mod)}))}</a></p>`:''}</div></div>`};
 const reqOpen=REQ.filter(r=>r.status!=='completada'),reqDone=REQ.filter(r=>r.status==='completada');
 const reqUrl=C.requests||XU2;
 W(`${OL}/peticiones/index.html`,page({path:'/peticiones/',title:T('seo_req_t',{name:C.name}),
@@ -287,13 +294,21 @@ ${SH('req_note',null,'p')}
 ${reqOpen.length?`${S('req_open_h',null,'h2')}${reqOpen.map(reqItem).join('')}`:''}
 ${reqDone.length?`${S('req_done_h',null,'h2')}${reqDone.map(reqItem).join('')}`:''}</div>`}));
 
-const mkh=d=>new Date(d).toLocaleDateString(LM[CUR].loc,{month:'long',year:'numeric'});
-let grp='';const tlHtml=ups.map(u=>{const g=mkh(u.date),h=g!==grp?(grp?'</ul>':'')+`<h2 class="month">${g}</h2><ul class="tl">`:'';grp=g;return h+upItem(u,1)}).join('')+(ups.length?'</ul>':'');
+// ===== NOVEDADES (v.19) =====
+const mkey=d=>String(d).slice(0,7),mlbl=k=>{const [y,mo]=k.split('-').map(Number);return new Date(Date.UTC(y,mo-1,1)).toLocaleDateString(LM[CUR].loc,{month:'long',year:'numeric',timeZone:'UTC'})};
+const nNew=ups.filter(u=>u.type==='new').length,nUpd=ups.length-nNew,nVers=ALLV.filter(v=>ups.some(u=>u.m.vers.includes(v)));
+const nMonths=[...new Set(ups.map(u=>mkey(u.date)))].map(k=>({k,l:ups.filter(u=>mkey(u.date)===k)}));
+const nvTools=`<div class="nv-tools"><div class="nv-seg" role="group" ${AM({'aria-label':'nv_filter_aria'})}><button type="button" class="on" data-nt="" aria-pressed="true">${S('nv_f_all')} <i>${ups.length}</i></button><button type="button" data-nt="new" aria-pressed="false">${S('nv_f_new')} <i>${nNew}</i></button><button type="button" data-nt="update" aria-pressed="false">${S('nv_f_upd')} <i>${nUpd}</i></button></div><div class="selects"><label class="vsel">${S('nv_per')}<select id="nv-per"><option value=""${I('nv_per_all')}>${esc(T('nv_per_all'))}</option><option value="7">${esc(T('nv_per_7'))}</option><option value="30">${esc(T('nv_per_30'))}</option></select></label><label class="vsel">${S('f_ver')}<select id="nv-ver"><option value=""${I('f_ver_all')}>${esc(T('f_ver_all'))}</option>${nVers.map(v=>`<option value="${esc(vk(v))}">${esc(v)}</option>`).join('')}</select></label></div></div>
+<p class="meta resline"><span id="nv-count" aria-live="polite">${esc(T(ups.length===1?'nv_count_one':'nv_count_other',{n:ups.length}))}</span> <button class="btn small" id="nv-reset" type="button"${I('f_reset')} hidden>${esc(T('f_reset'))}</button></p>`;
 W(`${OL}/novedades/index.html`,page({path:'/novedades/',title:T('seo_news_t',{name:C.name}),
  desc:T('seo_news_d',{name:C.name}),
- body:`<div class="wrap prose">${S('news_h1',null,'h1')}
+ body:`<div class="wrap nv-page">${S('news_h1',null,'h1')}
 ${S('news_lead',null,'p','lead')}
-${tlHtml||`<p>${esc(T('news_none'))}</p>`}
+<p class="nv-sum" id="nv-sum" role="status" hidden></p>
+${ups.length?`${nvTools}
+<nav class="nv-jump" ${AM({'aria-label':'nv_jump_aria'})}><span class="meta"${I('nv_jump')}>${esc(T('nv_jump'))}</span>${nMonths.map(g=>`<a href="#m-${g.k}">${esc(mlbl(g.k))} <i>${g.l.length}</i></a>`).join('')}</nav>
+<div id="nv-list">${nMonths.map(g=>`<section class="nv-m" id="m-${g.k}"><h2 class="month">${esc(mlbl(g.k))}</h2><ul class="nvl">${g.l.map(u=>nvItem(u)).join('')}</ul></section>`).join('')}</div>
+<div id="nv-empty" class="nv-empty" role="status" hidden><p>${esc(T('nv_none'))}</p></div>`:`<p>${esc(T('news_none'))}</p>`}
 ${SH('news_foot',null,'p','meta')}</div>`}));
 
 // LEGALES (plantillas: revísalas y completa tus datos)
@@ -331,9 +346,9 @@ W(`${OUT}/sitemap.xml`,`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="htt
   const url=l=>C.url+(LM[l].slug?'/'+LM[l].slug:'')+u,alts=alt?LANGS.map(l=>`<xhtml:link rel="alternate" hreflang="${LM[l].hl}" href="${url(l)}"/>`).join('')+`<xhtml:link rel="alternate" hreflang="x-default" href="${url('es')}"/>`:'';
   return(alt?LANGS:['es']).map(l=>`<url><loc>${url(l)}</loc>${alts}${d?`<lastmod>${String(d).slice(0,10)}</lastmod>`:''}</url>`).join('')}).join('')}</urlset>`);
 const rd=d=>new Date(d).toUTCString();
-W(`${OUT}/rss.xml`,`<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>${esc(C.name)} — Novedades</title><link>${C.url}/</link><atom:link href="${C.url}/rss.xml" rel="self" type="application/rss+xml"/><description>Mods nuevos y actualizaciones de Football Manager publicados en ${esc(C.name)}.</description><language>es-ES</language>${ups.length?`<lastBuildDate>${rd(ups[0].date)}</lastBuildDate>`:''}${ups.slice(0,30).map(u=>{const link=`${C.url}/mod/${u.m.slug}/`,t=u.type==='new'?'Nuevo: '+u.m.title:'Actualizado: '+u.m.title+(u.ver?' '+u.ver:''),dsc=u.type==='new'?(u.m.description||''):(u.note||u.m.description||'');return `<item><title>${esc(t+' ('+u.m.vers.join(', ')+')')}</title><link>${link}</link><guid isPermaLink="false">${link}#${u.type}-${String(u.date).slice(0,10)}</guid><pubDate>${rd(u.date)}</pubDate>${u.m.cats.map(c=>`<category>${esc(catOf(c).n)}</category>`).join('')}<description>${esc(String(dsc).replace(/\s+/g,' ').trim().slice(0,300))}</description></item>`}).join('')}</channel></rss>`);
+W(`${OUT}/rss.xml`,`<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>${esc(C.name)} — Novedades</title><link>${C.url}/</link><atom:link href="${C.url}/rss.xml" rel="self" type="application/rss+xml"/><description>Mods nuevos y actualizaciones de Football Manager publicados en ${esc(C.name)}.</description><language>es-ES</language>${ups.length?`<lastBuildDate>${rd(ups[0].date)}</lastBuildDate>`:''}${ups.slice(0,30).map(u=>{const link=`${C.url}/mod/${u.m.slug}/`,t=u.type==='new'?'Nuevo: '+u.m.title:'Actualizado: '+u.m.title+(u.ver?' '+u.ver:''),dsc=plain(u.type==='new'?(u.m.description||''):(u.note||u.m.description||''));return `<item><title>${esc(t+' ('+u.m.vers.join(', ')+')')}</title><link>${link}</link><guid isPermaLink="false">${link}#${u.type}-${String(u.date).slice(0,10)}</guid><pubDate>${rd(u.date)}</pubDate>${u.m.cats.map(c=>`<category>${esc(catOf(c).n)}</category>`).join('')}<description>${esc(String(dsc).replace(/\s+/g,' ').trim().slice(0,300))}</description></item>`}).join('')}</channel></rss>`);
 W(`${OUT}/robots.txt`,`User-agent: *\nAllow: /\nDisallow: /admin/\nSitemap: ${C.url}/sitemap.xml\n`);
-W(`${OUT}/data/search.json`,JSON.stringify(mods.map(m=>({s:m.slug,t:m.title,a:authText(m),v:m.vers,c:m.cats.map(c=>catOf(c).n),cx:m.cats.map(c=>catOf(c).t||null),i:m.cover||'',n:norm([m.title,...m.auth.map(a=>a.name),...m.vers,...m.cats.map(c=>catOf(c).n),...m.cats.flatMap(c=>Object.values(catOf(c).t||{})),...m.tags].join(' '))}))));
+W(`${OUT}/data/search.json`,JSON.stringify(mods.map(m=>({s:m.slug,t:m.title,tt:Object.fromEntries(LANGS.slice(1).map(l=>[l,trTo(m.title,l)]).filter(([l,x])=>x&&x!==String(m.title).trim())),a:authText(m),v:m.vers,c:m.cats.map(c=>catOf(c).n),cx:m.cats.map(c=>catOf(c).t||null),i:m.cover||'',n:norm([...titles(m),...m.auth.map(a=>a.name),...m.vers,...m.cats.map(c=>catOf(c).n),...m.cats.flatMap(c=>Object.values(catOf(c).t||{})),...m.tags].join(' '))}))));
 W(`${OUT}/data/meta.json`,JSON.stringify({C:{url:C.url,email:C.email,x:C.x,reload:C.reload},CATS,BADGE,LATEST,versions:ALLV,AUTHORS,ES:DICT.es,version:C.version}));
 fs.cpSync('public',OUT,{recursive:true});
 W(`${OUT}/js/i18n.js`,I18N_JS); // el núcleo + los 5 diccionarios en un solo archivo (con hash en la URL)

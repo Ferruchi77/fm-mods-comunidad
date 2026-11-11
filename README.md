@@ -7,7 +7,7 @@ Directorio no oficial de mods de Football Manager. Web estática generada con `n
 |---|---|
 | `content/mods/*.json` | Una ficha por mod (se edita desde el panel) |
 | `content/{categorias,versiones,distintivos,autores,peticiones}` | Datos auxiliares |
-| `content/traducciones.json` | Traducciones de novedades y textos breves |
+| `content/traducciones.json` | Traducciones de novedades, textos breves y nombres de los mods |
 | `locales/*.json` | Textos de la interfaz (es, en, ca, fr, pt, it; deben tener las mismas claves) |
 | `public/` | Estáticos (css, js, imágenes, `sw.js`, `manifest.webmanifest`, panel `admin/`) |
 | `netlify/functions/stats.mjs` | API de estadísticas (Netlify Blobs) |
@@ -27,7 +27,7 @@ Variables útiles: `OUT_DIR` (carpeta de salida), `SYNC_AUTHORS=0`, `VALIDATE=wa
 2. Variable de entorno `STATS_SALT`: texto largo y aleatorio (anonimiza los votos).
 3. Activa Identity + Git Gateway para el panel. *Nota:* Netlify marcó Identity/Git Gateway como obsoletos; si deja de funcionar, cambia el `backend` de `public/admin/config.yml` a `github` con un proxy OAuth (hay un comentario con el ejemplo).
 4. GitHub → Settings → Actions → General → Workflow permissions → **Read and write**.
-5. El flujo editorial del panel (`publish_mode: editorial_workflow`) crea ramas y vistas previas; quita esa línea si prefieres guardar directo en `main`.
+5. El panel guarda directo en `main` (`publish_mode: simple`): con el estado «Publicado», **Guardar** publica la ficha; los «Borrador / En revisión» se guardan pero no salen en la web.
 
 ## Flujos habituales
 - **Traducir novedades nuevas:** la acción *Traducciones pendientes* abre un issue con el JSON. Pásalo a Claude (en, ca, fr, pt-BR, it) y ejecuta `node scripts/translate.js --import nuevas.json`.

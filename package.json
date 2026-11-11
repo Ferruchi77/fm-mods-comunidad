@@ -1,6 +1,6 @@
 {
   "name": "fm-mods-comunidad",
-  "version": "1.18.0",
+  "version": "1.19.0",
   "private": true,
   "scripts": {
     "build": "node build.js",
@@ -10,7 +10,7 @@
     "enlaces": "node scripts/check-links.js"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   },
   "dependencies": {
     "@netlify/blobs": "^8.1.0"

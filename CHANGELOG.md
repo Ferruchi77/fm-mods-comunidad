@@ -1,5 +1,28 @@
 # Cambios
 
+## v.19
+**Panel de administración**
+- **Publicación automática:** el panel pasa a `publish_mode: simple`. Con el estado «🟢 Publicado», **Guardar** publica la ficha directamente (commit a `main`, sin ramas ni los pasos «Listo» → «Publicar»). Los «🟡 Borrador / En revisión» se guardan igual pero `build.js` no los publica en la web.
+- **Editor de texto enriquecido** (`fmrich`, `public/admin/richtext.js` + `widgets.js`) en la **descripción** y en **«Qué ha cambiado»** de cada versión: **negrita**, lista con guiones, **selector de color** (paleta + color libre), «Quitar formato» y modo «</> Código». El texto se ve **justificado** en el editor y en la vista previa del panel.
+  - Se guarda con un marcado simple y seguro: `**negrita**`, `[color=#rrggbb]…[/color]` y líneas `- `. `rich()` (en `ficha.js`) lo convierte en HTML escapando siempre antes; solo admite colores `#rrggbb`. Los textos antiguos sin marcado se ven igual que antes.
+  - Extractos de tarjeta, SEO, JSON-LD y RSS usan `plain()` (texto limpio, sin marcas).
+
+**Web**
+- **Historial de versiones:** la fecha de actualización es ahora una «pastilla» de color con icono de calendario (`time.ud`; verde para la publicación inicial), distinta del texto de las mejoras.
+- **«Más como este»:** pasa de la barra lateral a una sección a todo el ancho bajo la ficha, con **la misma tarjeta y parrilla (`.feat-grid`) que «Mods imprescindibles»** (4 mods; con valoraciones, favoritos, insignias y portada responsive).
+- **50 mods de golpe** en la portada (`PAGE=50`, antes 12); «Cargar más» sigue disponible si hay más.
+- **Novedades rediseñado** (`/novedades/` y bloque de la portada): tarjetas con portada, tipo (Nuevo / Actualizado + versión), **fecha destacada**, «hace N días», autor, versiones de FM y nota recortada con «Leer más»; **filtros** por tipo (con contadores), periodo (7/30 días) y versión de FM (se guardan en la URL), **salto por meses**, resumen de los últimos 30 días y aviso cuando no hay resultados.
+- **Nombre del mod traducido** en cada idioma (tarjetas, ficha, título SEO, JSON-LD, buscador y sugerencias). Usa el mismo sistema que las novedades (`content/traducciones.json`, `scripts/translate.js`); si falta la traducción se ve el original. El buscador encuentra el mod con el nombre de cualquier idioma.
+
+**Traducciones**
+- 17 textos nuevos de la interfaz (Novedades) en es, en, ca, fr, pt-BR e it; `news_lead` actualizado.
+- Traducidas al completo las 45 novedades/textos breves que estaban pendientes y los nombres de los 44 mods (en, ca, fr, pt-BR, it): **0 pendientes**.
+
+**Mantenimiento**
+- GitHub Actions: `actions/checkout@v7` y `actions/setup-node@v7` (runtime Node 24) en todos los workflows, y Node **22** para ejecutar los scripts (antes 20, ya sin soporte). Netlify: `NODE_VERSION = "22"`; `engines.node >= 22`.
+- **Comprobar** instala también `jsdom` (solo en CI, sin tocar `package.json`) para la prueba del editor del panel.
+- Pruebas: +10 (editor ⇄ marcado, texto enriquecido, tarjetas relacionadas, fecha destacada, Novedades, nombres traducidos, publicación directa, workflows).
+
 ## v.18
 **Pendientes de la v.17**
 - `srcset` completo: las tarjetas de la parrilla llevan 320 w + 640 w + la imagen original con su **ancho real** (leído de la cabecera del WebP) y `sizes="(max-width:600px) 46vw, 260px"`; «Más como este» usa 320 w/640 w con `sizes="96px"` (sin cargar nunca el original).
