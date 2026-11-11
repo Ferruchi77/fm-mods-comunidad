@@ -50,6 +50,11 @@
       "date": "2026-07-04",
       "version": "V.3.14",
       "note": "Los estadios agregados en este parche son:\nDe Galgenwaard (Utrecht)\nEstadio Druso (FC Südtirol)\nEl Sardinero (Real Racing Santander)\nCiudad de Lanús-Néstor Díaz Pérez (Lanus)\nEstádio Ciudade de Barcelos (Gil Vicente)"
+    },
+    {
+      "date": "2026-11-11",
+      "version": "V.4.0",
+      "note": "- 376 estadios personalizados.\n- Público totalmente desarrollado que reacciona a lo que sucede en el terreno de juego, con coreografías específicas para cada club y equipaciones para la afición, creadas con la colaboración de MB.\n- Iluminación completamente renovada para todas las fases del partido, que incluye cielos detallados, ciclos de sol y luna, nubes dinámicas, lluvia, charcos y atardeceres ajustados a la estación del año según la ubicación de cada estadio.\n- Cada estadio cuenta con una cámara de retransmisión personalizada, cortesía de Guru of Nauru.\n- 91 modelos de botas personalizados, con la posibilidad de asignarlos a cada jugador de forma individual."
     }
   ],
   "screenshots": [
@@ -68,7 +73,7 @@
     "FM27"
   ],
   "cover": "https://www.fmsite.net/applications/downloads/interface/legacy/screenshot.php?path=/monthly_2025_12/G8Xfmb5XoAE0-gH.jpeg.ac5b415444cad7d1457c42737635f6b4.jpeg",
-  "download_url": "https://www.bassyboy.com/downloads/cmr6fcc8r00012epu8uli5vaf",
+  "download_url": "https://sortitoutsi.net/content/78388/fm27-3d-stadium-and-environment-megapack",
   "title": "Stadium Megapack",
   "card_text": "Mod de estadios realista para Football Manager",
   "categories": [
