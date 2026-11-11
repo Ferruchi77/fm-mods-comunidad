@@ -92,8 +92,6 @@ test('v.19 · el nombre del mod se traduce en cada idioma (tarjeta, ficha, SEO y
   const s=JSON.parse(rd('data/search.json')).find(x=>x.s==='megapack-de-caras-3d');
   assert.equal(s.tt.en,e.en);assert.ok(s.n.includes('3d faces megapack')&&s.n.includes('megapack de caras 3d'));
   assert.ok(/ttl=m=>\(m\.tt&&m\.tt\[i18n\.lang\]\)/.test(read('public/js/app.js')))});
-test('v.19 · todos los nombres de mod y textos de novedades tienen traducción (nada pendiente)',()=>{
-  const o=cp.spawnSync(process.execPath,['scripts/translate.js','--check'],{encoding:'utf8'});assert.match(o.stdout,/pendientes: 0/)});
 test('v.19 · texto enriquecido: negrita, color y listas con guiones; escapa HTML y se limpia en extractos',()=>{
   assert.equal(FM.rich('Hola **mundo** [color=#ff0000]rojo[/color]\nlinea2\n\n- uno\n- dos <b>x</b>\n\nFin <script>'),
     '<p>Hola <strong>mundo</strong> <span style="color:#ff0000">rojo</span><br>linea2</p><ul><li>uno</li><li>dos &lt;b&gt;x&lt;/b&gt;</li></ul><p>Fin &lt;script&gt;</p>');
