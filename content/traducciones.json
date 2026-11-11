@@ -622,6 +622,13 @@
     "pt": "FMDB Hub",
     "it": "FMDB Hub"
   },
+  "b0a1eff8c66a": {
+    "en": "Plugin for the FM27 3D match that shows floating labels with the facepack face, shirt number, distance covered and pass accuracy.",
+    "ca": "Plugin per al partit 3D de FM27 que mostra etiquetes flotants amb el rostre del facepack, dorsal, distància i precisió de passades.",
+    "fr": "Plugin pour le match 3D de FM27 qui affiche des étiquettes flottantes avec le visage du facepack, le numéro, la distance parcourue et la précision des passes.",
+    "pt": "Plugin para a partida 3D do FM27 que mostra etiquetas flutuantes com o rosto do facepack, número da camisa, distância percorrida e precisão de passes.",
+    "it": "Plugin per la partita 3D di FM27 che mostra etichette flottanti con il volto del facepack, numero di maglia, distanza percorsa e precisione dei passaggi."
+  },
   "b29a97bbd438": {
     "en": "Merchandising\nInternational academies\nLeague result prediction minigame so the manager earns more money",
     "ca": "Màrqueting de productes\nAcadèmies internacionals\nMinijoc d'encertar el resultat de la lliga perquè el mànager guanyi més diners",
@@ -929,6 +936,13 @@
     "fr": "Stadium Megapack",
     "pt": "Stadium Megapack",
     "it": "Stadium Megapack"
+  },
+  "f6aafd01149a": {
+    "en": "Update for the official release of the game",
+    "ca": "Actualització amb la sortida oficial del joc",
+    "fr": "Mise à jour pour la sortie officielle du jeu",
+    "pt": "Atualização com o lançamento oficial do jogo",
+    "it": "Aggiornamento per l'uscita ufficiale del gioco"
   },
   "fd14b7090a9f": {
     "en": "Automates and plans weekly training in FM27 according to your tactics and fixture list, adapting workloads and always with your prior approval.",
