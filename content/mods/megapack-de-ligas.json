@@ -1,0 +1,23 @@
+{
+  "authors": [
+    {
+      "url": "https://x.com/falsobohemio",
+      "name": "Nacho"
+    }
+  ],
+  "modified": "2026-11-11",
+  "featured": false,
+  "date": "2026-11-10",
+  "status": "🟢 Publicado",
+  "fm_versions": [
+    "FM27"
+  ],
+  "cover": "https://www.fmsite.net/applications/downloads/interface/legacy/screenshot.php?path=/monthly_2025_11/FM26-megapack-ligas-bohemio.webp.f8901e036705d9c99a3d6cf6739dd058.webp",
+  "download_url": "https://www.mediafire.com/file/trua5lpe6zkl6sz/Megapack+2027+por+falsobohemio.rar/file",
+  "title": "Megapack de ligas",
+  "card_text": "Megapack de bases de datos para FM que añade ligas sudamericanas con formato real, ascensos, descensos, fútbol femenino y estadios.",
+  "categories": [
+    "editor-data"
+  ],
+  "description": "El megapack de modificaciones de Football Manager enfocadas en el fútbol sudamericano, abarcando adiciones de ligas, formatos reales, divisiones inferiores y correcciones de errores:\n\n- Brasil: Incorporación de la Serie D real (con las primeras divisiones estatales jugables) y las tres primeras divisiones femeninas, a la espera del parche complementario de AllanFCL.\n- Colombia: Inclusión de ascensos y descensos a la Primera B desde las ligas regionales, junto con su formato femenino correspondiente.\n- Ecuador: Integración de formatos reales en primera, segunda y hasta la Segunda Categoría, además de la liga femenina.\n- Paraguay y Uruguay: Formato real en sus respectivas cuatro divisiones y ligas femeninas.\n- Perú: Configuración de cuatro divisiones, ascensos desde la Copa Perú a segunda y tercera división (sin equipos B) y liga femenina.\n- Venezuela: Formato real en primera, segunda e inclusión de una tercera división junto al torneo femenino.\n- Requisitos de estadios en torneos internacionales: Se añadió un archivo que impone exigencias de estadios para la Copa Libertadores y la Sudamericana, obligando a los equipos más modestos a cambiar de recinto de manera realista para dichos encuentros.\n- Argentina y ajustes generales: Se corrigieron tres errores estructurales en el historial donde se duplicaban los campeones de la Copa Argentina entre 2024 y 2025, y se añadió la estructura opcional «E6» (idéntica a la E4 pero con formato de liga larga)."
+}
