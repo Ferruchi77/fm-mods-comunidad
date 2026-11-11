@@ -1,6 +1,6 @@
 # Cambios
 
-## v.19
+## v.1.9
 **Panel de administración**
 - **Publicación automática:** el panel pasa a `publish_mode: simple`. Con el estado «🟢 Publicado», **Guardar** publica la ficha directamente (commit a `main`, sin ramas ni los pasos «Listo» → «Publicar»). Los «🟡 Borrador / En revisión» se guardan igual pero `build.js` no los publica en la web.
 - **Editor de texto enriquecido** (`fmrich`, `public/admin/richtext.js` + `widgets.js`) en la **descripción** y en **«Qué ha cambiado»** de cada versión: **negrita**, lista con guiones, **selector de color** (paleta + color libre), «Quitar formato» y modo «</> Código». El texto se ve **justificado** en el editor y en la vista previa del panel.
@@ -24,7 +24,7 @@
 - **Comprobar** instala también `jsdom` (solo en CI, sin tocar `package.json`) para la prueba del editor del panel.
 - Pruebas: +10 (editor ⇄ marcado, texto enriquecido, tarjetas relacionadas, fecha destacada, Novedades, nombres traducidos, publicación directa, workflows).
 
-## v.18
+## v.1.8
 **Pendientes de la v.17**
 - `srcset` completo: las tarjetas de la parrilla llevan 320 w + 640 w + la imagen original con su **ancho real** (leído de la cabecera del WebP) y `sizes="(max-width:600px) 46vw, 260px"`; «Más como este» usa 320 w/640 w con `sizes="96px"` (sin cargar nunca el original).
 - Portadas externas → WebP en CI sin romper enlaces (`scripts/imagenes.js`):
@@ -40,7 +40,7 @@
 - Ficha, **icono roto corregido**: el contador «👍 N me gusta» usaba la clase `.fl`, que también es la de las banderas de idioma (caja de 22×15 px con `overflow:hidden`), por eso aparecía como un interruptor truncado entre «★ Sin valoraciones» y «↓ descargas». Ahora usa `.flk` y la barra de métricas queda alineada.
 - 40 pruebas automáticas (+9): descarga a WebP, fallos de descarga, imágenes compartidas, `--check`, orden de la caja de descarga, clase `.flk`, texto sin recortar y `srcset`.
 
-## v.17 — menos créditos de Netlify y pendientes cerrados
+## v.1.7 — menos créditos de Netlify y pendientes cerrados
 **Créditos de Netlify** (en la factura de ejemplo, 495 de 524 créditos eran despliegues de producción: 33 × 15)
 - `netlify.toml`: `ignore` cancela el build si el commit no toca nada que llegue a la web (workflows, pruebas, README, scripts, estado de enlaces…).
 - Vistas previas de PR y de ramas desactivadas (cada una gastaba un despliegue). Flujo editorial del panel desactivado por lo mismo.
@@ -58,7 +58,7 @@
 - Tarjetas: al pasar el ratón (o enfocar con teclado) muestran «Actualizado hace…», votos «funciona» y el sitio de descarga.
 - 30 pruebas automáticas (+11): concurrencia de votos, OAuth (CSRF, usuarios permitidos), srcset y reglas de ahorro de Netlify.
 
-## v.16
+## v.1.6
 **Contenido y datos**
 - Traducidas las 38 novedades/tarjetas que faltaban (en, ca, fr, pt-br, it): ya no queda nada pendiente.
 - `skin-darkflow-fm26` apuntaba a la categoría inexistente `graficos`: ahora solo está en «Gráficos» (`dia-de-partido`). Se quita el campo antiguo `category` de 3 fichas.
@@ -94,7 +94,7 @@
 - 19 pruebas automáticas (`npm test`): estadísticas, idiomas y compilación.
 - `package.json` sincronizado (1.16.0) y README nuevo.
 
-## v.15 (incluye v.13 y v.14)
+## v.1.5 (incluye v.1.3 y v.1.4)
 - Una URL por idioma: español en la raíz (`/`) y el resto en `/en/`, `/ca/`, `/fr/`, `/pt-br/`, `/it/`. Cada página se genera ya traducida (título, descripción, `<html lang>`, `canonical`, `hreflang`, `x-default`) y el `sitemap.xml` lista todas con sus alternativas.
 - El selector de idioma son enlaces a la misma página en cada idioma. Al elegir uno se recuerda y, si abres la portada en español (`/`), se salta al idioma guardado. Elegir «Español» lo desactiva.
 - Aviso Legal y Privacidad siguen solo en español (`/aviso-legal/`, `/privacidad/`); el RSS también.
@@ -102,7 +102,7 @@
 - Las traducciones de las novedades (y del texto breve de las tarjetas) las hace Claude: `node scripts/translate.js --check` lista lo que falta; Claude devuelve el JSON y se añade con `--import`. Se retiran las claves de API.
 - Italiano (`locales/it.json`).
 
-## v.13
+## v.1.3
 - Nuevo idioma: italiano (`locales/it.json`, bandera, nombre de categoría opcional en el panel).
 - Novedades: el texto de cada novedad (y el texto breve de las tarjetas) se muestra en el idioma del visitante.
   - Las 8 novedades actuales ya están traducidas (`content/traducciones.json`).
@@ -110,7 +110,7 @@
   - Sin el secreto no falla: esos textos se ven en español. `node scripts/translate.js --check` lista lo pendiente.
   - Una traducción se puede corregir a mano en `content/traducciones.json`; no se toca mientras el texto original no cambie.
 
-## v.12
+## v.1.2
 - Tarjetas: campo opcional «Texto breve en la tarjeta» (`card_text`) que se ve en la lista antes de entrar al mod.
 - Pantallas grandes: la parrilla pasa a 4 columnas (≥1500 px) y 5 columnas (≥1900 px) y la web se ensancha.
 - Imprescindibles: todos a la vista en una rejilla compacta y botón para ocultar/mostrar (se recuerda).
