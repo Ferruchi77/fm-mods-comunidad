@@ -1,0 +1,23 @@
+{
+  "authors": [
+    {
+      "ref": "",
+      "name": "FMInside",
+      "url": "https://x.com/fminside"
+    }
+  ],
+  "modified": "2026-11-11",
+  "featured": false,
+  "date": "2026-11-11",
+  "status": "🟢 Publicado",
+  "fm_versions": [
+    "FM27"
+  ],
+  "cover": "/img/uploads/screenshot.jpg",
+  "download_url": "https://fminside.net/downloads/editor-data/880-fmupdate-real-media",
+  "title": "Medios Comunicación Reales",
+  "categories": [
+    "editor-data"
+  ],
+  "description": "FMUpdate - Real Media Pack de FMInside es un complemento de datos para la serie de Football Manager que añade más de 2.400 fuentes de medios de comunicación reales de todo el mundo al juego, mejorando el realismo y la inmersión en las ruedas de prensa, portales informativos y cobertura de ligas internacionales y continentales."
+}
