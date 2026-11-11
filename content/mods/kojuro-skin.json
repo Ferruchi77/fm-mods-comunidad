@@ -8,10 +8,10 @@
   "install_path": "\\Steam\\steamapps\\common\\Football Manager 27\\fm_Data\\StreamingAssets\\aa\\StandaloneWindows64",
   "modified": "2026-11-11",
   "screenshots": [
-    "https://storage.ko-fi.com/cdn/useruploads/display/2e77c36e-70b3-440a-afe0-19eeff5f5fc3_1-player-profile.jpg",
-    "https://storage.ko-fi.com/cdn/useruploads/display/b276290e-50be-41c5-aae5-6908925e2673_2-tactics.jpg",
-    "https://storage.ko-fi.com/cdn/useruploads/display/4e433deb-a891-43dc-a420-b76daf64334a_3-squ-dynamics.jpg",
-    "https://storage.ko-fi.com/cdn/useruploads/display/7a730ef0-e83c-4191-9931-44c192c4fdec_4-social-groups.jpg"
+    "/img/covers/kojuro-skin-s1-d86a5125.webp",
+    "/img/covers/kojuro-skin-s2-f105cd19.webp",
+    "/img/covers/kojuro-skin-s3-dd5c52df.webp",
+    "/img/covers/kojuro-skin-s4-80d32b5f.webp"
   ],
   "featured": false,
   "date": "2026-11-10",
@@ -19,7 +19,7 @@
   "fm_versions": [
     "FM27"
   ],
-  "cover": "https://storage.ko-fi.com/cdn/useruploads/display/55c4c5b7-87f4-469e-bbf5-19af27394436_cover-v1.1.0.png",
+  "cover": "/img/covers/kojuro-skin-cover-55a028d2.webp",
   "download_url": "https://ko-fi.com/s/2817643952",
   "title": "Kojuro Skin",
   "card_text": "Skin minimalista en blanco y negro para FM27 que rediseña las pantallas principales sin necesidad de instalar BepInEx.",
