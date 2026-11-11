@@ -1,0 +1,22 @@
+{
+  "authors": [
+    {
+      "name": "marioma93"
+    }
+  ],
+  "modified": "2026-11-11",
+  "featured": false,
+  "date": "2026-11-11",
+  "status": "🟢 Publicado",
+  "fm_versions": [
+    "FM27"
+  ],
+  "cover": "https://www.fmsite.net/applications/downloads/interface/legacy/screenshot.php?path=/monthly_2026_11/PortadacentradaTerceraRFEF26-27.png.bafa43bff5cce19c8caddd0ed02c9b70.png",
+  "download_url": "https://www.fmsite.net/files/file/1969-tercera-rfef-26-27/",
+  "title": "Tercera RFEF 26-27",
+  "card_text": "Mod de ligas españolas para Football Manager que recrea con precisión la Tercera RFEF, sus playoff y las reglas de inscripción.",
+  "categories": [
+    "editor-data"
+  ],
+  "description": "Tercera RFEF 26-27 es un archivo de base de datos para Football Manager 27 que añade de forma jugable los 18 grupos de la Tercera RFEF de España adaptados a la temporada 2026-2027.\n\nCaracterísticas principales\n- Formato de competición real: Incluye los 18 grupos y actualiza el sistema de playoffs suprimiendo los playoffs territoriales, de modo que en la primera ronda se evita el emparejamiento entre equipos que ya pertenecían al mismo grupo (manteniendo los cruces de 2º contra 5º y 3º contra 4º).\n- Normativa y plazos: Configura el periodo de fichajes e inscripción de plantillas de manera real (del 1 de julio al 1 de febrero) y ajusta los criterios de selección de la plantilla según la normativa de la RFEF.\n- Ayudas económicas: Simula las subvenciones reales de la RFEF destinadas a la profesionalización, otorgando una base de hasta 35.000 € por club ampliable a 40.000 € anuales si se cumplen los requisitos del Programa Futuro.\n\nCómo instalar\n- Descarga el archivo de la base de datos.\n- Colócalo en la ruta correspondiente de tus documentos de usuario: C:\\Users\\XXXX\\Documents\\Sports Interactive\\Football Manager 27\\editor data\n- Inicia una nueva partida (este tipo de archivos de estructura y bases de datos requiere empezar un nuevo juego desde cero para que se apliquen correctamente)."
+}
