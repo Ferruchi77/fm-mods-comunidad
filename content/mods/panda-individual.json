@@ -41,11 +41,9 @@
     "https://www.fmsite.net/applications/downloads/interface/legacy/screenshot.php?path=/monthly_2026_11/04_merchandising.jpg.1b1e3a980026976be71cc54c5e56ebd0.jpg",
     "https://www.fmsite.net/applications/downloads/interface/legacy/screenshot.php?path=/monthly_2026_11/05_grupo_de_clubes.jpg.f454bafe34dddb1ffe98bf06d1753966.jpg"
   ],
-  "featured": true,
+  "featured": false,
   "date": "2026-11-01",
-  "badges": [
-    "Imprescindible"
-  ],
+  "badges": [],
   "status": "🟢 Publicado",
   "fm_versions": [
     "FM27"

@@ -17,11 +17,9 @@
     "/img/covers/fm-27-skin-manager-s1.webp",
     "/img/covers/fm-27-skin-manager-s2.webp"
   ],
-  "featured": true,
+  "featured": false,
   "date": "2026-10-31",
-  "badges": [
-    "Imprescindible"
-  ],
+  "badges": [],
   "status": "🟢 Publicado",
   "fm_versions": [
     "FM27",

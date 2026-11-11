@@ -15,11 +15,9 @@
     }
   ],
   "author": " FM Season Hub",
-  "featured": true,
+  "featured": false,
   "date": "2026-10-29",
-  "badges": [
-    "Imprescindible"
-  ],
+  "badges": [],
   "status": "🟢 Publicado",
   "fm_versions": [
     "FM27",

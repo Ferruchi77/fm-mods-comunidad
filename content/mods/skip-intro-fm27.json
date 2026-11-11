@@ -13,11 +13,9 @@
       "note": "Debería recortar unos 10 segundos más."
     }
   ],
-  "featured": true,
+  "featured": false,
   "date": "2026-11-02",
-  "badges": [
-    "Imprescindible"
-  ],
+  "badges": [],
   "status": "🟢 Publicado",
   "fm_versions": [
     "FM27"

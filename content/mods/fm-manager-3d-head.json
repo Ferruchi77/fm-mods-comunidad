@@ -19,11 +19,9 @@
     "/img/covers/fm-manager-3d-head-s3.webp",
     "/img/covers/fm-manager-3d-head-s4.webp"
   ],
-  "featured": true,
+  "featured": false,
   "date": "2026-11-05",
-  "badges": [
-    "Imprescindible"
-  ],
+  "badges": [],
   "status": "🟢 Publicado",
   "fm_versions": [
     "FM27"

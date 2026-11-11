@@ -16,11 +16,9 @@
   "screenshots": [
     "/img/covers/fm27-bootpack-s1.webp"
   ],
-  "featured": true,
+  "featured": false,
   "date": "2025-11-03",
-  "badges": [
-    "Imprescindible"
-  ],
+  "badges": [],
   "status": "🟢 Publicado",
   "fm_versions": [
     "FM27",

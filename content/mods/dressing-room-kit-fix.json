@@ -20,11 +20,9 @@
       "path": "Steam\\steamapps\\common\\Football Manager 26\\BepInEx\\plugins"
     }
   ],
-  "featured": true,
+  "featured": false,
   "date": "2026-11-02",
-  "badges": [
-    "Imprescindible"
-  ],
+  "badges": [],
   "status": "🟢 Publicado",
   "fm_versions": [
     "FM27",
