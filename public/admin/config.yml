@@ -3,9 +3,10 @@
 backend:
   name: git-gateway
   branch: main
-# Flujo editorial: cada cambio del panel crea una rama + pull request (Borrador → En revisión → Listo) y Netlify genera una VISTA PREVIA
-# de la web con ese cambio antes de publicarlo. «Publicar» lo fusiona en main. Si prefieres guardar directo en main, borra esta línea.
-publish_mode: editorial_workflow
+# v.19 · Publicación directa: «Guardar» hace commit en main. Con el estado «🟢 Publicado» la ficha se publica sola al guardar (sin ramas, sin
+# pasos de «Listo» ni «Publicar»). Los «🟡 Borrador / En revisión» también se guardan, pero build.js NO los publica en la web.
+# (Antes estaba publish_mode: editorial_workflow, que obligaba a mover la ficha de columna y pulsar «Publicar».)
+publish_mode: simple
 local_backend: true
 logo_url: /img/icon-512.png
 locale: es
@@ -48,7 +49,7 @@ collections:
         name: status
         widget: select
         default: "🟢 Publicado"
-        hint: "Los «Borrador / En revisión» NO se publican en la web. Pendiente de actualización e Incompatible sí se ven, pero te sirven para saber qué toca revisar."
+        hint: "«Publicado»: al pulsar Guardar la ficha se publica automáticamente. «Borrador / En revisión»: se guarda pero NO sale en la web. Pendiente de actualización e Incompatible sí se ven, pero te sirven para saber qué toca revisar."
         options:
           - "🟢 Publicado"
           - "🟡 Borrador / En revisión"
@@ -116,7 +117,7 @@ collections:
       # ───── Pestaña 3 · Contenido y multimedia ─────
       - { label: Imagen de portada, name: cover, widget: image, required: false, hint: "Sube un archivo o usa «Insertar desde URL». Mira la vista previa: comprueba que la imagen carga." }
       - { label: Capturas de pantalla, name: screenshots, widget: list, required: false, field: { label: Captura, name: shot, widget: image } }
-      - { label: "Descripción *", name: description, widget: text }
+      - { label: "Descripción *", name: description, widget: fmrich, min_height: 260, hint: "Texto justificado. Usa los botones para negrita, listas con guiones y color de texto." }
       - { label: "Ruta de instalación (la misma para todas las versiones; vacío = se calcula sola; una ruta por línea si hay varias)", name: install_path, widget: text, required: false }
       - { label: "Rutas de instalación por versión de FM (opcional)", name: install_paths, widget: fmpaths, required: false, hint: "Aparece una casilla por cada versión que hayas elegido en «Versiones de FM». Si rellenas alguna, manda sobre el campo de arriba." }
       - { label: Instrucciones (una línea por paso; vacío = genéricas), name: instructions, widget: text, required: false }
@@ -128,7 +129,7 @@ collections:
         fields:
           - { label: Fecha, name: date, widget: fmdate }
           - { label: "Versión del mod (ej. v1.2)", name: version, widget: string, required: false }
-          - { label: Qué ha cambiado, name: note, widget: text, required: false }
+          - { label: Qué ha cambiado, name: note, widget: fmrich, required: false, min_height: 120, hint: "Texto justificado: negrita, lista con guiones y color. La fecha se destaca sola en la ficha." }
 
   - name: categorias
     label: Categorías

@@ -22,3 +22,19 @@ a[data-fm-st]:after{content:attr(data-fm-lbl);position:absolute;top:10px;right:1
 .fm-ver{position:fixed;left:10px;bottom:8px;z-index:5;padding:2px 10px;border-radius:999px;background:#1f2937;color:#fff;font:600 11px/1.8 system-ui,sans-serif;opacity:.75;pointer-events:none}
 
 .fm-stats-link{position:fixed;right:14px;bottom:14px;z-index:30;background:#2563eb;color:#fff!important;padding:9px 14px;border-radius:999px;font:600 13px system-ui,sans-serif;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25)}.fm-stats-link:hover{background:#1d4ed8}
+
+/* v.19 · editor de texto enriquecido (descripción y cambios de versiones) */
+.fmr{border:2px solid #dfdfe3;border-radius:6px;background:#fff;overflow:hidden}
+.fmr:focus-within{border-color:#2563eb}
+.fmr-bar{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:8px 10px;background:#f1f3f8;border-bottom:1px solid #dfdfe3}
+.fmr-b{padding:5px 11px;border:1px solid #c9ced8;border-radius:6px;background:#fff;color:#1f2937;font:600 13px system-ui,sans-serif;cursor:pointer}
+.fmr-b:hover:not(:disabled){background:#e8edff;border-color:#2563eb}.fmr-b:disabled{opacity:.45;cursor:default}
+.fmr-lbl{font:600 12px system-ui,sans-serif;color:#475066}
+.fmr-sw{width:22px;height:22px;padding:0;border:2px solid #fff;border-radius:50%;box-shadow:0 0 0 1px #c9ced8;cursor:pointer}.fmr-sw:hover:not(:disabled){box-shadow:0 0 0 2px #2563eb}.fmr-sw:disabled{opacity:.45;cursor:default}
+.fmr-col{width:30px;height:26px;padding:0;border:1px solid #c9ced8;border-radius:6px;background:#fff;cursor:pointer}
+.fmr-sep{width:1px;height:22px;background:#c9ced8;margin:0 4px}.fmr-grow{flex:1}
+.fmr-ed{display:block;width:100%;padding:12px 14px;font:15px/1.6 system-ui,sans-serif;color:#1f2937;background:#fff;outline:0;text-align:justify;hyphens:auto;-webkit-hyphens:auto;overflow-wrap:anywhere;white-space:pre-wrap}
+.fmr-ed div,.fmr-ed li{text-align:justify}.fmr-ed ul{margin:4px 0 4px 1.4rem;padding:0;list-style:disc}.fmr-ed li{margin:0 0 2px}
+.fmr-ta{border:0;resize:vertical;font:13px/1.5 ui-monospace,Consolas,monospace;text-align:left;white-space:pre-wrap}
+.fmr-help{margin:0;padding:6px 12px;background:#f8f9fb;border-top:1px solid #e5e7eb;color:#6b7280;font:12px system-ui,sans-serif}
+

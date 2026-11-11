@@ -19,3 +19,5 @@
 .fmx-img.ok{border-color:#22c55e}.fmx-img.ok .s-ok{display:block;color:#15803d}
 .fmx-img.bad{border-color:#ef4444}.fmx-img.bad .s-bad{display:block;color:#b91c1c}
 .fmx-img code,.fmx-row code{word-break:break-all;font-size:.9em}
+/* v.19 · descripción y cambios de versiones justificados en la vista previa del panel */
+.fm-preview .desc .rt p,.fm-preview .desc .rt li,.fm-preview .tl .rt p,.fm-preview .tl .rt li{text-align:justify;hyphens:auto;-webkit-hyphens:auto}
