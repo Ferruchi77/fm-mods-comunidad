@@ -8,6 +8,7 @@
   - Extractos de tarjeta, SEO, JSON-LD y RSS usan `plain()` (texto limpio, sin marcas).
 
 **Web**
+- **«Últimos mods»:** las tarjetas de la parrilla pasan a **layout vertical**, idéntico al de «Mods imprescindibles»: imagen arriba a todo el ancho (16:9) → nombre → autor (con icono) → descripción (~140 caracteres, completa y también en móvil). La vista en lista (botón opcional) conserva su disposición horizontal.
 - **Historial de versiones:** la fecha de actualización es ahora una «pastilla» de color con icono de calendario (`time.ud`; verde para la publicación inicial), distinta del texto de las mejoras.
 - **«Más como este»:** pasa de la barra lateral a una sección a todo el ancho bajo la ficha, con **la misma tarjeta y parrilla (`.feat-grid`) que «Mods imprescindibles»** (4 mods; con valoraciones, favoritos, insignias y portada responsive).
 - **50 mods de golpe** en la portada (`PAGE=50`, antes 12); «Cargar más» sigue disponible si hay más.
