@@ -55,8 +55,60 @@ test('tarjetas: el texto breve no se recorta con CSS',()=>{
   assert.match(css,/\.ex\.hook,\.feat-grid \.ex\.hook,\.grid\.list \.ex\.hook\{[^}]*-webkit-line-clamp:unset/);
   // ninguna regla posterior vuelve a limitar las líneas de .ex.hook
   assert.ok(!/\.ex\.hook\{[^}]*-webkit-line-clamp:\d/.test(css.slice(css.indexOf('===== v.18 ====='))))});
-test('srcset: tarjetas con 320/640 y ancho real del original; «Más como este» sin el original',()=>{
+test('srcset: tarjetas con 320/640 y ancho real del original',()=>{
   const h=rd('index.html');
   assert.ok(h.includes(`srcset="/img/uploads/realnamefix27_1-320.webp 320w, /img/uploads/realnamefix27_1-640.webp 640w, /img/uploads/realnamefix27_1.webp ${wW('img/uploads/realnamefix27_1.webp')}w" sizes="(max-width:600px) 46vw, 260px"`));
+});
+
+// ===== v.19 =====
+const FM=require('../public/js/ficha.js'),read=f=>fs.readFileSync(f,'utf8');
+test('v.19 · «Más como este» usa las mismas tarjetas y parrilla que «Imprescindibles», fuera de la barra lateral',()=>{
   const all=slugs.map(s=>rd(`mod/${s}/index.html`)).join('\n');
-  for(const m of all.matchAll(/<li><a href="\/mod\/[^"]+"><img [^>]*srcset="([^"]+)" sizes="96px"/g))assert.ok(!/1200w|740w/.test(m[1]),m[1])});
+  assert.ok(/<section class="rel-sec"><h2[^>]*>[^<]+<\/h2><div class="grid feat-grid"><a class="card"/.test(all));
+  assert.ok(!/class="box rel"/.test(all));
+  const h=rd('mod/regenesis-27/index.html'),aside=h.slice(h.indexOf('<aside>'),h.indexOf('</aside>'));
+  assert.ok(!aside.includes('rel-sec'),'los relacionados no van dentro de la barra lateral')});
+test('v.19 · la fecha del historial de versiones está destacada (clase ud) y el CSS la define',()=>{
+  const h=rd('mod/regenesis-27/index.html');
+  assert.ok(/<time class="ud" datetime="2026-11-10"/.test(h)&&/<time class="ud ud-new"/.test(h));
+  assert.ok(/time\.ud[^{]*\{[^}]*background:var\(--acb\)/.test(read('public/css/style.css')))});
+test('v.19 · la portada muestra 50 mods de golpe',()=>{assert.ok(/const PAGE=50,/.test(read('public/js/app.js')))});
+test('v.19 · Novedades: filtros, salto por meses y tarjetas con fecha, tipo y portada (y la portada usa las mismas tarjetas)',()=>{
+  for(const l of Object.keys(PREF)){
+    const h=rd(PREF[l]+'novedades/index.html');
+    for(const id of ['nv-list','nv-per','nv-ver','nv-count','nv-reset','nv-empty'])assert.ok(h.includes(`id="${id}"`),`${l}: falta #${id}`);
+    assert.ok(/class="nv-seg"/.test(h)&&/class="nv-jump"/.test(h)&&/<section class="nv-m" id="m-\d{4}-\d{2}">/.test(h));
+    assert.ok(/<li class="nv nv-(new|upd)"[^>]*data-nt="(new|update)"[^>]*data-dt="\d{4}-\d{2}-\d{2}"/.test(h));
+    assert.ok(/<time class="ud/.test(h),l)}
+  assert.ok(/<ul class="nvl nv-home"><li class="nv/.test(rd('index.html')))});
+test('v.19 · el nombre del mod se traduce en cada idioma (tarjeta, ficha, SEO y buscador)',()=>{
+  const T=JSON.parse(read('content/traducciones.json')),sha=t=>require('crypto').createHash('sha1').update(t.trim(),'utf8').digest('hex').slice(0,12);
+  const e=T[sha('Megapack de Caras 3D')];assert.ok(e);
+  for(const l of ['en','ca','fr','pt','it']){
+    const h=rd(PREF[l]+'mod/megapack-de-caras-3d/index.html');
+    assert.ok(h.includes(`<h1>${FM.esc(e[l])}</h1>`),`${l}: h1`);assert.ok(h.includes(`<title>${FM.esc(e[l])} (`),`${l}: title`);
+    assert.ok(rd(PREF[l]+'index.html').includes(`<h3>${FM.esc(e[l])}</h3>`),`${l}: tarjeta`)}
+  assert.ok(rd('mod/megapack-de-caras-3d/index.html').includes('<h1>Megapack de Caras 3D</h1>'));
+  const s=JSON.parse(rd('data/search.json')).find(x=>x.s==='megapack-de-caras-3d');
+  assert.equal(s.tt.en,e.en);assert.ok(s.n.includes('3d faces megapack')&&s.n.includes('megapack de caras 3d'));
+  assert.ok(/ttl=m=>\(m\.tt&&m\.tt\[i18n\.lang\]\)/.test(read('public/js/app.js')))});
+test('v.19 · todos los nombres de mod y textos de novedades tienen traducción (nada pendiente)',()=>{
+  const o=cp.spawnSync(process.execPath,['scripts/translate.js','--check'],{encoding:'utf8'});assert.match(o.stdout,/pendientes: 0/)});
+test('v.19 · texto enriquecido: negrita, color y listas con guiones; escapa HTML y se limpia en extractos',()=>{
+  assert.equal(FM.rich('Hola **mundo** [color=#ff0000]rojo[/color]\nlinea2\n\n- uno\n- dos <b>x</b>\n\nFin <script>'),
+    '<p>Hola <strong>mundo</strong> <span style="color:#ff0000">rojo</span><br>linea2</p><ul><li>uno</li><li>dos &lt;b&gt;x&lt;/b&gt;</li></ul><p>Fin &lt;script&gt;</p>');
+  assert.ok(!FM.rich('[color=red;x:y]a[/color]').includes('<span'),'solo colores #rrggbb');
+  assert.equal(FM.rich('Texto antiguo\nsin marcado'),'<p>Texto antiguo<br>sin marcado</p>');
+  assert.equal(FM.plain('**a** [color=#00ff00]b[/color]\n- c'),'a b c')});
+test('v.19 · panel: guardar publica directo (sin flujo editorial) y descripción/cambios usan el editor enriquecido',()=>{
+  const c=read('public/admin/config.yml'),ix=read('public/admin/index.html');
+  assert.ok(/^publish_mode: simple$/m.test(c)&&!/^publish_mode: editorial_workflow/m.test(c));
+  assert.ok(/name: description, widget: fmrich/.test(c)&&/name: note, widget: fmrich/.test(c));
+  assert.ok(/registerWidget\('fmrich'/.test(read('public/admin/widgets.js')));
+  assert.ok(ix.indexOf('richtext.js')>-1&&ix.indexOf('richtext.js')<ix.indexOf('widgets.js'));
+  assert.ok(/text-align:justify/.test(read('public/admin/admin.css'))&&/text-align:justify/.test(read('public/admin/preview.css')))});
+test('v.19 · GitHub Actions: sin acciones de Node 20 y con Node moderno',()=>{
+  for(const f of fs.readdirSync('.github/workflows')){const y=read('.github/workflows/'+f);
+    assert.ok(!/actions\/(checkout|setup-node)@v[1-5]\b/.test(y),`${f}: acción antigua`);
+    for(const m of y.matchAll(/node-version:\s*(\d+)/g))assert.ok(+m[1]>=22,`${f}: node ${m[1]}`)}
+  assert.ok(/NODE_VERSION = "(2[2-9]|[3-9]\d)"/.test(read('netlify.toml')))});
