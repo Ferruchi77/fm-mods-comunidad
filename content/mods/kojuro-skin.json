@@ -1,0 +1,24 @@
+{
+  "authors": [
+    {
+      "name": "Kojuro PP",
+      "url": "https://x.com/KojuroPP"
+    }
+  ],
+  "install_path": "\\Steam\\steamapps\\common\\Football Manager 27\\fm_Data\\StreamingAssets\\aa\\StandaloneWindows64",
+  "modified": "2026-11-11",
+  "featured": false,
+  "date": "2026-11-10",
+  "status": "🟢 Publicado",
+  "fm_versions": [
+    "FM27"
+  ],
+  "cover": "https://pbs.twimg.com/media/HWy870MXEAAfdsN?format=jpg&name=medium",
+  "download_url": "https://ko-fi.com/s/2817643952",
+  "title": "Kojuro Skin",
+  "card_text": "Skin minimalista en blanco y negro para FM27 que rediseña las pantallas principales sin necesidad de instalar BepInEx.",
+  "categories": [
+    "skins"
+  ],
+  "description": "Kojuro Skin (v1.1.0) para Football Manager 27 es una interfaz visual en blanco, negro y cian que renueva los diseños de las pantallas más utilizadas sin necesidad de plugins externos ni BepInEx, ya que sustituye directamente archivos de interfaz del propio juego.\nCaracterísticas principalesAspecto visual unificado:\n- Ofrece un fondo oscuro fijo en todas las pantallas, eliminando los lavados de color de los clubes y aplicando acentos en cian.\n- Página de jugador rediseñada: Nueva cabecera con tarjeta coloreada del club, número de dorsal grande, fotografía, información en dos columnas, pros y contras como iconos flotantes y identificadores de base de datos copiables.\n- Tablas y plantillas: Las columnas de nación muestran únicamente la bandera; el apartado de Dinámicas presenta la jerarquía en forma de pirámide de rostros con tiempos de juego y un triángulo para ascensos, además de grupos sociales en bandas de fichas de jugadores.\n- Partidos y tácticas: Incluye rostros de jugadores en el terreno de campo y en la banda de alineación, banderas de nacionalidad en cada camiseta y césped cortado en patrón de líneas.\n- Otras pantallas: Las fichas de ojeo ubican los atributos en el centro; la sección de entrenamiento individual añade botones de alabar y criticar en cada fila; y la página del club incorpora una tarjeta del estadio con su nombre, capacidad, año de fundación y ciudad.\nInstalación\n1. Cierra completamente Football Manager 27.\n2. Accede a la carpeta de interfaz del juego según tu plataforma:Steam: Clic derecho en el juego > Gestionar > Explorar archivos locales, luego entra en fm_Data\\StreamingAssets\\aa\\StandaloneWindows64.   Game Pass: Abre C:\\XboxGames\\Football Manager 27\\Content\\fm_Data\\StreamingAssets\\aa\\StandaloneWindows64.\n3. Realiza una copia de seguridad de los 11 archivos originales que coinciden con los del mod y guárdalos en una ubicación segura (por ejemplo, en el Escritorio).\n4. Copia los 11 archivos de la carpeta correspondiente del mod dentro de StandaloneWindows64 y selecciona la opción de reemplazar los archivos existentes.\n5.Inicia el juego y asegúrate de mantener el skin predeterminado seleccionado en Preferencias > Interfaz.\n\n(Nota: Para desinstalar, basta con restaurar los archivos respaldados o utilizar la opción de verificar la integridad de los archivos desde tu plataforma)."
+}
