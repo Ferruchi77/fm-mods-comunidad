@@ -11,11 +11,11 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
-          node-version: 20
-      - run: npm i --no-save --no-package-lock sharp   # para la prueba de descarga/WebP de scripts/imagenes.js
+          node-version: 22
+      - run: npm i --no-save --no-package-lock sharp jsdom   # jsdom: prueba del editor del panel; sharp: para la prueba de descarga/WebP de scripts/imagenes.js
       - run: node --test tests/*.test.js tests/*.test.mjs
       - run: node scripts/imagenes.js --check          # ninguna ficha apunta a una imagen local inexistente
       - name: Compilar en modo estricto
