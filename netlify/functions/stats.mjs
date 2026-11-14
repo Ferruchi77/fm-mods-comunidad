@@ -1,4 +1,4 @@
-import {createHash} from 'node:crypto';
+import {createHmac} from 'node:crypto';
 // Contadores públicos (descargas, me gusta, valoraciones, «funciona / no funciona») con protección contra abuso:
 //  · cada persona (IP + clave secreta, en hash; nunca se guarda la IP) cuenta UNA vez por ficha: un «me gusta», una valoración (puede cambiarla),
 //    un voto «funciona / no funciona» por versión de FM (puede cambiarlo) y una descarga cada 24 h;
@@ -7,11 +7,13 @@ import {createHash} from 'node:crypto';
 // Lectura barata: GET devuelve un índice único (`_index`) en vez de leer un blob por ficha. El índice se reconstruye desde las fichas
 // (la fuente de verdad) como mucho cada INDEX_TTL; cada POST lo actualiza al momento. Si dos votos coinciden y uno se pisa en el índice,
 // el siguiente reconstruido lo corrige.
-// Define STATS_SALT en Netlify (Site settings → Environment variables) con un texto largo y aleatorio.
+// STATS_SALT es OBLIGATORIA (sin ella los votos devuelven 503). Defínela en Netlify (Site settings → Environment variables) con un texto largo y aleatorio.
 const SLUG=/^[a-z0-9][a-z0-9-]{0,119}$/,VER=/^FM\d{2}$/,HOUR=3600e3,DAY=24*HOUR,LIMIT=40,INDEX_TTL=5*60e3,IDX='_index';
 const ACTIONS=['download','like','unlike','rate','works'];
 const json=(d,s=200,h={})=>new Response(JSON.stringify(d),{status:s,headers:{'content-type':'application/json','cache-control':'no-store',...h}});
-const hid=(salt,s)=>createHash('sha256').update(salt+'|'+s).digest('hex').slice(0,24);
+// HMAC con clave secreta (STATS_SALT): sin la clave no se puede revertir el identificador a una IP. IPv6 se agrupa por /64 para que rotar dentro de su rango no evite el límite.
+const norm=ip=>{const s=String(ip||'').trim();if(!s.includes(':'))return s;const m=s.match(/^((?:[0-9a-f]{1,4}:){4})/i);return m?m[1].toLowerCase()+'/64':s.toLowerCase()};
+const hid=(salt,s)=>createHmac('sha256',salt).update(norm(s)).digest('hex').slice(0,24);
 const half=x=>Number.isFinite(x)&&Number.isInteger(x*2);
 const blank=()=>({likes:0,downloads:0,ratingSum:0,ratingCount:0});
 
@@ -23,17 +25,23 @@ const rebuild=async(stats,now)=>{
   return data;
 };
 
-export const handle=async(req,ip,{stats,votes,exists,salt='fm-mods-comunidad',now=Date.now()})=>{
+export const handle=async(req,ip,{stats,votes,exists,salt,now=Date.now()})=>{
   if(req.method==='GET'){
     let idx=null;try{idx=await stats.get(IDX,{type:'json'})}catch{}
     const data=idx&&idx.data&&now-idx.t<INDEX_TTL?idx.data:await rebuild(stats,now);
     return json(data,200,{'cache-control':'public, max-age=30'});
   }
   if(req.method!=='POST')return json({error:'method'},405);
+  if(!salt)return json({error:'config'},503);   // sin STATS_SALT no se aceptan votos: nunca se usa una clave pública por defecto
+  // Solo desde esta misma web: se rechazan peticiones entre sitios (Origin / Sec-Fetch-Site)
+  const org=req.headers.get('origin'),sfs=req.headers.get('sec-fetch-site');
+  if(sfs&&!['same-origin','same-site','none'].includes(sfs))return json({error:'origin'},403);
+  if(org){let ok=false;try{ok=new URL(org).host===new URL(req.url).host}catch{}if(!ok)return json({error:'origin'},403)}
+  if(!ip)return json({error:'ip'},400);   // sin IP no hay forma de contar a cada persona una sola vez
   let b;try{b=await req.json()}catch{return json({error:'json'},400)}
   const {slug,action}=b||{};
   if(!SLUG.test(slug||'')||!ACTIONS.includes(action))return json({error:'bad'},400);
-  const me=hid(salt,ip||'anon');
+  const me=hid(salt,ip);
   // límite por hora y persona
   const rk='rl:'+me,rl=(await votes.get(rk,{type:'json'}))||{t:now,c:0};
   if(now-rl.t>HOUR){rl.t=now;rl.c=0}
