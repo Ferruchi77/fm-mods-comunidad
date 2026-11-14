@@ -2,6 +2,12 @@
 /*
   X-Frame-Options: SAMEORIGIN
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Cross-Origin-Opener-Policy: same-origin-allow-popups
+# El panel y sus informes no deben indexarse (robots.txt solo evita el rastreo, no la indexación).
+/admin/*
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-cache
 # El service worker y el manifiesto no se cachean a lo bestia: así las actualizaciones llegan enseguida.
 /sw.js
   Cache-Control: no-cache
@@ -15,6 +21,6 @@
   Cache-Control: public, max-age=31536000, immutable
 /js/*
   Cache-Control: public, max-age=31536000, immutable
-# Imágenes del sitio: un día (los nombres de archivo pueden reutilizarse al subir una versión nueva)
+# Portadas y capturas: el nombre lleva un hash o se regenera con -320/-640, pero se pueden reutilizar nombres al subir una versión nueva → un día.
 /img/*
   Cache-Control: public, max-age=86400
