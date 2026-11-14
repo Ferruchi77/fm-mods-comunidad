@@ -1,0 +1,237 @@
+# Netlify: git-gateway + Identity (el proyecto está pensado para Netlify: /api/stats y las cabeceras dependen de él). Otro host: cambia por
+#   backend: { name: github, repo: USUARIO/REPO, branch: main, base_url: https://TU-OAUTH-PROXY }
+backend:
+  name: git-gateway
+  branch: main
+# v.19 · Publicación directa: «Guardar» hace commit en main. Con el estado «🟢 Publicado» la ficha se publica sola al guardar (sin ramas, sin
+# pasos de «Listo» ni «Publicar»). Los «🟡 Borrador / En revisión» también se guardan, pero build.js NO los publica en la web.
+# (Antes estaba publish_mode: editorial_workflow, que obligaba a mover la ficha de columna y pulsar «Publicar».)
+publish_mode: simple
+# local_backend: true   # solo para trabajar en local con «npx decap-server»; no hace falta en producción
+logo_url: /img/icon-512.png
+locale: es
+site_url: https://fm-mods-comunidad.netlify.app
+media_folder: public/img/uploads
+public_folder: /img/uploads
+slug:
+  encoding: ascii
+  clean_accents: true
+collections:
+  - name: mods
+    label: Mods
+    label_singular: Mod
+    folder: content/mods
+    create: true
+    extension: json
+    format: json
+    slug: "{{slug}}"
+    summary: "{{title}} · {{status}}"
+    # Ordenar la lista (menú «Ordenar por» del panel). Se usan campos reales de la ficha.
+    sortable_fields: [date, modified, status, featured, title]
+    # Filtros y agrupaciones rápidas de la lista
+    view_filters:
+      - { label: "🟢 Publicados", field: status, pattern: "Publicado" }
+      - { label: "🟡 Borradores / en revisión", field: status, pattern: "Borrador" }
+      - { label: "🔴 Pendientes de actualización", field: status, pattern: "Pendiente" }
+      - { label: "⚪ Incompatibles", field: status, pattern: "Incompatible" }
+      - { label: "⭐ Imprescindibles", field: featured, pattern: true }
+    view_groups:
+      - { label: Estado, field: status }
+      - { label: Destacado, field: featured }
+    # El formulario se divide en 3 pestañas (script /admin/ui.js):
+    #   1 · Información principal   2 · Autores y enlaces   3 · Contenido y multimedia
+    # Los campos marcados con * son obligatorios: el panel no deja guardar si faltan.
+    fields:
+      # ───── Pestaña 1 · Información principal ─────
+      - { label: "Título *", name: title, widget: string, hint: "Obligatorio." }
+      - { label: "Texto breve en la tarjeta (opcional)", name: card_text, widget: string, required: false, hint: "Una frase corta (máx. 140 caracteres) que se ve en la lista ANTES de entrar al mod, para identificar de qué va de un vistazo. Si lo dejas vacío se muestra el principio de la descripción.", pattern: ['^[\s\S]{0,140}$', 'Máximo 140 caracteres'] }
+      - label: "Estado de la ficha *"
+        name: status
+        widget: select
+        default: "🟢 Publicado"
+        hint: "«Publicado»: al pulsar Guardar la ficha se publica automáticamente. «Borrador / En revisión»: se guarda pero NO sale en la web. Pendiente de actualización e Incompatible sí se ven, pero te sirven para saber qué toca revisar."
+        options:
+          - "🟢 Publicado"
+          - "🟡 Borrador / En revisión"
+          - "🔴 Pendiente de actualización"
+          - "⚪ Incompatible"
+      - label: "Categorías * (puedes elegir varias)"
+        name: categories
+        widget: relation
+        collection: categorias
+        search_fields: [name]
+        value_field: "{{slug}}"
+        display_fields: [name]
+        multiple: true
+        min: 1
+        hint: "Obligatorio: al menos una."
+      - label: "Versiones de FM * (puedes elegir varias)"
+        name: fm_versions
+        widget: relation
+        collection: versiones
+        search_fields: [name]
+        value_field: name
+        display_fields: [name]
+        multiple: true
+        min: 1
+        hint: "Obligatorio: al menos una."
+      - label: Distintivos (puedes elegir varios; Imprescindible = sale en la portada)
+        name: badges
+        hint: "¿No ves el que buscas? Créalo antes en la sección «Distintivos» del menú (nombre, color e icono)."
+        widget: relation
+        collection: distintivos
+        search_fields: [name]
+        value_field: name
+        display_fields: [name]
+        multiple: true
+        required: false
+      - { label: "⭐ Destacado (Imprescindible)", name: featured, widget: boolean, default: false, required: false, hint: "Si lo marcas, el mod sale como Imprescindible en la portada y puedes ordenar la lista por esto." }
+      - { label: Flags / Etiquetas, name: tags, widget: list, required: false }
+      - { label: "Parche del juego con el que lo has probado (ej. 27.0.1)", name: compat_patch, widget: string, required: false }
+      - { label: "Aviso de compatibilidad (opcional, ej. Requiere la última actualización)", name: compat_note, widget: string, required: false }
+      - { label: "Fecha de publicación *", name: date, widget: fmdate }
+      - { label: "Última modificación (sirve para ordenar la lista)", name: modified, widget: fmdate, required: false }
+      # ───── Pestaña 2 · Autores y enlaces ─────
+      - label: Creadores / Autores (pulsa «Añadir» para poner más de uno)
+        name: authors
+        widget: list
+        required: false
+        hint: "Por cada creador: elige uno de la lista (se rellena solo su nombre y enlace) o, si es nuevo, escribe su nombre y enlace a mano. Al guardar, el autor nuevo se añade solo a la sección «Autores» (tarda un minuto) y la próxima vez ya sale en el desplegable."
+        summary: "{{fields.ref}} {{fields.name}}"
+        fields:
+          - label: Elegir autor existente
+            name: ref
+            widget: relation
+            collection: autores
+            search_fields: [name, url]
+            value_field: "{{slug}}"
+            display_fields: [name]
+            required: false
+            hint: "Empieza a escribir para buscar. Déjalo vacío si es un autor nuevo."
+          - { label: Nombre (autor nuevo, o para sustituir al elegido), name: name, widget: string, required: false }
+          - { label: Enlace del creador (X, web, perfil…), name: url, widget: string, required: false }
+      # Campos antiguos: se conservan ocultos para no perder datos de los mods creados antes
+      - { label: Autor (antiguo), name: author, widget: hidden, required: false }
+      - { label: Enlace del autor (antiguo), name: author_url, widget: hidden, required: false }
+      - { label: "Enlace de descarga * (Mediafire, MEGA, Drive…)", name: download_url, widget: string, hint: "Obligatorio. Debe empezar por https://", pattern: ['^https?://\S+$', 'Debe ser una URL válida que empiece por http:// o https://'] }
+      # ───── Pestaña 3 · Contenido y multimedia ─────
+      - { label: Imagen de portada, name: cover, widget: image, required: false, hint: "Sube un archivo o usa «Insertar desde URL». Mira la vista previa: comprueba que la imagen carga." }
+      - { label: Capturas de pantalla, name: screenshots, widget: list, required: false, field: { label: Captura, name: shot, widget: image } }
+      - { label: "Descripción *", name: description, widget: fmrich, min_height: 260, hint: "Texto justificado. Usa los botones para negrita, listas con guiones y color de texto." }
+      - { label: "Ruta de instalación (la misma para todas las versiones; vacío = se calcula sola; una ruta por línea si hay varias)", name: install_path, widget: text, required: false }
+      - { label: "Rutas de instalación por versión de FM (opcional)", name: install_paths, widget: fmpaths, required: false, hint: "Aparece una casilla por cada versión que hayas elegido en «Versiones de FM». Si rellenas alguna, manda sobre el campo de arriba." }
+      - { label: Instrucciones (una línea por paso; vacío = genéricas), name: instructions, widget: text, required: false }
+      - label: Historial de actualizaciones (añade una entrada cada vez que subas una versión nueva)
+        name: updates
+        widget: list
+        required: false
+        summary: "{{fields.date}} {{fields.version}}"
+        fields:
+          - { label: Fecha, name: date, widget: fmdate }
+          - { label: "Versión del mod (ej. v1.2)", name: version, widget: string, required: false }
+          - { label: Qué ha cambiado, name: note, widget: fmrich, required: false, min_height: 120, hint: "Texto justificado: negrita, lista con guiones y color. La fecha se destaca sola en la ficha." }
+
+  - name: categorias
+    label: Categorías
+    label_singular: Categoría
+    folder: content/categorias
+    create: true
+    extension: json
+    format: json
+    identifier_field: name
+    summary: "{{name}}"
+    fields:
+      - { label: Nombre, name: name, widget: string }
+      - { label: Descripción corta, name: description, widget: string, required: false }
+      - { label: "Nombre en inglés (opcional)", name: name_en, widget: string, required: false }
+      - { label: "Nombre en catalán (opcional)", name: name_ca, widget: string, required: false }
+      - { label: "Nombre en francés (opcional)", name: name_fr, widget: string, required: false }
+      - { label: "Nombre en portugués de Brasil (opcional)", name: name_pt, widget: string, required: false }
+      - { label: "Nombre en italiano (opcional)", name: name_it, widget: string, required: false }
+      - { label: "Ruta de instalación de esta categoría (escríbela libremente)", name: install_dir, widget: string, required: false, hint: "Empieza vacío. Puedes poner cualquier ruta, completa o relativa, por ejemplo: Documents\\Sports Interactive\\Football Manager 27\\graphics  ·  Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins  ·  graphics/. Si pones «Football Manager 27», en los mods de otras versiones se cambia sola por su año. Cada mod puede además tener su propia ruta." }
+      - { label: Orden en el menú (1, 2, 3…), name: order, widget: number, value_type: int, default: 10, required: false }
+
+  - name: versiones
+    label: Versiones de FM
+    label_singular: Versión
+    folder: content/versiones
+    create: true
+    extension: json
+    format: json
+    identifier_field: name
+    summary: "{{name}}"
+    fields:
+      - { label: "Nombre (ej. FM28)", name: name, widget: string }
+
+  - name: distintivos
+    label: Distintivos
+    label_singular: Distintivo
+    folder: content/distintivos
+    create: true
+    extension: json
+    format: json
+    identifier_field: name
+    summary: "{{name}} ({{color}})"
+    fields:
+      - { label: Nombre (ej. Imprescindible, Probado, Oficial, Nuevo), name: name, widget: string }
+      - label: Color
+        name: color
+        widget: select
+        default: violeta
+        options:
+          - { label: Violeta, value: violeta }
+          - { label: Verde, value: verde }
+          - { label: Amarillo, value: amarillo }
+          - { label: Azul, value: azul }
+          - { label: Rojo, value: rojo }
+          - { label: Naranja, value: naranja }
+          - { label: Rosa, value: rosa }
+          - { label: Cian, value: cian }
+          - { label: Gris, value: gris }
+      - { label: "Color personalizado (opcional, ej. #ff8800; sustituye al color de arriba)", name: hex, widget: string, required: false, pattern: ['^#[0-9a-fA-F]{6}$', 'Usa el formato #rrggbb'] }
+      - { label: "Icono (opcional, un emoji. Ej. ⭐ ✅)", name: icon, widget: string, required: false }
+      - { label: "Mostrar los mods con este distintivo en el carrusel «Mods imprescindibles» de la portada", name: featured, widget: boolean, default: false, required: false }
+
+  - name: peticiones
+    label: Peticiones de la comunidad
+    label_singular: Petición
+    folder: content/peticiones
+    create: true
+    extension: json
+    format: json
+    summary: "{{title}} ({{status}})"
+    fields:
+      - { label: Título (ej. Pack de caras de la liga X), name: title, widget: string }
+      - { label: Descripción, name: description, widget: text, required: false }
+      - label: Estado
+        name: status
+        widget: select
+        default: abierta
+        options:
+          - { label: Abierta, value: abierta }
+          - { label: En desarrollo, value: desarrollo }
+          - { label: Completada, value: completada }
+      - label: Mod que la cumple (cuando esté completada)
+        name: mod
+        widget: relation
+        collection: mods
+        search_fields: [title]
+        value_field: "{{slug}}"
+        display_fields: [title]
+        required: false
+      - { label: Fecha, name: date, widget: fmdate }
+
+  - name: autores
+    label: Autores
+    label_singular: Autor
+    description: "Lista de modders que se repiten. Aparecen en el desplegable «Elegir autor existente» al crear o editar un mod. Si cambias aquí un nombre o enlace, se actualiza en todos los mods que lo usan."
+    folder: content/autores
+    create: true
+    extension: json
+    format: json
+    identifier_field: name
+    slug: "{{slug}}"
+    summary: "{{name}}"
+    fields:
+      - { label: Nombre, name: name, widget: string }
+      - { label: Enlace (X, web, perfil…), name: url, widget: string, required: false }

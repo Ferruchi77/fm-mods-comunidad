@@ -1,0 +1,23 @@
+.fmx{font:14px/1.45 system-ui,sans-serif;margin:0 0 18px;color:#1f2937;position:relative}
+.fmx-alert{padding:10px 14px;border-radius:10px;margin:0 0 8px;border:1px solid;font-weight:600}
+.fmx-alert.err{background:#fee2e2;border-color:#ef4444;color:#7f1d1d}
+.fmx-alert.ok{background:#dcfce7;border-color:#22c55e;color:#14532d}
+.fmx-alert.warn{background:#fef3c7;border-color:#f59e0b;color:#78350f}
+.fmx-alert.bad{background:#fee2e2;border-color:#ef4444;color:#7f1d1d}
+.fmx-alert.gray{background:#e5e7eb;border-color:#6b7280;color:#374151}
+.fmx-links{list-style:none;margin:0 0 10px;padding:0;display:flex;flex-direction:column;gap:6px}
+.fmx-row{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;padding:8px 12px;border-radius:10px;background:#f3f4f6;border:1px solid #e5e7eb}
+.fmx-row.bad{background:#fee2e2;border-color:#ef4444;color:#7f1d1d}
+.fmx-row a{color:#2563eb;text-decoration:underline;word-break:break-all}
+.fmx-st{font-size:.85em}.fmx-pending{color:#6b7280}.fmx-ok,.fmx-skip{color:#15803d}.fmx-bad{color:#b91c1c;font-weight:700}
+.fmx-imgs{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:0 0 10px}
+.fmx-img{margin:0;border:2px solid #e5e7eb;border-radius:10px;overflow:hidden;background:#f9fafb}
+.fmx-img img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:#e5e7eb}
+.fmx-ph{aspect-ratio:16/9;display:grid;place-items:center;font-size:28px;background:#fee2e2}
+.fmx-img figcaption{padding:6px 8px;font-size:.8em;display:flex;flex-direction:column;gap:2px;font-weight:600}
+.fmx-img .s-ok,.fmx-img .s-bad{display:none}
+.fmx-img.ok{border-color:#22c55e}.fmx-img.ok .s-ok{display:block;color:#15803d}
+.fmx-img.bad{border-color:#ef4444}.fmx-img.bad .s-bad{display:block;color:#b91c1c}
+.fmx-img code,.fmx-row code{word-break:break-all;font-size:.9em}
+/* v.19 · descripción y cambios de versiones justificados en la vista previa del panel */
+.fm-preview .desc .rt p,.fm-preview .desc .rt li,.fm-preview .tl .rt p,.fm-preview .tl .rt li{text-align:justify;hyphens:auto;-webkit-hyphens:auto}
