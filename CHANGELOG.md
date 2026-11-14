@@ -1,5 +1,25 @@
 # Cambios
 
+## v.2.0 (auditoría técnica)
+**Seguridad**
+- `/api/stats`: `STATS_SALT` obligatoria (sin clave por defecto, 503 si falta), identificador con HMAC-SHA256, IPv6 agrupada por /64, rechazo de peticiones entre sitios (`Origin` / `Sec-Fetch-Site`) y de peticiones sin IP (antes compartían el cubo «anon»). +1 prueba.
+- Panel: nuevas `netlify/functions/auth.mjs` y `callback.mjs` (login con GitHub, anti-CSRF con `state`, lista `GITHUB_ALLOWED_USERS`) y `scripts/migrar-cms.js` (con `--atras`). `local_backend` ya no está activo por defecto. *Corrección:* el CHANGELOG v.1.7 las daba por existentes pero no estaban en el repositorio.
+- Cabeceras: HSTS, COOP y `X-Robots-Tag: noindex` en `/admin/*`.
+- Workflows: `parche.yml` recibe sus entradas por variables de entorno y las valida; `concurrency` común en los que escriben en `main`; eliminado `imagenes.yml` (duplicaba a `sync-autores.yml`).
+
+**Rendimiento**
+- Ficha: imagen principal con `srcset` y miniaturas con la variante `-320`; creadas 135 variantes `-320/-640` que faltaban en portadas y capturas.
+- Logo en WebP de 80 px; iconos PNG cuantizados (512 px: 377 KB → 53 KB).
+- `sw.js` limita las páginas guardadas a 40.
+
+**SEO y contenido**
+- Títulos de ficha más cortos (sin lista de categorías); metadescripción y JSON-LD recortados por palabra; `lastmod` en todo el sitemap.
+- JSON-LD de ficha como `SoftwareApplication` (con `offers` si es gratuito) para que `aggregateRating` sea válido.
+- `*cursiva*` y `` `código` `` se interpretan en las descripciones (antes se veían los símbolos).
+- Manifiesto con iconos 192 y 512 y un icono `maskable` aparte.
+- Fichas: `install_path` que eran instrucciones, parámetros `utm_*` en enlaces de Patreon y 18 fichas con el campo antiguo `author` (ahora `authors`).
+- Privacidad: se indica el plazo de conservación de los identificadores de voto.
+
 ## v.1.9
 **Panel de administración**
 - **Publicación automática:** el panel pasa a `publish_mode: simple`. Con el estado «🟢 Publicado», **Guardar** publica la ficha directamente (commit a `main`, sin ramas ni los pasos «Listo» → «Publicar»). Los «🟡 Borrador / En revisión» se guardan igual pero `build.js` no los publica en la web.
