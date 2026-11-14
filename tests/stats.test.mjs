@@ -74,3 +74,16 @@ test('GET devuelve todas las fichas desde el índice y lo reconstruye al caducar
   e.stats.m.delete('_index');
   assert.equal((await j(await get(e,t+4000))).m1.likes,2);
 });
+
+test('seguridad: sin salt, sin IP y desde otro sitio se rechaza; IPv6 cuenta por /64', async()=>{
+  const e=mk();
+  assert.equal((await post({...e,salt:undefined},'1.1.1.1',{slug:'a',action:'like'})).status,503);
+  assert.equal((await post(e,'',{slug:'a',action:'like'})).status,400);
+  const x=await handle(new Request('http://x/api/stats',{method:'POST',headers:{origin:'https://malo.example'},body:JSON.stringify({slug:'a',action:'like'})}),'1.1.1.1',{...e,now:1});
+  assert.equal(x.status,403);
+  const y=await handle(new Request('http://x/api/stats',{method:'POST',headers:{'sec-fetch-site':'cross-site'},body:JSON.stringify({slug:'a',action:'like'})}),'1.1.1.1',{...e,now:1});
+  assert.equal(y.status,403);
+  await post(e,'2001:db8:1:2:aaaa::1',{slug:'a',action:'like'},1);
+  const r=await post(e,'2001:db8:1:2:bbbb::2',{slug:'a',action:'like'},2);
+  assert.equal((await r.json()).likes,1);   // misma /64 = la misma persona
+});
