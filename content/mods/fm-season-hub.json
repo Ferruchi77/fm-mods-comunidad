@@ -15,7 +15,6 @@
       "date": "2026-11-07"
     }
   ],
-  "author": "FM Season Hub",
   "screenshots": [
     "/img/covers/fm-season-hub-s1.webp",
     "/img/covers/fm-season-hub-s2.webp"
@@ -30,10 +29,15 @@
   "cover": "/img/covers/fm-season-hub-cover.webp",
   "download_url": "https://fmseasonhub.com/en/download",
   "title": "FM Season Hub ",
-  "author_url": "https://x.com/FMSeasonHub",
   "card_text": "Aplicación de escritorio para Windows que registra el historial completo de tus temporadas en Football Manager para analizarlas al detalle.",
   "categories": [
     "app-externa"
   ],
-  "description": "FM Season Hub (FMSH) es una aplicación externa para Windows (compatible con FM27, FM26 y FM24) que almacena, organiza y analiza estadísticas detalladas de tus partidas guardadas temporada tras temporada sin alterar los archivos del juego.\n\nCaracterísticas clave:\nHistorial de guardados: Guarda los datos de tus temporadas para analizarlos con estadísticas (hasta 3 temporadas en su versión gratuita).\n\nLectura en vivo: Se conecta directamente a tu partida sin necesidad de exportar archivos.\n\nPlugins opcionales: Incluye extras durante su instalación como TacticalCam (ajuste de la cámara táctica) y PitchHUD (muestra la foto del facepack y estadísticas junto al nombre de los jugadores en el campo)."
+  "description": "FM Season Hub (FMSH) es una aplicación externa para Windows (compatible con FM27, FM26 y FM24) que almacena, organiza y analiza estadísticas detalladas de tus partidas guardadas temporada tras temporada sin alterar los archivos del juego.\n\nCaracterísticas clave:\nHistorial de guardados: Guarda los datos de tus temporadas para analizarlos con estadísticas (hasta 3 temporadas en su versión gratuita).\n\nLectura en vivo: Se conecta directamente a tu partida sin necesidad de exportar archivos.\n\nPlugins opcionales: Incluye extras durante su instalación como TacticalCam (ajuste de la cámara táctica) y PitchHUD (muestra la foto del facepack y estadísticas junto al nombre de los jugadores en el campo).",
+  "authors": [
+    {
+      "name": "FM Season Hub",
+      "url": "https://x.com/FMSeasonHub"
+    }
+  ]
 }

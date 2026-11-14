@@ -24,7 +24,6 @@
       "path": "\\Steam\\steamapps\\common\\Football Manager 26\\BepInEx\\plugins"
     }
   ],
-  "author": "FM Tigrotto",
   "screenshots": [
     "/img/covers/fm-switcher-kit-ball-referee-s1-8bd11a49.webp",
     "/img/covers/fm-switcher-kit-ball-referee-s2-c438ac68.webp",
@@ -45,10 +44,15 @@
   "cover": "/img/covers/fm-switcher-kit-ball-referee-cover.webp",
   "download_url": "https://fmtigrotto.com/tools/kit-switcher",
   "title": "FM Switcher (Kit / Ball / Referee)",
-  "author_url": "https://x.com/fmtigrotto",
   "card_text": "Plugin para elegir y previsualizar en 3D las equipaciones de ambos equipos, el balón oficial y los árbitros antes de cada partido en FM.",
   "categories": [
     "bases-de-datos"
   ],
-  "description": "FM Kit Switcher (de FM Tigrotto) es un mod  que permite personalizar por completo la estética visual de los partidos desde la pantalla de Team News.\n\nLo que puedes hacer:\nEquipaciones 3D: Cambiar y mezclar camisetas, pantalones y calcetines de cualquier equipo (incluyendo porteros) con una vista previa 3D interactiva.\n\nKits alternativos: Añadir camisetas retro o especiales simplemente guardando una imagen en la carpeta graphics/Kits/Alt/ del juego, sin reiniciar.\n\nBalones oficiales: Elegir entre más de 160 balones adaptados a cada competición (con opción de balón de invierno).\n\nÁrbitros: Los colegiados visten la equipación oficial de cada torneo para evitar conflictos de color.\n\nColores personalizados: Modificar los dorsales, nombres y los colores del marcador en pantalla."
+  "description": "FM Kit Switcher (de FM Tigrotto) es un mod  que permite personalizar por completo la estética visual de los partidos desde la pantalla de Team News.\n\nLo que puedes hacer:\nEquipaciones 3D: Cambiar y mezclar camisetas, pantalones y calcetines de cualquier equipo (incluyendo porteros) con una vista previa 3D interactiva.\n\nKits alternativos: Añadir camisetas retro o especiales simplemente guardando una imagen en la carpeta graphics/Kits/Alt/ del juego, sin reiniciar.\n\nBalones oficiales: Elegir entre más de 160 balones adaptados a cada competición (con opción de balón de invierno).\n\nÁrbitros: Los colegiados visten la equipación oficial de cada torneo para evitar conflictos de color.\n\nColores personalizados: Modificar los dorsales, nombres y los colores del marcador en pantalla.",
+  "authors": [
+    {
+      "name": "FM Tigrotto",
+      "url": "https://x.com/fmtigrotto"
+    }
+  ]
 }

@@ -1,12 +1,11 @@
 {
-  "instructions": "Arrastra imágenes directamente sobre los jugadores, los *newgens* (jugadores generados por el juego) y tu propio mánager dentro del juego, o pégalas usando Ctrl+V",
+  "instructions": "Arrastra imágenes directamente sobre los jugadores, los newgens (jugadores generados por el juego) y tu propio mánager dentro del juego, o pégalas usando Ctrl+V",
   "authors": [
     {
       "url": "https://x.com/bifi_93",
       "name": "Steven"
     }
   ],
-  "install_path": "Arrastra imágenes directamente sobre los jugadores, los *newgens* (jugadores generados por el juego) y tu propio mánager dentro del juego, o pégalas usando Ctrl+V",
   "modified": "2026-11-10",
   "updates": [
     {

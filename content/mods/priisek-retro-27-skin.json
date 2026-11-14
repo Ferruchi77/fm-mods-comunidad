@@ -13,7 +13,6 @@
       "note": "Paso oscuro para hacer que las blancas se destaquen más."
     }
   ],
-  "author": "James Prisk",
   "screenshots": [
     "/img/covers/priisek-retro-27-skin-s1.webp",
     "/img/covers/priisek-retro-27-skin-s2.webp",
@@ -27,10 +26,15 @@
   "cover": "/img/covers/priisek-retro-27-skin-cover.webp",
   "download_url": "https://www.fmscout.com/c-fm27-skins.html?id=14057",
   "title": "Priisek Retro 27 Skin",
-  "author_url": "https://x.com/priisek",
   "card_text": "Skin retro para Football Manager 27 centrada en la claridad visual, con fondos oscurecidos y optimización de menús y perfiles.",
   "categories": [
     "skins"
   ],
-  "description": "Quiero darles un enorme agradecimiento a todos ustedes por inspirarme a crear mis skins a lo largo de los años. ¡Estoy de vuelta para FM27! Muchísimas gracias por su apoyo, de verdad, ¡gracias de nuevo!\n\nLa skin «Retro Base» es una excelente opción, y vendrán muchas más... esto es solo el comienzo.\n\nPero, por favor —como siempre y como ha sido en el pasado—, ¡suscríbanse a mi canal de YouTube! Ya casi llegamos a los 20 000 suscriptores; ¡ayúdenme a alcanzar esa cifra, por favor!\nhttps://www.youtube.com/Priisek\n\n¡Que la disfruten!\nPriisek"
+  "description": "Quiero darles un enorme agradecimiento a todos ustedes por inspirarme a crear mis skins a lo largo de los años. ¡Estoy de vuelta para FM27! Muchísimas gracias por su apoyo, de verdad, ¡gracias de nuevo!\n\nLa skin «Retro Base» es una excelente opción, y vendrán muchas más... esto es solo el comienzo.\n\nPero, por favor —como siempre y como ha sido en el pasado—, ¡suscríbanse a mi canal de YouTube! Ya casi llegamos a los 20 000 suscriptores; ¡ayúdenme a alcanzar esa cifra, por favor!\nhttps://www.youtube.com/Priisek\n\n¡Que la disfruten!\nPriisek",
+  "authors": [
+    {
+      "name": "James Prisk",
+      "url": "https://x.com/priisek"
+    }
+  ]
 }

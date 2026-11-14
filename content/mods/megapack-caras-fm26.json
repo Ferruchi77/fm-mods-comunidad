@@ -33,7 +33,6 @@
       "path": "Documents\\Sports Interactive\\Football Manager 27\\graphics"
     }
   ],
-  "author": "DF11Faces",
   "featured": true,
   "date": "2026-10-29",
   "badges": [
@@ -52,10 +51,15 @@
     "facepack",
     "jugadores"
   ],
-  "author_url": "https://x.com/DF11Faces",
   "card_text": "Pack definitivo de caras realistas para Football Manager 27 con actualizaciones mensuales gratuitas para todas las ligas del mundo.",
   "categories": [
     "dia-de-partido"
   ],
-  "description": "¡Dale vida a Football Manager 27 con el clásico DF11 Faces Megapack para FM27! Con más de 264 000 retratos realistas de jugadores, el DF11 Classic Facepack sustituye las siluetas estándar por rostros de gran realismo, lo que facilita el reconocimiento de tus jugadores y da vida tanto a tu plantilla como a todo el mundo del fútbol."
+  "description": "¡Dale vida a Football Manager 27 con el clásico DF11 Faces Megapack para FM27! Con más de 264 000 retratos realistas de jugadores, el DF11 Classic Facepack sustituye las siluetas estándar por rostros de gran realismo, lo que facilita el reconocimiento de tus jugadores y da vida tanto a tu plantilla como a todo el mundo del fútbol.",
+  "authors": [
+    {
+      "name": "DF11Faces",
+      "url": "https://x.com/DF11Faces"
+    }
+  ]
 }

@@ -14,7 +14,6 @@
       "path": "\\Steam\\steamapps\\common\\Football Manager 26\\BepInEx\\plugins"
     }
   ],
-  "author": " FM Season Hub",
   "featured": false,
   "date": "2026-10-29",
   "badges": [],
@@ -26,10 +25,15 @@
   "cover": "/img/covers/fmdb-hub-cover.webp",
   "download_url": "https://fmdbhub.com/plugin",
   "title": "FMDB Hub",
-  "author_url": "https://x.com/FMSeasonHub",
   "card_text": "Gestiona, actualiza y aplica bases de datos personalizadas y correcciones de licencias directamente desde el interior de FM.",
   "categories": [
     "bases-de-datos"
   ],
-  "description": "El plugin FMDB Hub (para Football Manager 27 y FM26) integra todo el catálogo de bases de datos y parches directamente en la pantalla de inicio del juego, eliminando la necesidad de descargar archivos .zip o buscar actualizaciones en foros de forma manual.\n\nCaracterísticas clave:\nCatálogo en juego: Muestra un panel interactivo con todas las bases de datos disponibles, permitiendo buscar, filtrar por autor y ver cuáles tienes instaladas.\n\nInstalación y actualización con 1 clic: Gestiona la instalación, actualización o eliminación de mods directamente desde el menú principal, avisándote en la pantalla de inicio si hay nuevas versiones.\n\nGestor de licencias (Licence Fix): Aplica y revierte correcciones de licencias oficiales de manera automática, realizando copias de seguridad previas para poder restaurar los archivos originales en cualquier momento.\n\nArchivos opcionales selectivos: Permite elegir de forma individual complementos adicionales de los mods (como modos de dificultad o premios extra) antes de instalarlos."
+  "description": "El plugin FMDB Hub (para Football Manager 27 y FM26) integra todo el catálogo de bases de datos y parches directamente en la pantalla de inicio del juego, eliminando la necesidad de descargar archivos .zip o buscar actualizaciones en foros de forma manual.\n\nCaracterísticas clave:\nCatálogo en juego: Muestra un panel interactivo con todas las bases de datos disponibles, permitiendo buscar, filtrar por autor y ver cuáles tienes instaladas.\n\nInstalación y actualización con 1 clic: Gestiona la instalación, actualización o eliminación de mods directamente desde el menú principal, avisándote en la pantalla de inicio si hay nuevas versiones.\n\nGestor de licencias (Licence Fix): Aplica y revierte correcciones de licencias oficiales de manera automática, realizando copias de seguridad previas para poder restaurar los archivos originales en cualquier momento.\n\nArchivos opcionales selectivos: Permite elegir de forma individual complementos adicionales de los mods (como modos de dificultad o premios extra) antes de instalarlos.",
+  "authors": [
+    {
+      "name": "FM Season Hub",
+      "url": "https://x.com/FMSeasonHub"
+    }
+  ]
 }

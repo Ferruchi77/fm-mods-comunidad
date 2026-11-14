@@ -7,7 +7,6 @@
       "date": "2026-11-07"
     }
   ],
-  "author": "MrTini23",
   "screenshots": [
     "/img/covers/mrtini23-fm27-skin-s1.webp",
     "/img/covers/mrtini23-fm27-skin-s2.webp",
@@ -25,10 +24,15 @@
   "cover": "/img/covers/mrtini23-fm27-skin-cover.webp",
   "download_url": "https://www.patreon.com/mrtini23/posts/mrtini23-fm27-v2-174676377",
   "title": "MrTini23 FM27 skin",
-  "author_url": "https://x.com/MrTini23",
   "card_text": "Skin personalizada para FM27 con diseño rediseñado, barra lateral completa, modos oscuro/por defecto y opciones por resolución.",
   "categories": [
     "skins"
   ],
-  "description": "¡Ya está aquí el skin para FM27, disponible tanto para Windows como para Mac!\n\nASEGÚRATE DE QUE LA CONFIGURACIÓN DENTRO DEL JUEGO COINCIDA CON EL SKIN QUE INSTALES. ¡ESTO ES MUY IMPORTANTE!\n\nCaracterísticas incluidas:\n- Versión con barra lateral completa.\n- Versiones en modo oscuro y con los colores predeterminados.\n- Opciones diseñadas específicamente para distintas resoluciones y modos de escala.\n- Rediseño de muchas pantallas. Aunque suene impreciso, ¡la mayoría de las pantallas han recibido un rediseño importante!\n- Botones de simulación en la barra de navegación secundaria, el calendario y el programa de partidos.\n- El programa de partidos ahora permite filtrar por tipo de encuentro e incluye más columnas. Además, es posible ajustar el ancho de dichas columnas (solo en Windows).\n- Opción para realizar un seguimiento (scouting) masivo desde la noticia de NXGN (solo en Windows).\n- Opción para dar descanso a todos los jugadores desde la pantalla de la plantilla (solo en Windows).\n- Opción para elogiar o criticar el entrenamiento de todos los jugadores desde la pantalla de resumen de entrenamiento individual (solo en Windows).\n- Opción para desplazar el marcador a la izquierda desde el menú de configuración durante los partidos (solo en Windows).\n- Opción para situar el marcador en el lado izquierdo (solo en Windows).\n- ¡Y mucho más!"
+  "description": "¡Ya está aquí el skin para FM27, disponible tanto para Windows como para Mac!\n\nASEGÚRATE DE QUE LA CONFIGURACIÓN DENTRO DEL JUEGO COINCIDA CON EL SKIN QUE INSTALES. ¡ESTO ES MUY IMPORTANTE!\n\nCaracterísticas incluidas:\n- Versión con barra lateral completa.\n- Versiones en modo oscuro y con los colores predeterminados.\n- Opciones diseñadas específicamente para distintas resoluciones y modos de escala.\n- Rediseño de muchas pantallas. Aunque suene impreciso, ¡la mayoría de las pantallas han recibido un rediseño importante!\n- Botones de simulación en la barra de navegación secundaria, el calendario y el programa de partidos.\n- El programa de partidos ahora permite filtrar por tipo de encuentro e incluye más columnas. Además, es posible ajustar el ancho de dichas columnas (solo en Windows).\n- Opción para realizar un seguimiento (scouting) masivo desde la noticia de NXGN (solo en Windows).\n- Opción para dar descanso a todos los jugadores desde la pantalla de la plantilla (solo en Windows).\n- Opción para elogiar o criticar el entrenamiento de todos los jugadores desde la pantalla de resumen de entrenamiento individual (solo en Windows).\n- Opción para desplazar el marcador a la izquierda desde el menú de configuración durante los partidos (solo en Windows).\n- Opción para situar el marcador en el lado izquierdo (solo en Windows).\n- ¡Y mucho más!",
+  "authors": [
+    {
+      "name": "MrTini23",
+      "url": "https://x.com/MrTini23"
+    }
+  ]
 }

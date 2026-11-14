@@ -7,7 +7,6 @@
       "date": "2026-11-06"
     }
   ],
-  "author": " FM_Daveincid",
   "featured": true,
   "date": "2026-10-30",
   "badges": [
@@ -21,10 +20,15 @@
   "cover": "/img/covers/increase-realism-megapack-cover.webp",
   "download_url": "https://www.patreon.com/daveincid/posts/fm27-increase-174554202",
   "title": "Increase Realism Megapack",
-  "author_url": "https://x.com/daveincid",
   "card_text": "Megapack de realism que ajusta finanzas, mercado, salarios, lesiones y dificultad global para una experiencia de simulación ultra real.",
   "categories": [
     "editor-data"
   ],
-  "description": "137 naciones adicionales:\nÁfrica: 45\nAsia: 30\nAmérica del Norte/Central y el Caribe: 34\nEuropa: 14\nOceanía: 11\nAmérica del Sur: 3\nInglaterra: Nivel 8\nAlemania: Nivel 4"
+  "description": "137 naciones adicionales:\nÁfrica: 45\nAsia: 30\nAmérica del Norte/Central y el Caribe: 34\nEuropa: 14\nOceanía: 11\nAmérica del Sur: 3\nInglaterra: Nivel 8\nAlemania: Nivel 4",
+  "authors": [
+    {
+      "name": "FM_Daveincid",
+      "url": "https://x.com/daveincid"
+    }
+  ]
 }

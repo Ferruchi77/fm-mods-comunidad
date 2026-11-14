@@ -14,7 +14,6 @@
       "path": "\\Steam\\steamapps\\common\\Football Manager 26\\BepInEx\\plugins"
     }
   ],
-  "author": " joni9",
   "date": "2026-07-09",
   "badges": [],
   "status": "🟢 Publicado",
@@ -25,10 +24,15 @@
   "cover": "/img/covers/fm27-goal-music-mod-cover.webp",
   "download_url": "https://sortitoutsi.net/content/77200/fm26-goal-music-mod",
   "title": " FM27 Goal Music Mod",
-  "author_url": "https://x.com/joni9j",
   "card_text": "Añade música de gol oficial y efectos de sonido de estadio auténticos para cada equipo tras cada tanto anotado en los partidos.",
   "categories": [
     "bases-de-datos"
   ],
-  "description": "¡Este mod aporta una atmósfera de estadio real a Football Manager 2026 y 2027! Cada vez que el equipo local marca un gol, sonará automáticamente el himno de gol real de dicho club. El mod funciona en segundo plano y ofrece una experiencia sonora dinámica, que incluye un efecto de reverberación de estadio personalizable para lograr la máxima autenticidad."
+  "description": "¡Este mod aporta una atmósfera de estadio real a Football Manager 2026 y 2027! Cada vez que el equipo local marca un gol, sonará automáticamente el himno de gol real de dicho club. El mod funciona en segundo plano y ofrece una experiencia sonora dinámica, que incluye un efecto de reverberación de estadio personalizable para lograr la máxima autenticidad.",
+  "authors": [
+    {
+      "name": "joni9",
+      "url": "https://x.com/joni9j"
+    }
+  ]
 }

@@ -7,7 +7,6 @@
       "version": "V.2.0.1"
     }
   ],
-  "author": "FM Season Hub",
   "screenshots": [],
   "date": "2026-10-31",
   "badges": [],
@@ -18,10 +17,15 @@
   "cover": "/img/covers/actionlink-kits-3d-cover.webp",
   "download_url": "https://fmseasonhub.com/es/plugins/fmactionlink-kits3d-fm27",
   "title": "FM ActionLink - Kits 3D",
-  "author_url": "https://x.com/FMSeasonHub",
   "card_text": "Visualiza equipaciones 3D interactivas y modelos en maniquíes directamente en el perfil y vista general del club en FM27.",
   "categories": [
     "bases-de-datos"
   ],
-  "description": "Equipaciones del FM27 en 3D en el perfil y la vista general del club, y la equipación completa en un muñeco 3D."
+  "description": "Equipaciones del FM27 en 3D en el perfil y la vista general del club, y la equipación completa en un muñeco 3D.",
+  "authors": [
+    {
+      "name": "FM Season Hub",
+      "url": "https://x.com/FMSeasonHub"
+    }
+  ]
 }

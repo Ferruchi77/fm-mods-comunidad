@@ -1,7 +1,6 @@
 {
   "install_path": "Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins",
   "modified": "2026-11-04",
-  "author": "FM Tigrotto",
   "date": "2026-10-29",
   "badges": [],
   "status": "🟢 Publicado",
@@ -11,9 +10,14 @@
   "cover": "/img/covers/fm-managerphoto-cover.webp",
   "download_url": "https://fmtigrotto.com/tools/manager-photo",
   "title": "FM ManagerPhoto",
-  "author_url": "https://x.com/fmtigrotto",
   "categories": [
     "bases-de-datos"
   ],
-  "description": "Añade una foto real a tu mánager en Football Manager 27. El botón «Editar foto», situado junto a «Acciones» en el perfil del mánager, te permite seleccionar un archivo PNG o JPG desde tu PC; la imagen sustituirá al instante el rostro en 3D, tanto en el perfil como en las noticias y en cualquier otra pantalla."
+  "description": "Añade una foto real a tu mánager en Football Manager 27. El botón «Editar foto», situado junto a «Acciones» en el perfil del mánager, te permite seleccionar un archivo PNG o JPG desde tu PC; la imagen sustituirá al instante el rostro en 3D, tanto en el perfil como en las noticias y en cualquier otra pantalla.",
+  "authors": [
+    {
+      "name": "FM Tigrotto",
+      "url": "https://x.com/fmtigrotto"
+    }
+  ]
 }

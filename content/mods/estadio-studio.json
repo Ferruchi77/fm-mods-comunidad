@@ -1,11 +1,10 @@
 {
-  "instructions": "",
+  "instructions": "Descargar el archivo\nInstalar el ejecutable .exe",
   "authors": [
     {
       "ref": "miguelfm"
     }
   ],
-  "install_path": "Instalar el ejecutable .exe",
   "modified": "2026-11-10",
   "featured": false,
   "date": "2026-11-07",
@@ -14,7 +13,7 @@
     "FM26"
   ],
   "cover": "/img/covers/estadio-studio-cover.webp",
-  "download_url": "https://www.patreon.com/MiguelFMAdboards/posts/estadio-studio-0-173398733?utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=postshare_creator&utm_content=join_link",
+  "download_url": "https://www.patreon.com/MiguelFMAdboards/posts/estadio-studio-0-173398733",
   "title": "Estadio Studio",
   "card_text": "Editor 3D y mod para FM26: rompe la monotonía creando estadios únicos con control total de tribunas, techos, redes y entorno urbano.",
   "categories": [

@@ -14,7 +14,6 @@
       "path": "\\Steam\\steamapps\\common\\Football Manager 26\\BepInEx\\plugins"
     }
   ],
-  "author": " joni9",
   "screenshots": [
     "/img/covers/3d-live-action-cam-s1.webp",
     "/img/covers/3d-live-action-cam-s2.webp",
@@ -30,10 +29,15 @@
   "cover": "/img/covers/3d-live-action-cam-cover.webp",
   "download_url": "https://sortitoutsi.net/content/77170/mod-title-fm26-goal-celebration-cam-v10",
   "title": "3D Live Action Cam",
-  "author_url": "https://x.com/joni9j",
   "card_text": "Cámara cinematográfica y dinámica para las celebraciones de gol en los partidos, emulando retransmisiones de televisión reales.",
   "categories": [
     "bases-de-datos"
   ],
-  "description": "3D Live Action Cam (v5.0) transforma la realización de los partidos en Football Manager para darles un acabado de retransmisión televisiva real.\n\nCaracterísticas clave:\nCámaras cinemáticas: Ángulos dinámicos para celebraciones de gol, paseo inicial, faltas, decisiones del VAR y tomas al entrenador o árbitro.\n\nMenú en directo (Tecla 9): Interfaz dentro del partido para controlar las cámaras y ajustes al instante.\n\nIluminación TV: Foco de luz dinámico (Cinematic Light) que destaca a los jugadores en los planos cortos.\n\nNuevas repeticiones: Más de 20 perspectivas creativas (SpiderCam, dron, cámara en línea de gol) que van cambiando automáticamente.\n\nSeguimiento por clic: Selecciona a cualquier jugador o técnico con el ratón para que la cámara lo siga de cerca con varios encuadres.\n\nEncuadre automático: Ajusta la altura de la toma según el modelo del jugador para evitar cortes en primeros planos."
+  "description": "3D Live Action Cam (v5.0) transforma la realización de los partidos en Football Manager para darles un acabado de retransmisión televisiva real.\n\nCaracterísticas clave:\nCámaras cinemáticas: Ángulos dinámicos para celebraciones de gol, paseo inicial, faltas, decisiones del VAR y tomas al entrenador o árbitro.\n\nMenú en directo (Tecla 9): Interfaz dentro del partido para controlar las cámaras y ajustes al instante.\n\nIluminación TV: Foco de luz dinámico (Cinematic Light) que destaca a los jugadores en los planos cortos.\n\nNuevas repeticiones: Más de 20 perspectivas creativas (SpiderCam, dron, cámara en línea de gol) que van cambiando automáticamente.\n\nSeguimiento por clic: Selecciona a cualquier jugador o técnico con el ratón para que la cámara lo siga de cerca con varios encuadres.\n\nEncuadre automático: Ajusta la altura de la toma según el modelo del jugador para evitar cortes en primeros planos.",
+  "authors": [
+    {
+      "name": "joni9",
+      "url": "https://x.com/joni9j"
+    }
+  ]
 }

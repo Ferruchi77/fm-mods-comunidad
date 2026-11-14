@@ -13,7 +13,6 @@
       "path": "\\Steam\\steamapps\\common\\Football Manager 26\\BepInEx\\plugins"
     }
   ],
-  "author": " FM Tigrotto",
   "screenshots": [
     "/img/covers/fm-kitshub-in-game-s1.webp",
     "/img/covers/fm-kitshub-in-game-s2.webp"
@@ -31,10 +30,15 @@
   "cover": "/img/covers/fm-kitshub-in-game-cover.webp",
   "download_url": "https://fmtigrotto.com/tools/in-game-plugin",
   "title": "FM KitsHub in-game",
-  "author_url": "https://x.com/fmtigrotto",
   "card_text": "Plugin para descargar equipaciones 2D y 3D directamente dentro de FM sin salir del juego.",
   "categories": [
     "bases-de-datos"
   ],
-  "description": "Una ventana de «Kits Hub» directamente en la pantalla principal, además de un cuadro de descarga en cada club, liga, país y selección nacional. Elige entre 3D, 2D o ambos: el plugin descarga las equipaciones de la temporada 2026/27, organiza la carpeta «Kits» y le indica al juego que las cargue."
+  "description": "Una ventana de «Kits Hub» directamente en la pantalla principal, además de un cuadro de descarga en cada club, liga, país y selección nacional. Elige entre 3D, 2D o ambos: el plugin descarga las equipaciones de la temporada 2026/27, organiza la carpeta «Kits» y le indica al juego que las cargue.",
+  "authors": [
+    {
+      "name": "FM Tigrotto",
+      "url": "https://x.com/fmtigrotto"
+    }
+  ]
 }

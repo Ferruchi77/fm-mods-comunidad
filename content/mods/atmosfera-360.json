@@ -22,7 +22,6 @@
       "path": "\\Steam\\steamapps\\common\\Football Manager 26\\BepInEx\\plugins"
     }
   ],
-  "author": "MiguelFM",
   "screenshots": [
     "https://www.fmsite.net/applications/downloads/interface/legacy/screenshot.php?path=/monthly_2026_08/HIpjPJDXUAAY38y.png.c7f7e3d1668b77240cadd729697784f2.png"
   ],
@@ -39,10 +38,15 @@
   "cover": "/img/covers/atmosfera-360-cover.webp",
   "download_url": "https://www.patreon.com/MiguelFMAdboards/posts/atmosfera-360-v-173842807",
   "title": "Atmósfera 360",
-  "author_url": "https://x.com/MiguelFMAds",
   "card_text": "Recrea una retransmisión de TV real con marcadores, gráficos, vallas LED dinámicas y pancartas personalizadas en decenas de ligas.",
   "categories": [
     "bases-de-datos"
   ],
-  "description": "Qué está incluido\nMarcador de la liga, en lugar del marcador genérico del juego.\n\nAlineaciones que muestran los once iniciales de ambos equipos antes del partido\n\nCinemáticas cuando aparece el estadio\n\nLogotipo de televisión en la esquina, como en una transmisión en vivo.\n\nAnuncios LED móviles en las vallas publicitarias junto al campo de juego.\n\nPancartas de los aficionados en las gradas del Camp Nou, el Bernabéu y el Metropolitano.\n\nHumo de colores del equipo local\n\nVisualización de goles, tarjetas, sustituciones y lesiones, con el diseño del mod."
+  "description": "Qué está incluido\nMarcador de la liga, en lugar del marcador genérico del juego.\n\nAlineaciones que muestran los once iniciales de ambos equipos antes del partido\n\nCinemáticas cuando aparece el estadio\n\nLogotipo de televisión en la esquina, como en una transmisión en vivo.\n\nAnuncios LED móviles en las vallas publicitarias junto al campo de juego.\n\nPancartas de los aficionados en las gradas del Camp Nou, el Bernabéu y el Metropolitano.\n\nHumo de colores del equipo local\n\nVisualización de goles, tarjetas, sustituciones y lesiones, con el diseño del mod.",
+  "authors": [
+    {
+      "name": "MiguelFM",
+      "url": "https://x.com/MiguelFMAds"
+    }
+  ]
 }
