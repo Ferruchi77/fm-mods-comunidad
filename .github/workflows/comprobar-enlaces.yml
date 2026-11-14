@@ -7,6 +7,9 @@ on:
 permissions:
   contents: write   # guarda .github/link-state.json y las fichas marcadas como pendientes
   issues: write
+concurrency:
+  group: sync-main
+  cancel-in-progress: false
 jobs:
   check:
     runs-on: ubuntu-latest
