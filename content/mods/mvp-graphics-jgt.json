@@ -11,13 +11,17 @@
       "version": "V.1.0.1",
       "note": "Logró solucionar el problema de los FMHeads con el plugin MVP",
       "date": "2026-11-09"
+    },
+    {
+      "version": "V.1.0.2",
+      "note": "- Debut de la UEFA Europa League: Se añade la ceremonia 3D de la competición con su trofeo, rótulos, escudo y patrocinadores. Las imágenes de fondo y logos se pueden cambiar en su ruta correspondiente, manteniendo una distribución fija.\n- Duración configurable: La cinemática dura 5,5 segundos por defecto. Se puede ajustar entre 1 y 60 segundos modificando el archivo local.fm27.mvp.preview.cfg (que se genera solo) y reiniciando el juego.\n- Rótulos para competiciones personalizadas: Se configuran duplicando la carpeta de ejemplo y renombrándola con el ID de la competición. Permite personalizar colores con códigos hexadecimales y añadir logos propios para la competición y el club.\n- Fondos y patrocinadores editables: Las principales ligas incluyen imágenes propias que se pueden reemplazar (background.png). Si falta la imagen, se usan colores configurables mediante cloth.txt. Las competiciones personalizadas admiten además una marca de agua (watermark.png).\n- Cantidad y diseño de patrocinadores: Permite elegir entre 5 o 7 patrocinadores y combinarlos con dos tipos de distribución (Standard o Compact). Los archivos deben nombrarse correlativamente (logo1.png al logo7.png).\n- Mejora visual de los logos: El mod incluye un filtro de reescalado que suaviza los bordes dentados de los logos de los patrocinadores para que se vean más nítidos en movimiento.\n- Corrección de poses y trofeos: Se ajustaron los brazos y el agarre en varias competiciones (Europa League, Premier, LaLiga y Ligue 1), se modificó la pose del trofeo Default y se corrigió una deformación de texto en el trofeo de LaLiga.",
+      "date": "2026-11-12"
     }
   ],
   "screenshots": [
     "https://www.fmsite.net/applications/downloads/interface/legacy/screenshot.php?path=/monthly_2026_11/Screenshot2026-11-08172026.png.7f649133ea686e8c6faef5cfda584b77.png",
     "https://www.fmsite.net/applications/downloads/interface/legacy/screenshot.php?path=/monthly_2026_11/Screenshot2026-11-08172725.png.ef851a754daa23f27e39d368d1c806d8.png",
     "https://www.fmsite.net/applications/downloads/interface/legacy/screenshot.php?path=/monthly_2026_11/Screenshot2026-11-08162920.png.b9c1d0878dab48e10f65e160c27a4e79.png",
-    "https://www.fmsite.net/applications/downloads/interface/legacy/screenshot.php?path=/monthly_2026_11/Screenshot2026-11-08163854.png.68aeeecf7149bd9d4244932bd09b4fc5.png",
     "https://www.fmsite.net/applications/downloads/interface/legacy/screenshot.php?path=/monthly_2026_11/Screenshot2026-11-08170344.png.7c1a34db0cf160079d795baf0bc7892e.png"
   ],
   "featured": true,
