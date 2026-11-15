@@ -1,0 +1,30 @@
+{
+  "authors": [
+    {
+      "ref": "joni9"
+    }
+  ],
+  "modified": "2026-11-15",
+  "screenshots": [
+    "https://sortitoutsi.b-cdn.net/uploads/media_2026/vZ1LvtfYo1lJt0LPLqPpI8cEKU7VO6n4p7lblJ34.png",
+    "https://sortitoutsi.b-cdn.net/uploads/media_2026/TQTe9Z6tBDtp3nQUDuDyLP5kToQYgsyDPnNz7qCh.png",
+    "https://sortitoutsi.b-cdn.net/uploads/media_2026/UFKQ75M1W5UEkFnxp1gclYhZdq6hyEJmuPq6eVuL.png",
+    "https://sortitoutsi.b-cdn.net/uploads/media_2026/T0BXePKBCHL4UMovnOnm5FBvV3AdhuYjg1Qq3B1g.png",
+    "https://sortitoutsi.b-cdn.net/uploads/media_2026/7ZDUZGXwPo95Mlko6oRgN9phFhVfqULPBUCQQCnY.png",
+    "https://sortitoutsi.b-cdn.net/uploads/media_2026/wemm2niiJ9UzvqUErxJuGXt4oX44AtblYKUFF3sM.png"
+  ],
+  "featured": false,
+  "date": "2026-11-11",
+  "status": "🟢 Publicado",
+  "fm_versions": [
+    "FM27"
+  ],
+  "cover": "https://sortitoutsi.b-cdn.net/uploads/media_2026/wcr89ZnlmejWVX2fOShWTuO54hhLUaNz5QIcCj6l.png",
+  "download_url": "https://sortitoutsi.net/content/78459/fmmascotmod-over-50-living-3d-club-mascots",
+  "title": "FM Mascotas",
+  "card_text": "Mod para FM27 que introduce más de 50 mascotas 3D animadas con comportamientos dinámicos, celebraciones e invasiones de campo.",
+  "categories": [
+    "bases-de-datos"
+  ],
+  "description": "FMMascotMod – Over 50 Living 3D Club Mascots (creado por joni9) es un mod interactivo para Football Manager 27 y FM26 que introduce más de 50 mascotas oficiales animadas en 3D dentro del motor de partidos del juego.\n\nCaracterísticas principales\nInteligencia artificial y comportamiento en el estadio: Las mascotas patrullan el perímetro del recinto, saludan a la grada, siguen el balón en tiempo real y animan al público durante los cánticos.\n\nMomentos especiales y celebraciones: Participan en el recibimiento inicial y en el descanso sobre la línea de medio campo con postas y bailes personalizados (breakdance, samba, moonwalk, etc.). Asimismo, reaccionan dinámicamente a los tiros a los palos, paradas, tarjetas y revisiones de VAR, y cuentan con animaciones específicas para penaltis (corriendo detrás de la portería) o invasiones de campo en goles de la victoria de última hora.\n\nComplementos físicos avanzados: Incluye add-ons de vuelo para águilas reales (como Attila del Eintracht Frankfurt o Águia Vitória del Benfica), permitiéndoles planear bajo el techo del estadio y posarse sobre su escudo antes del partido, así como animaciones de cuadrúpedos para cabras como Hennes IX del Colonia.\n\nCompatibilidad: Se integra de forma fluida con otros mods populares como MVP Graphics JGT (añadiendo la mascota junto al jugador galardonado en la ceremonia de MVP) y el sistema de cámaras dinámicas.\n\nInstalación\nAsegúrate de tener instalado previamente el entorno BepInEx 6 (IL2CPP) en la carpeta principal de tu juego.\n\nCopia la carpeta completa del mod (FMMascotMod) dentro del directorio de plugins:\nFootball Manager 27\\BepInEx\\plugins\\\n(Nota: Para el correcto funcionamiento de la aparición de las mascotas en los estadios, se requiere de forma complementaria el sistema de inyección de estadios, como los paquetes de BassyBoy)."
+}
