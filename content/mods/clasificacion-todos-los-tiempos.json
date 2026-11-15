@@ -1,0 +1,45 @@
+{
+  "authors": [
+    {
+      "url": "https://x.com/OBMgamer",
+      "name": "ObstBauerMichael"
+    }
+  ],
+  "modified": "2026-11-15",
+  "updates": [
+    {
+      "note": "- Mejor correspondencia entre clubes: manejo de caracteres especiales (ł, ø, đ, æ…) y nombres de lugares en alemán (p. ej., «Wisla Krakau» = «Wisła Kraków»).\n- Se han corregido los ID de FM para unos 115 clubes adicionales (Grecia, Turquía, Portugal, Polonia, Bélgica, Chequia, Dinamarca, Francia, Noruega…).\n- En el caso de ligas con el mismo nombre en varios países (Superliga, Super League, Premier League), ahora se selecciona la que aparece en FM.\n- Skin Barlow: los menús desplegables de FM ya no permanecen por encima de la ventana; el fondo de la ventana ahora es opaco.\n- En algunos skins, el uso de fuentes de mayor tamaño en las tablas ya no provoca que los nombres de los clubes queden recortados.",
+      "version": "V.4.0.1",
+      "date": "2026-11-12"
+    },
+    {
+      "date": "2026-11-13",
+      "version": "V.4.0.2",
+      "note": "- Partidas guardadas que continúan desde FM26: las temporadas jugadas en tu partida (por ejemplo, la 2025/26) sustituyen ahora a los datos de la vida real en la clasificación histórica, las clasificaciones por temporada, el palmarés y los récords."
+    },
+    {
+      "date": "2026-11-14",
+      "version": "V.4.0.3",
+      "note": "- Corregido: La Bundesliga austriaca podía mostrar la clasificación histórica de la Bundesliga alemana (al compartir el mismo nombre de liga); ahora, las ligas se verifican mediante su ID de competición en FM.\n- Corregido: La vista «Solo guardar» mostraba «–» en lugar de los goles para aquellos clubes cuya fuente de datos real solo proporciona la diferencia de goles (por ejemplo, Corinthians, Palmeiras)."
+    }
+  ],
+  "screenshots": [
+    "https://sortitoutsi.b-cdn.net/uploads/media_2026/LXa5zym6TxLE2Iyr1Wtulq2q03Do9AT7Gi96Mtfn.png",
+    "https://sortitoutsi.b-cdn.net/uploads/media_2026/zVN4dfuVneWDWE87pCUSKgdCVh56YmDgDrfy4rc5.png",
+    "https://sortitoutsi.b-cdn.net/uploads/media_2026/MatuvqbGMCithon1qVnvpWQkDBYsATygGyXf0vdQ.png"
+  ],
+  "featured": false,
+  "date": "2026-11-12",
+  "status": "🟢 Publicado",
+  "fm_versions": [
+    "FM27"
+  ],
+  "cover": "https://sortitoutsi.b-cdn.net/uploads/media_2026/uhqFmTFUe4scLhDLVv7DQSE236SbwDTjcCFJBTC6.png",
+  "download_url": "https://sortitoutsi.net/content/78485/fm27-all-time-table-mod",
+  "title": "Clasificación Todos los Tiempos",
+  "card_text": "Mod para FM27 que añade tablas históricas y de clasificación acumulada en tiempo real para más de 1.800 ligas de todo el mundo.",
+  "categories": [
+    "bases-de-datos"
+  ],
+  "description": "All-Time Table Mod es un mod y plugin basado en BepInEx para Football Manager 27 que añade tablas históricas acumuladas (\"All-Time Tables\") a más de 1.800 ligas de todo el mundo dentro del propio juego.\n\nCaracterísticas principales\nIntegración en la interfaz: Añade una nueva opción de \"All-Time Table\" en el menú desplegable de clasificaciones de cualquier liga (\"Stages\" > \"Overall\"), abriendo una ventana con el diseño nativo de FM que se adapta a cualquier skin e idioma.\n\nDatos históricos reales y en tiempo real: Incorpora las clasificaciones históricas reales de cada competición hasta la temporada 2025/26 (compiladas a partir de fuentes como Transfermarkt, Wikipedia y la base de datos de FM), a la vez que actualiza los datos automáticamente temporada a temporada a medida que avanzas en tu partida guardada.\n\nVisualización en directo: Los equipos que participan en la temporada actual aparecen destacados en color dorado junto a columnas de partidos jugados y puntos de la temporada, mientras que tu propio club se resalta en rojo. También incluye el progreso respecto a la tabla real mediante una columna de variación (+/-) y el recuento de títulos históricos y de la partida.\n\nNavegación avanzada: Permite ordenar la tabla haciendo clic en cualquier cabecera de columna, cambiar entre vistas completas, solo datos reales o solo datos de la partida, y utilizar un selector de ligas estructurado por continentes y países.\n\nRequisitos e Instalación\nRequisitos: Requiere tener instalado previamente el entorno BepInEx 6 IL2CPP para Football Manager 27.\n\nInstalación: Copia los archivos del mod (incluyendo el plugin y los datos de ewige_tabelle.json) siguiendo las instrucciones detalladas en el archivo de texto incluido (LiesMich.txt) dentro de la carpeta de plugins de BepInEx."
+}
