@@ -1,0 +1,23 @@
+{
+  "authors": [
+    {
+      "name": "komet",
+      "url": "https://x.com/kometTM"
+    }
+  ],
+  "modified": "2026-11-15",
+  "featured": false,
+  "date": "2026-11-13",
+  "status": "🟢 Publicado",
+  "fm_versions": [
+    "FM27"
+  ],
+  "cover": "https://c10.patreonusercontent.com/4/patreon-media/p/post/175217219/09ae01ec36524c5090ee9078a2aa2b7f/eyJ3IjoxMDgwfQ%3D%3D/1.png?token-hash=35LUb1_ifp2gn1B4xtiU1MXszWqvEgnpDkIg_r6jlS0%3D&token-time=1795996800",
+  "download_url": "https://www.patreon.com/KometTM/posts/football-manager-175217219",
+  "title": "Socks Mod",
+  "card_text": "Plugin para FM27 que permite personalizar la altura de las medias y el uso de mallas de compresión de forma individual para cada jugador.",
+  "categories": [
+    "bases-de-datos"
+  ],
+  "description": "KometTM Socks Mod es un mod basado en un plugin de BepInEx que permite personalizar de forma individual la altura de las medias de los jugadores en el campo de juego.\n\nCaracterísticas principales\n- Personalización por jugador: Permite bajar las medias hasta los tobillos, subirlas por completo o dejarlas a cualquier altura intermedia mediante deslizadores individuales para cada futbolista.\n- Apariencia natural: Modifica la geometría de las piernas por debajo y ajusta el tono de piel de cada jugador para que las medias bajadas luzcan realistas con cualquier diseño de equipación, adaptando el patrón de la tela a la altura elegida.\n- Mallas y guardado automático: Incluye la opción de activar o desactivar mallas térmicas (leggings) de manera individual o dejar que el juego decida, guardando los cambios de forma automática para no tener que reconfigurar la plantilla en cada partido.\n- Controles: Pulsando la tecla U durante un partido se abre el menú interactivo para gestionar las plantillas local y visitante.\n\nInstalación\n- Asegúrate de tener instalado previamente el entorno BepInEx 6 (IL2CPP) para Football Manager 27.\n- Copia la carpeta KometSocks dentro del directorio de complementos:\n- Football Manager 27\\BepInEx\\plugins\\\n- Inicia un partido, presiona la tecla U y ajusta las preferencias de los jugadores según tus preferencias."
+}
