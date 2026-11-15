@@ -1,0 +1,31 @@
+{
+  "authors": [
+    {
+      "name": "bartekr "
+    },
+    {
+      "name": "endrieq "
+    },
+    {
+      "name": "kajetanor"
+    },
+    {
+      "name": "diament1396"
+    }
+  ],
+  "modified": "2026-11-15",
+  "featured": false,
+  "date": "2026-11-14",
+  "status": "🟢 Publicado",
+  "fm_versions": [
+    "FM27"
+  ],
+  "cover": "https://www.fmscout.com/datas/users/pll27_61216.jpg",
+  "download_url": "https://www.fmscout.com/a-pll-fm27.html",
+  "title": "Poland Lower Leagues (Level 5)",
+  "card_text": "Base de datos para FM27 que desbloquea hasta el nivel 5 del fútbol polaco con estructura dinámica, ascensos y copas regionales.",
+  "categories": [
+    "editor-data"
+  ],
+  "description": "Poland Lower Leagues (Level 5) for FM27 (dyn. structure) (creado por bartekr, endrieq, kajetanor y diament1396) es un archivo de base de datos para Football Manager 27 disponible en FM Scout que amplía y desbloquea el sistema de ligas inferiores de Polonia.\n\nCaracterísticas principales\n- Niveles desbloqueados: Añade el tercer, cuarto y quinto nivel del sistema de ligas polaco, incorporando un sistema dinámico de ascensos y descensos para el cuarto nivel.\n- Calendarios y licencias: Incluye reglas y fechas de partidos reales ajustadas para la temporada 2026/27, además de una mejor regionalización de los ascensos y descensos.\n- Copas y clubes: Añade 16 copas regionales (una por cada voivodato) para clubes de la 4ª división e inferiores, junto con la creación manual de nuevos clubes, ciudades y estadios.\n\nCómo instalar\n- Descarga el archivo de actualización desde FM Scout.\n- Colócalo en la carpeta de datos del juego dentro de tus documentos de usuario:C:\\Users\\XXXX\\Documents\\Sports Interactive\\Football Manager 27\\editor data\n- Inicia una nueva partida en Football Manager 27 asegurándote de tener activada esta base de datos en las opciones previas al arranque."
+}
