@@ -14,8 +14,11 @@
   "screenshots": [
     "/img/covers/megapack-de-caras-3d-s1.webp"
   ],
+  "featured": true,
   "date": "2026-10-30",
-  "badges": [],
+  "badges": [
+    "Imprescindible"
+  ],
   "status": "🟢 Publicado",
   "fm_versions": [
     "FM27",
