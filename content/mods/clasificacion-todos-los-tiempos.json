@@ -24,9 +24,9 @@
     }
   ],
   "screenshots": [
-    "https://sortitoutsi.b-cdn.net/uploads/media_2026/LXa5zym6TxLE2Iyr1Wtulq2q03Do9AT7Gi96Mtfn.png",
-    "https://sortitoutsi.b-cdn.net/uploads/media_2026/zVN4dfuVneWDWE87pCUSKgdCVh56YmDgDrfy4rc5.png",
-    "https://sortitoutsi.b-cdn.net/uploads/media_2026/MatuvqbGMCithon1qVnvpWQkDBYsATygGyXf0vdQ.png"
+    "/img/covers/clasificacion-todos-los-tiempos-s1-651b6c72.webp",
+    "/img/covers/clasificacion-todos-los-tiempos-s2-188afa19.webp",
+    "/img/covers/clasificacion-todos-los-tiempos-s3-95ff5efd.webp"
   ],
   "featured": false,
   "date": "2026-11-12",
@@ -34,7 +34,7 @@
   "fm_versions": [
     "FM27"
   ],
-  "cover": "https://sortitoutsi.b-cdn.net/uploads/media_2026/uhqFmTFUe4scLhDLVv7DQSE236SbwDTjcCFJBTC6.png",
+  "cover": "/img/covers/clasificacion-todos-los-tiempos-cover-68064441.webp",
   "download_url": "https://sortitoutsi.net/content/78485/fm27-all-time-table-mod",
   "title": "Clasificación Todos los Tiempos",
   "card_text": "Mod para FM27 que añade tablas históricas y de clasificación acumulada en tiempo real para más de 1.800 ligas de todo el mundo.",
