@@ -1,10 +1,20 @@
 {
+  "authors": [
+    {
+      "name": "FM_Daveincid",
+      "url": "https://x.com/daveincid"
+    }
+  ],
   "install_path": "\\Documents\\Sports Interactive\\Football Manager 27\\editor data",
   "modified": "2026-11-10",
   "updates": [
     {
       "version": "BETA DE NOVIEMBRE",
       "date": "2026-11-06"
+    },
+    {
+      "version": "EarlyAccess ",
+      "date": "2026-11-13"
     }
   ],
   "featured": true,
@@ -24,11 +34,5 @@
   "categories": [
     "editor-data"
   ],
-  "description": "137 naciones adicionales:\nÁfrica: 45\nAsia: 30\nAmérica del Norte/Central y el Caribe: 34\nEuropa: 14\nOceanía: 11\nAmérica del Sur: 3\nInglaterra: Nivel 8\nAlemania: Nivel 4",
-  "authors": [
-    {
-      "name": "FM_Daveincid",
-      "url": "https://x.com/daveincid"
-    }
-  ]
+  "description": "137 naciones adicionales:\nÁfrica: 45\nAsia: 30\nAmérica del Norte/Central y el Caribe: 34\nEuropa: 14\nOceanía: 11\nAmérica del Sur: 3\nInglaterra: Nivel 8\nAlemania: Nivel 4"
 }
