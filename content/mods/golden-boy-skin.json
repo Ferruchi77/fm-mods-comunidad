@@ -17,6 +17,21 @@
       "date": "2026-11-06",
       "version": "V.1.0.2",
       "note": "✅ Encabezado de jugador totalmente nuevo\n✅ Coste del traspaso y club anterior\n✅ Vitrina de trofeos"
+    },
+    {
+      "date": "2026-11-12",
+      "version": "V.1.0.3",
+      "note": "✅ Resumen del club totalmente nuevo\n✅ Entrenador y capitán en la pantalla de la selección nacional\n✅ Perfil de jugador para cada configuración de visualización"
+    },
+    {
+      "date": "2026-11-13",
+      "version": "V.1.0.4",
+      "note": "✅ Carga de páginas más rápida\n✅ Reconstruido sobre FM27 27.0.1\n✅ Organización de carpetas más ordenada para estadios y trofeos"
+    },
+    {
+      "note": "✅ Foto del estadio en la cabecera del club\n✅ Vuelven las fotos de la ciudad\n✅ Nuevo diseño de carta de cristal",
+      "date": "2026-11-15",
+      "version": "V.1.0.5"
     }
   ],
   "screenshots": [
