@@ -6,12 +6,12 @@
   ],
   "modified": "2026-11-15",
   "screenshots": [
-    "https://sortitoutsi.b-cdn.net/uploads/media_2026/vZ1LvtfYo1lJt0LPLqPpI8cEKU7VO6n4p7lblJ34.png",
-    "https://sortitoutsi.b-cdn.net/uploads/media_2026/TQTe9Z6tBDtp3nQUDuDyLP5kToQYgsyDPnNz7qCh.png",
-    "https://sortitoutsi.b-cdn.net/uploads/media_2026/UFKQ75M1W5UEkFnxp1gclYhZdq6hyEJmuPq6eVuL.png",
-    "https://sortitoutsi.b-cdn.net/uploads/media_2026/T0BXePKBCHL4UMovnOnm5FBvV3AdhuYjg1Qq3B1g.png",
-    "https://sortitoutsi.b-cdn.net/uploads/media_2026/7ZDUZGXwPo95Mlko6oRgN9phFhVfqULPBUCQQCnY.png",
-    "https://sortitoutsi.b-cdn.net/uploads/media_2026/wemm2niiJ9UzvqUErxJuGXt4oX44AtblYKUFF3sM.png"
+    "/img/covers/fm-mascotas-s1-6c0eee96.webp",
+    "/img/covers/fm-mascotas-s2-12cc8a8c.webp",
+    "/img/covers/fm-mascotas-s3-2ce45c30.webp",
+    "/img/covers/fm-mascotas-s4-a036e303.webp",
+    "/img/covers/fm-mascotas-s5-938b5253.webp",
+    "/img/covers/fm-mascotas-s6-df6a1f3e.webp"
   ],
   "featured": false,
   "date": "2026-11-11",
@@ -19,7 +19,7 @@
   "fm_versions": [
     "FM27"
   ],
-  "cover": "https://sortitoutsi.b-cdn.net/uploads/media_2026/wcr89ZnlmejWVX2fOShWTuO54hhLUaNz5QIcCj6l.png",
+  "cover": "/img/covers/fm-mascotas-cover-9d141fda.webp",
   "download_url": "https://sortitoutsi.net/content/78459/fmmascotmod-over-50-living-3d-club-mascots",
   "title": "FM Mascotas",
   "card_text": "Mod para FM27 que introduce más de 50 mascotas 3D animadas con comportamientos dinámicos, celebraciones e invasiones de campo.",
