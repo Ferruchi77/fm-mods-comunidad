@@ -10,6 +10,11 @@
       "note": "- Corrección para identificar el inicio correcto del calendario.",
       "version": "V.0.9.1",
       "date": "2026-11-07"
+    },
+    {
+      "note": "• Mentoría facilitada, incluyendo a jugadores sub-18 y sub-21.\n• El entrenamiento individual ahora también se integra en el sistema.\n• Entrenamiento «Harvestgreen»: un selector en la parte superior de la ventana permite cambiar el plan de entrenamiento por el basado en las pruebas de FM27 realizadas por harvestgreen22 y squirrel_plays.",
+      "date": "2026-11-14",
+      "version": "V.0.9.3"
     }
   ],
   "featured": false,
