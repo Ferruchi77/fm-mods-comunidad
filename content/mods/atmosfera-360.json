@@ -1,4 +1,10 @@
 {
+  "authors": [
+    {
+      "name": "MiguelFM",
+      "url": "https://x.com/MiguelFMAds"
+    }
+  ],
   "install_path": "\\Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins",
   "modified": "2026-11-10",
   "updates": [
@@ -32,7 +38,6 @@
   ],
   "status": "🟢 Publicado",
   "fm_versions": [
-    "FM26",
     "FM27"
   ],
   "cover": "/img/covers/atmosfera-360-cover.webp",
@@ -42,11 +47,5 @@
   "categories": [
     "bases-de-datos"
   ],
-  "description": "Qué está incluido\nMarcador de la liga, en lugar del marcador genérico del juego.\n\nAlineaciones que muestran los once iniciales de ambos equipos antes del partido\n\nCinemáticas cuando aparece el estadio\n\nLogotipo de televisión en la esquina, como en una transmisión en vivo.\n\nAnuncios LED móviles en las vallas publicitarias junto al campo de juego.\n\nPancartas de los aficionados en las gradas del Camp Nou, el Bernabéu y el Metropolitano.\n\nHumo de colores del equipo local\n\nVisualización de goles, tarjetas, sustituciones y lesiones, con el diseño del mod.",
-  "authors": [
-    {
-      "name": "MiguelFM",
-      "url": "https://x.com/MiguelFMAds"
-    }
-  ]
+  "description": "Qué está incluido\nMarcador de la liga, en lugar del marcador genérico del juego.\n\nAlineaciones que muestran los once iniciales de ambos equipos antes del partido\n\nCinemáticas cuando aparece el estadio\n\nLogotipo de televisión en la esquina, como en una transmisión en vivo.\n\nAnuncios LED móviles en las vallas publicitarias junto al campo de juego.\n\nPancartas de los aficionados en las gradas del Camp Nou, el Bernabéu y el Metropolitano.\n\nHumo de colores del equipo local\n\nVisualización de goles, tarjetas, sustituciones y lesiones, con el diseño del mod."
 }
