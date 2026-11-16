@@ -1,0 +1,35 @@
+{
+  "instructions": "",
+  "authors": [
+    {
+      "name": "beni",
+      "url": "https://x.com/benithemaker"
+    }
+  ],
+  "modified": "2026-11-10",
+  "updates": [
+    {
+      "version": "V.2.0.1",
+      "date": "2026-03-03"
+    }
+  ],
+  "screenshots": [
+    "/img/covers/fm27-bootpack-s1.webp"
+  ],
+  "featured": false,
+  "date": "2025-11-03",
+  "badges": [],
+  "status": "🟢 Publicado",
+  "fm_versions": [
+    "FM27",
+    "FM26"
+  ],
+  "cover": "/img/covers/fm27-bootpack-cover.webp",
+  "download_url": "https://sortitoutsi.net/content/74959/fm26-bootpack",
+  "title": "FM Bootpack",
+  "card_text": "Añade modelos y diseños reales de botas de fútbol al motor gráfico del juego mediante paquetes de colecciones.",
+  "categories": [
+    "app-externa"
+  ],
+  "description": "FM26/27 Bootpack (compatible con Football Manager 27 y sistemas Windows y macOS) es una herramienta interactiva para actualizar y añadir una gran variedad de botas de fútbol reales al juego.\n\nQué hace: Permite descargar e instalar colecciones de botas de marcas populares (como Nike, adidas o Puma) que sustituyen de forma automática los modelos predeterminados del juego."
+}

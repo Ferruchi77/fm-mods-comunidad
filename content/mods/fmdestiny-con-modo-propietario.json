@@ -1,0 +1,59 @@
+{
+  "authors": [
+    {
+      "name": "PandaFM",
+      "url": "https://x.com/f_mpanda"
+    }
+  ],
+  "modified": "2026-11-07",
+  "updates": [
+    {
+      "version": "V.1.5",
+      "date": "2026-11-03",
+      "note": "La nueva imagen de la APP Panda Individual que ya tiene nombre propio y 5 idiomas\n\nComprar un club ya permite mejorar las instalaciones, y mejorar las políticas juveniles, aportando del propio bolsillo. Tus hijos pueden continuar tu legado."
+    },
+    {
+      "version": "V.2.0",
+      "note": "Merchandising\nAcademias internacionales\nMinijuego de acertar el resultado de la liga para que el manager gane mas dinero",
+      "date": "2026-11-04"
+    },
+    {
+      "date": "2026-11-06",
+      "version": "V.2.4"
+    },
+    {
+      "version": "V.2.9",
+      "date": "2026-11-07",
+      "note": "Soluciona algunos problemas"
+    },
+    {
+      "note": "Soluciona todos los problemas de conectividad que manifestaron",
+      "version": "V.3.3",
+      "date": "2026-11-09"
+    }
+  ],
+  "screenshots": [
+    "/img/covers/panda-individual-s1.webp",
+    "/img/covers/panda-individual-s2.webp",
+    "/img/covers/panda-individual-s3.webp",
+    "https://www.fmsite.net/applications/downloads/interface/legacy/screenshot.php?path=/monthly_2026_11/03_academias_extranjeras.jpg.c4a9dd590c7938401acda33de4c5e34d.jpg",
+    "https://www.fmsite.net/applications/downloads/interface/legacy/screenshot.php?path=/monthly_2026_11/02_instalaciones_y_estadio.jpg.6602108b8bdd44af79af398604308ddb.jpg",
+    "https://www.fmsite.net/applications/downloads/interface/legacy/screenshot.php?path=/monthly_2026_11/04_merchandising.jpg.1b1e3a980026976be71cc54c5e56ebd0.jpg",
+    "https://www.fmsite.net/applications/downloads/interface/legacy/screenshot.php?path=/monthly_2026_11/05_grupo_de_clubes.jpg.f454bafe34dddb1ffe98bf06d1753966.jpg"
+  ],
+  "featured": false,
+  "date": "2026-11-01",
+  "badges": [],
+  "status": "🟢 Publicado",
+  "fm_versions": [
+    "FM27"
+  ],
+  "cover": "https://www.fmsite.net/applications/downloads/interface/legacy/screenshot.php?path=/monthly_2026_11/01_fmdestiny_2_0.jpg.82f51a0325fcfaf45b6691baaec95951.jpg",
+  "download_url": "https://www.fmsite.net/files/file/1941-panda-individual-la-vida-de-tu-entrenador-fuera-del-campo/",
+  "title": "FMDestiny con Modo Propietario",
+  "card_text": "Gestiona tu club como un auténtico propietario: finanzas, directiva, instalaciones y decisiones globales con la app externa de Panda.",
+  "categories": [
+    "app-externa"
+  ],
+  "description": "Panda Individual — La vida de tu entrenador fuera del campo es una aplicación externa para Football Manager que añade una capa de simulación de rol sobre la vida personal del mánager.\n\nFunciones principales:\n\nEconomía y estilo de vida: Gestiona tu sueldo real del juego para comprar viviendas, vehículos y objetos personales, además de cubrir gastos de salud y transporte.\n\nRelaciones y desarrollo: Permite formar una familia y estudiar licencias de entrenador.\n\nAcontecimientos: Incluye un sistema de avisos de eventos diarios y un modo de «Descontrol total» con decisiones y ausencias automáticas (como vacaciones forzadas por enfermedad o prisión)."
+}
