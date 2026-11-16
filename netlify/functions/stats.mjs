@@ -25,11 +25,15 @@ const rebuild=async(stats,now)=>{
   return data;
 };
 
-export const handle=async(req,ip,{stats,votes,exists,salt,now=Date.now()})=>{
+// alias = {slugNuevo: slugAntiguo} (scripts/renombrados.json): al renombrar una ficha, sus votos, valoraciones y descargas siguen guardados con el slug antiguo.
+// Se guardan siempre con la clave antigua y al leer se devuelven con el slug nuevo.
+export const handle=async(req,ip,{stats,votes,exists,salt,alias={},now=Date.now()})=>{
   if(req.method==='GET'){
     let idx=null;try{idx=await stats.get(IDX,{type:'json'})}catch{}
     const data=idx&&idx.data&&now-idx.t<INDEX_TTL?idx.data:await rebuild(stats,now);
-    return json(data,200,{'cache-control':'public, max-age=30'});
+    const inv=Object.fromEntries(Object.entries(alias).map(([n,o])=>[o,n])),out={};
+    for(const [k,v] of Object.entries(data))out[inv[k]||k]=v;
+    return json(out,200,{'cache-control':'public, max-age=30'});
   }
   if(req.method!=='POST')return json({error:'method'},405);
   if(!salt)return json({error:'config'},503);   // sin STATS_SALT no se aceptan votos: nunca se usa una clave pública por defecto
@@ -41,6 +45,7 @@ export const handle=async(req,ip,{stats,votes,exists,salt,now=Date.now()})=>{
   let b;try{b=await req.json()}catch{return json({error:'json'},400)}
   const {slug,action}=b||{};
   if(!SLUG.test(slug||'')||!ACTIONS.includes(action))return json({error:'bad'},400);
+  const key=alias[slug]||slug;   // clave con la que se guardan sus datos
   const me=hid(salt,ip);
   // límite por hora y persona
   const rk='rl:'+me,rl=(await votes.get(rk,{type:'json'}))||{t:now,c:0};
@@ -48,8 +53,8 @@ export const handle=async(req,ip,{stats,votes,exists,salt,now=Date.now()})=>{
   if(rl.c>=LIMIT)return json({error:'rate'},429,{'retry-after':'3600'});
   rl.c++;await votes.setJSON(rk,rl);
   if(!(await exists(slug)))return json({error:'unknown'},404);
-  const cur={...blank(),...((await stats.get(slug,{type:'json'}))||{})};
-  const vk=`${slug}:${me}`,mine={like:false,rate:0,dl:0,w:{},...((await votes.get(vk,{type:'json'}))||{})};
+  const cur={...blank(),...((await stats.get(key,{type:'json'}))||{})};
+  const vk=`${key}:${me}`,mine={like:false,rate:0,dl:0,w:{},...((await votes.get(vk,{type:'json'}))||{})};
   if(action==='download'&&now-mine.dl>DAY){cur.downloads++;mine.dl=now}
   if(action==='like'&&!mine.like){cur.likes++;mine.like=true}
   if(action==='unlike'&&mine.like){cur.likes=Math.max(0,cur.likes-1);mine.like=false}
@@ -67,14 +72,16 @@ export const handle=async(req,ip,{stats,votes,exists,salt,now=Date.now()})=>{
     const w=cur.works=cur.works||{},c=w[ver]=w[ver]||{ok:0,ko:0},prev=mine.w[ver];
     if(prev!==v){if(prev)c[prev]=Math.max(0,c[prev]-1);c[v]++;mine.w[ver]=v}
   }
-  await Promise.all([stats.setJSON(slug,cur),votes.setJSON(vk,mine)]);
+  await Promise.all([stats.setJSON(key,cur),votes.setJSON(vk,mine)]);
   // actualiza el índice al momento (si falla, se reconstruirá solo)
-  try{const idx=await stats.get(IDX,{type:'json'});if(idx&&idx.data){idx.data[slug]=cur;await stats.setJSON(IDX,idx)}}catch{}
+  try{const idx=await stats.get(IDX,{type:'json'});if(idx&&idx.data){idx.data[key]=cur;await stats.setJSON(IDX,idx)}}catch{}
   return json(cur);
 };
 
 // @netlify/blobs se importa aquí (y no arriba) para que las pruebas de handle() no lo necesiten
-export default async (req,context)=>{const {getStore}=await import('@netlify/blobs');return handle(req,context?.ip||req.headers.get('x-nf-client-connection-ip')||'',{
-  stats:getStore('mod-stats'),votes:getStore('mod-votes'),salt:process.env.STATS_SALT||undefined,
+export default async (req,context)=>{const {getStore}=await import('@netlify/blobs');
+  let alias={};try{const R=(await import('../../scripts/renombrados.json',{with:{type:'json'}})).default.slugs||{};alias=Object.fromEntries(Object.entries(R).map(([o,n])=>[n,o]))}catch{}
+  return handle(req,context?.ip||req.headers.get('x-nf-client-connection-ip')||'',{
+  stats:getStore('mod-stats'),votes:getStore('mod-votes'),salt:process.env.STATS_SALT||undefined,alias,
   exists:slug=>fetch(new URL(`/mod/${slug}/`,req.url),{method:'HEAD'}).then(r=>r.ok).catch(()=>false)})};
 export const config={path:'/api/stats'};
