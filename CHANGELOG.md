@@ -1,9 +1,44 @@
 # Cambios
 
-## v.2.0 (auditoría técnica)
+*Formato de versión: **V2.3** (mayor.menor). La siguiente será V2.4, y así sucesivamente.*
+
+## V2.3 (página de Inicio, textos nuevos y CI que no se rompe al actualizar)
+- **Página de Inicio (`/`) nueva** y **catálogo en `/mods/`**. Inicio: hero con el buscador al centro y dos botones (*Ver todos los mods* / *Cómo instalar*), guía de instalación plegable, **categorías como teselas** (con icono, descripción y nº de mods; enlazan a las páginas de categoría), imprescindibles, últimos 8 mods, novedades y los bloques de café y X. Catálogo: el listado completo con todos los filtros, píldoras de versión, orden y vista en lista (sin cambios de comportamiento).
+- **Menú:** nuevos enlaces *Inicio* y *Mods* (la página actual queda subrayada) y las categorías ahora apuntan a `/mods/?cat=…`. También en el pie.
+- **Enlaces antiguos:** `/?cat=skins`, `/?q=…`, `/?ver=FM27`… redirigen solos a `/mods/…` (en cada idioma). El buscador de cualquier página envía a `/mods/?q=…`. El `sitemap.xml`, los `hreflang` y el JSON-LD de búsqueda incluyen `/mods/`.
+- **Texto de la portada más atractivo** en los 6 idiomas: *«Dale otra cara a tu Football Manager»* + *«Skins, caras, estadios, bases de datos y plugins elegidos por la comunidad. Cada mod con su versión compatible y la ruta de instalación lista para copiar.»*
+- **Claves nuevas** en `locales/*.json` (los 6 idiomas): `nav_home`, `nav_mods`, `mods_h1`, `mods_p`, `seo_mods_t`, `seo_mods_d`, `cats_h2`, `mods_all`; `hero_h1` y `hero_p` reescritas.
+- **Versiones con el formato V2.3** (antes `v.23`): también en el pie de la web, en `package.json` (2.3.0) y en todo el historial de este archivo (V1.9, V2.0, V2.1, V2.2…).
+- **CI (GitHub Actions) que no se rompe al actualizar:** los tests de *contenido* (fichas con `install_path` sin ruta, `utm_`, campo `author` antiguo) pasan a **avisar sin fallar**, porque lo que guarda el panel no debe tumbar el despliegue. Desaparece el test que exigía borrar `imagenes.yml`; en su lugar, `scripts/obsoletos.json` lista los archivos que ya no hacen falta y el CI los **avisa** (`::warning`) sin fallar. En cada entrega nueva se añaden ahí los archivos que haya que borrar.
+- **Nombres de mod traducidos en cada idioma** (`content/traducciones.json`): los nombres descriptivos se traducen (p. ej. *Stadium Megapack* → «Megapack de Estadios», «Megapack d'Estadis», «Mégapack de Stades»…) y los nombres propios o de marca se mantienen (*FaceDrop*, *TCM Logos*, *Regenesis 27*…). Además, un mod con el título escrito en inglés **ahora también sale con su nombre en español en la web en español** (entrada opcional `es` en `traducciones.json`; `translate.js --import` la acepta). El buscador propone el nombre en el idioma de la página y sigue encontrando el original.
+- **Fichas renombradas** para que el archivo coincida con el título: `marcador-pro-fm26` → `tcm-logos`, `megapack-caras-fm26` → `megapack-de-caras-df11`, `panda-individual` → `fmdestiny-con-modo-propietario`, `skin-darkflow-fm26` → `balones-3d-temporada-26-27`, `bd-nombres-reales-fm27` → `nombres-reales`, `nombre-jugadores` → `nombre-jugadores-en-partido`, `actionlink-kits-3d` → `fm-actionlink-kits-3d`, `fm27-bootpack` → `fm-bootpack`, `stadium-megapack-1` → `stadium-megapack`. `scripts/renombrados.json` es la lista oficial: de ahí salen las **redirecciones 301** (`/mod/antiguo/` → `/mod/nuevo/` en los 6 idiomas), el **alias de estadísticas** (votos, valoraciones y descargas se conservan) y la migración de favoritos, «me gusta» y valoraciones guardados en el navegador. El CI avisa de las fichas antiguas que haya que borrar y de cualquier archivo que no coincida con su título (sin fallar).
+- 22 traducciones de novedades y textos breves que estaban pendientes.
+- Nueva guía `ACTUALIZAR.md` con los pasos para subir una versión a GitHub sin dejar archivos viejos ni carpetas fuera de sitio.
+
+## V2.2 (interfaz: paleta, buscador, píldoras y tarjetas)
+- **Paleta con variables `:root`:** fondo `#0f172a`, tarjetas `#162036`/`#1e2b45` y acento esmeralda `#10b981` reservado a botones de acción, filtros activos e insignias destacadas (Imprescindible, Nuevo). Tema claro de alto contraste (fondo `#f1f5f9`, tarjetas blancas con borde, acento `#047857`). Texto principal, secundario y texto sobre el acento cumplen WCAG AA (mínimo 5,0:1) en ambos temas.
+- **CSS reescrito y ordenado** en 17 secciones con índice (fuentes, variables, base, cabecera, hero, filtros, tarjetas, ficha, novedades, bloques finales, móvil…). Sin cambios en los nombres de clase que usa el JS.
+- **Hero:** titular de hasta 5,6 rem con más aire; el buscador pasa al centro de la portada (campo grande con borde que se ilumina al enfocar). En la cabecera queda una lupa que lleva a él. En el resto de páginas el buscador sigue en la cabecera.
+- **Filtros:** categorías y versiones (FM27 · FM26 · FM24) como píldoras con icono SVG; el activo va relleno de acento y en negrita. Las píldoras de versión se generan desde el `<select>` (que sigue siendo la fuente de verdad: URL, reinicio y recuento) y en móvil las filas se desplazan en horizontal.
+- **Tarjetas:** portada 16:9, estado e insignias arriba a la izquierda y versiones abajo a la izquierda; título de hasta 2 líneas, descripción de hasta 3 y, abajo, autor + categoría + fecha en discreto. Elevación `translateY(-4px)` con borde y brillo de acento al pasar el ratón (desactivada con `prefers-reduced-motion`).
+- **Guía de instalación:** barra compacta con los cuatro pasos numerados que se despliega (`<details>`).
+- **Bloques finales:** «Invitar a un café» y «Síguenos en X» como tarjetas con icono en una cuadrícula de dos columnas.
+- **Corregido:** la insignia dinámica «Nuevo» había dejado de pintarse en la V2.1 (se había quitado el contenedor `.ph-b` que usa `app.js`); vuelve a aparecer.
+- Tests actualizados (descripción limitada por CSS, fecha de versión neutra) y 2 nuevos.
+
+## V2.1 (rediseño visual)
+- **Tipografía propia:** Archivo (variable, licencia OFL) alojada en `/fonts/`, sin servicios externos (la CSP sigue en `font-src 'self'`). Titulares condensados tipo marcador y texto en anchura normal. Precarga de las dos fuentes principales.
+- **Paleta:** azul noche sin brillos ni rejilla de fondo ni degradados; el violeta desaparece. El ámbar queda para la acción principal (descargar, botón de apoyo) y los estados activos van en gris azulado. Tema claro a juego.
+- **Formas:** se acabaron las píldoras y los círculos: radios de 3–6 px, filetes finos en lugar de cajas.
+- **Tarjetas:** la portada manda (3:2), sin caja, sombra ni elevación; versiones e insignias pasan debajo de la imagen como texto (✓ FM26 · FM27) y desaparece la insignia «Actualizado» (la fecha ya sale abajo). En pantallas anchas, el primer imprescindible ocupa 2×2.
+- **Portada:** titular más grande, línea de datos reales (nº de mods, versiones, última actualización) y guía de instalación en una fila con números grandes, sin tarjetas.
+- **Móvil:** guía compacta, cabecera sin el icono de X y datos sin separadores sueltos.
+- Fichas, novedades, categorías y paneles heredan el nuevo estilo (novedades como lista con filetes, compatibilidad con barra lateral).
+
+## V2.0 (auditoría técnica)
 **Seguridad**
 - `/api/stats`: `STATS_SALT` obligatoria (sin clave por defecto, 503 si falta), identificador con HMAC-SHA256, IPv6 agrupada por /64, rechazo de peticiones entre sitios (`Origin` / `Sec-Fetch-Site`) y de peticiones sin IP (antes compartían el cubo «anon»). +1 prueba.
-- Panel: nuevas `netlify/functions/auth.mjs` y `callback.mjs` (login con GitHub, anti-CSRF con `state`, lista `GITHUB_ALLOWED_USERS`) y `scripts/migrar-cms.js` (con `--atras`). `local_backend` ya no está activo por defecto. *Corrección:* el CHANGELOG v.1.7 las daba por existentes pero no estaban en el repositorio.
+- Panel: nuevas `netlify/functions/auth.mjs` y `callback.mjs` (login con GitHub, anti-CSRF con `state`, lista `GITHUB_ALLOWED_USERS`) y `scripts/migrar-cms.js` (con `--atras`). `local_backend` ya no está activo por defecto. *Corrección:* el CHANGELOG V1.7 las daba por existentes pero no estaban en el repositorio.
 - Cabeceras: HSTS, COOP y `X-Robots-Tag: noindex` en `/admin/*`.
 - Workflows: `parche.yml` recibe sus entradas por variables de entorno y las valida; `concurrency` común en los que escriben en `main`; eliminado `imagenes.yml` (duplicaba a `sync-autores.yml`).
 
@@ -20,7 +55,7 @@
 - Fichas: `install_path` que eran instrucciones, parámetros `utm_*` en enlaces de Patreon y 18 fichas con el campo antiguo `author` (ahora `authors`).
 - Privacidad: se indica el plazo de conservación de los identificadores de voto.
 
-## v.1.9
+## V1.9
 **Panel de administración**
 - **Publicación automática:** el panel pasa a `publish_mode: simple`. Con el estado «🟢 Publicado», **Guardar** publica la ficha directamente (commit a `main`, sin ramas ni los pasos «Listo» → «Publicar»). Los «🟡 Borrador / En revisión» se guardan igual pero `build.js` no los publica en la web.
 - **Editor de texto enriquecido** (`fmrich`, `public/admin/richtext.js` + `widgets.js`) en la **descripción** y en **«Qué ha cambiado»** de cada versión: **negrita**, lista con guiones, **selector de color** (paleta + color libre), «Quitar formato» y modo «</> Código». El texto se ve **justificado** en el editor y en la vista previa del panel.
@@ -44,8 +79,8 @@
 - **Comprobar** instala también `jsdom` (solo en CI, sin tocar `package.json`) para la prueba del editor del panel.
 - Pruebas: +10 (editor ⇄ marcado, texto enriquecido, tarjetas relacionadas, fecha destacada, Novedades, nombres traducidos, publicación directa, workflows).
 
-## v.1.8
-**Pendientes de la v.17**
+## V1.8
+**Pendientes de la V1.7**
 - `srcset` completo: las tarjetas de la parrilla llevan 320 w + 640 w + la imagen original con su **ancho real** (leído de la cabecera del WebP) y `sizes="(max-width:600px) 46vw, 260px"`; «Más como este» usa 320 w/640 w con `sizes="96px"` (sin cargar nunca el original).
 - Portadas externas → WebP en CI sin romper enlaces (`scripts/imagenes.js`):
   - la imagen descargada se valida (debe decodificarse, tamaño máx. 25 MB, un reintento si hay fallo de red/5xx) y se escribe en un `.tmp` que se renombra al terminar;
@@ -60,7 +95,7 @@
 - Ficha, **icono roto corregido**: el contador «👍 N me gusta» usaba la clase `.fl`, que también es la de las banderas de idioma (caja de 22×15 px con `overflow:hidden`), por eso aparecía como un interruptor truncado entre «★ Sin valoraciones» y «↓ descargas». Ahora usa `.flk` y la barra de métricas queda alineada.
 - 40 pruebas automáticas (+9): descarga a WebP, fallos de descarga, imágenes compartidas, `--check`, orden de la caja de descarga, clase `.flk`, texto sin recortar y `srcset`.
 
-## v.1.7 — menos créditos de Netlify y pendientes cerrados
+## V1.7 — menos créditos de Netlify y pendientes cerrados
 **Créditos de Netlify** (en la factura de ejemplo, 495 de 524 créditos eran despliegues de producción: 33 × 15)
 - `netlify.toml`: `ignore` cancela el build si el commit no toca nada que llegue a la web (workflows, pruebas, README, scripts, estado de enlaces…).
 - Vistas previas de PR y de ramas desactivadas (cada una gastaba un despliegue). Flujo editorial del panel desactivado por lo mismo.
@@ -78,7 +113,7 @@
 - Tarjetas: al pasar el ratón (o enfocar con teclado) muestran «Actualizado hace…», votos «funciona» y el sitio de descarga.
 - 30 pruebas automáticas (+11): concurrencia de votos, OAuth (CSRF, usuarios permitidos), srcset y reglas de ahorro de Netlify.
 
-## v.1.6
+## V1.6
 **Contenido y datos**
 - Traducidas las 38 novedades/tarjetas que faltaban (en, ca, fr, pt-br, it): ya no queda nada pendiente.
 - `skin-darkflow-fm26` apuntaba a la categoría inexistente `graficos`: ahora solo está en «Gráficos» (`dia-de-partido`). Se quita el campo antiguo `category` de 3 fichas.
@@ -114,7 +149,7 @@
 - 19 pruebas automáticas (`npm test`): estadísticas, idiomas y compilación.
 - `package.json` sincronizado (1.16.0) y README nuevo.
 
-## v.1.5 (incluye v.1.3 y v.1.4)
+## V1.5 (incluye V1.3 y V1.4)
 - Una URL por idioma: español en la raíz (`/`) y el resto en `/en/`, `/ca/`, `/fr/`, `/pt-br/`, `/it/`. Cada página se genera ya traducida (título, descripción, `<html lang>`, `canonical`, `hreflang`, `x-default`) y el `sitemap.xml` lista todas con sus alternativas.
 - El selector de idioma son enlaces a la misma página en cada idioma. Al elegir uno se recuerda y, si abres la portada en español (`/`), se salta al idioma guardado. Elegir «Español» lo desactiva.
 - Aviso Legal y Privacidad siguen solo en español (`/aviso-legal/`, `/privacidad/`); el RSS también.
@@ -122,7 +157,7 @@
 - Las traducciones de las novedades (y del texto breve de las tarjetas) las hace Claude: `node scripts/translate.js --check` lista lo que falta; Claude devuelve el JSON y se añade con `--import`. Se retiran las claves de API.
 - Italiano (`locales/it.json`).
 
-## v.1.3
+## V1.3
 - Nuevo idioma: italiano (`locales/it.json`, bandera, nombre de categoría opcional en el panel).
 - Novedades: el texto de cada novedad (y el texto breve de las tarjetas) se muestra en el idioma del visitante.
   - Las 8 novedades actuales ya están traducidas (`content/traducciones.json`).
@@ -130,7 +165,7 @@
   - Sin el secreto no falla: esos textos se ven en español. `node scripts/translate.js --check` lista lo pendiente.
   - Una traducción se puede corregir a mano en `content/traducciones.json`; no se toca mientras el texto original no cambie.
 
-## v.1.2
+## V1.2
 - Tarjetas: campo opcional «Texto breve en la tarjeta» (`card_text`) que se ve en la lista antes de entrar al mod.
 - Pantallas grandes: la parrilla pasa a 4 columnas (≥1500 px) y 5 columnas (≥1900 px) y la web se ensancha.
 - Imprescindibles: todos a la vista en una rejilla compacta y botón para ocultar/mostrar (se recuerda).

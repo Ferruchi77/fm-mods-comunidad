@@ -10,6 +10,7 @@ Directorio no oficial de mods de Football Manager. Web estática generada con `n
 | `content/traducciones.json` | Traducciones de novedades, textos breves y nombres de los mods |
 | `locales/*.json` | Textos de la interfaz (es, en, ca, fr, pt, it; deben tener las mismas claves) |
 | `public/` | Estáticos (css, js, imágenes, `sw.js`, `manifest.webmanifest`, panel `admin/`) |
+| `ACTUALIZAR.md` | Guía para subir una versión a GitHub sin errores |
 | `netlify/functions/stats.mjs` | API de estadísticas (Netlify Blobs) |
 | `netlify/functions/auth.mjs`, `callback.mjs` | Login del panel con GitHub OAuth (alternativa a Identity) |
 | `scripts/` | Utilidades (traducciones, imágenes, enlaces, pendientes) |
