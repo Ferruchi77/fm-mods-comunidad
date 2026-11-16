@@ -1,0 +1,70 @@
+{
+  "_leeme": "Archivos o carpetas que ya NO forman parte del proyecto. GitHub (subida web) no borra lo que desaparece de un zip: bórralos a mano. El CI solo AVISA, nunca falla. Al preparar una versión nueva, añade aquí lo que haya que borrar.",
+  "borrar": [
+    {
+      "ruta": ".github/workflows/imagenes.yml",
+      "desde": "V2.0",
+      "motivo": "duplicaba a sync-autores.yml (mismo disparador y mismo script)"
+    },
+    {
+      "ruta": "admin",
+      "desde": "V2.0",
+      "motivo": "carpeta suelta en la raíz: el panel vive en public/admin"
+    },
+    {
+      "ruta": "css",
+      "desde": "V2.0",
+      "motivo": "carpeta suelta en la raíz: el CSS vive en public/css"
+    },
+    {
+      "ruta": "js",
+      "desde": "V2.0",
+      "motivo": "carpeta suelta en la raíz: el JS vive en public/js"
+    },
+    {
+      "ruta": "content/mods/marcador-pro-fm26.json",
+      "desde": "V2.3",
+      "motivo": "ficha renombrada a tcm-logos.json (la antigua duplicaría el mod)"
+    },
+    {
+      "ruta": "content/mods/megapack-caras-fm26.json",
+      "desde": "V2.3",
+      "motivo": "ficha renombrada a megapack-de-caras-df11.json (la antigua duplicaría el mod)"
+    },
+    {
+      "ruta": "content/mods/panda-individual.json",
+      "desde": "V2.3",
+      "motivo": "ficha renombrada a fmdestiny-con-modo-propietario.json (la antigua duplicaría el mod)"
+    },
+    {
+      "ruta": "content/mods/skin-darkflow-fm26.json",
+      "desde": "V2.3",
+      "motivo": "ficha renombrada a balones-3d-temporada-26-27.json (la antigua duplicaría el mod)"
+    },
+    {
+      "ruta": "content/mods/bd-nombres-reales-fm27.json",
+      "desde": "V2.3",
+      "motivo": "ficha renombrada a nombres-reales.json (la antigua duplicaría el mod)"
+    },
+    {
+      "ruta": "content/mods/nombre-jugadores.json",
+      "desde": "V2.3",
+      "motivo": "ficha renombrada a nombre-jugadores-en-partido.json (la antigua duplicaría el mod)"
+    },
+    {
+      "ruta": "content/mods/actionlink-kits-3d.json",
+      "desde": "V2.3",
+      "motivo": "ficha renombrada a fm-actionlink-kits-3d.json (la antigua duplicaría el mod)"
+    },
+    {
+      "ruta": "content/mods/fm27-bootpack.json",
+      "desde": "V2.3",
+      "motivo": "ficha renombrada a fm-bootpack.json (la antigua duplicaría el mod)"
+    },
+    {
+      "ruta": "content/mods/stadium-megapack-1.json",
+      "desde": "V2.3",
+      "motivo": "ficha renombrada a stadium-megapack.json (la antigua duplicaría el mod)"
+    }
+  ]
+}

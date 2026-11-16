@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Traducciones de los textos libres que escriben los editores en español:
-//   · el texto de cada novedad (updates[].note)   · el texto breve de la tarjeta (card_text)   · el nombre del mod (title, v.19)
+//   · el texto de cada novedad (updates[].note)   · el texto breve de la tarjeta (card_text)   · el nombre del mod (title, V1.9)
 // Se guardan en content/traducciones.json  { "<hash del texto>": { en, ca, fr, pt, it } }  y build.js los usa en cada idioma.
 // Las traducciones las hace Claude (no hay servicio de pago): tú solo le pasas lo que falta.
 //
@@ -33,7 +33,8 @@ if(i>-1){
   for(const [h,e] of Object.entries(inc)){
     if(!src.has(h)){console.warn('⚠ ',h,'no corresponde a ningún texto actual: se ignora');continue}
     if(!done(e)){console.warn('⚠ ',h,'incompleto (faltan idiomas): se ignora');continue}
-    cache[h]=Object.fromEntries(LANGS.map(l=>[l,String(e[l]).trim()]));n++}
+    // «es» es opcional: solo para nombres/textos escritos en otro idioma en el panel (p. ej. un mod con título en inglés) que en la web en español deben salir en español
+    cache[h]=Object.fromEntries([...LANGS.map(l=>[l,String(e[l]).trim()]),...(e.es&&String(e.es).trim()?[['es',String(e.es).trim()]]:[])]);n++}
   console.log(`Importadas ${n} traducción(es)`);save();
 }else{
   const todo=[...src].filter(([h])=>!done(cache[h]));

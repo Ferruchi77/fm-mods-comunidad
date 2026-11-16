@@ -1,0 +1,14 @@
+{
+  "_leeme": "Fichas cuyo archivo (slug) se renombró para que coincida con su título. Formato: «slugAntiguo»: «slugNuevo». Con esto el build crea redirecciones 301 (/mod/antiguo/ → /mod/nuevo/ en cada idioma) y la API de estadísticas conserva votos, valoraciones y descargas. No borres entradas: los enlaces antiguos y las estadísticas dependen de ellas. Al renombrar otra ficha, añade su par aquí.",
+  "slugs": {
+    "marcador-pro-fm26": "tcm-logos",
+    "megapack-caras-fm26": "megapack-de-caras-df11",
+    "panda-individual": "fmdestiny-con-modo-propietario",
+    "skin-darkflow-fm26": "balones-3d-temporada-26-27",
+    "bd-nombres-reales-fm27": "nombres-reales",
+    "nombre-jugadores": "nombre-jugadores-en-partido",
+    "actionlink-kits-3d": "fm-actionlink-kits-3d",
+    "fm27-bootpack": "fm-bootpack",
+    "stadium-megapack-1": "stadium-megapack"
+  }
+}
