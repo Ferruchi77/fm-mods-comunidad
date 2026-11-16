@@ -1,4 +1,4 @@
-// Editor de texto enriquecido del panel (v.19): conversión marcado ⇄ HTML del editor. Necesita jsdom (la acción «Comprobar» lo instala; sin él se omite).
+// Editor de texto enriquecido del panel (V1.9): conversión marcado ⇄ HTML del editor. Necesita jsdom (la acción «Comprobar» lo instala; sin él se omite).
 const test=require('node:test'),assert=require('node:assert/strict');
 let JSDOM=null;try{({JSDOM}=require('jsdom'))}catch{}
 const R=require('../public/admin/richtext.js');

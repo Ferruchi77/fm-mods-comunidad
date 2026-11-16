@@ -87,3 +87,11 @@ test('seguridad: sin salt, sin IP y desde otro sitio se rechaza; IPv6 cuenta por
   const r=await post(e,'2001:db8:1:2:bbbb::2',{slug:'a',action:'like'},2);
   assert.equal((await r.json()).likes,1);   // misma /64 = la misma persona
 });
+
+test('fichas renombradas: sus votos siguen guardados con el slug antiguo y se leen con el nuevo',async()=>{
+  const e={...mk(),alias:{'ficha-nueva':'ficha-vieja'}};
+  await post(e,'1.1.1.1',{slug:'ficha-nueva',action:'like'},1);
+  assert.ok(e.stats.m.has('ficha-vieja')&&!e.stats.m.has('ficha-nueva'),'se guarda con la clave antigua');
+  const g=await handle(new Request('http://x/api/stats'),'1.1.1.1',{...e,now:2}),d=await g.json();
+  assert.equal(d['ficha-nueva'].likes,1);assert.ok(!d['ficha-vieja'],'al leer sale con el slug nuevo');
+});

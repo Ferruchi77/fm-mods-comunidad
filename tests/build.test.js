@@ -50,30 +50,29 @@ test('ficha: la valoración con estrellas va dentro de la caja de descarga, tras
   assert.equal((box.match(/data-star="/g)||[]).length,5)});
 test('ficha: el contador de «me gusta» ya no usa la clase .fl de las banderas de idioma',()=>{
   const h=rd(`mod/${slugs[0]}/index.html`);assert.match(h,/class="flk" data-fl/);assert.ok(!/class="fl" data-fl/.test(h))});
-test('tarjetas: el texto breve no se recorta con CSS',()=>{
+test('tarjetas: descripción limitada a 3 líneas y título a 2 (V2.2), con la fecha y el autor abajo',()=>{
   const css=fs.readFileSync('public/css/style.css','utf8');
-  assert.match(css,/\.ex\.hook,\.feat-grid \.ex\.hook,\.grid\.list \.ex\.hook\{[^}]*-webkit-line-clamp:unset/);
-  // ninguna regla posterior vuelve a limitar las líneas de .ex.hook
-  assert.ok(!/\.ex\.hook\{[^}]*-webkit-line-clamp:\d/.test(css.slice(css.indexOf('===== v.18 ====='))))});
+  assert.match(css,/\.ex\{[^}]*-webkit-line-clamp:3/);assert.match(css,/\.card h3\{[^}]*-webkit-line-clamp:2/);
+  assert.match(css,/\.card \.by\{[^}]*margin-top:auto/)});
 test('srcset: tarjetas con 320/640 y ancho real del original',()=>{
   const h=rd('index.html');
   assert.ok(h.includes(`srcset="/img/uploads/realnamefix27_1-320.webp 320w, /img/uploads/realnamefix27_1-640.webp 640w, /img/uploads/realnamefix27_1.webp ${wW('img/uploads/realnamefix27_1.webp')}w" sizes="(max-width:600px) 46vw, 260px"`));
 });
 
-// ===== v.19 =====
+// ===== V1.9 =====
 const FM=require('../public/js/ficha.js'),read=f=>fs.readFileSync(f,'utf8');
-test('v.19 · «Más como este» usa las mismas tarjetas y parrilla que «Imprescindibles», fuera de la barra lateral',()=>{
+test('V1.9 · «Más como este» usa las mismas tarjetas y parrilla que «Imprescindibles», fuera de la barra lateral',()=>{
   const all=slugs.map(s=>rd(`mod/${s}/index.html`)).join('\n');
   assert.ok(/<section class="rel-sec"><h2[^>]*>[^<]+<\/h2><div class="grid feat-grid"><a class="card"/.test(all));
   assert.ok(!/class="box rel"/.test(all));
   const h=rd('mod/regenesis-27/index.html'),aside=h.slice(h.indexOf('<aside>'),h.indexOf('</aside>'));
   assert.ok(!aside.includes('rel-sec'),'los relacionados no van dentro de la barra lateral')});
-test('v.19 · la fecha del historial de versiones está destacada (clase ud) y el CSS la define',()=>{
+test('V1.9 · la fecha del historial de versiones está destacada (clase ud) y el CSS la define',()=>{
   const h=rd('mod/regenesis-27/index.html');
   assert.ok(/<time class="ud" datetime="2026-11-10"/.test(h)&&/<time class="ud ud-new"/.test(h));
-  assert.ok(/time\.ud[^{]*\{[^}]*background:var\(--acb\)/.test(read('public/css/style.css')))});
-test('v.19 · la portada muestra 50 mods de golpe',()=>{assert.ok(/const PAGE=50,/.test(read('public/js/app.js')))});
-test('v.19 · Novedades: filtros, salto por meses y tarjetas con fecha, tipo y portada (y la portada usa las mismas tarjetas)',()=>{
+  assert.ok(/time\.ud[^{]*\{[^}]*background:var\(--s2\)/.test(read('public/css/style.css')))});
+test('V1.9 · la portada muestra 50 mods de golpe',()=>{assert.ok(/const PAGE=50,/.test(read('public/js/app.js')))});
+test('V1.9 · Novedades: filtros, salto por meses y tarjetas con fecha, tipo y portada (y la portada usa las mismas tarjetas)',()=>{
   for(const l of Object.keys(PREF)){
     const h=rd(PREF[l]+'novedades/index.html');
     for(const id of ['nv-list','nv-per','nv-ver','nv-count','nv-reset','nv-empty'])assert.ok(h.includes(`id="${id}"`),`${l}: falta #${id}`);
@@ -81,7 +80,7 @@ test('v.19 · Novedades: filtros, salto por meses y tarjetas con fecha, tipo y p
     assert.ok(/<li class="nv nv-(new|upd)"[^>]*data-nt="(new|update)"[^>]*data-dt="\d{4}-\d{2}-\d{2}"/.test(h));
     assert.ok(/<time class="ud/.test(h),l)}
   assert.ok(/<ul class="nvl nv-home"><li class="nv/.test(rd('index.html')))});
-test('v.19 · el nombre del mod se traduce en cada idioma (tarjeta, ficha, SEO y buscador)',()=>{
+test('V1.9 · el nombre del mod se traduce en cada idioma (tarjeta, ficha, SEO y buscador)',()=>{
   const T=JSON.parse(read('content/traducciones.json')),sha=t=>require('crypto').createHash('sha1').update(t.trim(),'utf8').digest('hex').slice(0,12);
   const e=T[sha('Megapack de Caras 3D')];assert.ok(e);
   for(const l of ['en','ca','fr','pt','it']){
@@ -92,21 +91,87 @@ test('v.19 · el nombre del mod se traduce en cada idioma (tarjeta, ficha, SEO y
   const s=JSON.parse(rd('data/search.json')).find(x=>x.s==='megapack-de-caras-3d');
   assert.equal(s.tt.en,e.en);assert.ok(s.n.includes('3d faces megapack')&&s.n.includes('megapack de caras 3d'));
   assert.ok(/ttl=m=>\(m\.tt&&m\.tt\[i18n\.lang\]\)/.test(read('public/js/app.js')))});
-test('v.19 · texto enriquecido: negrita, color y listas con guiones; escapa HTML y se limpia en extractos',()=>{
+test('V1.9 · texto enriquecido: negrita, color y listas con guiones; escapa HTML y se limpia en extractos',()=>{
   assert.equal(FM.rich('Hola **mundo** [color=#ff0000]rojo[/color]\nlinea2\n\n- uno\n- dos <b>x</b>\n\nFin <script>'),
     '<p>Hola <strong>mundo</strong> <span style="color:#ff0000">rojo</span><br>linea2</p><ul><li>uno</li><li>dos &lt;b&gt;x&lt;/b&gt;</li></ul><p>Fin &lt;script&gt;</p>');
   assert.ok(!FM.rich('[color=red;x:y]a[/color]').includes('<span'),'solo colores #rrggbb');
   assert.equal(FM.rich('Texto antiguo\nsin marcado'),'<p>Texto antiguo<br>sin marcado</p>');
   assert.equal(FM.plain('**a** [color=#00ff00]b[/color]\n- c'),'a b c')});
-test('v.19 · panel: guardar publica directo (sin flujo editorial) y descripción/cambios usan el editor enriquecido',()=>{
+test('V1.9 · panel: guardar publica directo (sin flujo editorial) y descripción/cambios usan el editor enriquecido',()=>{
   const c=read('public/admin/config.yml'),ix=read('public/admin/index.html');
   assert.ok(/^publish_mode: simple$/m.test(c)&&!/^publish_mode: editorial_workflow/m.test(c));
   assert.ok(/name: description, widget: fmrich/.test(c)&&/name: note, widget: fmrich/.test(c));
   assert.ok(/registerWidget\('fmrich'/.test(read('public/admin/widgets.js')));
   assert.ok(ix.indexOf('richtext.js')>-1&&ix.indexOf('richtext.js')<ix.indexOf('widgets.js'));
   assert.ok(/text-align:justify/.test(read('public/admin/admin.css'))&&/text-align:justify/.test(read('public/admin/preview.css')))});
-test('v.19 · GitHub Actions: sin acciones de Node 20 y con Node moderno',()=>{
+test('V1.9 · GitHub Actions: sin acciones de Node 20 y con Node moderno',()=>{
   for(const f of fs.readdirSync('.github/workflows')){const y=read('.github/workflows/'+f);
     assert.ok(!/actions\/(checkout|setup-node)@v[1-5]\b/.test(y),`${f}: acción antigua`);
     for(const m of y.matchAll(/node-version:\s*(\d+)/g))assert.ok(+m[1]>=22,`${f}: node ${m[1]}`)}
   assert.ok(/NODE_VERSION = "(2[2-9]|[3-9]\d)"/.test(read('netlify.toml')))});
+
+test('V2.2 · el CSS define el acento y los tokens en :root y la portada tiene buscador central, píldoras con icono y guía colapsable',()=>{
+  const css=read('public/css/style.css'),h=rd('index.html');
+  assert.match(css,/:root\{[^}]*--ac:#10b981/);assert.match(css,/:root\[data-theme="light"\]\{[^}]*--ac:#047857/);
+  assert.ok(/<section class="wrap hero">[\s\S]*<form class="search search-hero"/.test(h),'el buscador está en el hero');
+  assert.equal((h.match(/id="q"/g)||[]).length,1,'un solo #q');
+  assert.ok(/<a href="\/mods\/\?cat=[a-z-]+" data-cat="[a-z-]+" title="[^"]*"><svg/.test(h),'píldoras de categoría con icono');
+  assert.ok(/<details class="howto"><summary>/.test(h));
+  assert.ok(/<span class="ph-b">/.test(h),'app.js añade ahí la insignia Nuevo');
+});
+test('V2.2 · app.js crea las píldoras de versión a partir del select y las sincroniza',()=>{
+  const a=read('public/js/app.js');assert.ok(/className='vpills'/.test(a)&&/\.vp'\)\.forEach/.test(a.replace(/\$\$\(/,'$$(')))});
+
+test('V2.3 · Inicio (/) y catálogo (/mods/): el catálogo con filtros vive en /mods/ y la portada trae categorías, imprescindibles y novedades',()=>{
+  const h=rd('index.html'),m=rd('mods/index.html');
+  assert.ok(!/id="grid"/.test(h),'la portada ya no lleva el catálogo completo');
+  assert.ok(/id="cats"[\s\S]*class="cat-tile" href="\/categoria\//.test(h),'teselas de categoría');
+  assert.ok(/class="hero-cta"[\s\S]*href="\/mods\/"/.test(h),'botón a todos los mods');
+  assert.ok(/id="feat"/.test(h)&&/id="latest"/.test(h)&&/nv-home/.test(h));
+  assert.ok(/<form class="search search-hero" action="\/mods\/"/.test(h),'el buscador del hero envía al catálogo');
+  assert.ok(/location\.replace\('\/mods\/'\+location\.search/.test(h),'redirige los enlaces antiguos /?cat=…');
+  assert.ok(/id="grid"/.test(m)&&/id="ver"/.test(m)&&/<h1[^>]*>[^<]+<\/h1>/.test(m),'catálogo con filtros y su h1');
+  assert.ok(/<a class="nl" href="\/" aria-current="page"/.test(h)&&/<a class="nl" href="\/mods\/" aria-current="page"/.test(m),'menú: página actual marcada');
+  const sm=read(p.join(OUT,'sitemap.xml'));assert.ok(sm.includes('/mods/')&&sm.includes('/en/mods/'),'sitemap con /mods/ en cada idioma');
+});
+test('V2.3 · cada idioma tiene su Inicio y su catálogo con el texto de portada nuevo',()=>{
+  for(const [l,pre] of Object.entries(PREF)){
+    assert.ok(fs.existsSync(p.join(OUT,pre,'mods','index.html')),`${l}: /mods/`);
+    const h=rd(p.join(pre,'index.html')),d=JSON.parse(read('locales/'+l+'.json'));
+    assert.ok(h.includes(FM.esc(d.hero_h1)),`${l}: titular nuevo`)}
+});
+
+test('V2.3 · fichas renombradas: archivo nuevo, antiguo fuera, redirecciones 301 en cada idioma y estadísticas con alias',()=>{
+  const R=JSON.parse(read('scripts/renombrados.json')).slugs,red=rd('_redirects');
+  assert.ok(Object.keys(R).length>0);
+  for(const [o,n] of Object.entries(R)){
+    assert.ok(fs.existsSync(`content/mods/${n}.json`)&&!fs.existsSync(`content/mods/${o}.json`),`${o} → ${n}`);
+    for(const pre of ['','/en','/ca','/fr','/pt-br','/it'])assert.ok(red.includes(`${pre}/mod/${o}/ ${pre}/mod/${n}/ 301`),`redirección ${pre}/mod/${o}/`);
+    assert.ok(fs.existsSync(p.join(OUT,'mod',n,'index.html'))&&!fs.existsSync(p.join(OUT,'mod',o)),'solo existe la página nueva');
+  }
+  const ob=JSON.parse(read('scripts/obsoletos.json')).borrar.map(x=>x.ruta);
+  for(const o of Object.keys(R))assert.ok(ob.includes(`content/mods/${o}.json`),'el CI avisa de borrar la ficha antigua');
+});
+test('V2.3 · el nombre del mod sale traducido en cada idioma (también en español si el original está en inglés) y el buscador encuentra el original',()=>{
+  const g=(l,slug)=>rd(p.join(PREF[l],'mod',slug,'index.html')).match(/<title>([^<]*)<\/title>/)[1];
+  assert.ok(g('es','kit-converter').startsWith('Conversor de Kits'),'es');
+  assert.ok(g('en','kit-converter').startsWith('Kit Converter'),'en');
+  assert.ok(g('fr','kit-converter').startsWith('Convertisseur de Kits'),'fr');
+  assert.ok(g('ca','stadium-megapack').startsWith("Megapack d'Estadis")||g('ca','stadium-megapack').includes('Estadis'),'ca');
+  assert.ok(g('pt','referee-kits').startsWith('Uniformes de Árbitros'),'pt');
+  assert.ok(g('it','training-assistant').startsWith('Assistente Allenamenti'),'it');
+  assert.ok(g('es','facedrop').startsWith('FaceDrop'),'los nombres propios se mantienen');
+  const sj=JSON.parse(rd('data/search.json'));const flat=JSON.stringify(sj);
+  assert.ok(flat.includes('Kit Converter')&&flat.includes('Conversor de Kits'),'buscador: original y traducciones');
+});
+
+test('V2.3 · las páginas llevan window.FM_REN y app.js migra favoritos, me gusta y valoraciones al slug nuevo',()=>{
+  const R=JSON.parse(read('scripts/renombrados.json')).slugs;
+  assert.ok(rd('index.html').includes('window.FM_REN='+JSON.stringify(R)));
+  const a=read('public/js/app.js');assert.ok(/window\.FM_REN/.test(a)&&/'fm_favs','fm_likes'/.test(a)&&/'fm_rate','fm_rate_sync'/.test(a));
+});
+
+test('V2.3 · search.json lleva el nombre en español (si difiere del original) para que las sugerencias salgan en el idioma de la página',()=>{
+  const s=JSON.parse(rd('data/search.json')).find(x=>x.s==='kit-converter');
+  assert.equal(s.t,'Kit Converter');assert.equal(s.tt.es,'Conversor de Kits');assert.equal(s.tt.fr,'Convertisseur de Kits');
+});
