@@ -14,12 +14,12 @@ const http=u=>/^https?:\/\//i.test(String(u||''));
 const host=u=>{try{return new URL(u).hostname.replace(/^www\./,'')}catch{return ''}};
 const ACCT=/(^|\.)(patreon\.com|ko-fi\.com|buymeacoffee\.com|discord\.com|gumroad\.com)$/i;   // webs donde la descarga suele pedir cuenta o pago
 
-// ===== Texto enriquecido (v.19) =====
+// ===== Texto enriquecido (V1.9) =====
 // El panel guarda la descripción y las notas de cada versión con un marcado muy simple y seguro (sin HTML):
 //   **negrita**   ·   [color=#rrggbb]texto con color[/color]   ·   líneas que empiezan por «- » = lista con guiones
 // rich() lo convierte en HTML (escapando SIEMPRE primero, así que nada del texto puede inyectar código); plain() lo deja en texto limpio
 // para extractos, SEO y RSS. Un texto antiguo sin marcado se ve igual que antes (párrafos y saltos de línea).
-const inline=s=>esc(s).replace(/\[color=(#[0-9a-fA-F]{6})\]([\s\S]*?)\[\/color\]/g,(_,c,t)=>`<span style="color:${c}">${t}</span>`).replace(/\*\*([^*\n]+?)\*\*/g,'<strong>$1</strong>');
+const inline=s=>esc(s).replace(/\[color=(#[0-9a-fA-F]{6})\]([\s\S]*?)\[\/color\]/g,(_,c,t)=>`<span style="color:${c}">${t}</span>`).replace(/\*\*([^*\n]+?)\*\*/g,'<strong>$1</strong>').replace(/`([^`\n]+?)`/g,'<code>$1</code>').replace(/(^|[^*\w])\*([^*\n]+?)\*(?!\*)/g,'$1<em>$2</em>');
 const rich=t=>{
   const out=[];let p=[],ul=null;
   const fp=()=>{if(p.length){out.push('<p>'+p.map(inline).join('<br>')+'</p>');p=[]}},fu=()=>{if(ul){out.push('<ul>'+ul.map(x=>'<li>'+inline(x)+'</li>').join('')+'</ul>');ul=null}};
@@ -29,7 +29,7 @@ const rich=t=>{
     if(!raw.trim()){fp();fu();continue}
     fu();p.push(raw.trim())}
   fp();fu();return out.join('')};
-const plain=t=>String(t==null?'':t).replace(/\[\/?color(=#[0-9a-fA-F]{6})?\]/g,'').replace(/\*\*([^*\n]+?)\*\*/g,'$1').replace(/^\s*[-•]\s+/gm,'').replace(/\s+/g,' ').trim();
+const plain=t=>String(t==null?'':t).replace(/\[\/?color(=#[0-9a-fA-F]{6})?\]/g,'').replace(/\*\*([^*\n]+?)\*\*/g,'$1').replace(/`([^`\n]+?)`/g,'$1').replace(/(^|[^*\w])\*([^*\n]+?)\*(?!\*)/g,'$1$2').replace(/^\s*[-•]\s+/gm,'').replace(/\s+/g,' ').trim();
 
 // Datos crudos de la ficha (JSON del CMS) -> estructura lista para pintar. Acepta fichas antiguas (author/category/fm_version).
 const normalize=(raw,slug,warn,db)=>{
@@ -48,11 +48,14 @@ const make=ctx=>{
   // i18n: ctx.T(clave,vars) devuelve el texto en español (lo pone build.js o la vista previa). El navegador lo traduce con /js/i18n.js
   const T=ctx.T||(k=>k);
   const tx=ctx.tx||(t=>t);  // texto libre del editor en el idioma de la página (lo pone build.js; en el panel, el original)
-  const mt=m=>String(tx(m.title)||'').trim()||String(m.title||'');   // nombre del mod en el idioma de la página (v.19)
+  const mt=m=>String(tx(m.title)||'').trim()||String(m.title||'');   // nombre del mod en el idioma de la página (V1.9)
   const pj=v=>v?` data-p="${esc(JSON.stringify(v))}"`:'';
   const I=(k,v)=>` data-i18n="${k}"${pj(v)}`;
   const S=(k,v,tag='span',cls='')=>`<${tag}${cls?` class="${cls}"`:''}${I(k,v)}>${esc(T(k,v))}</${tag}>`;
   const AM=(a,v)=>Object.entries(a).map(([n,k])=>`${n}="${esc(T(k,v))}"`).join(' ')+` data-i18n-attr="${Object.entries(a).map(([n,k])=>n+':'+k).join(';')}"${pj(v)}`;
+  // Miniaturas -320/-640 (las crea scripts/imagenes.js). ctx.variant / ctx.imgW los pone build.js; en la vista previa del panel no existen y se usa la imagen original.
+  const vr=(u,w)=>ctx.variant?ctx.variant(u,w):'';
+  const rs=(u,sizes)=>{const L=[320,640].filter(w=>vr(u,w)).map(w=>`${esc(vr(u,w))} ${w}w`);if(!L.length)return '';const W=ctx.imgW?ctx.imgW(u):0;if(W>640)L.push(`${esc(u)} ${W}w`);return `srcset="${L.join(', ')}" sizes="${sizes}"`};
   const catOf=s=>CATS[s]||{n:s,d:'',dir:'graphics/'};
   const trAttr=()=>''; // (antes marcaba el nombre traducido; ahora build.js escribe cada página ya en su idioma)
   const lum=h=>{const n=parseInt(h.slice(1),16);return(0.299*(n>>16)+0.587*((n>>8)&255)+0.114*(n&255))/255};
@@ -105,7 +108,7 @@ const make=ctx=>{
 ${compat(m)}
 ${ad('bajo-titulo')}
 <div class="det"><div>
-${shots.length?`<img class="shot" id="shot" data-zoom tabindex="0" ${AM({title:'shot_title',alt:'shot_alt'},{t:mt(m)})} src="${esc(shots[0])}" decoding="async" fetchpriority="high" width="960" height="540">${shots.length>1?`<div class="thumbs">${shots.map((s,i)=>`<button type="button" data-src="${esc(s)}" class="${i?'':'on'}" ${AM({'aria-label':'shot_n'},{n:i+1})}><img src="${esc(s)}" alt="" loading="lazy" decoding="async" width="96" height="54"></button>`).join('')}</div>`:''}`:''}
+${shots.length?`<img class="shot" id="shot" data-zoom tabindex="0" ${AM({title:'shot_title',alt:'shot_alt'},{t:mt(m)})} src="${esc(shots[0])}" ${rs(shots[0],'(max-width:760px) 100vw, 700px')} decoding="async" fetchpriority="high" width="960" height="540">${shots.length>1?`<div class="thumbs">${shots.map((s,i)=>`<button type="button" data-src="${esc(s)}" data-srcset="${esc(rs(s,'(max-width:760px) 100vw, 700px').replace(/^srcset=\"|\" sizes=.*$/g,''))}" class="${i?'':'on'}" ${AM({'aria-label':'shot_n'},{n:i+1})}><img src="${esc(vr(s,320)||s)}" alt="" loading="lazy" decoding="async" width="96" height="54"></button>`).join('')}</div>`:''}`:''}
 <div class="desc">${S('desc_h',null,'h2')}${paras}${m.tags.length?`<p class="tags">${m.tags.map(t=>`<span>#${esc(t)}</span>`).join('')}</p>`:''}</div>${hist(m)}</div>
 <aside><div class="box">${S('inst_h',null,'h2')}${appOnly||!ips.length?'':`${S('inst_path',null,'p','meta')}${ips.map((x,i)=>{const k=x.label?'copy_btn_ver':ips.length>1?'copy_btn_n':'copy_btn',v=x.label?{v:x.label}:ips.length>1?{n:i+1}:null;return `<div class="pr"><code class="path">${esc(x.path)}</code><button class="btn" type="button"${I(k,v)} data-copy="${esc(x.path)}">${esc(T(k,v))}</button></div>`}).join('')}`}<ol class="steps">${steps}</ol><p class="meta" style="margin:12px 0 0"><a href="/como-instalar/"${I('inst_guide')} style="text-decoration:underline">${esc(T('inst_guide'))}</a></p></div><div class="box dlbox"><a class="btn primary big" data-dlc="${m.slug}" href="${esc(m.download_url)}" target="_blank" rel="nofollow noopener noreferrer"${I('dl_btn')}>${esc(T('dl_btn'))}</a>${(()=>{const h=host(m.download_url);return h?`<p class="dlhost">${S('dl_host',{h},'span')}${ACCT.test(h)?' '+S('dl_acct'):''}</p>`:''})()}<div class="fst"><span class="fr" data-fr>★ ${esc(T('fr_none'))}</span><span class="flk" data-fl>👍 0</span><span class="dlc" data-dl="${m.slug}"></span></div><div class="rate" data-rate="${m.slug}"><div class="stars" role="group" ${AM({'aria-label':'rate_aria'})}>${[1,2,3,4,5].map(n=>`<button type="button" data-star="${n}" ${AM({'aria-label':'star_aria'},{n})} aria-pressed="false">★</button>`).join('')}</div><span class="rtxt">${esc(T('rate_none'))}</span></div><div class="fb"><button class="btn like" type="button" data-like="${m.slug}" aria-pressed="false">👍 ${S('like_btn')} <b></b></button><button class="btn fav" type="button" data-fav="${m.slug}" aria-pressed="false"><span class="fav-ic" aria-hidden="true">♡</span> ${S('fav_btn')}</button></div>${ad('junto-descarga')}
 ${report(m)}</div>

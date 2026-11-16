@@ -17,6 +17,8 @@
 # así que cuando cambian se descargan de nuevo aunque el navegador los tenga guardados un año.
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
 /css/*
   Cache-Control: public, max-age=31536000, immutable
 /js/*

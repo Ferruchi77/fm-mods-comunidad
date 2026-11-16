@@ -1,4 +1,4 @@
-/* Conversión entre el marcado de texto enriquecido de las fichas y el HTML del editor del panel (v.19).
+/* Conversión entre el marcado de texto enriquecido de las fichas y el HTML del editor del panel (V1.9).
    Marcado (lo que se guarda en el JSON; lo pinta rich() de /js/ficha.js escapando siempre antes):
      **negrita**   ·   [color=#rrggbb]texto con color[/color]   ·   líneas que empiezan por «- » = lista con guiones
    · toHtml(marcado)  → HTML para el editor (una línea de marcado = un <div>; las listas son <ul><li>)

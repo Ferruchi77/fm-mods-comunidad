@@ -8,6 +8,8 @@ const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelecto
 // i18n (public/js/i18n.js se carga antes): tr = texto traducido, trp = con plural (clave_one / clave_other)
 const i18n=window.FMi18n||{t:k=>k,tp:k=>k,locale:'es-ES',base:'',lang:'es'},B=i18n.base,tr=(k,v)=>i18n.t(k,v),trp=(k,n,v)=>i18n.tp(k,n,v);
 const q=$('#q'),grid=$('#grid'),norm=s=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+// Portada: la lupa de la cabecera lleva al buscador grande del hero
+const sb=$('.sbtn');if(sb&&q)sb.addEventListener('click',e=>{e.preventDefault();q.scrollIntoView({block:'center',behavior:'smooth'});setTimeout(()=>q.focus({preventScroll:true}),250)});
 $$('[data-copy]').forEach(b=>b.setAttribute('aria-live','polite'));
 let syncTheme=()=>{};
 const th=$('#theme');
@@ -15,6 +17,10 @@ if(th){const cur=()=>document.documentElement.getAttribute('data-theme')==='ligh
   const sync=()=>{const l=cur()==='light';th.setAttribute('aria-label',tr(l?'theme_to_dark':'theme_to_light'));th.title=th.getAttribute('aria-label')};
   syncTheme=sync;sync();th.addEventListener('click',()=>{const t=cur()==='light'?'dark':'light';document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('fm_theme',t)}catch{}sync()})}
 const ls={get:(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k));return v==null?d:v}catch{return d}},set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
+// Fichas renombradas: pasa tus favoritos, «me gusta» y valoraciones guardados en este navegador del slug antiguo al nuevo (window.FM_REN lo pone build.js)
+(()=>{const R=window.FM_REN;if(!R)return;try{
+  for(const k of ['fm_favs','fm_likes']){const a=ls.get(k,[]);if(Array.isArray(a)&&a.some(x=>R[x]))ls.set(k,[...new Set(a.map(x=>R[x]||x))])}
+  for(const k of ['fm_rate','fm_rate_sync']){const o=ls.get(k,{});if(o&&typeof o==='object'&&!Array.isArray(o)){let c=0;for(const x of Object.keys(R))if(x in o){o[R[x]]=o[x];delete o[x];c=1}if(c)ls.set(k,o)}}}catch{}})();
 const FAV='fm_favs',favs=()=>{const v=ls.get(FAV,[]);return Array.isArray(v)?v:[]};
 const DAY=864e5,ago=d=>d?(Date.now()-new Date(d+'T00:00:00').getTime())/DAY:1e9;
 // Insignias «Nuevo» (≤14 días desde su publicación) y «Actualizado» (≤14 días desde su última actualización); se calculan al abrir la página
@@ -39,7 +45,7 @@ const renderCards=()=>$$('[data-s]').forEach(el=>{const s=stat(el.dataset.s),t=[
 // Búsqueda en vivo: sugerencias al escribir (en todas las páginas) con retardo corto y teclado
 const sg=$('#sg');
 if(q&&sg){let idx=null,items=[],act=-1,tm;
-  const ttl=m=>(m.tt&&m.tt[i18n.lang])||m.t;   // nombre del mod en el idioma de la página (v.19)
+  const ttl=m=>(m.tt&&m.tt[i18n.lang])||m.t;   // nombre del mod en el idioma de la página (V1.9)
   const eh=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const load=()=>idx||(idx=fetch('/data/search.json').then(r=>r.ok?r.json():[]).catch(()=>[]));
   const hl=(t,w)=>{const n=norm(t);if(!w||n.length!==t.length)return eh(t);const i=n.indexOf(w);return i<0?eh(t):eh(t.slice(0,i))+'<mark>'+eh(t.slice(i,i+w.length))+'</mark>'+eh(t.slice(i+w.length))};
@@ -65,7 +71,7 @@ if(q&&sg){let idx=null,items=[],act=-1,tm;
   sg.addEventListener('mousemove',e=>{const el=e.target.closest('.sg-i');if(el)mark($$('.sg-i',sg).indexOf(el))});
   q.form.addEventListener('submit',close);
 }
-// Novedades (v.19): «hace N días», resumen de 30 días, texto recortado con «Leer más» y, en /novedades/, filtros (tipo, periodo, versión) y salto por meses
+// Novedades (V1.9): «hace N días», resumen de 30 días, texto recortado con «Leer más» y, en /novedades/, filtros (tipo, periodo, versión) y salto por meses
 {const rtf=typeof Intl.RelativeTimeFormat==='function'?new Intl.RelativeTimeFormat(i18n.locale,{numeric:'auto'}):null;
   const agoTxt=d=>{const n=Math.floor(ago(d));if(!rtf||!(n>=0))return '';return n<14?rtf.format(-n,'day'):n<60?rtf.format(-Math.floor(n/7),'week'):n<365?rtf.format(-Math.floor(n/30),'month'):rtf.format(-Math.floor(n/365),'year')};
   $$('.nv-ago').forEach(e=>{e.textContent=agoTxt(e.dataset.ago)});
@@ -122,11 +128,19 @@ if(grid){
     empty.hidden=n>0;if(!n&&emsg){const qq=q.value.trim(),vv=sel.value&&sel.options[sel.selectedIndex].text;emsg.textContent=show.value==='favs'&&!favs().length?tr('empty_favs'):qq&&vv?tr('empty_qv',{q:qq,v:vv}):qq?tr('empty_q',{q:qq}):vv?tr('empty_v',{v:vv}):tr('empty_f');if(erst)erst.hidden=!(cat||sel.value||srt.value||aut.value||price.value||show.value||qq)}cnt.textContent=trp('count',n)+(['valorados','descargados','gustados'].includes(srt.value)&&!loaded?' · '+tr('no_stats'):'');rs.hidden=!(cat||sel.value||srt.value||aut.value||price.value||show.value||q.value.trim());
     if(fbar)fbar.hidden=show.value!=='favs';ls.set('fm_sort',srt.value);
     $$('[data-cat]').forEach(b=>b.classList.toggle('on',b.dataset.cat===cat));
+    $$('.vp').forEach(b=>{const on=b.dataset.v===sel.value;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on)});
     const s=new URLSearchParams();if(cat)s.set('cat',cat);if(q.value.trim())s.set('q',q.value.trim());if(sel.value)s.set('ver',sel.value);if(srt.value)s.set('sort',srt.value);if(aut.value)s.set('aut',aut.value);if(price.value)s.set('price',price.value);if(show.value)s.set('show',show.value);
     history.replaceState(null,'',s.toString()?'?'+s:location.pathname)};
   const fresh=()=>{limit=PAGE;apply()};let dbt;q.addEventListener('input',()=>{clearTimeout(dbt);dbt=setTimeout(fresh,120)});sel.addEventListener('change',fresh);srt.addEventListener('change',fresh);[aut,price,show].forEach(e=>e.addEventListener('change',fresh));if(more)more.addEventListener('click',()=>{const before=$$('.card:not([hidden])',grid).length;limit+=PAGE;apply();const v=$$('.card:not([hidden])',grid)[before];if(v)v.focus()});const clr=()=>{cat='';q.value='';sel.value='';srt.value='';aut.value='';price.value='';show.value='';fresh();q.dispatchEvent(new Event('input'));q.focus()};rs.addEventListener('click',clr);if(erst)erst.addEventListener('click',clr);
   q.form.addEventListener('submit',e=>{e.preventDefault();fresh();$('#ultimos').scrollIntoView()});
   document.addEventListener('click',e=>{const b=e.target.closest('[data-cat]');if(!b)return;e.preventDefault();cat=b.dataset.cat;fresh();if(b.tagName==='A')$('#ultimos').scrollIntoView()});
+  // Versiones como píldoras: el <select> sigue siendo la fuente de verdad (URL, reinicio, recuento) y queda oculto
+  const vsel=sel.closest('.vsel'),vbox=$('.selects');
+  if(vsel&&vbox){const vp=document.createElement('div');vp.className='vpills';vp.setAttribute('role','group');
+    const lab=$('span',vsel),lt=lab?lab.textContent.trim():'';if(lt){vp.setAttribute('aria-label',lt);const l=document.createElement('span');l.className='vp-l';l.textContent=lt;vp.append(l)}
+    [...sel.options].forEach(o=>{const b=document.createElement('button');b.type='button';b.className='vp';b.dataset.v=o.value;b.textContent=o.textContent;vp.append(b)});
+    vp.addEventListener('click',e=>{const b=e.target.closest('.vp');if(!b)return;sel.value=b.dataset.v;fresh()});
+    vbox.prepend(vp);vsel.hidden=true}
   onStats=apply;apply();
   // exportar / importar favoritos (viajan en un .json)
   const fm=document.createElement('span');fm.className='meta';fm.setAttribute('role','status');if(fbar)fbar.append(fm);
@@ -147,7 +161,7 @@ document.addEventListener('click',async e=>{
     const pth=b.previousElementSibling;if(ok&&pth&&pth.classList.contains('path')){pth.classList.remove('flash');void pth.offsetWidth;pth.classList.add('flash')}
     b._t=setTimeout(()=>{let v=null;try{v=b.dataset.p?JSON.parse(b.dataset.p):null}catch{}b.textContent=tr(b.dataset.i18n||'copy_btn',v);b.classList.remove('ok')},1800)}
   const t=e.target.closest('.thumbs button');
-  if(t){$('#shot').src=t.dataset.src;$$('.thumbs button').forEach(x=>x.classList.toggle('on',x===t))}
+  if(t){const sh=$('#shot');if(t.dataset.srcset)sh.srcset=t.dataset.srcset;else sh.removeAttribute('srcset');sh.src=t.dataset.src;$$('.thumbs button').forEach(x=>x.classList.toggle('on',x===t))}
 });
 $$('.rail-w').forEach(w=>{const r=$('.rail',w),p=$('.prev',w),n=$('.next',w);
   const up=()=>{p.hidden=r.scrollLeft<8;n.hidden=r.scrollLeft+r.clientWidth>=r.scrollWidth-8};

@@ -1,8 +1,8 @@
-/* Campos propios del panel (v.12)
+/* Campos propios del panel (V1.2)
    · fmdate  → fecha con el selector nativo del navegador. Sustituye al «datetime» de Decap, que al escribir un «0» reiniciaba el campo y no dejaba teclear años como 2026.
               Guarda el mismo formato de siempre: YYYY-MM-DD.
    · fmpaths → una ruta de instalación por cada «Versión de FM» elegida en el mod. Guarda una lista [{version, path}].
-   · fmrich  → (v.19) editor de texto enriquecido para la descripción y los cambios de cada versión: negrita, lista con guiones y color de texto.
+   · fmrich  → (V1.9) editor de texto enriquecido para la descripción y los cambios de cada versión: negrita, lista con guiones y color de texto.
                Guarda texto con un marcado sencillo (**negrita**, [color=#rrggbb]…[/color], líneas «- »); la conversión vive en /admin/richtext.js. */
 (function(){
   const CMSx=window.CMS,h=window.h||(CMSx&&CMSx.h),mk=window.createClass||(CMSx&&CMSx.createClass);
