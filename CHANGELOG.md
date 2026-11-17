@@ -2,6 +2,9 @@
 
 *Formato de versión: **V2.3** (mayor.menor). La siguiente será V2.4, y así sucesivamente.*
 
+## V2.4 (correcciones de texto)
+- Corregidos tres textos en la web en español sin tocar las fichas (entrada `es` de `content/traducciones.json`): «Megapack Chándales» (faltaba el acento), «Medios de Comunicación Reales» (faltaba el *de*) y «Megapack de realismo» en la descripción breve de *Increase Realism Megapack* (decía «realism»). En el resto de idiomas no cambia nada.
+
 ## V2.3 (página de Inicio, textos nuevos y CI que no se rompe al actualizar)
 - **Página de Inicio (`/`) nueva** y **catálogo en `/mods/`**. Inicio: hero con el buscador al centro y dos botones (*Ver todos los mods* / *Cómo instalar*), guía de instalación plegable, **categorías como teselas** (con icono, descripción y nº de mods; enlazan a las páginas de categoría), imprescindibles, últimos 8 mods, novedades y los bloques de café y X. Catálogo: el listado completo con todos los filtros, píldoras de versión, orden y vista en lista (sin cambios de comportamiento).
 - **Menú:** nuevos enlaces *Inicio* y *Mods* (la página actual queda subrayada) y las categorías ahora apuntan a `/mods/?cat=…`. También en el pie.
