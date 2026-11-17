@@ -175,3 +175,11 @@ test('V2.3 · search.json lleva el nombre en español (si difiere del original) 
   const s=JSON.parse(rd('data/search.json')).find(x=>x.s==='kit-converter');
   assert.equal(s.t,'Kit Converter');assert.equal(s.tt.es,'Conversor de Kits');assert.equal(s.tt.fr,'Convertisseur de Kits');
 });
+
+test('V2.4 · textos corregidos en español mediante la entrada es de traducciones.json',()=>{
+  const h=rd('index.html'),m=rd('mods/index.html');
+  assert.ok(m.includes('Megapack Chándales')&&!m.includes('Megapack Chandales'),'acento');
+  assert.ok(m.includes('Medios de Comunicación Reales')&&!m.includes('Medios Comunicación Reales'),'«de»');
+  assert.ok(m.includes('Megapack de realismo que ajusta')&&!m.includes('>Megapack de realism que'),'realismo (el texto antiguo solo queda en el índice de búsqueda oculto, en minúsculas)');
+  assert.ok(rd('en/mods/index.html').includes('Tracksuit Megapack'),'los demás idiomas no cambian');
+});
