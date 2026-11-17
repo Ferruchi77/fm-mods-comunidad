@@ -6,7 +6,7 @@
     }
   ],
   "install_path": "Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins",
-  "modified": "2026-11-04",
+  "modified": "2026-11-17",
   "updates": [
     {
       "date": "2026-11-02",
@@ -19,6 +19,11 @@
     {
       "date": "2026-11-10",
       "version": "V.2.4.0"
+    },
+    {
+      "version": "V.2.4.3",
+      "date": "2026-11-17",
+      "note": "Tras la actualización 27.1.0, ¡el Easy Talks ya está listo!"
     }
   ],
   "date": "2026-11-01",
