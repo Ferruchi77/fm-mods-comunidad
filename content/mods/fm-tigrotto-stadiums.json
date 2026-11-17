@@ -1,0 +1,22 @@
+{
+  "authors": [
+    {
+      "ref": "fm-tigrotto"
+    }
+  ],
+  "modified": "2026-11-17",
+  "featured": false,
+  "date": "2026-11-16",
+  "status": "🟢 Publicado",
+  "fm_versions": [
+    "FM27"
+  ],
+  "cover": "https://fmtigrotto.com/assets/img/stadiums2-discover.webp",
+  "download_url": "https://fmtigrotto.com/es/tools/stadiums",
+  "title": "FM Tigrotto Stadiums",
+  "card_text": "Aplicación para Windows que automatiza la descarga, instalación y gestión de estadios 3D reales para Football Manager 27.",
+  "categories": [
+    "app-externa"
+  ],
+  "description": "FM Tigrotto Stadiums (v0.1.0) es una aplicación de escritorio gratuita para Windows (10/11 de 64 bits) desarrollada por FM Tigrotto que permite descargar, instalar de forma automatizada y gestionar estadios personalizados en Football Manager 27.\n\n**Características principales**\n- Gestión y catálogo integrado: Ofrece un catálogo con hasta 12 fotos in-game por estadio, filtros por país y buscadores por nombre de club o estadio, mostrando la versión instalada y las actualizaciones disponibles.\n- Asignación personalizada (Mapping): Permite configurar qué clubes juegan en cada estadio personalizado, establecer un recinto por defecto para partidos sin reglas específicas o sustituir estadios originales del juego.\n- Automatización e instalación: Detecta automáticamente la ruta de Football Manager 27 en Steam, gestiona y actualiza el plugin necesario de forma independiente, e incluye descargas verificadas mediante firmas digitales.\n\n**Requisitos e instalación**\n- Requisitos previos: Tener instalado Football Manager 27, el entorno BepInEx 6, conexión a internet y el componente de Microsoft .NET Desktop Runtime 10 (x64).\n- Funcionamiento: Se recomienda cerrar completamente el juego antes de instalar, actualizar o reasignar estadios desde la aplicación para que los cambios se apliquen correctamente a partir del siguiente partido."
+}
