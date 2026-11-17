@@ -1,4 +1,10 @@
 {
+  "authors": [
+    {
+      "name": "FM Season Hub",
+      "url": "https://x.com/FMSeasonHub"
+    }
+  ],
   "modified": "2026-11-04",
   "updates": [
     {
@@ -13,6 +19,11 @@
     {
       "version": "V.0.9.4",
       "date": "2026-11-07"
+    },
+    {
+      "version": "V. 0.9.4.3",
+      "date": "2026-11-17",
+      "note": "Tras la actualización 27.1.0, ¡el FM SeasonHub ya está listo!"
     }
   ],
   "screenshots": [
@@ -33,11 +44,5 @@
   "categories": [
     "app-externa"
   ],
-  "description": "FM Season Hub (FMSH) es una aplicación externa para Windows (compatible con FM27, FM26 y FM24) que almacena, organiza y analiza estadísticas detalladas de tus partidas guardadas temporada tras temporada sin alterar los archivos del juego.\n\nCaracterísticas clave:\nHistorial de guardados: Guarda los datos de tus temporadas para analizarlos con estadísticas (hasta 3 temporadas en su versión gratuita).\n\nLectura en vivo: Se conecta directamente a tu partida sin necesidad de exportar archivos.\n\nPlugins opcionales: Incluye extras durante su instalación como TacticalCam (ajuste de la cámara táctica) y PitchHUD (muestra la foto del facepack y estadísticas junto al nombre de los jugadores en el campo).",
-  "authors": [
-    {
-      "name": "FM Season Hub",
-      "url": "https://x.com/FMSeasonHub"
-    }
-  ]
+  "description": "FM Season Hub (FMSH) es una aplicación externa para Windows (compatible con FM27, FM26 y FM24) que almacena, organiza y analiza estadísticas detalladas de tus partidas guardadas temporada tras temporada sin alterar los archivos del juego.\n\nCaracterísticas clave:\nHistorial de guardados: Guarda los datos de tus temporadas para analizarlos con estadísticas (hasta 3 temporadas en su versión gratuita).\n\nLectura en vivo: Se conecta directamente a tu partida sin necesidad de exportar archivos.\n\nPlugins opcionales: Incluye extras durante su instalación como TacticalCam (ajuste de la cámara táctica) y PitchHUD (muestra la foto del facepack y estadísticas junto al nombre de los jugadores en el campo)."
 }
