@@ -6,7 +6,7 @@
       "name": "Steven"
     }
   ],
-  "modified": "2026-11-10",
+  "modified": "2026-11-17",
   "updates": [
     {
       "note": "✅ Real players new face drop across ALL saves\n✅ Women's teams fixed\n✅ Removing a face brings back the standard head",
@@ -17,6 +17,11 @@
       "note": "FaceDrop para #FM27 ya es GRATIS. 🆓",
       "date": "2026-11-09",
       "version": "V.0.3"
+    },
+    {
+      "date": "2026-11-16",
+      "version": "V.0.4",
+      "note": "¡Ahora también escudos y logotipos!\n\n¿Escudo de club desactualizado? Arrástralo.\n¿Logotipo de competición antiguo? Arrástralo.\n¿Logotipo de federación? Arrástralo.\n\nCon solo soltarlo, los cambios se aplican en todas partes, tanto a gran como a pequeña escala. Tus paquetes de logotipos permanecen intactos."
     }
   ],
   "featured": false,
