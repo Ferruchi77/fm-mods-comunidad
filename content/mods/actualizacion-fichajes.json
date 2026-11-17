@@ -1,0 +1,23 @@
+{
+  "authors": [
+    {
+      "name": "TheNotoriousPr0",
+      "url": "https://x.com/NotoriousPr0"
+    }
+  ],
+  "modified": "2026-11-17",
+  "featured": false,
+  "date": "2026-11-15",
+  "status": "🟢 Publicado",
+  "fm_versions": [
+    "FM27"
+  ],
+  "cover": "/img/uploads/sin-titulo.png",
+  "download_url": "https://thenotoriouspro.com/",
+  "title": "Actualización Fichajes",
+  "card_text": "Bases de datos actualizadas para Football Manager que incluye fichajes, nuevos empleados y ligas ampliadas.",
+  "categories": [
+    "editor-data"
+  ],
+  "description": "TheNotoriousPr0 es una bases de datos y parches de actualización para la saga Football Manager, creada para ofrecer actualizaciones de fichajes, nuevas ligas y modificaciones profundas en los datos del juego.\nCaracterísticas principales:\n- Actualizaciones completas de datos: Incluye miles de cambios en jugadores, equipos, cuerpos técnicos y ligas, integrando los fichajes más recientes.\n- Nuevas ligas y expansiones: Añade ligas jugables y competiciones adicionales que no vienen por defecto en el juego base (como la G Ethniki de Grecia, ligas y copas de Chipre y la Superliga de India).\n- Modificaciones de personal y perfiles: Incorpora nuevos empleados, jóvenes promesas y cambios de rol (como plantillas técnicas completas o directivos especiales).\n- Enfoque comunitario: Es un proyecto gratuito y centrado en la comunidad, diseñado para maximizar el realismo y la inmersión en las partidas."
+}
