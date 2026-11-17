@@ -1,0 +1,41 @@
+{
+  "authors": [
+    {
+      "name": "melrose"
+    }
+  ],
+  "modified": "2026-11-17",
+  "updates": [
+    {
+      "note": "- 353 jugadores recién vinculados (corrección en la coincidencia de nombres y biografías): Se han recuperado jugadores que no se habían detectado debido a nombres compuestos abreviados, iniciales, apodos o transliteraciones; entre ellos, Trent Alexander-Arnold, El Chadaille Bitshiabu, André-Franck Zambo Anguissa, Jan Paul van Hecke, Max Kilman, Jeff Chabot, Musa Al-Tamari, Rasmus Nissen Kristensen, Albert Sambi Lokonga, Ron-Robert Zieler, Matthew Targett, Oli McBurnie, Dan Ballard, Maxi Oyedele, Sam Amo-Ameyaw, Tom Cannon, Jean-Pierre Nsame, Kostas Stafylidis, Pity Martínez, Nicolás Gaitán y Flaco López.\n- 14 rostros de la Süper Lig turca y de la comunidad (4 nuevos + 10 actualizados): Se han añadido Çağrı Hakan Balta, İrfan Can Kahveci, İrfan Can Eğribayat y Samuel Ballet; se han actualizado Wilfried Singo, Jankat Yılmaz, Lucas Torreira, Abdülkerim Bardakcı, Kerem Aktürkoğlu, Emirhan Topçu, Oğuz Aydın, İsmail Yüksek, Rafael Leão y Leroy Sané.\n- 50 correcciones en peinados rapados o teñidos (incluido Lucas Torreira): Se han eliminado capas 3D de cabello redundantes en 50 modelos de jugadores con el pelo rapado o teñido, las cuales provocaban un efecto visual de solapamiento oscuro («z-fighting») sobre el cuero cabelludo texturizado.\n- Lista verificada y actualizada: Los 414 rostros han superado las comprobaciones automatizadas de malla y ojos. Se ha actualizado el archivo «RealFaces-players.csv» a un total de 11 634 jugadores.",
+      "date": "2026-11-16",
+      "version": "V.1.1.1"
+    },
+    {
+      "note": "- Corrección de colores de cabello PES (Plugin v1.0.2): Se ha desactivado la palabra clave de sombreador `FM_USE_PACKED_MASK` de FM27 (`_UsePackedMask = 0`) al aplicar texturas de cabello de PES, permitiendo que el cabello RGB se renderice en color en lugar de en escala de grises; se ha añadido `EnsureHairColor` para evitar que FM27 restablezca el parámetro `_HairColour` tras la creación de la cabeza, además de incluir un mecanismo de respaldo (`PendingHair`).\n- Corrección de 78 cabezas dañadas o mal alineadas (v1.0.2-Faces-Patch.zip): Se han eliminado picos anómalos en archivos FMDL (ej. Anselmino, Giay, Rigo, Zeroli, Nardin, Brad Collins), se han descartado elementos capilares defectuosos y se ha corregido la alineación vertical de ojos y cabeza (ej. Biro, Prestianni, Kauã Elias, Neto Volpi).\n- Eliminación de 46 asociaciones incorrectas de jugadores (de 11.164 a 11.634 jugadores): Se han corregido errores de identificación (falsos positivos) causados ​​por homónimos o nombres únicos, y se ha actualizado el archivo `RealFaces-players.csv`.",
+      "date": "2026-11-16",
+      "version": "V.1.0.2"
+    }
+  ],
+  "screenshots": [
+    "https://www.fmscout.com/datas/users/realfaces-ingame-1_396057.jpg",
+    "https://www.fmscout.com/datas/users/realfaces-ingame-2_396057.jpg"
+  ],
+  "featured": true,
+  "date": "2026-11-15",
+  "badges": [
+    "Imprescindible"
+  ],
+  "status": "🟢 Publicado",
+  "fm_versions": [
+    "FM27"
+  ],
+  "cover": "https://www.fmscout.com/datas/users/realfaces-700x366_396057.jpg",
+  "download_url": "https://www.fmscout.com/a-fm27-real-3d-faces.html",
+  "title": "Real 3D Faces",
+  "card_text": "Mod para FM27 que introduce más de 11.000 caras y cabezas 3D reales en los partidos basadas en rostros de PES",
+  "categories": [
+    "bases-de-datos"
+  ],
+  "description": "FM27 Real 3D Faces es un mod gráfico para Football Manager 27 que introduce caras y cabezas en 3D reales para más de 11.600 futbolistas durante los partidos, sustituyendo los modelos genéricos y procedurales del juego base por mallas faciales detalladas y texturas de alta resolución adaptadas de los archivos clásicos de SmokePatch (SP Football Life / PES 2021).\n\n**Características principales**\n- Modelos faciales y capilares auténticos: Incorpora más de 11.634 cabezas en 3D personalizadas que incluyen texturas de piel fidedignas y sistemas de cabello y vello facial en 3D que se adaptan dinámicamente al sombreado e iluminación de FM27.\n- Animaciones y compatibilidad nativa: Respeta los huesos de animación originales del motor de partidos del juego (ojos, párpados, boca, mandíbula y cuello) para que los jugadores parpadeen, giren la cabeza y reaccionen de manera natural.\n- Integración universal: Los rostros están indexados mediante el ID único permanente de cada jugador (UID), por lo que funciona de manera inmediata tanto en partidas nuevas como en savegames ya empezados. Los futbolistas no incluidos o los nuevos regens conservan automáticamente el diseño por defecto de FM27.\n- Optimización de rendimiento: Utiliza un formato compacto (.rfh) optimizado para gestionar de forma inteligente el consumo de memoria VRAM (liberándola al finalizar cada encuentro).\n\n**Instalación en 3 pasos:**\n- Descarga el paquete del Plugin (elige la versión con BepInEx incluido si no lo tienes instalado previamente, o la versión de solo plugin si ya usas otros mods basados en BepInEx).\n- Extrae los archivos del plugin directamente en la carpeta principal del juego donde se encuentra el ejecutable fm.exe (en Steam suele ser la raíz de Football Manager 27, mientras que en Xbox Game Pass se sitúa un nivel más abajo, dentro de la subcarpeta \\Content).\n- Extrae las cuatro partes independientes del Face Pack (y aplica los parches de actualización correspondientes como el de la v1.1.1) en esa misma ruta para que los archivos de rostros se alojen en la ruta BepInEx\\plugins\\RealFaces\\faces\\."
+}
