@@ -51,6 +51,11 @@
       "note": "⚙️ Personaliza el icono de engranaje en la barra lateral\n➖ Divisores que puedes colocar tú mismo y que se guardan\n📸 ~700 clubes adicionales con fotos de estadios o ciudades\n🌍 Barra superior de selecciones nacionales corregida\n🔎 Edades en la búsqueda de jugadores corregidas\n🏟️ Días de partido en terreno neutral corregidos",
       "version": "V.1.9.2",
       "date": "2026-11-14"
+    },
+    {
+      "version": "V.1.9.3",
+      "note": "La actualización 27.1 de FM27 eliminó la interfaz personalizada (skin), por lo que ha sido reconstruida para la versión 27.1.0 tanto en Windows como en Mac, incluyendo algunas correcciones en el perfil del club y en el perfil del mánager.",
+      "date": "2026-11-17"
     }
   ],
   "author": " FM Extra Time",
