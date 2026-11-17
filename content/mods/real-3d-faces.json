@@ -18,8 +18,8 @@
     }
   ],
   "screenshots": [
-    "https://www.fmscout.com/datas/users/realfaces-ingame-1_396057.jpg",
-    "https://www.fmscout.com/datas/users/realfaces-ingame-2_396057.jpg"
+    "/img/covers/real-3d-faces-s1-38d90dfa.webp",
+    "/img/covers/real-3d-faces-s2-efd3f7a0.webp"
   ],
   "featured": true,
   "date": "2026-11-15",
@@ -30,7 +30,7 @@
   "fm_versions": [
     "FM27"
   ],
-  "cover": "https://www.fmscout.com/datas/users/realfaces-700x366_396057.jpg",
+  "cover": "/img/covers/real-3d-faces-cover-048a1a4d.webp",
   "download_url": "https://www.fmscout.com/a-fm27-real-3d-faces.html",
   "title": "Real 3D Faces",
   "card_text": "Mod para FM27 que introduce más de 11.000 caras y cabezas 3D reales en los partidos basadas en rostros de PES",
