@@ -1,0 +1,25 @@
+{
+  "authors": [
+    {
+      "ref": "paul-graphics-kit-designer"
+    }
+  ],
+  "modified": "2026-11-17",
+  "screenshots": [
+    "https://i0.wp.com/grassngear.com/wp-content/uploads/2026/11/5c01f2e4-04b3-4b54-a86f-26b61e34a578.jpg?resize=1536%2C756&ssl=1"
+  ],
+  "featured": false,
+  "date": "2026-11-16",
+  "status": "🟢 Publicado",
+  "fm_versions": [
+    "FM27"
+  ],
+  "cover": "https://i0.wp.com/grassngear.com/wp-content/uploads/2026/11/4fd03cdf-f3ed-4621-b3df-d082f3591319.png?w=1672&ssl=1",
+  "download_url": "https://grassngear.com/2026/11/16/trophy-parade-in-fm27-mod/",
+  "title": "Rúa de trofeos",
+  "card_text": "Añade desfiles y rúas de celebración en bus abierto por las calles de la ciudad tras conquistar un trofeo en Football Manager.",
+  "categories": [
+    "bases-de-datos"
+  ],
+  "description": "Trophy Parade es un mod inmersivo para Football Manager 27 que añade una celebración en autobús descapotable por las calles de la ciudad tras conquistar un título oficial.\n\n**Características principales**\n- Dinámica del desfile: Se reproduce automáticamente al finalizar un partido en el que tu equipo levanta un trofeo, mostrando un autobús abierto con los colores y escudo de tu club, el trofeo real ganado y una multitud adaptada al tamaño de tu estadio.\n- Entornos contextualizados: El aspecto de la calle y la arquitectura varían según la ubicación geográfica de tu equipo (Reino Unido, Europa, Mediterráneo, América Latina, Norteamérica o Asia) y el tamaño de la localidad en función de la capacidad de tu recinto.\n- Equipos masculinos y femeninos: Ambas plantillas cuentan con su propio desfile personalizado en el autobús.\n- Controles de repetición y pruebas: Permite volver a visualizar el desfile en cualquier pantalla normal pulsando la tecla F6 (y detenerlo con F6 o Esc), además de incluir modos de testeo para activarlo tras cualquier victoria o partido.\n\n**Requisitos e Instalación**\nRequisitos:\n- Requiere tener instalado previamente el entorno BepInEx 6 (IL2CPP).\nInstalación:\n- Cierra completamente el juego.\n- Copia la carpeta BepInEx del archivo descargado dentro del directorio principal de Football Manager 27, fusionándola con la ya existente para que los archivos (TrophyParade.dll, parade.bundle, parade_streets.bundle y el archivo de configuración) se ubiquen en sus respectivas rutas de plugins y configuración de BepInEx."
+}
