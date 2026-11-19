@@ -19,7 +19,7 @@ const src=new Map();
 for(const f of fs.existsSync(DIR)?fs.readdirSync(DIR).filter(f=>f.endsWith('.json')):[]){
   let m;try{m=JSON.parse(fs.readFileSync(p.join(DIR,f),'utf8'))}catch{continue}
   const add=t=>{t=String(t||'').trim();if(t)src.set(hash(t),t)};
-  add(m.title);add(m.card_text);(m.updates||[]).forEach(u=>add(u&&u.note))}
+  add(m.title);add(m.card_text);add(m.description);add(m.instructions);add(m.compat_note);(m.updates||[]).forEach(u=>add(u&&u.note))}
 let cache={};try{cache=JSON.parse(fs.readFileSync(FILE,'utf8'))}catch{}
 const done=e=>e&&LANGS.every(l=>typeof e[l]==='string'&&e[l].trim());
 const save=()=>{for(const h of Object.keys(cache))if(!src.has(h))delete cache[h];   // limpia lo que ya no se usa
