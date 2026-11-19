@@ -20,6 +20,11 @@
       "version": "V.1.8.6e",
       "note": "Hotfix de la nueva actualización de FM",
       "date": "2026-11-03"
+    },
+    {
+      "version": "V.1.8.7",
+      "date": "2026-11-18",
+      "note": "🏆 Nuevas competiciones\n\nCada competición cuenta con su propia identidad televisiva: marcador, logotipo de TV, escena de entrada, alineaciones de equipos y vallas publicitarias del mundo real.\n\nLiga Portugal 2 Meu Super Marcador, logotipo de Sport TV, escena de entrada, alineaciones de equipos y vallas publicitarias (16 marcas)\n\nCopa Allianz / Taça da Liga Marcador, animación de introducción, alineaciones, nuevo logotipo dorado y vallas publicitarias (17 marcas)\n\nTaça de Portugal Marcador, gráficos en pantalla, animación de introducción, alineaciones y vallas publicitarias (7 marcas)\n\nSky Bet League One (Inglaterra) Marcador, logotipo de Sky Sports, animación de introducción y vallas publicitarias (10 marcas)\n\nSky Bet League Two (Inglaterra) Marcador, logotipo de Sky Sports, animación de introducción y vallas publicitarias (10 marcas)\n\nEnterprise National League (+ Norte y Sur) Marcador y vallas publicitarias (11 marcas)\n\nQatar Stars League Marcador, logotipo de TV, gráficos, alineaciones de equipos y vallas publicitarias (17 marcas)\n\nADNOC Pro League (EAU) Marcador, logotipo de TV, gráficos, alineaciones de equipos y vallas publicitarias (15 marcas)\n\nSuperLiga (Rumania) Marcador y vallas publicitarias (6 marcas)\n\nAFC Champions League Two Marcador\n\nBetclic 1 Liga (Polonia) Marcador, logotipo de TV y vallas publicitarias (7 marcas)\n\nBetclic 2 Liga (Polonia) Marcador, logotipo de TV y vallas publicitarias (4 marcas)\n\nLigue 3 Betclic (Francia) Marcador, logotipo de TV, gráficos, alineaciones de equipos y vallas publicitarias\n\n3. Liga (Alemania) Marcador al estilo MAGENTA SPORT y vallas publicitarias (7 marcas)\n\nSerie C Sky Wifi (Italia) Marcador, logotipo de TV y vallas publicitarias (16 marcas)\n\nPrimera RFEF (España) Marcador y vallas publicitarias\n\nStoiximan Super League (Grecia) Marcador, logotipo de TV, fondos de alineaciones de equipos y vallas publicitarias (8 marcas)\n\nPartidos amistosos Marcador personalizado, logotipo de TV, alineaciones de equipos y cinemáticas\n\nEscocia: Championship, League One y League Two\n\nCopa de Turquía, Nesine 2. Lig y Nesine 3. Lig\n\n🔄 Ligas renovadas para la temporada 26/27\n\n• Liga Portugal Betclic: marcador rediseñado al estilo de Sport TV, alineaciones con el campo dispuesto horizontalmente, y nuevas vallas publicitarias con 17 marcas.\n\n• SuperSport HNL (Croacia): nuevo marcador con la imagen actual de SuperSport y vallas publicitarias 26/27 con 16 marcas.\n\n• Copa Libertadores y Copa Sudamericana: marcador y logotipo de TV rediseñados al estilo de ESPN.\n\n• AFC Champions League Elite: nuevo marcador modelado en la transmisión oficial.\n\n• Premier League: vallas publicitarias generales 26/27 con sus 11 socios y vídeos actualizados de los clubes.\n\n• Nuevas vallas publicitarias 26/27 en: LALIGA EA SPORTS (21 marcas), LALIGA HYPERMOTION (20), Serie A Enilive (13), Serie BKT (17), Ligue 1 McDonald’s (8), Ligue 2 BKT (8), Bundesliga (8) y 2. Bundesliga (7)."
     }
   ],
   "install_paths": [
@@ -41,7 +46,7 @@
     "FM27"
   ],
   "cover": "/img/covers/atmosfera-360-cover.webp",
-  "download_url": "https://www.patreon.com/MiguelFMAdboards/posts/atmosfera-360-v-173842807",
+  "download_url": "https://www.patreon.com/MiguelFMAdboards/posts/atmosfera-1-8-7-175657621?utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=postshare_fan&utm_content=web_share",
   "title": "Atmósfera 360",
   "card_text": "Recrea una retransmisión de TV real con marcadores, gráficos, vallas LED dinámicas y pancartas personalizadas en decenas de ligas.",
   "categories": [
