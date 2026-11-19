@@ -183,3 +183,39 @@ test('V2.4 · textos corregidos en español mediante la entrada es de traduccion
   assert.ok(m.includes('Megapack de realismo que ajusta')&&!m.includes('>Megapack de realism que'),'realismo (el texto antiguo solo queda en el índice de búsqueda oculto, en minúsculas)');
   assert.ok(rd('en/mods/index.html').includes('Tracksuit Megapack'),'los demás idiomas no cambian');
 });
+
+test('V2.5 · las descripciones, instrucciones y avisos de compatibilidad se traducen en cada idioma (ficha y SEO)',()=>{
+  const g=(l,s)=>rd(p.join(PREF[l],'mod',s,'index.html')),meta=h=>(h.match(/<meta name="description" content="([^"]*)"/)||[])[1]||'';
+  assert.match(meta(g('es','3d-live-action-cam')),/^3D Live Action Cam \(v5\.0\) transforma la realización/);
+  assert.match(meta(g('en','3d-live-action-cam')),/^3D Live Action Cam \(v5\.0\) transforms the way matches/);
+  assert.match(meta(g('fr','3d-live-action-cam')),/transforme la réalisation des matchs/);
+  assert.ok(g('en','3d-live-action-cam').includes('Cinematic cameras')&&!g('en','3d-live-action-cam').includes('Cámaras cinemáticas'));
+  assert.ok(g('pt','kojuro-skin').includes('Instalação')&&!g('pt','kojuro-skin').includes('Cierra completamente'));
+  for(const l of Object.keys(PREF))assert.ok(!/\[cite/.test(g(l,'dressing-room-kit-fix')),l+': sin marcas [cite:]');
+});
+test('V2.5 · translate.js incluye descripción, instrucciones y aviso de compatibilidad (no hay nada pendiente)',()=>{
+  assert.match(read('scripts/translate.js'),/add\(m\.description\);add\(m\.instructions\);add\(m\.compat_note\)/);
+  const r=cp.spawnSync(process.execPath,['scripts/translate.js','--check'],{encoding:'utf8'});assert.match(r.stdout,/pendientes: 0/);
+});
+test('V2.5 · enlaces de descarga por versión: un botón por versión (la más reciente primero), el general como respaldo y avisos sin fallar',()=>{
+  const T=fs.mkdtempSync(p.join(os.tmpdir(),'fmdl-'));
+  for(const d of ['content','locales','public','scripts'])fs.cpSync(d,p.join(T,d),{recursive:true});
+  for(const f of ['build.js','package.json'])fs.copyFileSync(f,p.join(T,f));
+  const fp=p.join(T,'content/mods/tcm-logos.json'),m=JSON.parse(fs.readFileSync(fp,'utf8'));
+  m.download_urls=[{version:'FM27',url:'https://www.mediafire.com/file/aaa/fm27.zip'},{version:'FM26',url:'https://mega.nz/file/bbb'},{version:'FM99',url:'https://x.example/zz'},{version:'FM24',url:'ftp://malo'}];
+  fs.writeFileSync(fp,JSON.stringify(m,null,2));
+  const O=p.join(T,'out'),r=cp.spawnSync(process.execPath,['build.js'],{cwd:T,env:{...process.env,OUT_DIR:O,SYNC_AUTHORS:'0',NO_STATS_FETCH:'1'},encoding:'utf8'});
+  assert.equal(r.status,0,'un enlace mal escrito no tumba el build');
+  assert.ok(/FM99/.test(r.stdout+r.stderr)&&/ftp|http/.test(r.stdout+r.stderr),'avisa de los enlaces no válidos');
+  const h=fs.readFileSync(p.join(O,'mod/tcm-logos/index.html'),'utf8'),btn=[...h.matchAll(/data-dlc="[^"]*" href="([^"]*)"[^>]*>([^<]*)</g)].map(x=>[x[1],x[2]]);
+  assert.deepEqual(btn,[['https://www.mediafire.com/file/aaa/fm27.zip','Descargar para FM27'],['https://mega.nz/file/bbb','Descargar para FM26'],[m.download_url,'Descargar para FM24']]);
+  assert.ok(/Download for FM27/.test(fs.readFileSync(p.join(O,'en/mod/tcm-logos/index.html'),'utf8')));
+  const solo=[...fs.readFileSync(p.join(O,'mod/facedrop/index.html'),'utf8').matchAll(/data-dlc=/g)].length;assert.equal(solo,1,'sin enlaces por versión: un solo botón');
+  fs.rmSync(T,{recursive:true,force:true});
+});
+test('V2.5 · el panel ofrece el campo de enlaces por versión y el número de descargas va en verde de acento',()=>{
+  const cfg=read('public/admin/config.yml'),w=read('public/admin/widgets.js'),css=read('public/css/style.css');
+  assert.match(cfg,/name: download_urls, widget: fmlinks, required: false/);assert.match(w,/registerWidget\('fmlinks'/);assert.match(read('public/admin/ui.js'),/'download_url','download_urls'/);
+  assert.match(css,/\.st \.dl\{[^}]*color:var\(--act\)/);assert.match(css,/\.fst>\.dlc,\.fst>\.dlc b\{color:var\(--act\)\}/);
+  for(const l of ['es','en','ca','fr','pt','it'])assert.match(JSON.parse(read('locales/'+l+'.json')).dl_btn_ver,/\{v\}/);
+});
