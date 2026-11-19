@@ -1,0 +1,22 @@
+{
+  "authors": [
+    {
+      "ref": "fm-season-hub"
+    }
+  ],
+  "modified": "2026-11-19",
+  "featured": false,
+  "date": "2026-11-19",
+  "status": "🟢 Publicado",
+  "fm_versions": [
+    "FM27"
+  ],
+  "cover": "https://fmseasonhub.com/_astro/01.Dg4tQ-wP_2imOFX.webp",
+  "download_url": "https://fmseasonhub.com/es/plugins/bookmarksunlocked-fm27",
+  "title": "Marcadores barra superior",
+  "card_text": "Plugin que aprovecha el espacio libre junto a las pestañas para mostrar todos los marcadores que quepan en pantalla.",
+  "categories": [
+    "bases-de-datos"
+  ],
+  "description": "**Bookmarks Unlocked **es un plugin que hace que la barra de marcadores aproveche el espacio libre junto a las pestañas y muestre todos los marcadores que quepan en lugar de limitarse al espacio fijo por defecto.\n\n- **Funcionamiento: **\nAjusta dinámicamente los marcadores visibles en cada pantalla en menos de un segundo respetando siempre el espacio de las pestañas del juego, manteniendo los controles nativos de fijar, quitar o reordenar desde el panel de la barra de marcadores y sin añadir menús propios.\n- **Compatibilidad y notas: **\nExclusivo para FM27; funciona con o sin etiquetas de marcadores activadas, no modifica partidas guardadas ni preferencias y se desinstala eliminando su carpeta de plugins.\n- **Requisitos: **\nRequiere tener instalado previamente **BepInEx 6 (IL2CPP)** en la carpeta del juego.\n- **Instalación: **\nExtrae el contenido del `.zip` en `Football Manager 27\\BepInEx\\plugins\\BookmarksUnlocked\\` (de modo que quede `BookmarksUnlocked.dll` ahí dentro) e inicia el juego."
+}
