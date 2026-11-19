@@ -9,9 +9,9 @@
   "modified": "2026-11-10",
   "updates": [
     {
-      "date": "2026-11-07",
-      "version": "Versión gratuita (equivale al 06/03/2026)",
-      "note": "Sirve tanto para FM26 como FM27"
+      "date": "2026-11-15",
+      "version": "V. FM27",
+      "note": ""
     }
   ],
   "install_paths": [
@@ -30,11 +30,12 @@
   ],
   "status": "🟢 Publicado",
   "fm_versions": [
-    "FM26"
+    "FM27"
   ],
   "cover": "/img/covers/atmosfera-360-cover.webp",
   "download_url": "https://www.patreon.com/MiguelFMAdboards/posts/atmosfera-360-152355234",
   "title": "Atmósfera 360 (gratuito)",
+  "download_urls": [],
   "card_text": "Recrea una retransmisión de TV real con marcadores, gráficos, vallas LED dinámicas y pancartas personalizadas en decenas de ligas.",
   "categories": [
     "bases-de-datos"
