@@ -50,6 +50,37 @@
   });
   const PathsPreview=mk({render(){return h('span',null,'')}});
   CMSx.registerWidget('fmpaths',PathsControl,PathsPreview);
+  const LinksControl=mk({
+    // Decap no vuelve a pintar este campo cuando cambias «Versiones de FM» en otro, así que se lee el borrador al día (getEntry) y se vigila cada medio segundo.
+    versions(){
+      const e=this.props.getEntry?this.props.getEntry():this.props.entry,d=e&&e.get&&e.get('data'),v=plain(d&&d.get&&d.get('fm_versions'));
+      return Array.isArray(v)?v.filter(Boolean):[];
+    },
+    componentDidMount(){this._k=this.versions().join('|');this._t=setInterval(()=>{const k=this.versions().join('|');if(k!==this._k){this._k=k;this.forceUpdate()}},500)},
+    componentWillUnmount(){clearInterval(this._t)},
+    current(){const v=plain(this.props.value);return Array.isArray(v)?v:[]},
+    set(ver,url,all){
+      const keep=this.current().filter(x=>x&&x.version!==ver);
+      if(url.trim())keep.push({version:ver,url:url.trim()});
+      keep.sort((a,b)=>all.indexOf(a.version)-all.indexOf(b.version));
+      this.props.onChange(keep);
+    },
+    render(){
+      const vs=this.versions(),cur=this.current(),box={border:'1px solid #d5d9e2',borderRadius:'8px',padding:'12px',background:'#f8f9fb'};
+      if(vs.length<2)return h('div',{style:box,id:this.props.forID},
+        h('p',{style:{margin:0,color:'#475066'}},'Elige 2 o más «Versiones de FM» en la pestaña 1 para poder poner un enlace de descarga distinto a cada una. Con una sola versión basta el campo «Enlace de descarga» de arriba.'));
+      return h('div',{style:box,id:this.props.forID},
+        vs.map(ver=>{const x=cur.find(c=>c&&c.version===ver);
+          return h('label',{key:ver,style:{display:'flex',alignItems:'center',gap:'10px',margin:'0 0 8px'}},
+            h('b',{style:{minWidth:'62px'}},ver),
+            h('input',{type:'text',value:x?x.url:'',placeholder:'https://…  (vacío = se usa el enlace de descarga general)',
+              onChange:e=>this.set(ver,e.target.value,vs),style:{flex:1,padding:'8px 10px',border:'1px solid #c9ced8',borderRadius:'6px',font:'inherit'}}));
+        }),
+        h('p',{style:{margin:'6px 0 0',fontSize:'12px',color:'#6b7280'}},'Es opcional. Si dejas una versión vacía, esa versión usa el enlace de descarga general. Si no rellenas ninguna, la ficha muestra un solo botón «Descargar mod»; si rellenas alguna, la web muestra un botón «Descargar para FMxx» por cada versión.'));
+    }
+  });
+  const LinksPreview=mk({render(){return h('span',null,'')}});
+  CMSx.registerWidget('fmlinks',LinksControl,LinksPreview);
 
   // ───── fmrich · editor de texto enriquecido (justificado) ─────
   const RT=window.FMRich;

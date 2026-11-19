@@ -4,7 +4,7 @@
 (function(){
   const TABS=[
     {n:1,t:'1 · Información principal',f:['title','card_text','status','categories','fm_versions','badges','featured','tags','compat_patch','compat_note','date','modified']},
-    {n:2,t:'2 · Autores y enlaces',f:['authors','download_url']},
+    {n:2,t:'2 · Autores y enlaces',f:['authors','download_url','download_urls']},
     {n:3,t:'3 · Contenido y multimedia',f:['cover','screenshots','description','install_path','install_paths','instructions','updates']}
   ];
   const q=(s,r)=>(r||document).querySelector(s);

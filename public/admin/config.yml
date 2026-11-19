@@ -114,6 +114,7 @@ collections:
       - { label: Autor (antiguo), name: author, widget: hidden, required: false }
       - { label: Enlace del autor (antiguo), name: author_url, widget: hidden, required: false }
       - { label: "Enlace de descarga * (Mediafire, MEGA, Drive…)", name: download_url, widget: string, hint: "Obligatorio. Debe empezar por https://", pattern: ['^https?://\S+$', 'Debe ser una URL válida que empiece por http:// o https://'] }
+      - { label: "Enlaces de descarga por versión de FM (opcional)", name: download_urls, widget: fmlinks, required: false, hint: "Solo si la descarga es distinta para cada versión del juego: sale una casilla por cada versión elegida en «Versiones de FM». Lo que dejes vacío usa el enlace general de arriba. Si no rellenas nada, la web muestra un solo botón." }
       # ───── Pestaña 3 · Contenido y multimedia ─────
       - { label: Imagen de portada, name: cover, widget: image, required: false, hint: "Sube un archivo o usa «Insertar desde URL». Mira la vista previa: comprueba que la imagen carga." }
       - { label: Capturas de pantalla, name: screenshots, widget: list, required: false, field: { label: Captura, name: shot, widget: image } }

@@ -56,6 +56,16 @@ const make=ctx=>{
   // Miniaturas -320/-640 (las crea scripts/imagenes.js). ctx.variant / ctx.imgW los pone build.js; en la vista previa del panel no existen y se usa la imagen original.
   const vr=(u,w)=>ctx.variant?ctx.variant(u,w):'';
   const rs=(u,sizes)=>{const L=[320,640].filter(w=>vr(u,w)).map(w=>`${esc(vr(u,w))} ${w}w`);if(!L.length)return '';const W=ctx.imgW?ctx.imgW(u):0;if(W>640)L.push(`${esc(u)} ${W}w`);return `srcset="${L.join(', ')}" sizes="${sizes}"`};
+  // Botones de descarga: uno solo (enlace general) o, si el editor ha añadido enlaces por versión de FM (download_urls), uno por versión.
+  // Una versión sin enlace propio usa el general. Si no hay enlaces por versión, la ficha es la de siempre.
+  const dlBtns=m=>{
+    const per=list(m.download_urls).map(x=>x&&{v:String(x.version||'').trim(),u:String(x.url||'').trim()}).filter(x=>x&&/^https?:\/\/\S+$/i.test(x.u)&&m.vers.includes(x.v));
+    const mkb=(u,k,v,i)=>`<a class="btn ${i?'':'primary '}big" data-dlc="${m.slug}" href="${esc(u)}" target="_blank" rel="nofollow noopener noreferrer"${I(k,v)}>${esc(T(k,v))}</a>`;
+    const hostsP=us=>{const hs=[...new Set(us.map(host).filter(Boolean))];return hs.length?`<p class="dlhost">${S('dl_host',{h:hs.join(', ')},'span')}${hs.some(h=>ACCT.test(h))?' '+S('dl_acct'):''}</p>`:''};
+    if(!per.length)return mkb(m.download_url,'dl_btn',null,0)+hostsP([m.download_url]);
+    const rows=[...m.vers].reverse().map(v=>{const x=per.find(p=>p.v===v);return {v,u:x?x.u:m.download_url}});
+    return rows.map((r,i)=>mkb(r.u,'dl_btn_ver',{v:r.v},i)).join('')+hostsP(rows.map(r=>r.u));
+  };
   const catOf=s=>CATS[s]||{n:s,d:'',dir:'graphics/'};
   const trAttr=()=>''; // (antes marcaba el nombre traducido; ahora build.js escribe cada página ya en su idioma)
   const lum=h=>{const n=parseInt(h.slice(1),16);return(0.299*(n>>16)+0.587*((n>>8)&255)+0.114*(n&255))/255};
@@ -68,7 +78,7 @@ const make=ctx=>{
   const vchips=m=>m.vers.map(v=>`<span class="vchip${v===ctx.LATEST?' new':''}">${esc(v)}</span>`).join('');
   const compat=m=>{const L=ctx.LATEST,ok=!L||m.vers.includes(L),
     t=[ok?(L?S('compat_latest',{v:L}):S('compat_noinfo')):S('compat_warn',{v:L})];
-    if(m.compat_patch)t.push(S('compat_patch',{p:m.compat_patch}));if(m.compat_note)t.push(esc(m.compat_note));
+    if(m.compat_patch)t.push(S('compat_patch',{p:m.compat_patch}));if(m.compat_note)t.push(esc(tx(m.compat_note)));
     return `<div class="compat${ok?'':' warn'}"><div class="vc">${S('compat_h',null,'strong')}${vchips(m)}</div><p>${t.join(' ')}</p></div>`};
   const reload=C.reload||['FM24'];
   const needsReload=m=>m.vers.some(v=>reload.includes(vk(v).toUpperCase()));
@@ -99,8 +109,8 @@ const make=ctx=>{
   const detail=(m,opt={})=>{
     const ad=opt.ad||ctx.ad||(()=>''),cn=m.cats.map(catOf),ips=installPaths(m),shots=[m.cover,...m.screenshots].filter(Boolean);
     const appOnly=m.cats.length>0&&m.cats.every(c=>c==='app-externa');
-    const paras=`<div class="rt">${rich(m.description)}</div>`;
-    const steps=(m.instructions?String(m.instructions).split('\n').filter(Boolean).map(s=>`<li>${esc(s)}</li>`):(appOnly?['st_app1','st_app2','st_app3']:['st_def1','st_def2','st_def3',...(needsReload(m)?['st_def4']:[])]).map(k=>S(k,null,'li'))).join('');
+    const paras=`<div class="rt">${rich(tx(m.description))}</div>`;
+    const steps=(m.instructions?String(tx(m.instructions)).split('\n').filter(Boolean).map(s=>`<li>${esc(s)}</li>`):(appOnly?['st_app1','st_app2','st_app3']:['st_def1','st_def2','st_def3',...(needsReload(m)?['st_def4']:[])]).map(k=>S(k,null,'li'))).join('');
     return `<div class="wrap"><p class="crumb"><a href="/"${I('crumb_home')}>${esc(T('crumb_home'))}</a> / ${m.cats[0]?`<a href="/categoria/${m.cats[0]}/"${trAttr(cn[0])}>${esc(cn[0].n)}</a>`:S('crumb_mods')}</p>
 <div class="bd">${badges(m)}</div><h1>${esc(mt(m))}</h1>
 <p class="catlinks">${m.cats.map((c,i)=>`<a href="/categoria/${c}/"${trAttr(cn[i])}>${esc(cn[i].n)}</a>`).join('')}</p>
@@ -110,7 +120,7 @@ ${ad('bajo-titulo')}
 <div class="det"><div>
 ${shots.length?`<img class="shot" id="shot" data-zoom tabindex="0" ${AM({title:'shot_title',alt:'shot_alt'},{t:mt(m)})} src="${esc(shots[0])}" ${rs(shots[0],'(max-width:760px) 100vw, 700px')} decoding="async" fetchpriority="high" width="960" height="540">${shots.length>1?`<div class="thumbs">${shots.map((s,i)=>`<button type="button" data-src="${esc(s)}" data-srcset="${esc(rs(s,'(max-width:760px) 100vw, 700px').replace(/^srcset=\"|\" sizes=.*$/g,''))}" class="${i?'':'on'}" ${AM({'aria-label':'shot_n'},{n:i+1})}><img src="${esc(vr(s,320)||s)}" alt="" loading="lazy" decoding="async" width="96" height="54"></button>`).join('')}</div>`:''}`:''}
 <div class="desc">${S('desc_h',null,'h2')}${paras}${m.tags.length?`<p class="tags">${m.tags.map(t=>`<span>#${esc(t)}</span>`).join('')}</p>`:''}</div>${hist(m)}</div>
-<aside><div class="box">${S('inst_h',null,'h2')}${appOnly||!ips.length?'':`${S('inst_path',null,'p','meta')}${ips.map((x,i)=>{const k=x.label?'copy_btn_ver':ips.length>1?'copy_btn_n':'copy_btn',v=x.label?{v:x.label}:ips.length>1?{n:i+1}:null;return `<div class="pr"><code class="path">${esc(x.path)}</code><button class="btn" type="button"${I(k,v)} data-copy="${esc(x.path)}">${esc(T(k,v))}</button></div>`}).join('')}`}<ol class="steps">${steps}</ol><p class="meta" style="margin:12px 0 0"><a href="/como-instalar/"${I('inst_guide')} style="text-decoration:underline">${esc(T('inst_guide'))}</a></p></div><div class="box dlbox"><a class="btn primary big" data-dlc="${m.slug}" href="${esc(m.download_url)}" target="_blank" rel="nofollow noopener noreferrer"${I('dl_btn')}>${esc(T('dl_btn'))}</a>${(()=>{const h=host(m.download_url);return h?`<p class="dlhost">${S('dl_host',{h},'span')}${ACCT.test(h)?' '+S('dl_acct'):''}</p>`:''})()}<div class="fst"><span class="fr" data-fr>★ ${esc(T('fr_none'))}</span><span class="flk" data-fl>👍 0</span><span class="dlc" data-dl="${m.slug}"></span></div><div class="rate" data-rate="${m.slug}"><div class="stars" role="group" ${AM({'aria-label':'rate_aria'})}>${[1,2,3,4,5].map(n=>`<button type="button" data-star="${n}" ${AM({'aria-label':'star_aria'},{n})} aria-pressed="false">★</button>`).join('')}</div><span class="rtxt">${esc(T('rate_none'))}</span></div><div class="fb"><button class="btn like" type="button" data-like="${m.slug}" aria-pressed="false">👍 ${S('like_btn')} <b></b></button><button class="btn fav" type="button" data-fav="${m.slug}" aria-pressed="false"><span class="fav-ic" aria-hidden="true">♡</span> ${S('fav_btn')}</button></div>${ad('junto-descarga')}
+<aside><div class="box">${S('inst_h',null,'h2')}${appOnly||!ips.length?'':`${S('inst_path',null,'p','meta')}${ips.map((x,i)=>{const k=x.label?'copy_btn_ver':ips.length>1?'copy_btn_n':'copy_btn',v=x.label?{v:x.label}:ips.length>1?{n:i+1}:null;return `<div class="pr"><code class="path">${esc(x.path)}</code><button class="btn" type="button"${I(k,v)} data-copy="${esc(x.path)}">${esc(T(k,v))}</button></div>`}).join('')}`}<ol class="steps">${steps}</ol><p class="meta" style="margin:12px 0 0"><a href="/como-instalar/"${I('inst_guide')} style="text-decoration:underline">${esc(T('inst_guide'))}</a></p></div><div class="box dlbox">${dlBtns(m)}<div class="fst"><span class="fr" data-fr>★ ${esc(T('fr_none'))}</span><span class="flk" data-fl>👍 0</span><span class="dlc" data-dl="${m.slug}"></span></div><div class="rate" data-rate="${m.slug}"><div class="stars" role="group" ${AM({'aria-label':'rate_aria'})}>${[1,2,3,4,5].map(n=>`<button type="button" data-star="${n}" ${AM({'aria-label':'star_aria'},{n})} aria-pressed="false">★</button>`).join('')}</div><span class="rtxt">${esc(T('rate_none'))}</span></div><div class="fb"><button class="btn like" type="button" data-like="${m.slug}" aria-pressed="false">👍 ${S('like_btn')} <b></b></button><button class="btn fav" type="button" data-fav="${m.slug}" aria-pressed="false"><span class="fav-ic" aria-hidden="true">♡</span> ${S('fav_btn')}</button></div>${ad('junto-descarga')}
 ${report(m)}</div>
 ${opt.extras||''}</aside></div>${opt.below||''}</div>`;
   };

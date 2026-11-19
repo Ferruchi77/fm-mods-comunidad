@@ -261,6 +261,9 @@ h3{font-weight:700}
 .mods-head p{margin:.8rem 0 1.6rem;color:var(--mu);font-size:1.1rem;max-width:60ch}
 #ultimos{margin-top:0}
 
+/* Varios botones de descarga (un enlace por versión de FM) */
+.dlbox .btn.big+.btn.big{margin-top:10px}
+
 /* 7. TARJETAS Y PARRILLAS -------------------------------------------------- */
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:20px}
 .card{position:relative;display:flex;flex-direction:column;align-items:stretch;background:var(--s1);border:1px solid var(--bd);border-radius:var(--r-l);overflow:hidden;box-shadow:var(--sh-card);transition:transform var(--t),border-color var(--t),box-shadow var(--t)}
@@ -290,8 +293,8 @@ h3{font-weight:700}
 .cf .cat{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.cf time{white-space:nowrap}
 .st{display:flex;gap:12px;flex-wrap:wrap;align-items:center;color:var(--mu);font-size:.8rem;margin-top:8px}
 .st .r{color:var(--warn);font-weight:700}.st i{color:var(--mu);font-style:normal;font-weight:400}
-.st .dl{display:inline-flex;align-items:center;gap:5px;font-weight:700}
-.dl-ic{width:15px;height:15px;flex:none}.dlc{display:inline-flex;align-items:center;gap:6px;color:var(--mu);font-size:.88rem}
+.st .dl{display:inline-flex;align-items:center;gap:5px;font-weight:700;color:var(--act)}   /* descargas: verde de acento */
+.dl-ic{width:15px;height:15px;flex:none}.dlc{display:inline-flex;align-items:center;gap:6px;color:var(--act);font-weight:700;font-size:.88rem}
 /* detalle al pasar el ratón (solo con ratón y en cuadrícula) */
 .hv{display:none}
 @media(hover:hover){
@@ -348,7 +351,7 @@ h3{font-weight:700}
 .fst{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
 .fst>span{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border:1px solid var(--bd);border-radius:var(--r-pill);background:var(--s2);color:var(--tx);font-size:.88rem}
 .fst i{font-style:normal;color:var(--mu)}.fst .fr{color:var(--warn)}.fst .fr b{color:var(--tx)}
-.fst .dlc{padding:5px 12px}.fb .dlc{display:none}.fst .flk{display:inline-flex;width:auto;height:auto;overflow:visible;box-shadow:none}
+.fst .dlc{padding:5px 12px}.fst>.dlc,.fst>.dlc b{color:var(--act)}.fb .dlc{display:none}.fst .flk{display:inline-flex;width:auto;height:auto;overflow:visible;box-shadow:none}
 .fb{display:flex;align-items:center;gap:12px;margin-top:12px;flex-wrap:wrap}
 .dlhost{margin:8px 0 0;font-size:.82rem;color:var(--mu);text-align:center}.dlbox .dlhost{margin-bottom:0}
 .rep-w{margin:12px 0 0;font-size:.85rem;color:var(--mu)}.rep-w a{text-decoration:underline}.rep-w a:hover{color:var(--act)}

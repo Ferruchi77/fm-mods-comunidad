@@ -31,7 +31,7 @@ const markFavs=()=>{const F=favs();$$('.card').forEach(c=>c.classList.toggle('is
 const post=(slug,action,extra={})=>fetch('/api/stats',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({slug,action,...extra}),keepalive:true}).then(r=>r.ok?r.json():null).catch(()=>null);
 const fmt=n=>new Intl.NumberFormat(i18n.locale).format(n);
 const DL='<svg class="dl-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v10m0 0l-4-4m4 4l4-4M4 15v3a3 3 0 003 3h10a3 3 0 003-3v-3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-const likeBtn=$('[data-like]'),dlLink=$('[data-dlc]'),rb=$('[data-rate]');
+const likeBtn=$('[data-like]'),dlLinks=$$('[data-dlc]'),rb=$('[data-rate]');
 let S={},hov=0,loaded=false,onStats=()=>{};
 const stat=slug=>({likes:0,downloads:0,ratingSum:0,ratingCount:0,...(S[slug]||{})});
 const avg=s=>new Intl.NumberFormat(i18n.locale,{minimumFractionDigits:1,maximumFractionDigits:1}).format(s.ratingSum/s.ratingCount);
@@ -191,7 +191,7 @@ if(rb){
       S[slug]=prev?{...s,ratingSum:s.ratingSum+v-prev}:{...s,ratingSum:s.ratingSum+v,ratingCount:s.ratingCount+1};renderDetail();
       post(slug,'rate',{value:v,prev:SY[slug]?prev:0}).then(r=>{if(r){S[slug]=r;SY[slug]=1;ls.set('fm_rate_sync',SY);renderDetail()}})})});
   rb.addEventListener('mouseleave',()=>{hov=0;renderDetail()})}
-if(dlLink)dlLink.addEventListener('click',()=>{const slug=dlLink.dataset.dlc,D=ls.get('fm_dl',[]);if(!D.includes(slug)){ls.set('fm_dl',[...D,slug]);post(slug,'download')}});
+dlLinks.forEach(a=>a.addEventListener('click',()=>{const slug=a.dataset.dlc,D=ls.get('fm_dl',[]);if(!D.includes(slug)){ls.set('fm_dl',[...D,slug]);post(slug,'download')}}));
 // Favorito (botón de la ficha)
 const favBtn=$('[data-fav]');
 const paintFav=()=>{if(!favBtn)return;const on=favs().includes(favBtn.dataset.fav);favBtn.classList.toggle('on',on);favBtn.setAttribute('aria-pressed',on);$('.fav-ic',favBtn).textContent=on?'♥':'♡';favBtn.title=tr(on?'fav_remove':'fav_add')};
