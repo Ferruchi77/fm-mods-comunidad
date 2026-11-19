@@ -2,6 +2,13 @@
 
 *Formato de versión: **V2.3** (mayor.menor). La siguiente será V2.4, y así sucesivamente.*
 
+## V2.5 (descripciones traducidas, enlaces por versión y descargas en verde)
+- **Descripciones traducidas en los 6 idiomas.** El texto completo de cada mod (`description`), sus pasos de instalación (`instructions`) y el aviso de compatibilidad (`compat_note`) pasan por `content/traducciones.json` igual que el nombre y el texto breve: se ven en la ficha, en la meta descripción (SEO) y en el JSON-LD de cada idioma. 60 textos nuevos traducidos (nombres propios, rutas y nombres de archivo se mantienen). `scripts/translate.js --check` ya los incluye como pendientes cuando añadas o cambies una descripción.
+- **Limpieza de formato en español** (entrada `es`, sin tocar las fichas): se quitan las marcas `[cite:]` sueltas de *Dressing Room Kit Fix*, *wfm18 3D Sleeves Megapack* y *MVP Graphics JGT*; se arreglan los saltos de línea de *Kojuro Skin* y *FM Kit Switcher*, y los pasos de instalación de *Kit Converter*.
+- **Enlaces de descarga por versión de FM (opcional).** Nuevo campo del panel *Enlaces de descarga por versión de FM*, pestaña «2 · Autores y enlaces»: sale una casilla por cada versión marcada en «Versiones de FM» (solo si el mod tiene 2 o más). Lo que dejes vacío usa el enlace de descarga general; si no rellenas ninguna, la ficha es la de siempre (un solo botón). Si rellenas alguna, la web muestra **un botón «Descargar para FMxx» por versión**, la más reciente primero y destacada. Se guarda como `download_urls: [{version, url}]`; el build avisa (sin fallar) de enlaces mal escritos o de versiones no marcadas. Una descarga cuenta una vez por persona y mod, sea cual sea el botón.
+- **Número de descargas en el verde de acento** de la web (tarjetas y ficha).
+- Textos del botón en los 6 idiomas (`dl_btn_ver`: «Descargar para {v}»).
+
 ## V2.4 (correcciones de texto)
 - Corregidos tres textos en la web en español sin tocar las fichas (entrada `es` de `content/traducciones.json`): «Megapack Chándales» (faltaba el acento), «Medios de Comunicación Reales» (faltaba el *de*) y «Megapack de realismo» en la descripción breve de *Increase Realism Megapack* (decía «realism»). En el resto de idiomas no cambia nada.
 
