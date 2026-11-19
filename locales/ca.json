@@ -316,5 +316,6 @@
   "seo_mods_t": "{name} — Catàleg de mods de Football Manager",
   "seo_mods_d": "Catàleg complet de mods de Football Manager. Filtra per categoria, versió (FM24, FM26, FM27), creador i preu, i ordena per valoració, descàrregues o data.",
   "cats_h2": "Explora per categoria",
-  "mods_all": "Veure tots els mods"
+  "mods_all": "Veure tots els mods",
+  "dl_btn_ver": "Descarrega per a {v}"
 }
