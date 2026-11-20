@@ -1,11 +1,22 @@
 {
+  "authors": [
+    {
+      "name": "FM Season Hub",
+      "url": "https://x.com/FMSeasonHub"
+    }
+  ],
   "install_path": "\\Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins",
-  "modified": "2026-11-10",
+  "modified": "2026-11-20",
   "updates": [
     {
       "date": "2026-11-02",
       "version": "V.1.1.3",
       "note": "Corrección de licencias: tras una actualización del juego, o al cambiar entre la versión de Xbox y la de Epic, la aplicación de una corrección ya no falla mostrando el error «Archivo en uso». Si una corrección se aplicó a otra instalación, esta se conserva en lugar de revertirse, y los archivos que añadió se trasladan a la carpeta de copias de seguridad de FMDB Hub.\nCuando Windows deniega el acceso a los archivos del juego, FMDB Hub ahora lo notifica explícitamente, en lugar de pedirte que cierres el editor."
+    },
+    {
+      "date": "2026-11-17",
+      "version": "V.1.2.1",
+      "note": "Corrección de licencias: ahora, cuando el autor lo solicita, un archivo puede dirigirse únicamente a la carpeta de base de datos más reciente; tal es el caso de la nueva corrección de FMScout, cuyo archivo de nombres de tablas de clasificación está destinado exclusivamente a la base de datos de FM27."
     }
   ],
   "install_paths": [
@@ -29,11 +40,5 @@
   "categories": [
     "bases-de-datos"
   ],
-  "description": "El plugin FMDB Hub (para Football Manager 27 y FM26) integra todo el catálogo de bases de datos y parches directamente en la pantalla de inicio del juego, eliminando la necesidad de descargar archivos .zip o buscar actualizaciones en foros de forma manual.\n\nCaracterísticas clave:\nCatálogo en juego: Muestra un panel interactivo con todas las bases de datos disponibles, permitiendo buscar, filtrar por autor y ver cuáles tienes instaladas.\n\nInstalación y actualización con 1 clic: Gestiona la instalación, actualización o eliminación de mods directamente desde el menú principal, avisándote en la pantalla de inicio si hay nuevas versiones.\n\nGestor de licencias (Licence Fix): Aplica y revierte correcciones de licencias oficiales de manera automática, realizando copias de seguridad previas para poder restaurar los archivos originales en cualquier momento.\n\nArchivos opcionales selectivos: Permite elegir de forma individual complementos adicionales de los mods (como modos de dificultad o premios extra) antes de instalarlos.",
-  "authors": [
-    {
-      "name": "FM Season Hub",
-      "url": "https://x.com/FMSeasonHub"
-    }
-  ]
+  "description": "El plugin FMDB Hub (para Football Manager 27 y FM26) integra todo el catálogo de bases de datos y parches directamente en la pantalla de inicio del juego, eliminando la necesidad de descargar archivos .zip o buscar actualizaciones en foros de forma manual.\n\nCaracterísticas clave:\nCatálogo en juego: Muestra un panel interactivo con todas las bases de datos disponibles, permitiendo buscar, filtrar por autor y ver cuáles tienes instaladas.\n\nInstalación y actualización con 1 clic: Gestiona la instalación, actualización o eliminación de mods directamente desde el menú principal, avisándote en la pantalla de inicio si hay nuevas versiones.\n\nGestor de licencias (Licence Fix): Aplica y revierte correcciones de licencias oficiales de manera automática, realizando copias de seguridad previas para poder restaurar los archivos originales en cualquier momento.\n\nArchivos opcionales selectivos: Permite elegir de forma individual complementos adicionales de los mods (como modos de dificultad o premios extra) antes de instalarlos."
 }
