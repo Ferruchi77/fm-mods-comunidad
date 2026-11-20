@@ -22,6 +22,11 @@
       "date": "2026-11-16",
       "version": "V.0.4",
       "note": "¡Ahora también escudos y logotipos!\n\n¿Escudo de club desactualizado? Arrástralo.\n¿Logotipo de competición antiguo? Arrástralo.\n¿Logotipo de federación? Arrástralo.\n\nCon solo soltarlo, los cambios se aplican en todas partes, tanto a gran como a pequeña escala. Tus paquetes de logotipos permanecen intactos."
+    },
+    {
+      "version": "V.0.4.1",
+      "note": "- Detecta automáticamente tu carpeta de datos de usuario de FM27, incluso cuando no se encuentra en la carpeta «Documentos».\n- Corrección: las caras de los jugadores generados (regens) y de los mánager no se cargaban correctamente si el nombre de la partida guardada terminaba con un espacio.\n- Corrección: en algunas configuraciones con muchos otros mods, no se reconocían los jugadores que no tenían una cara asignada.",
+      "date": "2026-11-18"
     }
   ],
   "featured": false,
