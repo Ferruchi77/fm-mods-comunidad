@@ -6,7 +6,14 @@
     }
   ],
   "install_path": "\\Steam\\steamapps\\common\\Football Manager 27\\fm_Data\\StreamingAssets\\aa\\StandaloneWindows64",
-  "modified": "2026-11-11",
+  "modified": "2026-11-20",
+  "updates": [
+    {
+      "note": "- Creado para la actualización de noviembre de FM27 en Steam (versión 59904984-1794943926). La versión de Game Pass aún no es compatible.\n- Las fichas de informe de ojeador se han rediseñado siguiendo el estilo de la página del jugador: el encabezado con la calificación abre el informe completo; en el centro aparecen los atributos, con las estadísticas de la temporada actual justo debajo; a la derecha se muestran la eficacia táctica y los roles; y los bloques informativos («tiles») de FM, situados bajo la ficha, pueden mostrarse u ocultarse.\n- Nuevas columnas en las tablas: haz clic con el botón derecho en el encabezado de una tabla > Insertar / Reemplazar columna > Personalizado: nacionalidad y segunda nacionalidad (solo mediante banderas), además de estado físico y ritmo de partido (incluyendo el porcentaje).\n- Encabezado de la página del jugador: incluye la «Competición actual», el club de origen de los jugadores cedidos (entre paréntesis), el valor de traspaso (que permite hacer clic), filas de pros y contras con desplazamiento lateral, y un rediseño del número 0 en el dorsal del jugador.\n- Actualización: La actualización de FM ha eliminado el *skin*, por lo que deberás volver a copiar los 11 archivos. No copies versiones antiguas ni copias de seguridad previas a la actualización; utiliza la opción «Verificar» (Verify) en su lugar.",
+      "date": "2026-11-17",
+      "version": "V.1.2.0"
+    }
+  ],
   "screenshots": [
     "/img/covers/kojuro-skin-s1-d86a5125.webp",
     "/img/covers/kojuro-skin-s2-f105cd19.webp",
@@ -19,7 +26,7 @@
   "fm_versions": [
     "FM27"
   ],
-  "cover": "/img/covers/kojuro-skin-cover-55a028d2.webp",
+  "cover": "https://storage.ko-fi.com/cdn/useruploads/display/f6502c15-84d2-4325-b286-04fd3df75523_cover-v1.2.0.png",
   "download_url": "https://ko-fi.com/s/2817643952",
   "title": "Kojuro Skin",
   "card_text": "Skin minimalista en blanco y negro para FM27 que rediseña las pantallas principales sin necesidad de instalar BepInEx.",
