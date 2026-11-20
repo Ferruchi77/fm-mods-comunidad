@@ -5,8 +5,20 @@
     }
   ],
   "modified": "2026-11-10",
+  "updates": [
+    {
+      "note": "- Mejor rendimiento\n- Al hacer clic en el logo de la liga y el canal de TV, también se activa y desactiva la interfaz de usuario (al igual que con el botón derecho + izquierdo del ratón)\n- Mejores pases para los cortes\n- El goleador ahora siempre es el primer jugador en realizar el corte\n- Menos tomas de los suplentes\n- Repeticiones con más zoom\n- Cámaras con zoom alto disponibles para una mayor calidad\n- Los partidos anteriores se inician en pausa\n- Corrección de errores menores",
+      "date": "2026-11-10",
+      "version": "V.1.5"
+    },
+    {
+      "date": "2026-11-20",
+      "version": "V.1.6",
+      "note": "- Vuelven las ventanas emergentes del VAR y de los goles (personalizadas).\n- La interfaz de YouTube ahora desaparece tras unos segundos.\n- La combinación de clic derecho + clic izquierdo ahora oculta o muestra simultáneamente la interfaz y las etiquetas de nombre (el botón central del ratón sigue ocultando o mostrando las etiquetas de nombre por separado).\n- Las repeticiones de partidos ahora comienzan en pausa (para evitar perderse la primera jugada destacada, como ocurre actualmente).\n- Nueva ubicación predeterminada para el logotipo (la de sortitoutsi).\n- Corrección de pequeños errores."
+    }
+  ],
   "featured": false,
-  "date": "2026-11-06",
+  "date": "2026-11-05",
   "status": "🟢 Publicado",
   "fm_versions": [
     "FM26",
