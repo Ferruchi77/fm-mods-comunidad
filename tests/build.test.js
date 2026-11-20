@@ -219,3 +219,18 @@ test('V2.5 · el panel ofrece el campo de enlaces por versión y el número de d
   assert.match(css,/\.st \.dl\{[^}]*color:var\(--act\)/);assert.match(css,/\.fst>\.dlc,\.fst>\.dlc b\{color:var\(--act\)\}/);
   for(const l of ['es','en','ca','fr','pt','it'])assert.match(JSON.parse(read('locales/'+l+'.json')).dl_btn_ver,/\{v\}/);
 });
+
+test('V2.6 · la ficha muestra las listas numeradas (<ol>) y respeta la numeración tras un texto intermedio',()=>{
+  assert.equal(FM.rich('1. a\n2. b'),'<ol><li>a</li><li>b</li></ol>');
+  assert.equal(FM.rich('Pasos:\n1. a\nnota\n3. c'),'<p>Pasos:</p><ol><li>a</li></ol><p>nota</p><ol start="3"><li>c</li></ol>');
+  assert.equal(FM.rich('- a\n- b'),'<ul><li>a</li><li>b</li></ul>');
+  assert.ok(!FM.rich('1. <script>x</script>').includes('<script'));
+  const k=rd('mod/kojuro-skin/index.html');assert.ok(/<ol><li>Cierra completamente[\s\S]*<ol start="3"><li>Realiza una copia/.test(k),'Kojuro: pasos numerados con continuidad');
+  assert.ok(/<ol start="3"><li>Realiza una copia/.test(k.replace(/<\/?strong>/g,'')));
+});
+test('V2.6 · el panel trae un autor preparado en los mods nuevos y el botón de lista numerada',()=>{
+  const cfg=read('public/admin/config.yml'),i=cfg.indexOf('name: authors'),blk=cfg.slice(i,i+400);
+  assert.match(blk,/widget: list\s+default: \[\{\}\]/);
+  assert.match(read('public/admin/widgets.js'),/insertOrderedList/);
+  assert.match(read('public/css/style.css'),/\.rt ol\{/);
+});
