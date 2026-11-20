@@ -2,6 +2,10 @@
 
 *Formato de versión: **V2.3** (mayor.menor). La siguiente será V2.4, y así sucesivamente.*
 
+## V2.6 (panel: autor ya preparado y listas numeradas)
+- **Autores:** al crear un mod nuevo, el panel ya trae **una casilla de autor lista** (elegir uno existente o escribir su nombre y enlace). Solo pulsas «Añadir» si hay más de un creador; si dejas la casilla vacía no se guarda nada. En los mods que ya existen no cambia nada.
+- **Descripción y «Qué ha cambiado»:** nuevo botón **«1. Lista»** en el editor para hacer listas numeradas (además de «• Lista» con guiones). En el texto guardado son líneas que empiezan por «1. », «2. »… y la web las muestra como lista numerada de verdad (`<ol>`). Si una lista se interrumpe con otro texto y sigue después (por ejemplo, un paso con subpuntos), la numeración continúa donde toca. *Kojuro Skin* ya sale con sus pasos como lista numerada.
+
 ## V2.5 (descripciones traducidas, enlaces por versión y descargas en verde)
 - **Descripciones traducidas en los 6 idiomas.** El texto completo de cada mod (`description`), sus pasos de instalación (`instructions`) y el aviso de compatibilidad (`compat_note`) pasan por `content/traducciones.json` igual que el nombre y el texto breve: se ven en la ficha, en la meta descripción (SEO) y en el JSON-LD de cada idioma. 60 textos nuevos traducidos (nombres propios, rutas y nombres de archivo se mantienen). `scripts/translate.js --check` ya los incluye como pendientes cuando añadas o cambies una descripción.
 - **Limpieza de formato en español** (entrada `es`, sin tocar las fichas): se quitan las marcas `[cite:]` sueltas de *Dressing Room Kit Fix*, *wfm18 3D Sleeves Megapack* y *MVP Graphics JGT*; se arreglan los saltos de línea de *Kojuro Skin* y *FM Kit Switcher*, y los pasos de instalación de *Kit Converter*.
