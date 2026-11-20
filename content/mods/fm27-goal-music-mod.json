@@ -1,6 +1,12 @@
 {
+  "authors": [
+    {
+      "name": "joni9",
+      "url": "https://x.com/joni9j"
+    }
+  ],
   "install_path": "\\Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins",
-  "modified": "2026-11-10",
+  "modified": "2026-11-20",
   "updates": [
     {
       "date": "2026-11-01",
@@ -28,11 +34,5 @@
   "categories": [
     "bases-de-datos"
   ],
-  "description": "¡Este mod aporta una atmósfera de estadio real a Football Manager 2026 y 2027! Cada vez que el equipo local marca un gol, sonará automáticamente el himno de gol real de dicho club. El mod funciona en segundo plano y ofrece una experiencia sonora dinámica, que incluye un efecto de reverberación de estadio personalizable para lograr la máxima autenticidad.",
-  "authors": [
-    {
-      "name": "joni9",
-      "url": "https://x.com/joni9j"
-    }
-  ]
+  "description": "¡Este mod aporta una atmósfera de estadio real a Football Manager 2026 y 2027! Cada vez que el equipo local marca un gol, sonará automáticamente el himno de gol real de dicho club. El mod funciona en segundo plano y ofrece una experiencia sonora dinámica, que incluye un efecto de reverberación de estadio personalizable para lograr la máxima autenticidad."
 }
