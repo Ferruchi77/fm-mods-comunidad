@@ -6,12 +6,17 @@
       "url": "https://x.com/xSethem"
     }
   ],
-  "modified": "2026-11-10",
+  "modified": "2026-11-20",
   "updates": [
     {
       "version": "FM27 Scoreboard Megapack",
       "date": "2026-11-10",
       "note": "Actualizado para FM27"
+    },
+    {
+      "date": "2026-11-18",
+      "version": "",
+      "note": "Compatible con FM27.1"
     }
   ],
   "screenshots": [
