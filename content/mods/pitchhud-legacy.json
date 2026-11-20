@@ -1,11 +1,11 @@
 {
   "authors": [
     {
-      "ref": "fm-tigrotto"
+      "ref": "fm-season-hub"
     }
   ],
   "install_path": "Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins",
-  "modified": "2026-11-10",
+  "modified": "2026-11-20",
   "updates": [
     {
       "date": "2026-11-02",
@@ -14,6 +14,11 @@
     {
       "version": "V.1.2.3",
       "date": "2026-11-10"
+    },
+    {
+      "version": "V.1.2.4",
+      "date": "2026-11-18",
+      "note": "Se han actualizado a la versión FM 27.1.0"
     }
   ],
   "date": "2026-10-30",
