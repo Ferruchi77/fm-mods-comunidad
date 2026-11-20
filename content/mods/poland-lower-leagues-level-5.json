@@ -13,15 +13,21 @@
       "name": "diament1396"
     }
   ],
-  "modified": "2026-11-15",
+  "modified": "2026-11-20",
+  "updates": [
+    {
+      "date": "2026-11-18",
+      "note": "Listo para la actualización FM27.1.0"
+    }
+  ],
   "featured": false,
-  "date": "2026-11-14",
+  "date": "2026-11-13",
   "status": "🟢 Publicado",
   "fm_versions": [
     "FM27"
   ],
   "cover": "/img/covers/poland-lower-leagues-level-5-cover-0d8fcf23.webp",
-  "download_url": "https://www.fmscout.com/a-pll-fm27.html",
+  "download_url": "https://www.fmscout.com/a-poland-lower-leagues-fm27.html",
   "title": "Poland Lower Leagues (Level 5)",
   "card_text": "Base de datos para FM27 que desbloquea hasta el nivel 5 del fútbol polaco con estructura dinámica, ascensos y copas regionales.",
   "categories": [
