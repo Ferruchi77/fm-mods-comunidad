@@ -1,6 +1,12 @@
 {
+  "authors": [
+    {
+      "name": "FM Tigrotto",
+      "url": "https://x.com/fmtigrotto"
+    }
+  ],
   "install_path": "\\Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins",
-  "modified": "2026-11-10",
+  "modified": "2026-11-20",
   "updates": [
     {
       "date": "2026-11-10",
@@ -34,11 +40,5 @@
   "categories": [
     "bases-de-datos"
   ],
-  "description": "Una ventana de «Kits Hub» directamente en la pantalla principal, además de un cuadro de descarga en cada club, liga, país y selección nacional. Elige entre 3D, 2D o ambos: el plugin descarga las equipaciones de la temporada 2026/27, organiza la carpeta «Kits» y le indica al juego que las cargue.",
-  "authors": [
-    {
-      "name": "FM Tigrotto",
-      "url": "https://x.com/fmtigrotto"
-    }
-  ]
+  "description": "Una ventana de «Kits Hub» directamente en la pantalla principal, además de un cuadro de descarga en cada club, liga, país y selección nacional. Elige entre 3D, 2D o ambos: el plugin descarga las equipaciones de la temporada 2026/27, organiza la carpeta «Kits» y le indica al juego que las cargue."
 }
