@@ -1,10 +1,20 @@
 {
+  "authors": [
+    {
+      "name": "FM Season Hub",
+      "url": "https://x.com/FMSeasonHub"
+    }
+  ],
   "install_path": "\\Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins",
   "modified": "2026-11-10",
   "updates": [
     {
       "date": "2026-11-02",
       "version": "V.2.0.1"
+    },
+    {
+      "version": "V.2.0.2",
+      "date": "2026-11-18"
     }
   ],
   "screenshots": [],
@@ -21,11 +31,5 @@
   "categories": [
     "bases-de-datos"
   ],
-  "description": "Equipaciones del FM27 en 3D en el perfil y la vista general del club, y la equipación completa en un muñeco 3D.",
-  "authors": [
-    {
-      "name": "FM Season Hub",
-      "url": "https://x.com/FMSeasonHub"
-    }
-  ]
+  "description": "Equipaciones del FM27 en 3D en el perfil y la vista general del club, y la equipación completa en un muñeco 3D."
 }
