@@ -5,7 +5,7 @@
       "name": "ObstBauerMichael"
     }
   ],
-  "modified": "2026-11-15",
+  "modified": "2026-11-20",
   "updates": [
     {
       "note": "- Mejor correspondencia entre clubes: manejo de caracteres especiales (ł, ø, đ, æ…) y nombres de lugares en alemán (p. ej., «Wisla Krakau» = «Wisła Kraków»).\n- Se han corregido los ID de FM para unos 115 clubes adicionales (Grecia, Turquía, Portugal, Polonia, Bélgica, Chequia, Dinamarca, Francia, Noruega…).\n- En el caso de ligas con el mismo nombre en varios países (Superliga, Super League, Premier League), ahora se selecciona la que aparece en FM.\n- Skin Barlow: los menús desplegables de FM ya no permanecen por encima de la ventana; el fondo de la ventana ahora es opaco.\n- En algunos skins, el uso de fuentes de mayor tamaño en las tablas ya no provoca que los nombres de los clubes queden recortados.",
