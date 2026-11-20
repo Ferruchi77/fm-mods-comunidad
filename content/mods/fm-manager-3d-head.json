@@ -11,6 +11,16 @@
       "date": "2026-11-07",
       "version": "V.1.0.2",
       "note": "Ahora, cada mánager conserva su propio rostro, vinculado a su nombre y a su ID dentro de la partida. Solo tienes que abrir la pantalla de apariencia de cada mánager y cargar su rostro mediante la opción «Load Manager Face»."
+    },
+    {
+      "date": "2026-11-18",
+      "note": "Corregido: en Windows, con FM27 27.0.1, el juego se cerraba al pulsar «Confirmar» en la pantalla de apariencia del mánager o al cambiar el peinado.",
+      "version": "V.1.0.3"
+    },
+    {
+      "date": "2026-11-19",
+      "version": "V.1.0.4",
+      "note": "Corregido: en los días de partido, aparecían cabezas en 3D en los miembros del cuerpo técnico y en los oficiales situados alrededor del terreno de juego. Mayor seguridad en Windows: el complemento ya no modifica ningún elemento ajeno al retrato del entrenador (esto podría solucionar los problemas con las presentaciones de las competiciones)."
     }
   ],
   "screenshots": [
