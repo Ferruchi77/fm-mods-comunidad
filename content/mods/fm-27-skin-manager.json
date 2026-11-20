@@ -10,6 +10,11 @@
     {
       "date": "2026-11-05",
       "version": "V.1.1"
+    },
+    {
+      "date": "2026-11-18",
+      "note": "- «Notas»: Correcciones en Numeric Skin Patcher y Face Patcher\n- Anillos de estado y nivel de forma física (sharpness) codificados por colores: Añade bordes circulares, con colores según el nivel, alrededor de los valores numéricos de estado físico y nivel de forma.\n- Selector de directorio de juego para instalaciones múltiples: Sustituye el campo de texto del directorio del juego por un menú desplegable único que agrupa las instalaciones detectadas; sincroniza automáticamente la carpeta de instalación del juego en BepInEx.",
+      "version": "V.1.58.0"
     }
   ],
   "screenshots": [
