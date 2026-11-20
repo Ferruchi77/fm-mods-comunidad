@@ -10,7 +10,7 @@ const C={
   email:'fmmodscomunidad@gmail.com',            // recibe los "enlace caído"
   requests:'',       // formulario de peticiones (otro Google Form). Si lo dejas vacío, se pide por X
   requestsEmbed:'',  // opcional: URL de "incrustar" del formulario para verlo dentro de la página
-  version:'V2.6',   // versión del proyecto, formato V<mayor>.<menor> (V2.3 → V2.4 → … → V2.9 → V3.0). Súbela en cada entrega: sale en el pie de la web y en el panel
+  version:'V2.7',   // versión del proyecto, formato V<mayor>.<menor> (V2.3 → V2.4 → … → V2.9 → V3.0). Súbela en cada entrega: sale en el pie de la web y en el panel
   reload:['FM24'],   // versiones de FM en las que hay que recargar el skin/caché (en el resto el juego lo hace solo)
   slots:{'bajo-titulo':'','junto-descarga':''}, // IDs de bloque de anuncio (data-ad-slot) de AdSense
   submit:'https://forms.gle/MRgz9tF5xXea5EAn8'   // formulario "Envía tu mod"

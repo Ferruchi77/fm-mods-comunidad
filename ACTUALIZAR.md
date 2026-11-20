@@ -16,4 +16,5 @@ El zip de cada versión trae **solo los archivos que cambian**, con su ruta real
 - Sube **todos** los archivos del zip, aunque algunos parezcan no tener que ver: los tests comprueban que van juntos (por ejemplo `build.js` + `public/js/ficha.js` + `tests/`).
 - Si solo cambian los textos (`locales/*.json`), sube solo esa carpeta.
 - Los avisos amarillos del CI (`::warning`) no bloquean nada; los rojos sí.
+- **Traducciones pendientes: avisar, nunca fallar.** Que falten traducciones (novedades, textos breves, descripciones) **no puede poner el CI en rojo ni romper una prueba**: se avisa con la advertencia amarilla del CI («Traducciones pendientes») y con el issue del mismo nombre, y se traducen después (`node scripts/translate.js --import`). Al preparar una versión nueva **no añadas pruebas que exijan «0 pendientes»**: la prueba de `tests/auditoria.test.js` lo comprueba y fallaría.
 - La versión se ve en el pie de la web (`V2.3`) y en `package.json` (`2.3.0`).

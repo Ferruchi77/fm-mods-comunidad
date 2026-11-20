@@ -53,3 +53,9 @@ test('fichas: avisa (sin fallar) si el nombre del archivo no coincide con el tí
     if(sl(m.title)!==s)console.log(`::warning file=content/mods/${f}::El archivo se llama «${s}» pero el título «${m.title}» daría «${sl(m.title)}». Si quieres renombrarlo, añádelo a scripts/renombrados.json (conserva enlaces y estadísticas).`)}
   assert.ok(true);
 });
+test('traducciones pendientes: nunca hacen fallar las pruebas, solo avisan (ver ACTUALIZAR.md)',()=>{
+  const cero=new RegExp('pendientes:\\s*'+'0');   // construida así para que esta prueba no se detecte a sí misma
+  for(const f of fs.readdirSync('tests').filter(x=>/\.m?js$/.test(x)))assert.ok(!cero.test(fs.readFileSync('tests/'+f,'utf8')),`tests/${f}: no exijas cero pendientes; los textos sin traducir solo se avisan`);
+  const ci=fs.readFileSync('.github/workflows/ci.yml','utf8');
+  assert.ok(/translate\.js --check/.test(ci)&&/::warning/.test(ci),'ci.yml debe avisar (::warning) de las traducciones pendientes sin fallar');
+});

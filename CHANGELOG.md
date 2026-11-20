@@ -2,6 +2,10 @@
 
 *Formato de versión: **V2.3** (mayor.menor). La siguiente será V2.4, y así sucesivamente.*
 
+## V2.7 (panel con login de GitHub y traducciones que avisan sin fallar)
+- **Panel:** el login pasa de Netlify Identity / Git Gateway (obsoletos) a **GitHub OAuth** (`public/admin/config.yml` e `index.html`; funciones `auth.mjs` y `callback.mjs`, variables `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` y `GITHUB_ALLOWED_USERS`).
+- **Traducciones pendientes: ya no hacen fallar nada.** Antes la prueba exigía «pendientes: 0» y cada entrega con textos sin traducir ponía el CI en rojo y mandaba un correo. Ahora las pruebas solo comprueban que `translate.js --check` funciona, el CI deja una **advertencia amarilla** (`::warning`) con el número de pendientes y el issue «Traducciones pendientes» sigue abriéndose con el JSON para traducir. Una prueba nueva (`tests/auditoria.test.js`) impide volver a exigir «cero pendientes». La regla está escrita en `ACTUALIZAR.md` y en el `README.md`.
+
 ## V2.6 (panel: autor ya preparado y listas numeradas)
 - **Autores:** al crear un mod nuevo, el panel ya trae **una casilla de autor lista** (elegir uno existente o escribir su nombre y enlace). Solo pulsas «Añadir» si hay más de un creador; si dejas la casilla vacía no se guarda nada. En los mods que ya existen no cambia nada.
 - **Descripción y «Qué ha cambiado»:** nuevo botón **«1. Lista»** en el editor para hacer listas numeradas (además de «• Lista» con guiones). En el texto guardado son líneas que empiezan por «1. », «2. »… y la web las muestra como lista numerada de verdad (`<ol>`). Si una lista se interrumpe con otro texto y sigue después (por ejemplo, un paso con subpuntos), la numeración continúa donde toca. *Kojuro Skin* ya sale con sus pasos como lista numerada.

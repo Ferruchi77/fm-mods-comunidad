@@ -33,6 +33,7 @@ Variables útiles: `OUT_DIR` (carpeta de salida), `SYNC_AUTHORS=0`, `VALIDATE=wa
 
 ## Flujos habituales
 - **Traducir novedades nuevas:** la acción *Traducciones pendientes* abre un issue con el JSON. Pásalo a Claude (en, ca, fr, pt-BR, it) y ejecuta `node scripts/translate.js --import nuevas.json`.
+- **Traducciones pendientes (regla fija):** nunca hacen fallar `npm test` ni el CI. Se avisan con una advertencia amarilla en *Actions* y con el issue «Traducciones pendientes». Quien prepare una versión (persona o Claude) no debe añadir comprobaciones que exijan «0 pendientes»; está protegido por una prueba en `tests/auditoria.test.js`.
 - **Añadir un idioma:** crea `locales/xx.json` con todas las claves de `es.json` y registra el idioma en `build.js`.
 - **Imágenes:** la acción *Optimizar imágenes* (o `npm run imagenes`) descarga las portadas externas a `public/img/covers/` y convierte a WebP. Las tarjetas usan la miniatura `-640.webp` si existe.
 - **Salió un parche del juego:** Actions → *Marcar pendientes* → versión (p. ej. FM27). Para liberar los ya revisados, acción «liberar».
