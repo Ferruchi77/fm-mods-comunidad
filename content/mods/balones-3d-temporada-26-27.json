@@ -1,7 +1,13 @@
 {
   "fm_version": "FM27",
+  "authors": [
+    {
+      "name": "BabaYaga89",
+      "url": "https://sortitoutsi.net/user/profile/1360216"
+    }
+  ],
   "install_path": "Documents\\Sports Interactive\\Football Manager 27\\graphics",
-  "modified": "2026-11-10",
+  "modified": "2026-11-20",
   "updates": [
     {
       "version": "Actualización verano",
@@ -32,11 +38,5 @@
   "categories": [
     "dia-de-partido"
   ],
-  "description": "🔹 ¿Qué incluye?\nMás de 130 balones 3D personalizados\n\nDiseños específicos para cada competición\n\nVersiones de invierno, cuando corresponda\n\nPlantillas exclusivas para las fases de eliminación directa de las principales competiciones\n\nCada balón ha sido elaborado minuciosamente para aumentar el realismo y la variedad visual a lo largo de tu temporada.\n\nTodas las texturas están en alta definición (HD) siempre que ha sido posible.\nSi alguien tiene acceso a referencias de mayor resolución que puedan mejorar algunos de los balones, ¡cualquier aportación será bienvenida!",
-  "authors": [
-    {
-      "name": "BabaYaga89",
-      "url": "https://sortitoutsi.net/user/profile/1360216"
-    }
-  ]
+  "description": "🔹 ¿Qué incluye?\nMás de 130 balones 3D personalizados\n\nDiseños específicos para cada competición\n\nVersiones de invierno, cuando corresponda\n\nPlantillas exclusivas para las fases de eliminación directa de las principales competiciones\n\nCada balón ha sido elaborado minuciosamente para aumentar el realismo y la variedad visual a lo largo de tu temporada.\n\nTodas las texturas están en alta definición (HD) siempre que ha sido posible.\nSi alguien tiene acceso a referencias de mayor resolución que puedan mejorar algunos de los balones, ¡cualquier aportación será bienvenida!"
 }
