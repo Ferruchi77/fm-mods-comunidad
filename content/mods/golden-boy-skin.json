@@ -6,7 +6,7 @@
     }
   ],
   "install_path": "\\Steam\\steamapps\\common\\Football Manager 26\\fm_Data\\StreamingAssets\\aa\\StandaloneWindows64",
-  "modified": "2026-11-17",
+  "modified": "2026-11-20",
   "updates": [
     {
       "version": "V.1.0.1",
@@ -37,6 +37,11 @@
       "note": "✅ Preparado para FM 27.1.0\n✅ Nueva imagen para la equipación local\n✅ Corregidos los agentes libres y los salarios excesivamente altos\n✅ Escudo nacional de mayor tamaño",
       "date": "2026-11-17",
       "version": "V.1.0.6"
+    },
+    {
+      "date": "2026-11-18",
+      "version": "V.1.0.7",
+      "note": "✅ Ventana emergente del jugador con estrellas y campo que muestra las posiciones\n✅ Número de partidos internacionales y escudo de la selección en la tarjeta de cabecera\n✅ Colores de posición más claros\n✅ Bocadillos de texto legibles\n✅ Eliminación de las últimas zonas de color morado\n✅ Corrección en la fotografía de la ciudad"
     }
   ],
   "screenshots": [
