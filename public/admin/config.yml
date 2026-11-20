@@ -1,8 +1,11 @@
 # Netlify: git-gateway + Identity (el proyecto está pensado para Netlify: /api/stats y las cabeceras dependen de él). Otro host: cambia por
 #   backend: { name: github, repo: USUARIO/REPO, branch: main, base_url: https://TU-OAUTH-PROXY }
 backend:
-  name: git-gateway
+  name: github
+  repo: Ferruchi77/fm-mods-comunidad
   branch: main
+  base_url: https://fm-mods-comunidad.netlify.app
+  auth_endpoint: api/auth
 # V1.9 · Publicación directa: «Guardar» hace commit en main. Con el estado «🟢 Publicado» la ficha se publica sola al guardar (sin ramas, sin
 # pasos de «Listo» ni «Publicar»). Los «🟡 Borrador / En revisión» también se guardan, pero build.js NO los publica en la web.
 # (Antes estaba publish_mode: editorial_workflow, que obligaba a mover la ficha de columna y pulsar «Publicar».)
