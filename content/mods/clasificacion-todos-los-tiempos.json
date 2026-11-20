@@ -21,6 +21,11 @@
       "date": "2026-11-14",
       "version": "V.4.0.3",
       "note": "- Corregido: La Bundesliga austriaca podía mostrar la clasificación histórica de la Bundesliga alemana (al compartir el mismo nombre de liga); ahora, las ligas se verifican mediante su ID de competición en FM.\n- Corregido: La vista «Solo guardar» mostraba «–» en lugar de los goles para aquellos clubes cuya fuente de datos real solo proporciona la diferencia de goles (por ejemplo, Corinthians, Palmeiras)."
+    },
+    {
+      "note": "- Evolución temporal: la clasificación histórica crece temporada tras temporada mediante un gráfico de barras animado. Incluye opciones de pantalla completa, reproducción/pausa, ajuste de velocidad y una línea de tiempo interactiva. Puedes seguir hasta dos clubes (incluso aquellos que se incorporen más tarde), visualizar la clasificación de cada temporada y consultar los equipos que más posiciones han escalado.\n- Más opciones: «La gran carrera» (posiciones históricas a lo largo de las décadas), «Duelos eternos» (¿qué equipos se han superado mutuamente con más frecuencia?), cuestionario (10 preguntas sobre la liga y tu partida), simulaciones «¿Qué pasaría si...?» (aplicando distintos sistemas de puntuación: 3 puntos por victoria, 2 puntos, promedio de puntos por partido, sistema de puntuación tipo F1 o desempate por goles), comparativa entre ligas, «eternos subcampeones», los mejores equipos recién ascendidos y un resumen de tu trayectoria.\n- Galería de campeones con filtros y selección por épocas; cronología de récords (frecuencia con la que se ha batido cada récord, incluyendo los intentos fallidos); gráfico de goles por partido; y una sección de «récords en peligro» para la temporada actual.\n- Perfil de club con indicadores de ascenso y descenso en el historial; flechas que señalan ascensos o descensos en las clasificaciones de temporadas anteriores; y tendencias (+/-) desde el inicio de tu partida.\n- Buscador de clubes, navegación entre temporadas mediante las teclas de flecha, información emergente (tooltips) y notificaciones sobre hitos importantes de tu club.",
+      "date": "2026-11-17",
+      "version": "V.4.1.1"
     }
   ],
   "screenshots": [
