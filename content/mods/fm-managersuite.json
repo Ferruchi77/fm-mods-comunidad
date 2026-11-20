@@ -4,7 +4,13 @@
       "ref": "fm-tigrotto"
     }
   ],
-  "modified": "2026-11-15",
+  "modified": "2026-11-20",
+  "updates": [
+    {
+      "version": "V.0.1",
+      "date": "2026-11-18"
+    }
+  ],
   "featured": false,
   "date": "2026-11-12",
   "badges": [
