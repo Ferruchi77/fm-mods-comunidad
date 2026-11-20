@@ -17,6 +17,10 @@ jobs:
           node-version: 22
       - run: npm i --no-save --no-package-lock sharp jsdom   # jsdom: prueba del editor del panel; sharp: para la prueba de descarga/WebP de scripts/imagenes.js
       - run: node --test tests/*.test.js tests/*.test.mjs
+      - name: Avisar de traducciones pendientes (solo advertencia, no falla)
+        run: |
+          P=$(node scripts/translate.js --check | sed -n 's/.*pendientes: \([0-9]*\).*/\1/p' | head -1)
+          if [ "${P:-0}" != "0" ]; then echo "::warning title=Traducciones pendientes::Hay $P textos sin traducir (ver el issue «Traducciones pendientes»)"; fi
       - run: node scripts/imagenes.js --check          # ninguna ficha apunta a una imagen local inexistente
       - name: Compilar en modo estricto
         env:
