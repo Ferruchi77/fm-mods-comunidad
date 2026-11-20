@@ -1,11 +1,12 @@
 {
+  "instructions": "Descarga y extrae la carpeta completa del ZIP.\n\nAbre FM27 y carga tu partida.\n\nAbre FMDestiny y pulsa «Conectar con FM».\n\nCrea una historia nueva o abre la que ya tenías.",
   "authors": [
     {
       "name": "PandaFM",
       "url": "https://x.com/f_mpanda"
     }
   ],
-  "modified": "2026-11-07",
+  "modified": "2026-11-20",
   "updates": [
     {
       "version": "V.1.5",
@@ -30,6 +31,11 @@
       "note": "Soluciona todos los problemas de conectividad que manifestaron",
       "version": "V.3.3",
       "date": "2026-11-09"
+    },
+    {
+      "note": "Corregidos los errores luego de la última actualización de FM",
+      "version": "V.4.0",
+      "date": "2026-11-19"
     }
   ],
   "screenshots": [
