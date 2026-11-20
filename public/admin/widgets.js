@@ -2,7 +2,7 @@
    · fmdate  → fecha con el selector nativo del navegador. Sustituye al «datetime» de Decap, que al escribir un «0» reiniciaba el campo y no dejaba teclear años como 2026.
               Guarda el mismo formato de siempre: YYYY-MM-DD.
    · fmpaths → una ruta de instalación por cada «Versión de FM» elegida en el mod. Guarda una lista [{version, path}].
-   · fmrich  → (V1.9) editor de texto enriquecido para la descripción y los cambios de cada versión: negrita, lista con guiones y color de texto.
+   · fmrich  → (V1.9) editor de texto enriquecido para la descripción y los cambios de cada versión: negrita, lista con guiones, lista numerada (V2.6) y color de texto.
                Guarda texto con un marcado sencillo (**negrita**, [color=#rrggbb]…[/color], líneas «- »); la conversión vive en /admin/richtext.js. */
 (function(){
   const CMSx=window.CMS,h=window.h||(CMSx&&CMSx.h),mk=window.createClass||(CMSx&&CMSx.createClass);
@@ -114,6 +114,7 @@
           h('div',{className:'fmr-bar',role:'toolbar'},
             btn(h('b',null,'N'),'Negrita',()=>T.cmd('bold'),{disabled:st.src}),
             btn('• Lista','Lista con guiones (cada línea empieza por «- »)',()=>T.cmd('insertUnorderedList'),{disabled:st.src}),
+            btn('1. Lista','Lista numerada (cada línea empieza por «1. », «2. »…)',()=>T.cmd('insertOrderedList'),{disabled:st.src}),
             h('span',{className:'fmr-sep'}),
             h('span',{className:'fmr-lbl'},'Color:'),
             COLORS.map(c=>h('button',{key:c,type:'button',className:'fmr-sw',title:'Color '+c,'aria-label':'Color '+c,disabled:st.src,style:{background:c},onMouseDown:e=>e.preventDefault(),onClick:()=>T.color(c)})),

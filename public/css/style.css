@@ -390,8 +390,8 @@ time.ud,.tl time.ud{display:inline-flex;align-items:center;gap:6px;margin:0 8px 
 time.ud:before{content:"";width:.95em;height:.95em;flex:none;background:currentColor;-webkit-mask:var(--ic-cal) center/contain no-repeat;mask:var(--ic-cal) center/contain no-repeat}
 time.ud-new,.tl time.ud-new{background:var(--ac-soft);border-color:var(--ac);color:var(--act)}
 .rt p{margin:0 0 .6rem}.rt p:last-child{margin-bottom:0}
-.rt ul{margin:0 0 .6rem 1.25rem;padding:0;list-style:disc}.rt li{margin:0 0 3px}.rt strong{font-weight:800}
-.desc>.rt p,.desc>.rt ul{margin-bottom:1rem}
+.rt ul{margin:0 0 .6rem 1.25rem;padding:0;list-style:disc}.rt ol{margin:0 0 .6rem 1.4rem;padding:0;list-style:decimal}.rt li{margin:0 0 3px}.rt strong{font-weight:800}
+.desc>.rt p,.desc>.rt ul,.desc>.rt ol{margin-bottom:1rem}
 .tl .rt{margin-top:6px;color:var(--mu);font-size:.93rem}.tl .rt p{margin:0 0 .5rem;color:inherit;font-size:inherit}.tl .rt p:last-child{margin-bottom:0}
 .news{margin-bottom:12px}
 

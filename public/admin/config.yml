@@ -92,9 +92,10 @@ collections:
       - { label: "Fecha de publicación *", name: date, widget: fmdate }
       - { label: "Última modificación (sirve para ordenar la lista)", name: modified, widget: fmdate, required: false }
       # ───── Pestaña 2 · Autores y enlaces ─────
-      - label: Creadores / Autores (pulsa «Añadir» para poner más de uno)
+      - label: Creadores / Autores (ya sale una casilla; pulsa «Añadir» solo si hay más de uno)
         name: authors
         widget: list
+        default: [{}]   # un autor en blanco ya preparado al crear un mod nuevo (si lo dejas vacío no se guarda nada)
         required: false
         hint: "Por cada creador: elige uno de la lista (se rellena solo su nombre y enlace) o, si es nuevo, escribe su nombre y enlace a mano. Al guardar, el autor nuevo se añade solo a la sección «Autores» (tarda un minuto) y la próxima vez ya sale en el desplegable."
         summary: "{{fields.ref}} {{fields.name}}"
@@ -118,7 +119,7 @@ collections:
       # ───── Pestaña 3 · Contenido y multimedia ─────
       - { label: Imagen de portada, name: cover, widget: image, required: false, hint: "Sube un archivo o usa «Insertar desde URL». Mira la vista previa: comprueba que la imagen carga." }
       - { label: Capturas de pantalla, name: screenshots, widget: list, required: false, field: { label: Captura, name: shot, widget: image } }
-      - { label: "Descripción *", name: description, widget: fmrich, min_height: 260, hint: "Texto justificado. Usa los botones para negrita, listas con guiones y color de texto." }
+      - { label: "Descripción *", name: description, widget: fmrich, min_height: 260, hint: "Texto justificado. Usa los botones para negrita, lista con guiones (• Lista), lista numerada (1. Lista) y color de texto." }
       - { label: "Ruta de instalación (la misma para todas las versiones; vacío = se calcula sola; una ruta por línea si hay varias)", name: install_path, widget: text, required: false }
       - { label: "Rutas de instalación por versión de FM (opcional)", name: install_paths, widget: fmpaths, required: false, hint: "Aparece una casilla por cada versión que hayas elegido en «Versiones de FM». Si rellenas alguna, manda sobre el campo de arriba." }
       - { label: Instrucciones (una línea por paso; vacío = genéricas), name: instructions, widget: text, required: false }
@@ -130,7 +131,7 @@ collections:
         fields:
           - { label: Fecha, name: date, widget: fmdate }
           - { label: "Versión del mod (ej. v1.2)", name: version, widget: string, required: false }
-          - { label: Qué ha cambiado, name: note, widget: fmrich, required: false, min_height: 120, hint: "Texto justificado: negrita, lista con guiones y color. La fecha se destaca sola en la ficha." }
+          - { label: Qué ha cambiado, name: note, widget: fmrich, required: false, min_height: 120, hint: "Texto justificado: negrita, lista con guiones o numerada y color. La fecha se destaca sola en la ficha." }
 
   - name: categorias
     label: Categorías

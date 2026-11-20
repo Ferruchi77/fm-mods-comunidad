@@ -21,14 +21,17 @@ const ACCT=/(^|\.)(patreon\.com|ko-fi\.com|buymeacoffee\.com|discord\.com|gumroa
 // para extractos, SEO y RSS. Un texto antiguo sin marcado se ve igual que antes (párrafos y saltos de línea).
 const inline=s=>esc(s).replace(/\[color=(#[0-9a-fA-F]{6})\]([\s\S]*?)\[\/color\]/g,(_,c,t)=>`<span style="color:${c}">${t}</span>`).replace(/\*\*([^*\n]+?)\*\*/g,'<strong>$1</strong>').replace(/`([^`\n]+?)`/g,'<code>$1</code>').replace(/(^|[^*\w])\*([^*\n]+?)\*(?!\*)/g,'$1<em>$2</em>');
 const rich=t=>{
-  const out=[];let p=[],ul=null;
-  const fp=()=>{if(p.length){out.push('<p>'+p.map(inline).join('<br>')+'</p>');p=[]}},fu=()=>{if(ul){out.push('<ul>'+ul.map(x=>'<li>'+inline(x)+'</li>').join('')+'</ul>');ul=null}};
+  const out=[];let p=[],ul=null,ol=null;
+  const fp=()=>{if(p.length){out.push('<p>'+p.map(inline).join('<br>')+'</p>');p=[]}},fu=()=>{if(ul){out.push('<ul>'+ul.map(x=>'<li>'+inline(x)+'</li>').join('')+'</ul>');ul=null}},
+    fo=()=>{if(ol){out.push('<ol'+(ol.n>1?' start="'+ol.n+'"':'')+'>'+ol.items.map(x=>'<li>'+inline(x)+'</li>').join('')+'</ol>');ol=null}};
   for(const raw of String(t==null?'':t).replace(/\r\n?/g,'\n').split('\n')){
     const li=/^\s*[-•]\s+(\S.*)$/.exec(raw);
-    if(li){fp();(ul=ul||[]).push(li[1].trim());continue}
-    if(!raw.trim()){fp();fu();continue}
-    fu();p.push(raw.trim())}
-  fp();fu();return out.join('')};
+    if(li){fp();fo();(ul=ul||[]).push(li[1].trim());continue}
+    const nm=/^\s*(\d{1,2})[.)]\s+(\S.*)$/.exec(raw);          // «1. », «2. »… = lista numerada (V2.6); si no empieza en 1 se respeta el número
+    if(nm){fp();fu();(ol=ol||{n:+nm[1],items:[]}).items.push(nm[2].trim());continue}
+    if(!raw.trim()){fp();fu();fo();continue}
+    fu();fo();p.push(raw.trim())}
+  fp();fu();fo();return out.join('')};
 const plain=t=>String(t==null?'':t).replace(/\[\/?color(=#[0-9a-fA-F]{6})?\]/g,'').replace(/\*\*([^*\n]+?)\*\*/g,'$1').replace(/`([^`\n]+?)`/g,'$1').replace(/(^|[^*\w])\*([^*\n]+?)\*(?!\*)/g,'$1$2').replace(/^\s*[-•]\s+/gm,'').replace(/\s+/g,' ').trim();
 
 // Datos crudos de la ficha (JSON del CMS) -> estructura lista para pintar. Acepta fichas antiguas (author/category/fm_version).
