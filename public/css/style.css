@@ -283,7 +283,7 @@ h3{font-weight:700}
 /* cuerpo: título, descripción breve y, abajo, autor + categoría + fecha en discreto */
 .cb{flex:1;min-width:0;padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px}
 .card h3{order:1;margin:0;font-size:1.12rem;line-height:1.25;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.ex{order:2;margin:0;color:var(--mu);font-size:.88rem;line-height:1.5;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
+.ex{order:2;margin:0;color:var(--mu);font-size:.88rem;line-height:1.5;text-align:justify;hyphens:auto;-webkit-hyphens:auto;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
 .card .st{order:3;margin:0}
 .by{display:flex;align-items:center;gap:6px;margin-top:2px;font-size:.88rem;color:var(--mu)}
 .by strong{color:var(--tx);font-weight:700;font-size:.9rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -399,6 +399,11 @@ time.ud-new,.tl time.ud-new{background:var(--ac-soft);border-color:var(--ac);col
 .rt p{margin:0 0 .6rem}.rt p:last-child{margin-bottom:0}
 .rt ul{margin:0 0 .6rem 1.25rem;padding:0;list-style:disc}.rt ol{margin:0 0 .6rem 1.4rem;padding:0;list-style:decimal}.rt li{margin:0 0 3px}.rt strong{font-weight:800}
 .desc>.rt p,.desc>.rt ul,.desc>.rt ol{margin-bottom:1rem}
+/* V2.8 · descripción de la ficha: tamaño fluido (16 px en móvil → ~18 px en portátil → ~19 px en 1920 px → 20,8 px tope en 2K/ultrawide) y texto justificado.
+   Párrafos y listas comparten el mismo ancho máximo (en «ch», que crece con la letra) para que el borde derecho quede alineado. */
+.desc>.rt{font-size:clamp(1rem,.9rem + .25vw,1.3rem);line-height:1.65}
+.desc>.rt p,.desc>.rt ul,.desc>.rt ol{max-width:90ch;text-align:justify;hyphens:auto;-webkit-hyphens:auto;overflow-wrap:break-word}
+.desc>.rt code{hyphens:none;-webkit-hyphens:none;text-align:left}
 .tl .rt{margin-top:6px;color:var(--mu);font-size:.93rem}.tl .rt p{margin:0 0 .5rem;color:inherit;font-size:inherit}.tl .rt p:last-child{margin-bottom:0}
 .news{margin-bottom:12px}
 

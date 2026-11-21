@@ -248,3 +248,11 @@ test('V2.8 · contenedor fluido en pantallas 2K/ultrawide, ficha con columnas pr
   const h=rd('index.html'),ex=[...h.matchAll(/<p class="ex">([^<]*)<\/p>/g)].map(x=>x[1].replace(/&[a-z#0-9]+;/g,'x'));
   assert.ok(ex.every(x=>x.length<=162),'ningún extracto automático pasa de ~160');
 });
+
+test('V2.8 · descripción de la ficha con tamaño fluido y justificada; extracto de las tarjetas justificado',()=>{
+  const css=read('public/css/style.css');
+  assert.match(css,/\.desc>\.rt\{font-size:clamp\(1rem,[^}]*1\.3rem\)/,'la descripción escala con la pantalla');
+  assert.match(css,/\.desc>\.rt p,\.desc>\.rt ul,\.desc>\.rt ol\{[^}]*text-align:justify/,'párrafos y listas justificados');
+  assert.match(css,/\.ex\{[^}]*text-align:justify/,'extracto de las tarjetas justificado');
+  assert.ok(!/\.tl \.rt[^{]*\{[^}]*text-align:justify/.test(css),'las notas de versiones no cambian');
+});
