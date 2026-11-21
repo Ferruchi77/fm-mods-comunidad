@@ -47,7 +47,7 @@ collections:
     fields:
       # ───── Pestaña 1 · Información principal ─────
       - { label: "Título *", name: title, widget: string, hint: "Obligatorio." }
-      - { label: "Texto breve en la tarjeta (opcional)", name: card_text, widget: string, required: false, hint: "Una frase corta (máx. 140 caracteres) que se ve en la lista ANTES de entrar al mod, para identificar de qué va de un vistazo. Si lo dejas vacío se muestra el principio de la descripción.", pattern: ['^[\s\S]{0,140}$', 'Máximo 140 caracteres'] }
+      - { label: "Texto breve en la tarjeta (opcional)", name: card_text, widget: string, required: false, hint: "Una frase corta (máx. 160 caracteres) que se ve en la lista ANTES de entrar al mod, para identificar de qué va de un vistazo. Si lo dejas vacío se muestra el principio de la descripción.", pattern: ['^[\s\S]{0,160}$', 'Máximo 160 caracteres'] }
       - label: "Estado de la ficha *"
         name: status
         widget: select

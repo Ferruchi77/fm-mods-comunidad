@@ -2,6 +2,15 @@
 
 *Formato de versión: **V2.3** (mayor.menor). La siguiente será V2.4, y así sucesivamente.*
 
+## V2.8 (tarjetas con más texto y diseño fluido en pantallas grandes)
+- **Tarjetas de mods más altas:** la descripción breve (`card_text` o extracto de la descripción) pasa de 3 a **5 líneas visibles** (`-webkit-line-clamp:5`; 4 en móvil de 2 columnas, 5 en una columna y 3 en la vista en lista). Las tarjetas de una misma fila siguen teniendo la misma altura y el autor, la categoría y la fecha se quedan alineados abajo. Portada, `/mods/`, categorías, versiones, autores y «Más como este» usan la misma tarjeta.
+- **Extracto automático más largo:** cuando una ficha no tiene `card_text`, `build.js` (`exc()`) corta ahora a ~**160 caracteres** (antes 140) en el último espacio. El campo «Texto breve» del panel admite hasta 160 caracteres (antes 140).
+- **Contenedor fluido para 2K / ultrawide:** `--wrap` pasa de 1180 px fijos a `clamp(1180px, 88vw, 2400px)`. Se aplica a **todas** las páginas (cabecera, menú, parrillas, ficha y pie), no solo a portada y listados. Las páginas de lectura (`.prose`, Novedades) mantienen su ancho cómodo.
+- **Parrillas:** el ancho mínimo de tarjeta es la variable `--card-min` (260 px; 270 px desde 1440 px, 290 px desde 1920 px y 320 px desde 2560 px), de modo que en pantallas grandes las tarjetas ganan anchura en lugar de multiplicarse en columnas estrechas.
+- **Ficha del mod:** la rejilla de dos columnas reparte el ancho de forma proporcional: 1,5fr/1fr desde 920 px, 1,25fr/1fr desde 1280 px, 1,3fr/1fr desde 1920 px y 1,25fr/1fr desde 2560 px, con más separación. La columna derecha (instalación, descarga, valoración) gana anchura y la **ruta de instalación ya no se parte en cualquier letra** (antes `word-break:break-all`, ahora `overflow-wrap:anywhere`). La captura principal puede ocupar más alto (`min(78vh,1100px)`) y su `sizes` pide una imagen acorde al nuevo ancho.
+- **Sin cambios de lógica:** filtros, idiomas, contadores de descargas, Decap CMS y pruebas de auditoría siguen igual. Prueba nueva en `tests/build.test.js` y prueba de tarjetas actualizada (3 → 5 líneas).
+- Versión **V2.8** en el pie de la web (`build.js`) y en `package.json` (2.8.0).
+
 ## V2.7 (panel con login de GitHub y traducciones que avisan sin fallar)
 - **Panel:** el login pasa de Netlify Identity / Git Gateway (obsoletos) a **GitHub OAuth** (`public/admin/config.yml` e `index.html`; funciones `auth.mjs` y `callback.mjs`, variables `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` y `GITHUB_ALLOWED_USERS`).
 - **Traducciones pendientes: ya no hacen fallar nada.** Antes la prueba exigía «pendientes: 0» y cada entrega con textos sin traducir ponía el CI en rojo y mandaba un correo. Ahora las pruebas solo comprueban que `translate.js --check` funciona, el CI deja una **advertencia amarilla** (`::warning`) con el número de pendientes y el issue «Traducciones pendientes» sigue abriéndose con el JSON para traducir. Una prueba nueva (`tests/auditoria.test.js`) impide volver a exigir «cero pendientes». La regla está escrita en `ACTUALIZAR.md` y en el `README.md`.

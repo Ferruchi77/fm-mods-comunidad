@@ -50,9 +50,9 @@ test('ficha: la valoración con estrellas va dentro de la caja de descarga, tras
   assert.equal((box.match(/data-star="/g)||[]).length,5)});
 test('ficha: el contador de «me gusta» ya no usa la clase .fl de las banderas de idioma',()=>{
   const h=rd(`mod/${slugs[0]}/index.html`);assert.match(h,/class="flk" data-fl/);assert.ok(!/class="fl" data-fl/.test(h))});
-test('tarjetas: descripción limitada a 3 líneas y título a 2 (V2.2), con la fecha y el autor abajo',()=>{
+test('tarjetas: descripción limitada a 5 líneas (V2.8; antes 3) y título a 2, con la fecha y el autor abajo',()=>{
   const css=fs.readFileSync('public/css/style.css','utf8');
-  assert.match(css,/\.ex\{[^}]*-webkit-line-clamp:3/);assert.match(css,/\.card h3\{[^}]*-webkit-line-clamp:2/);
+  assert.match(css,/\.ex\{[^}]*-webkit-line-clamp:5/);assert.match(css,/\.card h3\{[^}]*-webkit-line-clamp:2/);
   assert.match(css,/\.card \.by\{[^}]*margin-top:auto/)});
 test('srcset: tarjetas con 320/640 y ancho real del original',()=>{
   const h=rd('index.html');
@@ -233,4 +233,18 @@ test('V2.6 · el panel trae un autor preparado en los mods nuevos y el botón de
   assert.match(blk,/widget: list\s+default: \[\{\}\]/);
   assert.match(read('public/admin/widgets.js'),/insertOrderedList/);
   assert.match(read('public/css/style.css'),/\.rt ol\{/);
+});
+
+test('V2.8 · contenedor fluido en pantallas 2K/ultrawide, ficha con columnas proporcionales y extracto de tarjeta de ~160 caracteres',()=>{
+  const css=read('public/css/style.css'),b=read('build.js');
+  assert.match(css,/--wrap:clamp\(1180px,88vw,2400px\)/,'el contenedor escala con la pantalla');
+  assert.ok(!/body\[data-(home|wide)\] \.wrap\{max-width/.test(css),'sin anchos fijos solo para portada/listados');
+  assert.match(css,/@media\(min-width:1920px\)\{\.det\{grid-template-columns:minmax\(0,1\.3fr\) minmax\(0,1fr\)/,'ficha: columnas en 1920px');
+  assert.match(css,/@media\(min-width:2560px\)\{[^}]*\.det\{grid-template-columns/,'ficha: columnas en 2560px');
+  assert.ok(!/\.path\{[^}]*word-break:break-all/.test(css),'la ruta de instalación ya no se parte en cualquier letra');
+  assert.match(css,/\.grid\{[^}]*minmax\(min\(100%,var\(--card-min\)\),1fr\)/);
+  assert.match(b,/const exc=t=>\{t=plain\(t\);if\(t\.length<=160\)/,'extracto automático de ~160 caracteres');
+  // el extracto largo se corta cerca de 160 y termina en «…»
+  const h=rd('index.html'),ex=[...h.matchAll(/<p class="ex">([^<]*)<\/p>/g)].map(x=>x[1].replace(/&[a-z#0-9]+;/g,'x'));
+  assert.ok(ex.every(x=>x.length<=162),'ningún extracto automático pasa de ~160');
 });

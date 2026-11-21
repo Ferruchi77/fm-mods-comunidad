@@ -17,4 +17,5 @@ El zip de cada versión trae **solo los archivos que cambian**, con su ruta real
 - Si solo cambian los textos (`locales/*.json`), sube solo esa carpeta.
 - Los avisos amarillos del CI (`::warning`) no bloquean nada; los rojos sí.
 - **Traducciones pendientes: avisar, nunca fallar.** Que falten traducciones (novedades, textos breves, descripciones) **no puede poner el CI en rojo ni romper una prueba**: se avisa con la advertencia amarilla del CI («Traducciones pendientes») y con el issue del mismo nombre, y se traducen después (`node scripts/translate.js --import`). Al preparar una versión nueva **no añadas pruebas que exijan «0 pendientes»**: la prueba de `tests/auditoria.test.js` lo comprueba y fallaría.
-- La versión se ve en el pie de la web (`V2.3`) y en `package.json` (`2.3.0`).
+- La versión actual es **V2.8**: se ve en el pie de la web (`V2.8`, desde `build.js`) y en `package.json` (`2.8.0`), y debe coincidir con la primera entrada de `CHANGELOG.md`.
+- **V2.8 sube estos archivos:** `build.js`, `package.json`, `CHANGELOG.md`, `README.md`, `ACTUALIZAR.md`, `public/css/style.css`, `public/js/ficha.js`, `public/admin/config.yml` y `tests/build.test.js`. No hay archivos que borrar.

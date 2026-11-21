@@ -10,7 +10,7 @@ const C={
   email:'fmmodscomunidad@gmail.com',            // recibe los "enlace caído"
   requests:'',       // formulario de peticiones (otro Google Form). Si lo dejas vacío, se pide por X
   requestsEmbed:'',  // opcional: URL de "incrustar" del formulario para verlo dentro de la página
-  version:'V2.7',   // versión del proyecto, formato V<mayor>.<menor> (V2.3 → V2.4 → … → V2.9 → V3.0). Súbela en cada entrega: sale en el pie de la web y en el panel
+  version:'V2.8',   // versión del proyecto, formato V<mayor>.<menor> (V2.3 → V2.4 → … → V2.9 → V3.0). Súbela en cada entrega: sale en el pie de la web y en el panel
   reload:['FM24'],   // versiones de FM en las que hay que recargar el skin/caché (en el resto el juego lo hace solo)
   slots:{'bajo-titulo':'','junto-descarga':''}, // IDs de bloque de anuncio (data-ad-slot) de AdSense
   submit:'https://forms.gle/MRgz9tF5xXea5EAn8'   // formulario "Envía tu mod"
@@ -173,7 +173,8 @@ const dts=d=>d?new Date(d).toLocaleDateString(LM[CUR].loc,{day:'numeric',month:'
 // Extracto de ~140 caracteres: corta en la última palabra completa (nunca a media palabra) y quita la puntuación final antes del «…»
 // Recorta a n caracteres en la última palabra completa (nunca a media palabra)
 const cut=(t,n)=>{t=String(t||'');if(t.length<=n)return t;let c=t.slice(0,n-1);const i=c.lastIndexOf(' ');if(i>n*.6)c=c.slice(0,i);return c.replace(/[\s,;:.\-–—(«"]+$/,'')+'…'};
-const exc=t=>{t=plain(t);if(t.length<=140)return t;let c=t.slice(0,139);const i=c.lastIndexOf(' ');if(i>90)c=c.slice(0,i);return c.replace(/[\s,;:.\-–—(«"]+$/,'')+'…'};
+const exc=t=>{t=plain(t);if(t.length<=160)return t;let c=t.slice(0,159);const i=c.lastIndexOf(' ');if(i>110)c=c.slice(0,i);   // V2.8: ~160 caracteres para aprovechar las 4-5 líneas de la tarjeta
+ return c.replace(/[\s,;:.\-–—(«"]+$/,'')+'…'};
 const card=(m,eager)=>`<a class="card" href="/mod/${m.slug}/" data-slug="${m.slug}" data-lm="${esc(lmOf(m))}" data-nw="${esc(String(m.date||'').slice(0,10))}" data-p="${isPaid(m)?1:0}" data-ss="${m.screenshots.length?1:0}" data-h="${esc((()=>{try{return new URL(m.download_url).hostname.replace(/^www\./,'')}catch{return ''}})())}" data-a="${esc(m.auth.map(a=>norm(a.name).trim()).join('|'))}" data-c="${esc(m.cats.join(' '))}" data-v="${esc(m.vers.map(vk).join(' '))}" data-t="${esc(norm([...titles(m),...m.auth.map(a=>a.name),...m.vers,...m.cats.map(c=>catOf(c).n),...m.cats.flatMap(c=>Object.values(catOf(c).t||{})),...m.tags,m.card_text||''].join(' ')))}"><div class="ph"><img src="${esc(thumb(m.cover)||'/img/placeholder.svg')}"${srcset(m.cover,SZ_CARD)} alt="${esc(mt(m))}" loading="${eager?'eager':'lazy'}" decoding="async" width="640" height="360">${m.vers.length?`<span class="ph-v" ${AM({'aria-label':'card_vers'})}>${vchips(m)}</span>`:''}<span class="ph-b">${badges(m)}</span></div><div class="cb"><h3>${esc(mt(m))}</h3><p class="by">${UI}<strong title="${esc(authText(m))}">${esc(authText(m))}</strong></p><p class="ex${m.card_text?' hook':''}">${esc(m.card_text?tx(String(m.card_text).trim()):exc(tx(m.description)))}</p><div class="cf"><span class="cat">${m.cats.map(c=>{const x=catOf(c);return `<span${trAttr(x)}>${esc(x.n)}</span>`}).join(', ')}</span>${m.upd[0]?`<time datetime="${esc(m.upd[0].date)}" data-d="short" data-pre="↻ " ${AM({title:'card_upd'})}>↻ ${dts(m.upd[0].date)}</time>`:m.date?`<time datetime="${esc(m.date)}" data-d="short">${dts(m.date)}</time>`:''}</div><p class="st" data-s="${m.slug}" hidden></p></div></a>`;
 
 const absImg=i=>!i?C.url+'/img/og-image.jpg':/^https?:/i.test(i)?i:C.url+encodeURI(i);

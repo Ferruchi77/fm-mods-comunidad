@@ -24,6 +24,10 @@ STRICT=1 node build.js              # como CI: falla con claves de idioma o cate
 ```
 Variables útiles: `OUT_DIR` (carpeta de salida), `SYNC_AUTHORS=0`, `VALIDATE=warn`, `NO_STATS_FETCH=1` (no consulta `/api/stats` al compilar).
 
+## Diseño y anchos (V2.8)
+- El ancho del contenedor sale de `--wrap` en `public/css/style.css` (`clamp(1180px,88vw,2400px)`): se ajusta solo de portátil a 2K/ultrawide. El mínimo de tarjeta es `--card-min`; ambos se pueden retocar en la sección 1 y en la 17 del CSS.
+- La descripción breve de la tarjeta muestra hasta 5 líneas (`.ex`, `-webkit-line-clamp`). Sin `card_text`, `build.js` usa un extracto de ~160 caracteres (`exc()`).
+
 ## Despliegue (Netlify)
 1. Conecta el repositorio (`netlify.toml` ya define build y funciones).
 2. Variable de entorno `STATS_SALT`: **obligatoria**, texto largo y aleatorio (clave del HMAC que anonimiza los votos). Sin ella `/api/stats` responde 503 a los votos.
