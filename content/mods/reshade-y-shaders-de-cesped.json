@@ -1,0 +1,27 @@
+{
+  "authors": [
+    {
+      "name": "FM Merkezi",
+      "url": "https://x.com/FMMerkezi"
+    }
+  ],
+  "modified": "2026-11-21",
+  "screenshots": [
+    "https://pbs.twimg.com/media/HXWAqV6WwAA00x_?format=jpg&name=large",
+    "https://pbs.twimg.com/media/HXWAsCrXMAAbvfH?format=jpg&name=large"
+  ],
+  "featured": false,
+  "date": "2026-11-17",
+  "status": "🟢 Publicado",
+  "fm_versions": [
+    "FM27"
+  ],
+  "cover": "https://pbs.twimg.com/media/HXWApEGWoAAV39H?format=jpg&name=large",
+  "download_url": "https://drive.google.com/file/d/1ufgO7ZTUdGw1xN5xgJff9heaYsTFA5zM/view",
+  "title": "ReShade y Shaders de Césped",
+  "card_text": "Ajuste visual con ReShade para FM27 que aporta tonos de verde más vivos y realistas al césped sin impacto en el rendimiento.",
+  "categories": [
+    "app-externa"
+  ],
+  "description": "ReShade y Shaders de Césped para FM27es un paquete de ajuste visual basado en ReShade para Football Manager 27 que mejora la tonalidad del césped y el aspecto general del terreno de juego para hacerlo más vivo y natural.\n\nEfectos visuales: Aplica shaders para lograr verdes más naturales y mayor contraste en el campo sin afectar al rendimiento del juego.\n\nControl en partida: Al entrar al juego tras la instalación, se abre el panel de ReShade con la tecla Inicio (Home), permitiendo marcar o desmarcar efectos en tiempo real para comparar y ajustar el resultado.\n\n**Instalación: **\nSe distribuye en un único paquete combinado (ReShade y complemento/ajustes) junto con vídeo guía del autor."
+}
