@@ -1,0 +1,25 @@
+{
+  "authors": [
+    {
+      "name": "Çağatay Şahin",
+      "url": "https://x.com/iamcagataysahin"
+    }
+  ],
+  "modified": "2026-11-21",
+  "updates": [],
+  "featured": false,
+  "date": "2026-11-08",
+  "badges": [],
+  "status": "🟢 Publicado",
+  "fm_versions": [
+    "FM27"
+  ],
+  "cover": "/img/covers/rse-fm27-stadium-editor-cover.webp",
+  "download_url": "https://www.patreon.com/ronnieoa/posts/rse-stadium-lite-174750224",
+  "title": "RSE Stadium Editor Lite Edition",
+  "card_text": "Edita y personaliza tu estadio en 3D en tiempo real: modifica tribunas, luces, vallas LED animadas y césped dentro de FM27.",
+  "categories": [
+    "bases-de-datos"
+  ],
+  "description": "🏟️ FM27 Stadium Studio LITE (gratuito): diseña tu propio estadio en 3D\n\nLa edición «Lite» incluye la versión principal de Stadium Studio (1.0.0) junto con un archivo de configuración predefinido que desactiva los registros de depuración (*debug dumps*); la versión 1.0.0 los guardaba en el disco tras cada partido, lo que suponía cientos de MB a lo largo de una temporada.\n\n**¿QUÉ INCLUYE?**\n- Stadium Studio (F9): editor integrado en el juego con vista previa en 3D en tiempo real. Por defecto aparece tu club; puedes seleccionar cualquier otro estadio navegando por: País → Liga → Equipo. Interfaz disponible en turco e inglés.\n- Gradas: configuración (estándar, fondos vacíos, una/dos/tres tribunas), época (anterior a 1990, 1990-2010, moderna), capacidad (de 5000 a 140 000 espectadores), colores de asientos y barandillas, y aplicación de los colores del club con un solo clic.\n- Cubiertas: disponibles para todas las gradas; posibilidad de elegir el color del techo y añadir el nombre del estadio sobre él (estilo Old Trafford).\n- Terreno de juego: patrones de corte del césped, tipo de superficie (natural, híbrida o artificial), nivel de desgaste, tono del césped y color de las líneas.\n- Iluminación: temperatura de color de los focos (de 3000K a 8000K) y nivel de brillo.\n- Paneles LED: aspecto y transiciones realistas; permite incluir tus propios logotipos, textos y patrocinadores del club (preparado para la Süper Lig; para otras ligas, la configuración es automática).\n- Eventos del partido en los paneles: alineación inicial, goles, sustituciones, tiempo añadido y próximo encuentro.\n- Banquillos: personalización de los colores de la estructura y los asientos, con opción de añadir un logotipo en la pared trasera."
+}
