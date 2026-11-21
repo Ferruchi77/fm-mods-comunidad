@@ -5,11 +5,16 @@
     }
   ],
   "install_path": "Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins",
-  "modified": "2026-11-10",
+  "modified": "2026-11-21",
   "updates": [
     {
       "version": "V.2.0.0",
       "date": "2026-11-10"
+    },
+    {
+      "version": "V.2.0.1",
+      "date": "2026-11-17",
+      "note": "Listo para la actualización FM27.1.0"
     }
   ],
   "featured": false,
