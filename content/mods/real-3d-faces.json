@@ -4,8 +4,13 @@
       "name": "melrose"
     }
   ],
-  "modified": "2026-11-17",
+  "modified": "2026-11-21",
   "updates": [
+    {
+      "note": "- Soporte para rostros de entrenadores en 3D (Plugin v2.0.0): Se ha añadido soporte completo para entrenadores en 3D en la banda durante los partidos en 3D, lo que incluye el remapeo automático de los huesos del esqueleto del entrenador, la sustitución de texturas faciales 2D mediante SkinPSS y la sustitución de peinados 3D mediante HairLit PES.\n- 159 rostros reales de entrenadores en 3D: Se han incorporado 159 rostros de entrenadores verificados, incluyendo a Pep Guardiola, Jürgen Klopp, Luis Enrique, Mikel Arteta, Vincent Kompany, Diego Simeone, Arne Slot, Zinedine Zidane, Antonio Conte, Carlo Ancelotti, José Mourinho, Hansi Flick, Xabi Alonso, Rúben Amorim, Thomas Tuchel y muchos más.\n- Listas verificadas y actualizadas: Los 159 rostros de entrenadores han superado comprobaciones automatizadas de geometría y texturas. Se ha añadido el archivo «RealFaces-managers.csv» y se ha actualizado «RealFaces-players.csv» (con un total de 11 634 entradas).",
+      "version": "V.2.0",
+      "date": "2026-11-16"
+    },
     {
       "note": "- 353 jugadores recién vinculados (corrección en la coincidencia de nombres y biografías): Se han recuperado jugadores que no se habían detectado debido a nombres compuestos abreviados, iniciales, apodos o transliteraciones; entre ellos, Trent Alexander-Arnold, El Chadaille Bitshiabu, André-Franck Zambo Anguissa, Jan Paul van Hecke, Max Kilman, Jeff Chabot, Musa Al-Tamari, Rasmus Nissen Kristensen, Albert Sambi Lokonga, Ron-Robert Zieler, Matthew Targett, Oli McBurnie, Dan Ballard, Maxi Oyedele, Sam Amo-Ameyaw, Tom Cannon, Jean-Pierre Nsame, Kostas Stafylidis, Pity Martínez, Nicolás Gaitán y Flaco López.\n- 14 rostros de la Süper Lig turca y de la comunidad (4 nuevos + 10 actualizados): Se han añadido Çağrı Hakan Balta, İrfan Can Kahveci, İrfan Can Eğribayat y Samuel Ballet; se han actualizado Wilfried Singo, Jankat Yılmaz, Lucas Torreira, Abdülkerim Bardakcı, Kerem Aktürkoğlu, Emirhan Topçu, Oğuz Aydın, İsmail Yüksek, Rafael Leão y Leroy Sané.\n- 50 correcciones en peinados rapados o teñidos (incluido Lucas Torreira): Se han eliminado capas 3D de cabello redundantes en 50 modelos de jugadores con el pelo rapado o teñido, las cuales provocaban un efecto visual de solapamiento oscuro («z-fighting») sobre el cuero cabelludo texturizado.\n- Lista verificada y actualizada: Los 414 rostros han superado las comprobaciones automatizadas de malla y ojos. Se ha actualizado el archivo «RealFaces-players.csv» a un total de 11 634 jugadores.",
       "date": "2026-11-16",
