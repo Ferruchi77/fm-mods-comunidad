@@ -6,9 +6,9 @@
   ],
   "modified": "2026-11-21",
   "screenshots": [
-    "https://sortitoutsi.b-cdn.net/uploads/media_2026/7kcDZiylTUNwwbusGBnux33mliCcvqOrZxUkCSgX.png?width=880",
-    "https://sortitoutsi.b-cdn.net/uploads/media_2026/ZZ1aks0LtYcTpHg0kH2lOSOdrTNibTq3qfc8Ogsb.png?width=880",
-    "https://sortitoutsi.b-cdn.net/uploads/media_2026/xc737yXFS3ifCoJNX4Fo4jyvsMAZzk3CRFDGtrBj.png?width=880"
+    "/img/covers/fm-abilities-s1-0e24a0b4.webp",
+    "/img/covers/fm-abilities-s2-044e1b47.webp",
+    "/img/covers/fm-abilities-s3-4199ff11.webp"
   ],
   "featured": false,
   "date": "2026-11-20",
@@ -16,7 +16,7 @@
   "fm_versions": [
     "FM27"
   ],
-  "cover": "https://sortitoutsi.b-cdn.net/uploads/media_2026/5MnDaM4cuyTNSsMvzRIrjayk1hTxis4FScKL9hGk.png",
+  "cover": "/img/covers/fm-abilities-cover-bbca166d.webp",
   "download_url": "https://sortitoutsi.net/content/78715/fm-abilities-10",
   "title": " FM Abilities",
   "card_text": "Plugin para FM27 que sustituye las estrellas por valores o rangos numéricos de CA y PA según el ojeo, manteniendo la incertidumbre.",
