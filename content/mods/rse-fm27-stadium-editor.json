@@ -5,32 +5,39 @@
       "url": "https://x.com/iamcagataysahin"
     }
   ],
-  "modified": "2026-11-10",
+  "modified": "2026-11-21",
   "updates": [
     {
-      "version": "V.1.1.1 (pago)",
+      "version": "V.1.1.1",
       "date": "2026-11-10",
-      "note": "Versión actualizada de pago"
+      "note": "El estadio utilizado durante los partidos ya no vuelve a la configuración predeterminada del juego.\n\n• El estilo «Moderno» es realmente moderno durante el partido; la vista previa muestra exactamente las gradas que has construido.\n\n• Los textos en los asientos, los mosaicos y los tifos ahora aparecen en los partidos, en las cuatro gradas.\n\n• Partidos fuera de casa: el estudio te indica que se trata del estadio del rival, incluyendo un botón de «Cambiar a mi estadio».\n\n• Estadios pequeños: ahora cuentan con esquinas bien definidas y una estructura cerrada.\n\n• La estructura exterior del estadio, los paneles LED y los altavoces están situados donde deben estar.\n\n✨ OTRAS NOVEDADES\n\n• Vista de partido en la previsualización: incluye aficionados, jugadores, balón, el entorno urbano y la cámara de retransmisión, todo ello sin necesidad de organizar un partido amistoso.\n\n• Modos «Simple» y «Avanzado», además de una función de búsqueda de elementos.\n\n• Los carteles de los sectores y las señales de «Prohibido fumar» aparecen en el idioma de la liga correspondiente.\n\n⚡ El acceso al estudio es mucho más rápido y los partidos se desarrollan con mayor fluidez."
     },
     {
       "version": "V.1.3",
       "note": "¡Elimina los límites con el modo UCM, sigue los partidos desde la cámara araña y recrea la atmósfera de tu estadio desde cero! Nuestro paquete lleno de gráficos, animaciones y espectáculos completamente nuevos está disponible para descargar en este momento.",
       "date": "2026-11-17"
+    },
+    {
+      "date": "2026-11-20",
+      "version": "V.1.3.1",
+      "note": "Corrección rápida"
     }
   ],
   "featured": false,
   "date": "2026-11-06",
-  "badges": [],
+  "badges": [
+    "De pago"
+  ],
   "status": "🟢 Publicado",
   "fm_versions": [
     "FM27"
   ],
   "cover": "/img/covers/rse-fm27-stadium-editor-cover.webp",
-  "download_url": "https://www.patreon.com/ronnieoa/posts/rse-fm27-stadium-174606461",
+  "download_url": "https://www.patreon.com/ronnieoa/posts/rse-fm27-stadium-174751585",
   "title": "RSE FM27 Stadium Editor",
   "card_text": "Edita y personaliza tu estadio en 3D en tiempo real: modifica tribunas, luces, vallas LED animadas y césped dentro de FM27.",
   "categories": [
     "bases-de-datos"
   ],
-  "description": "FM27 Stadium Studio es una herramienta de personalización y diseño para Football Manager 27 que permite crear y modificar estadios en 3D para verlos en directo durante los partidos, sin alterar los archivos ni las partidas guardadas del juego.\n\nCaracterísticas principales:\n\nEstudio de Estadios (F9): Editor en pantalla completa dentro del juego con la vista previa del estadio en 3D en el centro y los ajustes en los laterales. Se puede seleccionar cualquier equipo del mundo (por País → Liga → Equipo) sin necesidad de conocer IDs, cargando el club propio por defecto con interfaz en español o inglés.\n\nTribunas y Techo: Elección de estilos y épocas (pre-1990, 1990-2010 y moderno) con una escala de capacidad de 5.000 a 140.000 espectadores que expande el estadio de forma automática. Permite personalizar colores de asientos y vallas (con opción de aplicar los colores del club en un clic), añadir techos a todas las tribunas con el nombre del estadio visible (estilo Old Trafford) y configurar el color del techo.\n\nCésped e Iluminación: Patrones de corte del césped, tipos de superficie (natural, híbrida o artificial), calefacción subterránea, desgaste, tono del verde, así como el color y grosor de las líneas. En cuanto a la luz, permite ajustar la temperatura de los focos (de 3000K a 8000K) y la luminosidad de los proyectores y del sol.\n\nPaneles LED: Transiciones dinámicas estilo LED real, soporte para logotipos propios (hasta 5 en paralelo con ajuste de tamaño y posición), fuentes con compatibilidad para caracteres en español, y patrocinadores automáticos (18 clubes de la Süper Lig integrados y otros mediante Wikidata, mostrando texto con los colores del club si no tienen logo), preservando los paneles de competiciones como la UCL y la UEL.\n\nMomentos de Partidos y Banquillos: Alineación inicial previa al partido con dorsales y nombres; pantallas de gol con la palabra \"GOL\" en el idioma del país, anotador, colores y eslogan (silenciadas en goles visitantes); avisos de sustitución con flechas; tiempo añadido con los escudos de ambos equipos; y el próximo partido en el minuto 85. Los banquillos permiten configurar el color del cuerpo y asientos, además de añadir el escudo o un logotipo personalizado en la pared trasera.\n\nInstalación:\nRequiere la instalación previa de BepInEx 6 (IL2CPP) para Windows x64 (no incluido en la descarga). Se debe extraer el contenido de BepInEx junto al archivo .exe del juego, copiar la carpeta BepInEx del mod fusionándola con la del directorio principal, abrir el juego y presionar F9. En la versión de Xbox / Game Pass es obligatorio comprobar que el archivo winhttp.dll esté presente en la carpeta del ejecutable. (Se recomienda desactivar temporalmente Windows Defender o antivirus durante el proceso, ya que los archivos .dll pueden ser detectados como falsos positivos).\n\nPara desinstalarlo, basta con eliminar la carpeta BepInEx\\plugins\\FM27StadiumMod."
+  "description": "FM27 Stadium Studio es una herramienta de personalización y diseño para Football Manager 27 que permite crear y modificar estadios en 3D para verlos en directo durante los partidos, sin alterar los archivos ni las partidas guardadas del juego.\n\n**Características principales:**\n\n- Estudio de Estadios (F9): Editor en pantalla completa dentro del juego con la vista previa del estadio en 3D en el centro y los ajustes en los laterales. Se puede seleccionar cualquier equipo del mundo (por País → Liga → Equipo) sin necesidad de conocer IDs, cargando el club propio por defecto con interfaz en español o inglés.\n- Tribunas y Techo: Elección de estilos y épocas (pre-1990, 1990-2010 y moderno) con una escala de capacidad de 5.000 a 140.000 espectadores que expande el estadio de forma automática. Permite personalizar colores de asientos y vallas (con opción de aplicar los colores del club en un clic), añadir techos a todas las tribunas con el nombre del estadio visible (estilo Old Trafford) y configurar el color del techo.\n- Césped e Iluminación: Patrones de corte del césped, tipos de superficie (natural, híbrida o artificial), calefacción subterránea, desgaste, tono del verde, así como el color y grosor de las líneas. En cuanto a la luz, permite ajustar la temperatura de los focos (de 3000K a 8000K) y la luminosidad de los proyectores y del sol.\n- Paneles LED: Transiciones dinámicas estilo LED real, soporte para logotipos propios (hasta 5 en paralelo con ajuste de tamaño y posición), fuentes con compatibilidad para caracteres en español, y patrocinadores automáticos (18 clubes de la Süper Lig integrados y otros mediante Wikidata, mostrando texto con los colores del club si no tienen logo), preservando los paneles de competiciones como la UCL y la UEL.\n- Momentos de Partidos y Banquillos: Alineación inicial previa al partido con dorsales y nombres; pantallas de gol con la palabra \"GOL\" en el idioma del país, anotador, colores y eslogan (silenciadas en goles visitantes); avisos de sustitución con flechas; tiempo añadido con los escudos de ambos equipos; y el próximo partido en el minuto 85. Los banquillos permiten configurar el color del cuerpo y asientos, además de añadir el escudo o un logotipo personalizado en la pared trasera.\n\n**Instalación:**\n- Requiere la instalación previa de BepInEx 6 (IL2CPP) para Windows x64 (no incluido en la descarga). Se debe extraer el contenido de BepInEx junto al archivo .exe del juego, copiar la carpeta BepInEx del mod fusionándola con la del directorio principal, abrir el juego y presionar F9. En la versión de Xbox / Game Pass es obligatorio comprobar que el archivo winhttp.dll esté presente en la carpeta del ejecutable. (Se recomienda desactivar temporalmente Windows Defender o antivirus durante el proceso, ya que los archivos .dll pueden ser detectados como falsos positivos).\n\nPara desinstalarlo, basta con eliminar la carpeta BepInEx\\plugins\\FM27StadiumMod."
 }
