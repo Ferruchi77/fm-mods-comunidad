@@ -4,7 +4,7 @@
       "name": "dzinus"
     }
   ],
-  "modified": "2026-11-10",
+  "modified": "2026-11-21",
   "updates": [
     {
       "version": "V.0.3.2",
@@ -15,6 +15,26 @@
       "version": "V.0.9.0",
       "date": "2026-11-10",
       "note": "Parche FM 27.0.1; edición masiva, traspasos, cesiones y el resto del trabajo realizado."
+    },
+    {
+      "note": "La primera versión completa. Se ha eliminado la falsa advertencia de «compilación de Steam desconocida» en la versión FM 27.0.1; el creador de inicios de carrera vuelve a funcionar; los equipos B ya pueden inscribirse en una liga que comience la próxima temporada; los traspasos funcionan en partidas con una base de datos muy grande; y es posible realizar traspasos de jugadores que también figuran como miembros del cuerpo técnico. En el mercado de fichajes, ahora solo se muestra un botón a la vez, junto con una explicación clara de los motivos de un rechazo; el guardado de la configuración ya no falla cuando un antivirus bloquea el archivo; las cesiones funcionan en plantillas que el juego ha completado con jugadores temporales (la vista previa indica qué implica esto para la función «Deshacer»); y las listas de seguimiento pueden guardarse como archivos de lista de seguimiento de FM. Novedad: «CA recomendada» (una estimación basada en los atributos), que aparece junto a la CA (capacidad actual). Se incluye esta nueva descripción, además de cuatro guías en vídeo.",
+      "date": "2026-11-12",
+      "version": "V.1.0.0"
+    },
+    {
+      "note": "Las mismas funcionalidades en Steam, Epic, Game Pass y Mac (todas las operaciones de juego en Game Pass, además de «Abrir en FM», clubes interesados ​​y el coste en CA del «Impulso de desarrollo»; «Abrir en FM» en Epic; en Mac: fecha de un traspaso programado, asistencia, estado del club, regla de sustituciones, «Pantalla actual» y «Seguir en FM», creador de inicios de carrera, ficha de la academia y «Solicitar un personaje»); reglas de plantilla de la liga en una partida en curso (eliminar el límite de jugadores extranjeros); comprensión táctica en la página del jugador; «Congelador» e «Impulso de desarrollo» en Game Pass; «Congelador» y plan de «Impulso» para un entrenador sin club. Mac: actualización del puente (bridge).",
+      "version": "V.1.1.0",
+      "date": "2026-11-14"
+    },
+    {
+      "note": "Actualización del 17 de noviembre de FM27 (27.1.0): posibilidad de inscribir a un jugador tras la fecha límite (en ligas y competiciones de la UEFA), reprogramación de partidos mediante la función de aplazamiento del propio juego, recomendación de CA (capacidad actual) para los juveniles que llegan al club, reinicio como administrador en Windows, compatibilidad con FMLife en Mac, ordenación por posición (al igual que en FM) y diversas correcciones. Para Mac: actualizar el «bridge».",
+      "version": "V.1.2.0",
+      "date": "2026-11-17"
+    },
+    {
+      "note": "Actualización automática, nuevas pantallas y temas de color, acciones rápidas que se aplican al instante, edición de la academia en el mod «Heffem Academy» (novedad), elementos desbloqueables para el mánager, sesiones de juego que siguen la estructura de menús de FM, y más novedades de la versión 27.1.0 para Mac (mejoras de atributos, potenciadores, objetos para contratos), gestión de la nacionalidad principal de los personajes, ascenso de equipos filiales (B) en la versión 27.1.0 para Windows, mayor velocidad en los traspasos y cesiones en Windows, correcciones en la academia y numerosas mejoras derivadas de un proceso de pruebas exhaustivo. Nota para Mac: es necesario actualizar el «puente» (bridge) tras instalar la actualización.",
+      "version": "V.1.3.0",
+      "date": "2026-11-20"
     }
   ],
   "screenshots": [
