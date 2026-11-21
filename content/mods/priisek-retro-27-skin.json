@@ -1,6 +1,12 @@
 {
+  "authors": [
+    {
+      "name": "James Prisk",
+      "url": "https://x.com/priisek"
+    }
+  ],
   "install_path": "Steam\\steamapps\\common\\Football Manager 27\\fm_Data\\StreamingAssets\\aa\\StandaloneWindows64",
-  "modified": "2026-11-10",
+  "modified": "2026-11-21",
   "updates": [
     {
       "date": "2026-11-02",
@@ -11,6 +17,51 @@
       "date": "2026-11-04",
       "version": "V.1.2",
       "note": "Paso oscuro para hacer que las blancas se destaquen más."
+    },
+    {
+      "note": "- Se ha añadido el instalador.\n- Vitrina de trofeos\n- Los porcentajes regresan para FM27.\n- Muchos pequeños cambios.",
+      "date": "2026-11-11",
+      "version": "V.1.3"
+    },
+    {
+      "version": "V.1.5",
+      "date": "2026-11-12",
+      "note": "Solución para el retardo (lag), fondos fijos; el problema de texto blanco sobre fondo blanco ya no existe."
+    },
+    {
+      "date": "2026-11-12",
+      "version": "V.1.4",
+      "note": "Corrección rápida para los fondos"
+    },
+    {
+      "note": "- Por favor, lee esto... Elimina la skin antigua antes de instalar la nueva.\n- Instala el paquete de fondos y ciudades (Background & city pack) más reciente de sortitout.\n- Se han aplicado correcciones basadas en informes de errores; si surge algún problema, házmelo saber.",
+      "date": "2026-11-13",
+      "version": "V.1.6"
+    },
+    {
+      "note": "- Instalador mejorado; se han aplicado correcciones.\n- Nueva actualización disponible: elimina toda la información antigua y las imágenes del estadio Priisek dentro de «sortitoutsi Stadium Backgrounds 2026.11» y, a continuación, ejecuta el instalador.",
+      "date": "2026-11-14",
+      "version": "V.1.7"
+    },
+    {
+      "note": "- Instalador mejorado; ahora selecciona todas las imágenes. Se han sustituido las imágenes de los estadios de los clubes por imágenes del terreno de juego. Se han realizado tareas generales de limpieza.\n- Elimina toda la información antigua y las imágenes de estadios de la carpeta «sortitoutsi Stadium Backgrounds 2026.11» y, a continuación, ejecuta el instalador.",
+      "version": "V.1.8",
+      "date": "2026-11-16"
+    },
+    {
+      "note": "- Actualizado tras la versión 27.1.0. El instalador ahora permite elegir entre una disposición superior (Top) o lateral (Sidebar). Carga más rápida. Ajustes en la página de perfil.\n- Elimina toda la información antigua y las imágenes de estadios de «priisek» dentro de la carpeta «sortitoutsi Stadium Backgrounds 2026.11» y, a continuación, ejecuta el instalador.",
+      "version": "V.1.9",
+      "date": "2026-11-17"
+    },
+    {
+      "note": "- Corrección rápida para fallos y trofeos desaparecidos\n- Elimina toda la información antigua y las imágenes de estadios presentes en «sortitoutsi Stadium Backgrounds 2026.11» y, a continuación, ejecuta el instalador.",
+      "version": "V.2.0",
+      "date": "2026-11-18"
+    },
+    {
+      "note": "- Updated & fixed issues\n- Delete All old info & priisek stadium pictures within sortitoutsi Stadium Backgrounds 2026.11, then run installer",
+      "version": "V.2.1",
+      "date": "2026-11-20"
     }
   ],
   "screenshots": [
@@ -30,11 +81,5 @@
   "categories": [
     "skins"
   ],
-  "description": "Quiero darles un enorme agradecimiento a todos ustedes por inspirarme a crear mis skins a lo largo de los años. ¡Estoy de vuelta para FM27! Muchísimas gracias por su apoyo, de verdad, ¡gracias de nuevo!\n\nLa skin «Retro Base» es una excelente opción, y vendrán muchas más... esto es solo el comienzo.\n\nPero, por favor —como siempre y como ha sido en el pasado—, ¡suscríbanse a mi canal de YouTube! Ya casi llegamos a los 20 000 suscriptores; ¡ayúdenme a alcanzar esa cifra, por favor!\nhttps://www.youtube.com/Priisek\n\n¡Que la disfruten!\nPriisek",
-  "authors": [
-    {
-      "name": "James Prisk",
-      "url": "https://x.com/priisek"
-    }
-  ]
+  "description": "Quiero darles un enorme agradecimiento a todos ustedes por inspirarme a crear mis skins a lo largo de los años. ¡Estoy de vuelta para FM27! Muchísimas gracias por su apoyo, de verdad, ¡gracias de nuevo!\n\nLa skin «Retro Base» es una excelente opción, y vendrán muchas más... esto es solo el comienzo.\n\nPero, por favor —como siempre y como ha sido en el pasado—, ¡suscríbanse a mi canal de YouTube! Ya casi llegamos a los 20 000 suscriptores; ¡ayúdenme a alcanzar esa cifra, por favor!\nhttps://www.youtube.com/Priisek\n\n¡Que la disfruten!\nPriisek"
 }
