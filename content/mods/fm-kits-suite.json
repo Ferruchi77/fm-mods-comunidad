@@ -6,7 +6,7 @@
     }
   ],
   "install_path": "\\Steam\\steamapps\\common\\Football Manager 27\\BepInEx\\plugins",
-  "modified": "2026-11-20",
+  "modified": "2026-11-21",
   "updates": [
     {
       "date": "2026-11-01",
@@ -17,6 +17,11 @@
       "version": "V.0.2.5",
       "date": "2026-11-10",
       "note": "**01 · 🧥 NUEVO: chándal para el banquillo**\n- Abre el editor en cualquier club y haz clic en la nueva pestaña «Banquillo» (Bench), situada junto a las equipaciones de portero.\n- 25 diseños de chándal, compuestos por chaqueta con cremallera y pantalón, disponibles para clubes masculinos y femeninos.\n- La galería de diseños muestra cada chándal con los colores de tu club, para que puedas ver el resultado antes de elegir.\n- Por defecto, utiliza los colores de la equipación local. Puedes modificar el color principal, los detalles y un tercer color, o intercambiarlos con un solo clic.\n- Incluye espacio para el escudo del club, el fabricante de la equipación y el patrocinador, tanto en la chaqueta como en el pantalón. Puedes mover, cambiar el tamaño u ocultar cada logotipo, o asignar logotipos específicos para el chándal.\n- La opción «Automático» selecciona un diseño para el club (por ejemplo, los clubes equipados por Adidas reciben el modelo Tiro 26), aunque también puedes elegir el diseño que prefieras.\n- Se guarda junto con las equipaciones: los jugadores suplentes lo llevarán puesto en el banquillo durante todos los partidos.\n- ¿Quieres usar tu propio diseño? Solo tienes que añadirlo a la carpeta `FMKitSuite\\Bench Designs` y aparecerá en la galería.\n\n**02 · 🔟 106 nuevas tipografías para nombres y dorsales**\n- 34 nuevas tipografías para dorsales y 72 para nombres, basadas en las equipaciones reales de clubes y selecciones nacionales.\n- Un total de 590 tipografías, sin duplicados: un mismo diseño en un color diferente cuenta como una sola tipografía.\n- Cada tipografía admite cualquier color: puedes definir un color distinto para el dorsal, el nombre, el contorno y los detalles.\n- Ajusta el tamaño, la posición y la curvatura del nombre, ya sea en una equipación concreta o en todas ellas.\n- Las tipografías vienen integradas en el plugin, por lo que se añadirán más opciones con cada actualización."
+    },
+    {
+      "version": "V.0.3",
+      "date": "2026-11-20",
+      "note": "- 🆕 Equipaciones FC'12 y SS 2D\n- 📂 Carga tu propia plantilla personalizada\n- 📸 Nuevas imágenes de presentación\n- 🌍 Equipaciones de selecciones nacionales\n- 🎨 Compatible con el skin de @Jonukas94 y otros\n- ⚡ Corrección de errores y optimización"
     }
   ],
   "date": "2026-10-31",
