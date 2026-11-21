@@ -1,0 +1,22 @@
+{
+  "authors": [
+    {
+      "name": "GuruOfNauru"
+    }
+  ],
+  "modified": "2026-11-21",
+  "featured": false,
+  "date": "2026-11-20",
+  "status": "🟢 Publicado",
+  "fm_versions": [
+    "FM27"
+  ],
+  "cover": "https://sortitoutsi.b-cdn.net/uploads/media_2026/5MnDaM4cuyTNSsMvzRIrjayk1hTxis4FScKL9hGk.png",
+  "download_url": "https://sortitoutsi.net/content/78715/fm-abilities-10",
+  "title": " FM Abilities",
+  "card_text": "Plugin para FM27 que sustituye las estrellas por valores o rangos numéricos de CA y PA según el ojeo, manteniendo la incertidumbre.",
+  "categories": [
+    "bases-de-datos"
+  ],
+  "description": "FM Abilities es un plugin para Football Manager 27 que sustituye las estrellas tradicionales por valores o rangos numéricos de Capacidad Actual (CA) y Potencial (PA) en pantallas como plantillas, tácticas y partidos en vivo, conservando la incertidumbre del ojeo en lugar de revelar el potencial exacto oculto.\n\n**Funcionamiento: **\n- Muestra la CA como valor o rango numérico y calcula la PA como un rango coherente basado en el atributo de Juzgar Potencial de Jugador (JPP) del responsable del informe de ojeo, actualizándose de forma dinámica y estable sin variar aleatoriamente al cambiar de pantalla.\n- Integración y visualización: Incluye recuadros con código de color al estilo FMInside, muestra la CA media del once inicial en tácticas y formaciones previas y funciona también en las vistas tácticas y de alineación durante los partidos en directo.\n\n**Requisitos: **\nRequiere tener instalado previamente BepInEx 6 en el directorio del juego.\n\n**Instalación: **\nExtrae el archivo comprimido en su propia carpeta dentro de Football Manager 27\\BepInEx\\plugins\\"
+}
