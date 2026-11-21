@@ -7,8 +7,8 @@
   ],
   "modified": "2026-11-21",
   "screenshots": [
-    "https://pbs.twimg.com/media/HXWAqV6WwAA00x_?format=jpg&name=large",
-    "https://pbs.twimg.com/media/HXWAsCrXMAAbvfH?format=jpg&name=large"
+    "/img/covers/reshade-y-shaders-de-cesped-s1-18b15aed.webp",
+    "/img/covers/reshade-y-shaders-de-cesped-s2-835cf1e0.webp"
   ],
   "featured": false,
   "date": "2026-11-17",
@@ -16,7 +16,7 @@
   "fm_versions": [
     "FM27"
   ],
-  "cover": "https://pbs.twimg.com/media/HXWApEGWoAAV39H?format=jpg&name=large",
+  "cover": "/img/covers/reshade-y-shaders-de-cesped-cover-e52ea28d.webp",
   "download_url": "https://drive.google.com/file/d/1ufgO7ZTUdGw1xN5xgJff9heaYsTFA5zM/view",
   "title": "ReShade y Shaders de Césped",
   "card_text": "Ajuste visual con ReShade para FM27 que aporta tonos de verde más vivos y realistas al césped sin impacto en el rendimiento.",
