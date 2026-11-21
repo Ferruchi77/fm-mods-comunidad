@@ -6,6 +6,13 @@
     }
   ],
   "modified": "2026-11-15",
+  "updates": [
+    {
+      "date": "2026-11-17",
+      "version": "V.1.6.1",
+      "note": "Actualizado a la versión FM27.1.0"
+    }
+  ],
   "featured": false,
   "date": "2026-11-13",
   "status": "🟢 Publicado",
