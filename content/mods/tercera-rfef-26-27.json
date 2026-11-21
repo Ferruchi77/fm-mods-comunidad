@@ -4,7 +4,14 @@
       "name": "marioma93"
     }
   ],
-  "modified": "2026-11-11",
+  "modified": "2026-11-21",
+  "updates": [
+    {
+      "version": "V.1.0.1",
+      "date": "2026-11-14",
+      "note": "- Añadido 1 criterio extra de desempate (Record disciplinario) para en caso de que 2 equipos acabasen la liga empatados en todos los criterios anteriores.\n- Modificado número de suplentes en Segunda RFEF de 7 de 9 tanto en la liga como en los playoffs de ascenso y descenso"
+    }
+  ],
   "featured": false,
   "date": "2026-11-11",
   "status": "🟢 Publicado",
